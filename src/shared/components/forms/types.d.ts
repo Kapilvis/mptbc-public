@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type {
   Control,
   FieldValues,
@@ -34,6 +35,7 @@ declare global {
       autoFocus?: boolean;
       placeholder?: string;
       loading?: boolean;
+      style?: CSSProperties;
     }
 
     interface RadioProps {

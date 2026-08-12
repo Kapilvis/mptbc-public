@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .card {
-  @apply bg-[var(--white)] rounded-md shadow-[0_8px_20px_var(--card-box-shadow)] transition-all duration-300 ease-in-out max-w-full border border-[rgba(124,58,237,0.12)] border-t-[3px] border-t-[#7c3aed] relative overflow-hidden;
+  @apply bg-[var(--white)] rounded-md shadow-[0_8px_20px_var(--card-box-shadow)] transition-all duration-300 ease-in-out max-w-full border border-[rgba(0,138,69,0.12)] border-t-[3px] border-t-[#008a45] relative overflow-hidden;
 }
 
 .app-layout.sidebar-open .card {
@@ -9,7 +9,7 @@
 }
 
 .card-title {
-  @apply m-0 mb-0 pt-5 px-6 pb-4 text-xl font-semibold text-[var(--primary-color)] text-left border-b border-[rgba(124,58,237,0.1)];
+  @apply m-0 mb-0 pt-5 px-6 pb-4 text-xl font-semibold text-[var(--primary-color)] text-left border-b border-[rgba(0,138,69,0.1)];
 }
 
 .card-close-btn {
@@ -42,7 +42,7 @@
 /* Dark Mode Support */
 .dark-theme .card,
 .dark .card {
-  @apply !bg-[#131124] !border-[rgba(167,139,250,0.12)] !shadow-[0_15px_35px_rgba(0,0,0,0.4)];
+  @apply !bg-[#131124] !border-[rgba(52,211,153,0.12)] !shadow-[0_15px_35px_rgba(0,0,0,0.4)];
 }
 
 .dark-theme .card-title,

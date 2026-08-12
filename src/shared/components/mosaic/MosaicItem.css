@@ -6,17 +6,17 @@
 
 .mosaic-item {
   @apply relative flex h-full flex-col
-    rounded-xl border border-[#e9e6f4]
+    rounded-xl border border-[#e2e8f0]
     bg-white px-4 pb-3 pt-[14px]
-    shadow-[0_1px_4px_rgba(42,18,80,0.06)]
+    shadow-[0_1px_4px_rgba(0,138,69,0.06)]
     transition-[box-shadow,border-color,transform]
     duration-200;
 }
 
 .mosaic-item:hover {
   @apply -translate-y-[2px]
-    border-[#c4b5f8]
-    shadow-[0_10px_25px_-5px_rgba(42,18,80,0.08),0_8px_10px_-6px_rgba(42,18,80,0.06)];
+    border-[#6ee7b7]
+    shadow-[0_10px_25px_-5px_rgba(0,138,69,0.1),0_8px_10px_-6px_rgba(0,138,69,0.06)];
 }
 
 .mosaic-item-content {
@@ -26,7 +26,7 @@
 .mosaic-item-footer {
   @apply mt-[10px] flex w-full
     items-center justify-end gap-2
-    border-t border-[#f0ecfb] pt-2;
+    border-t border-[#ecfdf5] pt-2;
 }
 
 /* =========================
@@ -77,18 +77,18 @@
 ========================= */
 
 .dark .mosaic-item {
-  @apply border-[#3b3459]
-    bg-[#1e1b2e]
+  @apply border-[#065f46]
+    bg-[#064e3b]
     shadow-[0_1px_4px_rgba(0,0,0,0.3)];
 }
 
 .dark .mosaic-item:hover {
-  @apply border-[#7c3aed]
-    shadow-[0_10px_25px_-5px_rgba(124,58,237,0.12)];
+  @apply border-[#008a45]
+    shadow-[0_10px_25px_-5px_rgba(0,138,69,0.2)];
 }
 
 .dark .mosaic-item-footer {
-  @apply border-t-[#2d2b45];
+  @apply border-t-[#047857];
 }
 
 .dark .deregistered-badge {

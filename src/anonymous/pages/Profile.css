@@ -14,15 +14,16 @@
   }
 
   .profile-loader-track {
-    @apply absolute inset-0 rounded-full border-[3px]
-      border-gray-200 dark:border-gray-700;
+    @apply absolute inset-0 rounded-full border-[3px];
+
+    border-color: #DBE8D8 !important;
   }
 
   .profile-loader-spinner {
     @apply absolute inset-0 animate-spin rounded-full border-[3px];
 
-    border-color: var(--color-primary);
-    border-top-color: transparent;
+    border-color: #008a45 !important;
+    border-top-color: #D6E9D5 !important;
   }
 
   .profile-top-grid {
@@ -53,15 +54,15 @@
     background:
       radial-gradient(
         circle at 20% 10%,
-        rgba(124, 58, 237, 0.08),
+        rgba(214, 233, 213, 0.7),
         transparent 34%
       ),
       radial-gradient(
         circle at 78% 8%,
-        rgba(167, 139, 250, 0.14),
+        rgba(219, 232, 216, 0.8),
         transparent 38%
       ),
-      linear-gradient(180deg, #f5f0ff 0%, #f8f5ff 72%, #ffffff 100%);
+      linear-gradient(180deg, #eaf3e9 0%, #dbe8d8 72%, #d6e9d5 100%);
 
     clip-path: polygon(0 0, 100% 0, 100% 68%, 78% 74%, 55% 79%, 32% 76%, 0 67%);
   }
@@ -70,18 +71,18 @@
     background:
       radial-gradient(
         circle at 20% 10%,
-        rgba(124, 58, 237, 0.18),
+        rgba(4, 62, 46, 0.5),
         transparent 34%
       ),
       radial-gradient(
         circle at 78% 8%,
-        rgba(167, 139, 250, 0.14),
+        rgba(0, 138, 69, 0.4),
         transparent 38%
       ),
       linear-gradient(
         180deg,
-        rgba(76, 29, 149, 0.34) 0%,
-        rgba(46, 16, 101, 0.22) 72%,
+        rgba(4, 62, 46, 0.6) 0%,
+        rgba(2, 44, 32, 0.4) 72%,
         rgba(17, 24, 39, 0) 100%
       );
   }
@@ -113,10 +114,11 @@
 
   .profile-user-role {
     @apply relative z-10 mt-2 rounded-full px-4 py-1
-      text-[10px] font-bold uppercase tracking-wider;
+      text-[10px] font-extrabold uppercase tracking-wider border;
 
-    color: var(--color-primary);
-    background-color: color-mix(in srgb, var(--color-primary) 12%, transparent);
+    color: #043e2e !important;
+    background-color: #DBE8D8 !important;
+    border-color: #D6E9D5 !important;
   }
 
   .profile-active-status {
@@ -145,16 +147,19 @@
 
   .profile-stat-card {
     @apply flex min-h-20 flex-col items-center justify-center rounded-2xl
-      px-3 py-3 text-center bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/10;
+      px-3 py-3 text-center border;
+    background-color: #DBE8D8 !important;
+    border-color: #D6E9D5 !important;
+    color: #043e2e !important;
   }
 
   .profile-stat-card i {
     @apply text-xl;
-    color: var(--color-primary);
+    color: #008a45 !important;
   }
 
   .dark .profile-stat-card i {
-    color: #d8b4fe;
+    color: #6ee7b7 !important;
   }
 
   .profile-stat-card strong {
@@ -191,7 +196,11 @@
 
   .profile-section-icon-box,
   .profile-support-icon {
-    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/10;
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border;
+
+    background-color: #DBE8D8 !important;
+    border-color: #D6E9D5 !important;
+    color: #008a45 !important;
   }
 
   .profile-section-heading h3,
@@ -212,7 +221,11 @@
   }
 
   .profile-detail-icon {
-    @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/10;
+    @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-lg border;
+
+    background-color: #DBE8D8 !important;
+    border-color: #D6E9D5 !important;
+    color: #008a45 !important;
   }
 
   .profile-detail-content {
@@ -257,7 +270,11 @@
   }
 
   .profile-support-illustration {
-    @apply flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-2xl bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/10;
+    @apply flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-2xl border;
+
+    background-color: #DBE8D8 !important;
+    border-color: #D6E9D5 !important;
+    color: #008a45 !important;
   }
 
   .profile-security-row {
@@ -332,7 +349,7 @@
   }
 
   .profile-activity-dot-system {
-    background-color: var(--text-purple);
+    background-color: var(--primary-color);
     box-shadow: 0 0 0 5px
       color-mix(in srgb, var(--color-primary) 12%, transparent);
   }
@@ -422,19 +439,19 @@
 .dark .profile-avatar-card,
 .dark .profile-details-card,
 .dark .profile-support-card {
-  border-color: #334155;
-  background-color: #111827;
+  border-color: #047857;
+  background-color: #043e2e;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
 }
 
 .dark .profile-detail-card {
-  border-color: #334155;
-  background-color: #172033;
+  border-color: #047857;
+  background-color: #064e3b;
 }
 
 .dark .profile-stat-card {
-  border-color: rgba(168, 85, 247, 0.24);
-  background-color: rgba(88, 28, 135, 0.22);
+  border-color: #047857 !important;
+  background-color: #043e2e !important;
 }
 
 .dark .profile-section-heading,
@@ -442,21 +459,21 @@
 .dark .profile-security-row,
 .dark .profile-activity-list,
 .dark .profile-activity-row + .profile-activity-row {
-  border-color: #334155;
+  border-color: #047857;
 }
 
 .dark .profile-section-icon-box,
 .dark .profile-support-icon,
 .dark .profile-detail-icon,
 .dark .profile-support-illustration {
-  border-color: rgba(168, 85, 247, 0.24);
-  background-color: rgba(126, 34, 206, 0.18);
-  color: #c084fc;
+  border-color: #047857 !important;
+  background-color: #064e3b !important;
+  color: #6ee7b7 !important;
 }
 
 .dark .profile-user-role {
-  background-color: rgba(126, 34, 206, 0.2);
-  color: #d8b4fe;
+  background-color: #043e2e !important;
+  color: #a7f3d0 !important;
 }
 
 .dark .profile-detail-label,
@@ -473,28 +490,28 @@
 }
 
 .dark .profile-signout-button {
-  border-color: rgba(192, 132, 252, 0.35);
-  background-color: #2a1250;
+  border-color: #047857;
+  background-color: #008a45;
   color: #ffffff;
 }
 
 .dark .profile-signout-button:hover {
-  border-color: rgba(216, 180, 254, 0.55);
-  background-color: #3b1b6b;
+  border-color: #059669;
+  background-color: #00753a;
   color: #ffffff;
 }
 
 .dark .profile-view-all-button {
-  border-color: rgba(192, 132, 252, 0.35);
-  color: #d8b4fe;
+  border-color: #047857;
+  color: #6ee7b7;
 }
 
 .dark .profile-view-all-button:hover {
-  background-color: rgba(126, 34, 206, 0.18);
+  background-color: rgba(0, 138, 69, 0.2);
 }
 
 .dark .profile-activity-list {
-  background-color: #0f172a;
+  background-color: #043e2e;
 }
 
 .dark .profile-activity-badge-success {
@@ -503,8 +520,8 @@
 }
 
 .dark .profile-activity-badge-system {
-  background-color: rgba(126, 34, 206, 0.2);
-  color: #d8b4fe;
+  background-color: rgba(0, 138, 69, 0.2);
+  color: #6ee7b7;
 }
 
 .dark .profile-security-status {

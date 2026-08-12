@@ -38,24 +38,24 @@
 .mosaic-search-input {
   @apply border
     !rounded-lg
-    !border-[#e9e6f4]
+    !border-[#e2e8f0]
     !bg-white
     !px-3
     !py-[0.45rem]
     !text-[13px]
-    !text-[#2a1250]
+    !text-[#043e2e]
     transition-[border-color,box-shadow]
     duration-200;
 }
 
 .mosaic-search-input:focus {
-  @apply !border-[#7c3aed]
-    !shadow-[0_0_0_3px_rgba(124,58,237,0.12)]
+  @apply !border-[#008a45]
+    !shadow-[0_0_0_3px_rgba(0,138,69,0.15)]
     !outline-none;
 }
 
 .mosaic-search-icon {
-  @apply -mt-2 !text-[#9f8ec4];
+  @apply -mt-2 !text-[#059669];
 }
 
 /* =========================
@@ -162,7 +162,7 @@
 }
 
 .mosaic-page-btn-active {
-  @apply bg-[#2a1250]
+  @apply bg-[#008a45]
     font-bold
     text-white;
 }
@@ -170,19 +170,19 @@
 .mosaic-page-btn-inactive {
   @apply bg-transparent
     text-[#667085]
-    hover:bg-[rgba(42,18,80,0.08)]
-    hover:text-[#2a1250];
+    hover:bg-[rgba(0,138,69,0.1)]
+    hover:text-[#008a45];
 }
 
 .mosaic-nav-btn {
   @apply rounded-full
     border-none
     bg-transparent
-    text-[#9f8ec4]
+    text-[#059669]
     transition-all
     duration-200
-    hover:bg-[rgba(42,18,80,0.08)]
-    hover:text-[#2a1250];
+    hover:bg-[rgba(0,138,69,0.1)]
+    hover:text-[#008a45];
 }
 
 /* =========================
@@ -199,7 +199,7 @@
 .dark .mosaic-overlay-inner,
 .dark-theme .mosaic-overlay-inner {
   @apply border-white/10
-    bg-[#131124]
+    bg-[#043e2e]
     shadow-[0_18px_45px_rgba(0,0,0,0.4)];
 }
 
@@ -254,11 +254,11 @@
   width: 700px !important;
   max-width: calc(100vw - 3rem) !important;
 
-  border: 1px solid #e9e6f4 !important;
+  border: 1px solid #e2e8f0 !important;
   border-radius: 16px !important;
   background: #ffffff !important;
 
-  box-shadow: 0 14px 40px rgba(42, 18, 80, 0.16) !important;
+  box-shadow: 0 14px 40px rgba(0, 138, 69, 0.16) !important;
   overflow: hidden;
 }
 
@@ -290,10 +290,6 @@
   margin: 0;
 }
 
-/*
-  InputPanel already has its own card styling globally.
-  Inside this shared overlay, remove that duplicate card.
-*/
 .mosaic-overlay-inner .input-panel-container {
   width: 100%;
   max-width: none;
@@ -320,10 +316,6 @@
    Save/Clear footer
 ========================= */
 
-/*
-  ButtonPanel is currently inside the horizontal InputPanel grid.
-  Make it consume the complete row.
-*/
 .mosaic-overlay-inner .input-panel > .button-panel {
   grid-column: 1 / -1;
 
@@ -338,7 +330,7 @@
   justify-content: flex-end;
   gap: 12px;
 
-  border-top: 1px solid #ede9f8;
+  border-top: 1px solid #e2e8f0;
   background: rgba(248, 250, 252, 0.72);
   box-sizing: border-box;
 }
@@ -350,7 +342,7 @@
   margin: 20px 0 0;
   padding: 16px 20px;
 
-  border-top: 1px solid #ede9f8;
+  border-top: 1px solid #e2e8f0;
   background: rgba(248, 250, 252, 0.72);
 }
 
@@ -371,8 +363,8 @@
 
 .dark .mosaic-overlay.p-overlaypanel,
 .dark-theme .mosaic-overlay.p-overlaypanel {
-  background: #131124 !important;
-  border-color: rgba(167, 139, 250, 0.14) !important;
+  background: #043e2e !important;
+  border-color: rgba(52, 211, 153, 0.2) !important;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4) !important;
 }
 
@@ -412,7 +404,7 @@
   font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--text-purple);
+  color: var(--primary-color);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

@@ -20,10 +20,16 @@
   @apply block;
 }
 .mosaic-card-fallback-badge {
-  @apply inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/10;
+  @apply inline-flex items-center gap-1.5 text-[11px] font-bold px-2 py-0.5 rounded border;
+  background-color: #DBE8D8 !important;
+  border-color: #D6E9D5 !important;
+  color: #000000 !important;
 }
+.mosaic-card-fallback-badge *,
+.mosaic-card-fallback-badge i,
 .mosaic-card-fallback-icon {
-  @apply text-[10px];
+  color: #000000 !important;
+  opacity: 1 !important;
 }
 .mosaic-card-header {
   @apply flex justify-between items-start gap-2;
@@ -44,13 +50,13 @@
   @apply flex justify-end mt-2 pt-2 border-t border-gray-100;
 }
 
-/* MosaicCard styles — themed to match app's purple design system */
+/* MosaicCard styles — themed to match MPTBC green design system */
 .mosaic-card-inner {
   @apply flex flex-col w-full h-full;
 }
 
 .mosaic-card-title {
-  @apply text-base font-bold text-[#2a1250] leading-[1.4] mb-1 break-words;
+  @apply text-base font-bold text-[#043e2e] leading-[1.4] mb-1 break-words;
 }
 
 .mosaic-card-subtitle {
@@ -59,7 +65,7 @@
 
 /* Dark mode */
 .dark .mosaic-card-title {
-  @apply text-[#e9d5ff];
+  @apply text-[#a7f3d0];
 }
 
 .dark .mosaic-card-subtitle {

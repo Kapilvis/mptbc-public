@@ -1,11 +1,11 @@
 @reference "tailwindcss";
 
 /* =========================
-   Main Sidebar
+   Main Sidebar (MPTBC Pastel Green Theme: #DBE8D8 & #D6E9D5)
 ========================= */
 
 .app-sidebar {
-  @apply fixed left-4 top-4 z-[9999]
+  @apply fixed left-4 top-4 z-9999
     flex h-[calc(100vh-2rem)] flex-col
     overflow-visible rounded-[22px]
     transition-[width,transform]
@@ -16,21 +16,21 @@
   background:
     radial-gradient(
       circle at 82% 6%,
-      rgba(124, 58, 237, 0.24),
-      transparent 30%
+      rgba(214, 233, 213, 0.8),
+      transparent 40%
     ),
     radial-gradient(
       circle at 8% 96%,
-      rgba(137, 54, 255, 0.16),
-      transparent 28%
+      rgba(219, 232, 216, 0.9),
+      transparent 35%
     ),
-    linear-gradient(180deg, #241044 0%, var(--primary-color) 42%, #1d0b3b 100%);
+    linear-gradient(180deg, #eaf3e9 0%, #dbe8d8 50%, #d6e9d5 100%);
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #c2d8be;
 
   box-shadow:
-    0 16px 42px rgba(42, 18, 80, 0.24),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 16px 42px rgba(27, 67, 50, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .app-sidebar::before {
@@ -42,10 +42,10 @@
   border-radius: inherit;
 
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.045), transparent 32%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.6), transparent 32%),
     radial-gradient(
       circle at 100% 50%,
-      rgba(120, 45, 210, 0.09),
+      rgba(214, 233, 213, 0.5),
       transparent 42%
     );
 }
@@ -80,7 +80,7 @@
   @apply relative z-20
     flex h-[74px] min-h-[74px] max-h-[74px]
     w-full shrink-0 items-center
-    border-b border-white/10
+    border-b border-[#c2d8be]
     px-5;
 }
 
@@ -100,22 +100,22 @@
 
 .sidebar-logo-image-expanded {
   @apply relative z-10 h-[40px] w-[40px]
-    shrink-0 object-contain drop-shadow-md;
+    shrink-0 object-contain drop-shadow-sm;
 }
 
 .sidebar-logo-image-collapsed {
   @apply mx-auto h-[38px] w-[38px]
-    object-contain drop-shadow-md
+    object-contain drop-shadow-sm
     transition-transform duration-300
     hover:scale-110;
 }
 
 .sidebar-logo-title {
   @apply max-w-[190px] break-words
-    text-[15px] font-semibold
+    text-[15px] font-bold
     uppercase leading-[1.25]
     tracking-[0.5px]
-    text-white;
+    text-[#043e2e];
 }
 
 /* =========================
@@ -127,13 +127,12 @@
     hidden h-8 w-8
     -translate-y-1/2
     items-center justify-center
-    rounded-xl border border-white/20
-    bg-white/[0.06]
-    text-base text-white
+    rounded-xl border border-[#c2d8be]
+    bg-white/60
+    text-base text-[#043e2e]
     shadow-sm backdrop-blur-sm
     transition-all duration-200
-    hover:border-white/35
-    hover:bg-white/[0.12]
+    hover:bg-white
     active:scale-95;
 }
 
@@ -208,24 +207,20 @@
 }
 
 .menu-item-inactive {
-  @apply text-white/70
-    hover:bg-white/[0.06]
-    hover:text-white;
+  @apply text-[#1b4332]
+    hover:bg-[#c6dec1]
+    hover:text-[#043e2e];
 }
 
 .menu-item-active {
   @apply text-white;
-  background: linear-gradient(
-    90deg,
-    rgba(137, 43, 226, 0.64),
-    rgba(99, 57, 210, 0.38)
-  );
+  background: linear-gradient(90deg, #008a45 0%, #00753a 100%);
 
-  border: 1px solid rgba(187, 134, 252, 0.36);
+  border: 1px solid #005a2d;
 
   box-shadow:
-    0 8px 24px rgba(105, 42, 190, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 6px 18px rgba(0, 138, 69, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .menu-item-active::before {
@@ -238,11 +233,9 @@
   border-radius: 999px;
   transform: translateY(-50%);
 
-  background: linear-gradient(180deg, #ffffff, #d8b4fe);
+  background: #043e2e;
 
-  box-shadow:
-    0 0 8px rgba(255, 255, 255, 0.75),
-    0 0 14px rgba(192, 132, 252, 0.5);
+  box-shadow: 0 0 8px rgba(4, 62, 46, 0.5);
 }
 
 /* =========================
@@ -257,18 +250,16 @@
 }
 
 .menu-item-inactive .sidebar-menu-icon {
-  color: rgba(255, 255, 255, 0.62);
+  color: #043e2e;
   background: transparent;
 }
 
 .menu-item-active .sidebar-menu-icon {
   @apply text-white;
 
-  background: rgba(112, 43, 189, 0.42);
+  background: rgba(255, 255, 255, 0.22);
 
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 4px 14px rgba(67, 20, 126, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 .sidebar-menu-icon-collapsed {
@@ -284,23 +275,15 @@
 }
 
 .sidebar-menu-dot-active {
-  background: #9254de;
+  background: #008a45;
 
   box-shadow:
-    0 0 0 3px rgba(146, 84, 222, 0.12),
-    0 0 8px rgba(146, 84, 222, 0.4);
-}
-
-.sidebar-menu-dot-active {
-  background: #9254de;
-
-  box-shadow:
-    0 0 0 3px rgba(146, 84, 222, 0.12),
-    0 0 8px rgba(146, 84, 222, 0.4);
+    0 0 0 3px rgba(0, 138, 69, 0.2),
+    0 0 8px rgba(0, 138, 69, 0.5);
 }
 
 .sidebar-menu-dot-inactive {
-  background: rgba(151, 94, 220, 0.75);
+  background: #a3c99e;
 }
 
 /* =========================
@@ -311,10 +294,10 @@
   @apply relative mt-3 mb-1.5
     flex items-center
     px-2 text-[11px]
-    font-bold uppercase
+    font-extrabold uppercase
     tracking-[2.2px];
 
-  color: #9d6ce0;
+  color: #00753a;
 }
 
 .sidebar-section-header::after {
@@ -325,8 +308,8 @@
 
   background: linear-gradient(
     90deg,
-    rgba(157, 108, 224, 0.3),
-    rgba(157, 108, 224, 0.04)
+    rgba(0, 117, 58, 0.35),
+    rgba(0, 117, 58, 0.05)
   );
 }
 
@@ -337,18 +320,18 @@
 .sidebar-menu-label {
   @apply flex-1 break-words
     text-left text-[14px]
-    font-medium leading-tight
+    font-semibold leading-tight
     tracking-[0.15px]
     transition-colors duration-200;
 }
 
 .sidebar-menu-label-active {
-  @apply font-semibold text-white;
+  @apply font-bold text-white;
 }
 
 .sidebar-menu-label-inactive {
-  @apply text-white
-    group-hover:text-white;
+  @apply text-[#1b4332]
+    group-hover:text-[#043e2e];
 }
 
 /* =========================
@@ -366,8 +349,8 @@
 }
 
 .sidebar-menu-chevron-closed {
-  @apply text-white/45
-    group-hover:text-white/80;
+  @apply text-[#043e2e]/70
+    group-hover:text-[#043e2e];
 }
 
 /* =========================
@@ -402,7 +385,7 @@
 .sidebar-submenu-inner {
   @apply relative ml-5 mt-1 border-l pl-5;
 
-  border-color: rgba(157, 108, 224, 0.22);
+  border-color: #c2d8be;
 }
 
 /* =========================
@@ -419,17 +402,17 @@
 }
 
 .menu-dropdown-item-active {
-  @apply text-white;
+  @apply font-bold text-[#043e2e];
 
-  background: rgba(105, 48, 176, 0.28);
+  background: rgba(0, 138, 69, 0.18);
 
-  border: 1px solid rgba(177, 119, 238, 0.18);
+  border: 1px solid rgba(0, 138, 69, 0.3);
 }
 
 .menu-dropdown-item-inactive {
-  @apply text-white/65
-    hover:bg-white/[0.045]
-    hover:text-white;
+  @apply text-[#1b4332]
+    hover:bg-[#c6dec1]
+    hover:text-[#043e2e];
 }
 
 /* =========================
@@ -454,7 +437,7 @@
   left: 30px;
   height: 1px;
 
-  background: rgba(255, 255, 255, 0.045);
+  background: rgba(0, 138, 69, 0.1);
 }
 
 .menu-leaf-item:last-child::after {
@@ -462,15 +445,15 @@
 }
 
 .menu-leaf-item-active {
-  @apply font-semibold text-white;
+  @apply font-bold text-[#043e2e];
 
-  background: rgba(126, 63, 198, 0.2);
+  background: rgba(0, 138, 69, 0.18);
 }
 
 .menu-leaf-item-inactive {
-  @apply text-white/68
-    hover:bg-white/[0.04]
-    hover:text-white;
+  @apply text-[#1b4332]
+    hover:bg-[#c6dec1]
+    hover:text-[#043e2e];
 }
 
 /* =========================
@@ -485,11 +468,11 @@
 }
 
 .sidebar-iconless-item-active {
-  @apply text-white;
+  @apply font-bold text-[#043e2e];
 }
 
 .sidebar-iconless-item-inactive {
-  @apply bg-transparent text-white/65;
+  @apply bg-transparent text-[#1b4332];
 }
 
 /* =========================
@@ -500,19 +483,15 @@
   @apply absolute left-[calc(100%+12px)] top-0
     z-[10050] w-[260px]
     overflow-visible
-    rounded-2xl border border-white/10
+    rounded-2xl border border-[#c2d8be]
     p-2 text-left
     opacity-100 shadow-2xl;
 
-  background: linear-gradient(
-    180deg,
-    rgba(52, 24, 95, 0.98),
-    rgba(35, 14, 70, 0.99)
-  );
+  background: #dbe8d8;
 
   box-shadow:
-    0 18px 45px rgba(20, 8, 42, 0.38),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    0 18px 45px rgba(27, 67, 50, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .sidebar-flyout::before {
@@ -524,9 +503,9 @@
   height: 14px;
   transform: rotate(45deg);
 
-  background: rgba(52, 24, 95, 0.98);
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: #dbe8d8;
+  border-left: 1px solid #c2d8be;
+  border-bottom: 1px solid #c2d8be;
 }
 
 .sidebar-flyout-label {
@@ -535,17 +514,13 @@
     -translate-y-1/2
     whitespace-nowrap
     rounded-xl
-    border border-white/10
+    border border-[#c2d8be]
     px-4 py-2.5
     text-[13px] font-semibold
-    text-white
+    text-[#043e2e]
     shadow-xl;
 
-  background: linear-gradient(
-    180deg,
-    rgba(52, 24, 95, 0.98),
-    rgba(35, 14, 70, 0.99)
-  );
+  background: #dbe8d8;
 }
 
 .sidebar-flyout-label::before {
@@ -557,9 +532,9 @@
   height: 12px;
   transform: translateY(-50%) rotate(45deg);
 
-  background: rgba(52, 24, 95, 0.98);
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: #dbe8d8;
+  border-left: 1px solid #c2d8be;
+  border-bottom: 1px solid #c2d8be;
 }
 
 @media (max-width: 1023px) {
@@ -572,7 +547,7 @@
 .sidebar-flyout-submenu-title {
   @apply px-3 py-2
     text-[11px] font-bold uppercase
-    tracking-[1.6px] text-purple-300;
+    tracking-[1.6px] text-[#00753a];
 }
 
 .sidebar-flyout-submenu-title {
@@ -580,7 +555,7 @@
     px-3 py-2
     text-[11px] font-bold uppercase
     leading-4 tracking-[1.2px]
-    text-purple-300;
+    text-[#00753a];
 }
 
 .sidebar-flyout-list {
@@ -597,25 +572,25 @@
     rounded-xl border border-transparent
     px-3 py-2.5
     text-left text-[13px] font-medium
-    text-white/75
+    text-[#1b4332]
     transition-all duration-200
-    hover:border-white/10
-    hover:bg-white/[0.08]
-    hover:text-white;
+    hover:border-[#c2d8be]
+    hover:bg-[#c6dec1]
+    hover:text-[#043e2e];
 }
 
 .sidebar-flyout-action > i {
-  @apply text-[11px] text-white/45
+  @apply text-[11px] text-[#043e2e]/70
     transition-transform duration-200;
 }
 
 .sidebar-flyout-item-parent:hover > .sidebar-flyout-action > i {
-  @apply translate-x-0.5 text-white/80;
+  @apply translate-x-0.5 text-[#043e2e];
 }
 
 .sidebar-flyout-action-active {
-  @apply border-purple-300/20
-    bg-purple-500/20
+  @apply border-[#005a2d]
+    bg-[#008a45]
     font-semibold text-white;
 }
 
@@ -626,7 +601,7 @@
     max-w-none                
     overflow-y-auto overflow-x-hidden
     rounded-2xl
-    border border-white/10
+    border border-[#c2d8be]
     p-2 opacity-0 shadow-2xl
     transition-all duration-200;
 
@@ -634,11 +609,7 @@
   max-height: calc(100vh - 140px);
   transform: translateX(6px);
 
-  background: linear-gradient(
-    180deg,
-    rgba(52, 24, 95, 0.99),
-    rgba(35, 14, 70, 0.99)
-  );
+  background: #dbe8d8;
 }
 
 .sidebar-flyout-item-parent:hover > .sidebar-flyout-submenu,
@@ -692,7 +663,7 @@
   left: 0;
   height: 165px;
 
-  background: linear-gradient(180deg, transparent, rgba(90, 26, 175, 0.08));
+  background: linear-gradient(180deg, transparent, rgba(0, 138, 69, 0.08));
 }
 
 .sidebar-decoration-image {
@@ -701,12 +672,12 @@
     object-contain object-bottom;
 
   width: 118%;
-  opacity: 0.55;
+  opacity: 0.25;
 
   transform: translateX(-50%);
   transform-origin: bottom center;
 
-  filter: saturate(0.92) brightness(0.92);
+  filter: hue-rotate(130deg) saturate(1.2) brightness(0.85);
 }
 
 /* =========================

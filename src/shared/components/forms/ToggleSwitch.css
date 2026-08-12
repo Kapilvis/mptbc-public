@@ -26,15 +26,16 @@
 
 /* Switch Pill */
 .toggle-switch-pill {
-  @apply w-11 h-6 rounded-[30px] bg-[#e2d8f9] relative border-none cursor-pointer transition-colors duration-300 p-0 shrink-0;
+  @apply w-11 h-6 rounded-[30px] relative border-none cursor-pointer transition-colors duration-300 p-0 shrink-0;
+  background-color: #DBE8D8;
 }
 
 .toggle-switch-pill:focus {
-  @apply outline-2 outline-purple-400 outline-offset-2;
+  @apply outline-2 outline-emerald-400 outline-offset-2;
 }
 
 .toggle-switch-pill.active {
-  @apply bg-[#7c3aed];
+  @apply bg-[#008a45];
 }
 
 /* Switch Handle */

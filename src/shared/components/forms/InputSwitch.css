@@ -41,7 +41,8 @@
 
 /* Track — unchecked */
 .input-switch-container .p-inputswitch .p-inputswitch-slider {
-  @apply bg-[#e2d8f9] rounded-[30px] transition-colors duration-200;
+  @apply rounded-[30px] transition-colors duration-200;
+  background-color: #DBE8D8 !important;
 }
 
 /* Track — checked */
@@ -49,7 +50,7 @@
   .p-inputswitch.p-inputswitch-checked
   .p-inputswitch-slider,
 .input-switch-container.is-checked .p-inputswitch .p-inputswitch-slider {
-  @apply !bg-[#7c3aed];
+  @apply !bg-[#008a45];
 }
 
 /* Knob base */
@@ -78,20 +79,20 @@
 
 /* Dark Mode */
 .dark .input-switch-container .p-inputswitch .p-inputswitch-slider {
-  @apply bg-[#2d2b45] border-[#3b3459];
+  @apply bg-[#064e3b] border-[#047857];
 }
 
 .dark .input-switch-container.is-checked .p-inputswitch .p-inputswitch-slider {
-  @apply !bg-[#3b2f6b] !border-[#7c3aed];
+  @apply !bg-[#008a45] !border-[#059669];
 }
 
 .dark .input-switch-container .p-inputswitch .p-inputswitch-slider:before {
-  @apply !bg-[#9f8ec4];
+  @apply !bg-[#a7f3d0];
 }
 
 .dark
   .input-switch-container.is-checked
   .p-inputswitch
   .p-inputswitch-slider:before {
-  @apply !bg-[#e9d5ff];
+  @apply !bg-white;
 }

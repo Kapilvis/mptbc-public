@@ -41,6 +41,11 @@ function InnerTextBox<TForm extends FieldValues>({
   ...rest
 }: TextBoxProps<TForm>) {
   const inputId = id ?? name;
+  const iconClass = icon
+    ? icon.startsWith("pi ")
+      ? icon
+      : `pi pi-${icon}`
+    : undefined;
 
   return (
     <InputBlock
@@ -50,12 +55,20 @@ function InnerTextBox<TForm extends FieldValues>({
       subLabel={subLabel}
       required={required}
     >
-      <span className={`p-input-icon-${iconPosition} textbox-input-wrapper`}>
-        {icon ? (
-          <i
-            className={`pi pi-${icon} text-gray-500 textbox-input-icon textbox-input-icon-${iconPosition}`}
-          />
-        ) : undefined}
+      <div
+        className="w-full"
+        style={{
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        {iconClass && (
+          <div className={`textbox-icon-container icon-${iconPosition}`}>
+            <i className={iconClass} />
+          </div>
+        )}
         <InputText
           type="text"
           id={inputId}
@@ -78,9 +91,15 @@ function InnerTextBox<TForm extends FieldValues>({
           className={`${className ? className + " " : ""}w-full`}
           maxLength={maxLength}
           minLength={minLength}
+          style={{
+            paddingLeft: icon && iconPosition === "left" ? "3rem" : "1rem",
+            paddingRight: icon && iconPosition === "right" ? "3rem" : "1rem",
+            width: "100%",
+            ...rest.style,
+          }}
           {...rest}
         />
-      </span>
+      </div>
     </InputBlock>
   );
 }

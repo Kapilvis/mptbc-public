@@ -1,0 +1,658 @@
+/* ─────────────────────────────────────────────
+   Madhya Pradesh Textbook Corporation
+   Digital Operations Portal — Login Page Styles
+   100% Vanilla CSS (BEM .mptbc-* naming)
+   Frosted Glass UI (Glassmorphism Aesthetics)
+───────────────────────────────────────────── */
+
+:root {
+  --mptbc-bg: #faf8f5;
+  --mptbc-navy: #1e293b;
+  --mptbc-green-primary: #008a45;
+  --mptbc-green-hover: #00753a;
+  --mptbc-green-dark: #043e2e;
+  --mptbc-green-light: #e6f4ea;
+  --mptbc-card-bg: rgba(255, 255, 255, 0.65);
+  --mptbc-glass-border: rgba(255, 255, 255, 0.85);
+  --mptbc-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ─── Page Viewport Container ─── */
+.mptbc-login-viewport {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--mptbc-bg);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--mptbc-navy);
+  user-select: none;
+}
+
+/* ─── Background Decorations & Map ─── */
+.mptbc-bg-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.mptbc-bg-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #faf8f5 0%, #f5f8f5 50%, #f0f5f2 100%);
+}
+
+.mptbc-bg-map-container {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mptbc-map-glow {
+  display: none;
+}
+
+.mptbc-bg-map-img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 0.95;
+}
+
+.mptbc-dot-grid-decor {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  width: 120px;
+  height: 120px;
+  opacity: 0.35;
+}
+
+.mptbc-arc-lines-decor {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 340px;
+  height: 340px;
+  opacity: 0.30;
+}
+
+/* ─── Top Branding ─── */
+.mptbc-branding-container {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 700px;
+  padding: 0 16px;
+}
+
+.mptbc-emblem-wrapper {
+  margin-bottom: 6px;
+}
+
+.mptbc-emblem-img {
+  width: 58px;
+  height: 58px;
+  max-width: 58px;
+  max-height: 58px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+}
+
+.mptbc-brand-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--mptbc-green-dark);
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.mptbc-brand-sub {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: rgba(30, 41, 59, 0.70);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 4px 0 8px 0;
+}
+
+.mptbc-portal-tag-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.mptbc-portal-line {
+  height: 1px;
+  width: 44px;
+  background: linear-gradient(90deg, transparent, var(--mptbc-green-primary));
+}
+
+.mptbc-portal-line.reverse {
+  background: linear-gradient(270deg, transparent, var(--mptbc-green-primary));
+}
+
+.mptbc-portal-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--mptbc-green-primary);
+}
+
+.mptbc-portal-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--mptbc-green-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* ─── Centered Login Card (Frosted Glass UI) ─── */
+.mptbc-login-card-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -41%);
+  z-index: 30;
+  width: 460px;
+  max-width: calc(100vw - 32px);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 26px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 4px 20px rgba(0, 0, 0, 0.06);
+  padding: 24px 28px;
+  box-sizing: border-box;
+}
+
+/* ─── Operational Workspaces Header Bar ─── */
+.mptbc-workspaces-wrapper {
+  margin-bottom: 18px;
+}
+
+.mptbc-workspaces-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  padding: 0 2px;
+}
+
+.mptbc-workspaces-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--mptbc-green-primary);
+}
+
+.mptbc-workspaces-title-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.mptbc-workspaces-title {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.mptbc-workspaces-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 4px 0;
+  gap: 4px;
+  border: none;
+  box-shadow: none;
+}
+
+.mptbc-workspace-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 2px;
+  border: none;
+  background: transparent;
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+}
+
+.mptbc-workspace-tab .mptbc-tab-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--mod-color);
+}
+
+.mptbc-workspace-tab .mptbc-tab-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.mptbc-welcome-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: transparent;
+  border: none;
+  padding: 0 4px;
+  margin-bottom: 18px;
+}
+
+.mptbc-avatar-circle {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 138, 69, 0.12);
+  border: 1px solid rgba(0, 138, 69, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mptbc-green-primary);
+  flex-shrink: 0;
+}
+
+.mptbc-avatar-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.mptbc-welcome-text-group {
+  flex: 1;
+  min-width: 0;
+}
+
+.mptbc-welcome-heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--mptbc-green-dark);
+  margin: 0 0 2px 0;
+  line-height: 1.25;
+}
+
+.mptbc-welcome-subtext {
+  font-size: 12px;
+  color: #475569;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* Form Body */
+.mptbc-form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* TDP Shared Form Overrides (Translucent Glass Input Fields) */
+.mptbc-form-body .p-inputtext {
+  height: 52px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(203, 213, 225, 0.8) !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  font-size: 14.5px !important;
+  font-weight: 500 !important;
+  color: #1e293b !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  padding-left: 48px !important;
+  transition: all 0.2s ease !important;
+}
+
+.mptbc-form-body .p-inputtext:focus {
+  border-color: #3b82f6 !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+}
+
+.mptbc-form-body .p-password {
+  position: relative !important;
+  width: 100% !important;
+  display: block !important;
+}
+
+.mptbc-form-body .p-password .p-password-input,
+.mptbc-form-body .p-password input {
+  padding-left: 48px !important;
+  padding-right: 48px !important;
+  height: 52px !important;
+  border-radius: 12px !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(203, 213, 225, 0.8) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.mptbc-form-body .p-password input:focus {
+  border-color: #3b82f6 !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Fix icon positioning & make icons inside input fields dark & crisp */
+.mptbc-form-body .pi,
+.mptbc-form-body .textbox-input-icon,
+.mptbc-form-body .p-input-icon-left > i,
+.mptbc-form-body i {
+  color: #1e293b !important;
+  opacity: 1 !important;
+  font-size: 1.15rem !important;
+}
+
+.mptbc-form-body .p-inputtext::placeholder {
+  color: #64748b !important;
+  opacity: 1 !important;
+}
+
+.mptbc-form-body .p-password .p-password-show-icon,
+.mptbc-form-body .p-password .p-password-hide-icon,
+.mptbc-form-body .p-password > i.pi,
+.mptbc-form-body .p-password > svg {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  right: 1rem !important;
+  margin-top: 0 !important;
+  color: #1e293b !important;
+  opacity: 1 !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+}
+
+
+/* Prevent autofill blue background overlay */
+.mptbc-form-body input:-webkit-autofill,
+.mptbc-form-body input:-webkit-autofill:hover,
+.mptbc-form-body input:-webkit-autofill:focus,
+.mptbc-form-body input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: #1e293b !important;
+  border-radius: 12px !important;
+}
+
+/* Captcha input override */
+.captcha-field-wrapper .p-field {
+  margin-bottom: 0 !important;
+}
+
+.captcha-field-wrapper .p-inputtext {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(203, 213, 225, 0.8) !important;
+  border-radius: 12px !important;
+  padding-left: 14px !important;
+}
+
+/* Primary Submit Button (Matching Green Color in Welcome Banner) */
+.mptbc-btn-submit {
+  height: 52px !important;
+  width: 100% !important;
+  border-radius: 12px !important;
+  background: #008a45 !important;
+  color: #ffffff !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(0, 138, 69, 0.3) !important;
+  transition: all 0.2s ease !important;
+  margin-top: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.mptbc-btn-submit .pi,
+.mptbc-btn-submit .p-button-icon,
+.mptbc-btn-submit i,
+.mptbc-btn-submit svg {
+  color: #ffffff !important;
+  font-size: 1.15rem !important;
+}
+
+.mptbc-btn-submit:hover:not(:disabled) {
+  background: #00753a !important;
+  box-shadow: 0 6px 18px rgba(0, 138, 69, 0.4) !important;
+  transform: translateY(-1px);
+}
+
+/* Options Row */
+.mptbc-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+  padding: 2px 2px 0 2px;
+}
+
+.mptbc-forgot-link-btn {
+  color: #1d4ed8;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.mptbc-forgot-link-btn:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* ─── Bottom Information Bar (Frosted Glass UI) ─── */
+.mptbc-bottom-bar-container {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85vw;
+  max-width: 1120px;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.mptbc-bottom-bar-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 12px 20px;
+}
+
+.mptbc-bottom-bar-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.mptbc-bottom-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  padding: 0 16px;
+}
+
+.mptbc-bottom-divider {
+  width: 1px;
+  height: 34px;
+  background-color: rgba(226, 232, 240, 0.85);
+  flex-shrink: 0;
+}
+
+.mptbc-bottom-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(0, 138, 69, 0.12);
+  color: var(--mptbc-green-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mptbc-bottom-icon-svg {
+  width: 18px;
+  height: 18px;
+}
+
+.mptbc-bottom-info-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.mptbc-bottom-info-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--mptbc-green-dark);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mptbc-bottom-info-sub {
+  font-size: 11px;
+  color: #64748b;
+  margin: 1px 0 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Floating Error Toast ─── */
+.login-floating-error {
+  position: fixed;
+  bottom: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(239, 68, 68, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.35);
+  animation: mptbcSlideUp 0.3s ease forwards;
+  max-width: 480px;
+}
+
+.login-floating-error.hiding {
+  animation: mptbcSlideDown 0.3s ease forwards;
+}
+
+.login-floating-error-close {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+  margin-left: 8px;
+}
+
+.login-floating-error-close:hover { opacity: 1; }
+
+@keyframes mptbcSlideUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes mptbcSlideDown {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to   { opacity: 0; transform: translateX(-50%) translateY(20px); }
+}
+
+/* ─── Mobile Responsiveness ─── */
+@media (max-width: 768px) {
+  .mptbc-brand-title {
+    font-size: 18px;
+  }
+  .mptbc-brand-sub {
+    font-size: 11px;
+  }
+  .mptbc-emblem-img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .mptbc-login-card-container {
+    padding: 20px 22px;
+    transform: translate(-50%, -48%);
+  }
+
+  .mptbc-bottom-bar-container {
+    width: 94vw;
+    bottom: 10px;
+  }
+
+  .mptbc-bottom-bar-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .mptbc-bottom-divider {
+    display: none;
+  }
+
+  .mptbc-bottom-feature-item {
+    padding: 4px;
+  }
+
+  .mptbc-bottom-info-title {
+    font-size: 11.5px;
+  }
+  .mptbc-bottom-info-sub {
+    font-size: 10px;
+  }
+}

@@ -30,22 +30,22 @@
 }
 
 .loader-ring-outer {
-  @apply absolute inset-0 rounded-full border-2 border-transparent border-t-purple-600 border-b-purple-600/30 shadow-[0_0_15px_rgba(124,58,237,0.15)];
+  @apply absolute inset-0 rounded-full border-2 border-transparent border-t-[#008a45] border-b-[#DBE8D8] shadow-[0_0_15px_rgba(0,138,69,0.2)];
   animation: spin-slow 1.6s linear infinite;
 }
 
 .loader-ring-inner {
-  @apply absolute inset-[3px] rounded-full border-2 border-transparent border-r-indigo-500 border-l-indigo-500/30;
+  @apply absolute inset-[3px] rounded-full border-2 border-transparent border-r-[#008a45] border-l-[#D6E9D5];
   animation: spin-reverse 1s linear infinite;
 }
 
 .loader-core {
-  @apply absolute inset-[7px] rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 shadow-[0_0_12px_rgba(124,58,237,0.6)];
+  @apply absolute inset-[7px] rounded-full bg-gradient-to-br from-[#008a45] to-[#DBE8D8] shadow-[0_0_12px_rgba(0,138,69,0.5)];
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
 .loader-text {
-  @apply text-[11px] font-bold tracking-[0.25em] text-slate-500 dark:text-slate-400 uppercase mt-2 animate-pulse;
+  @apply text-[11px] font-bold tracking-[0.25em] text-[#043e2e] dark:text-slate-400 uppercase mt-2 animate-pulse;
 }
 
 .fade-in {
@@ -86,12 +86,12 @@
   100% {
     transform: scale(0.9);
     opacity: 0.85;
-    box-shadow: 0 0 8px rgba(124, 58, 237, 0.3);
+    box-shadow: 0 0 8px rgba(0, 138, 69, 0.3);
   }
   50% {
     transform: scale(1.03);
     opacity: 1;
-    box-shadow: 0 0 16px rgba(124, 58, 237, 0.7);
+    box-shadow: 0 0 16px rgba(0, 138, 69, 0.7);
   }
 }
 

@@ -53,19 +53,19 @@
 .input-panel-icon-wrapper {
   width: 3rem;
   height: 3rem;
-  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+  background: linear-gradient(135deg, #DBE8D8 0%, #D6E9D5 100%);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 1px solid rgba(124, 58, 237, 0.15);
-  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.08);
+  border: 1px solid #c2d8be;
+  box-shadow: 0 4px 10px rgba(0, 138, 69, 0.08);
 }
 
 .input-panel-icon-wrapper i {
   font-size: 1.25rem;
-  color: #7c3aed;
+  color: #008a45;
 }
 
 .input-panel-header-text {
@@ -75,7 +75,7 @@
 .input-panel-title {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #2a1250;
+  color: #043e2e;
   margin: 0 0 0.2rem 0;
   letter-spacing: -0.01em;
 }

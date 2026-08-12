@@ -6,18 +6,18 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --primary-color: #2a1250;
+  --primary-color: #008a45;
   --black-text: #333333;
   --text-color: #101828;
   --gray-text: #666666;
-  --text-purple: #673ab7;
-  --page-bg: #fbfafd;
+  --text-purple: #008a45;
+  --page-bg: #faf8f5;
   --white-bg: #ffffff;
   --white: #ffffff;
-  --purple-100: #f3e8ff;
+  --purple-100: #DBE8D8;
   --white-text: #ffffff;
-  --table-header-bg: #5b34a2;
-  --side-bar-bg: #442385;
+  --table-header-bg: #00753a;
+  --side-bar-bg: #008a45;
   --border-color: #e9e6f4;
   --light-border-color: #d8c8f0;
   --yellow: #e8c671;
