@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+.textbox-input-wrapper {
+  @apply w-auto relative;
+}
+
+.textbox-input-icon {
+  @apply text-base absolute top-1/2 -translate-y-1/2 pointer-events-none;
+}
+
+.textbox-input-icon-left {
+  @apply left-4;
+}
+
+.textbox-input-icon-right {
+  @apply right-4;
+}
+
+.p-inputtext {
+  @apply border border-[#e6e3ef] rounded-[10px] bg-white py-0 px-3 h-[38px] box-border;
+}

@@ -1,0 +1,429 @@
+@reference "../../../index.css";
+
+.main-page {
+  @apply mx-auto mb-8 max-w-full rounded-2xl p-3 xl:p-5;
+}
+
+.app-layout.sidebar-open .main-page {
+  @apply mx-4 max-w-full px-4 py-4;
+}
+
+/* =========================
+   Page Heading
+========================= */
+
+.page-heading {
+  @apply relative flex w-full items-center justify-between gap-6 px-1 py-4 pt-0;
+}
+.page-heading-with-visual {
+  @apply relative mb-4 overflow-hidden rounded-2xl border px-4 py-3 shadow-sm;
+  min-height: 104px;
+  border-color: var(--color-primary-100);
+  background:
+    radial-gradient(
+      circle at 88% 50%,
+      color-mix(in srgb, var(--color-primary-100) 80%, transparent),
+      transparent 34%
+    ),
+    linear-gradient(
+      90deg,
+      var(--white-bg) 0%,
+      color-mix(in srgb, var(--color-primary-50) 72%, var(--white-bg)) 58%,
+      color-mix(in srgb, var(--color-primary-100) 70%, var(--white-bg)) 100%
+    );
+}
+
+.page-heading-content {
+  @apply relative z-10 flex min-w-0 flex-1 items-center gap-4;
+}
+
+.page-heading-icon {
+  @apply flex h-14 w-14 shrink-0 items-center justify-center rounded-full shadow-md;
+  color: var(--primary-color);
+  background: radial-gradient(
+    circle,
+    var(--white-bg) 0%,
+    var(--color-primary-100) 100%
+  );
+}
+
+.page-heading-icon i {
+  @apply text-[28px];
+}
+
+.page-heading-text {
+  @apply relative min-w-0;
+  padding-left: 22px;
+}
+
+.page-heading-with-visual .page-heading-text {
+  padding-left: 0;
+}
+
+.page-heading-text::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 2px;
+  width: 3px;
+  height: 38px;
+  border-radius: 999px;
+  background: var(--yellow);
+}
+
+.page-heading-text::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 45px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--yellow);
+}
+
+.page-heading-with-visual .page-heading-text::before,
+.page-heading-with-visual .page-heading-text::after {
+  display: none;
+}
+
+.page-heading-text h1 {
+  @apply m-0 truncate text-2xl font-bold leading-tight;
+  letter-spacing: -0.02em;
+  color: var(--text-purple);
+  font-weight: 800;
+}
+
+.page-heading-with-visual .page-heading-text h1 {
+  color: var(--primary-color);
+}
+
+.page-heading-text p {
+  @apply mt-1 mb-0 text-sm leading-5 text-gray-500;
+}
+
+.page-heading-with-visual .page-heading-text p {
+  @apply mt-2 text-body-sm;
+  color: var(--color-gray-600);
+}
+
+.page-heading-actions {
+  @apply ml-auto flex shrink-0 items-center justify-end;
+}
+
+/* =========================
+   Right Side Image
+========================= */
+
+.page-heading-visual {
+  @apply pointer-events-none absolute inset-y-0 right-0 z-0 bg-no-repeat;
+  width: 650px;
+  background-size: 400px auto;
+  background-position: right center;
+  opacity: 0.95;
+}
+
+/* =========================
+   Image Icon Animation
+========================= */
+
+.page-heading-hotspot {
+  position: absolute;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.page-heading-hotspot::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: inherit;
+  border: 2px solid transparent;
+  border-top-color: var(--color-primary-500);
+  border-right-color: var(--color-primary-300);
+  opacity: 0;
+  transform: rotate(0deg) scale(0.9);
+  animation: headingIconRing 8s linear infinite;
+}
+
+.page-heading-hotspot::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--color-primary-300) 22%, transparent);
+  opacity: 0;
+  filter: blur(6px);
+  animation: headingIconGlow 8s ease-in-out infinite;
+}
+
+/* Adjust these positions as per your image */
+.hotspot-one {
+  right: 340px;
+  top: 50px;
+}
+
+.hotspot-two {
+  right: 275px;
+  top: 20px;
+}
+
+.hotspot-three {
+  right: 195px;
+  top: 35px;
+}
+
+.hotspot-four {
+  right: 57px;
+  top: 17px;
+}
+
+/* 8s animation timing for 4 icons */
+.hotspot-one::before,
+.hotspot-one::after {
+  animation-delay: 0s;
+}
+
+.hotspot-two::before,
+.hotspot-two::after {
+  animation-delay: 2s;
+}
+
+.hotspot-three::before,
+.hotspot-three::after {
+  animation-delay: 4s;
+}
+
+.hotspot-four::before,
+.hotspot-four::after {
+  animation-delay: 6s;
+}
+
+@keyframes headingIconRing {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.9);
+  }
+
+  6% {
+    opacity: 1;
+    transform: rotate(90deg) scale(1);
+  }
+
+  16% {
+    opacity: 1;
+    transform: rotate(300deg) scale(1.08);
+  }
+
+  22% {
+    opacity: 0;
+    transform: rotate(360deg) scale(0.95);
+  }
+
+  100% {
+    opacity: 0;
+    transform: rotate(360deg) scale(0.95);
+  }
+}
+
+@keyframes headingIconGlow {
+  0%,
+  22%,
+  100% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  11% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+}
+
+/* =========================
+   Page Content
+========================= */
+
+.page-content {
+  @apply min-w-0;
+}
+
+/* =========================
+   Breadcrumb
+========================= */
+
+.page-breadcrumb-container {
+  @apply mx-auto mt-6 mb-2 flex max-w-full justify-end px-6;
+}
+
+.app-layout.sidebar-open .page-breadcrumb-container {
+  @apply mx-4 my-0 max-w-full px-2 py-0;
+}
+
+/* =========================
+   Dark Mode
+========================= */
+
+.dark .page-heading-text h1,
+.dark-theme .page-heading-text h1 {
+  @apply text-white;
+}
+
+.dark .page-heading-text p,
+.dark-theme .page-heading-text p {
+  @apply text-slate-400;
+}
+
+.dark .page-heading-with-visual,
+.dark-theme .page-heading-with-visual {
+  border-color: var(--color-gray-800);
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-950) 0%,
+    color-mix(in srgb, var(--primary-color) 18%, var(--color-gray-950)) 100%
+  );
+}
+
+.dark .page-heading-icon,
+.dark-theme .page-heading-icon {
+  color: var(--color-primary-200);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-primary-500) 20%, var(--color-gray-950)) 0%,
+    var(--color-gray-900) 100%
+  );
+}
+
+.dark .page-heading-with-visual .page-heading-text h1,
+.dark-theme .page-heading-with-visual .page-heading-text h1 {
+  color: var(--color-primary-200);
+}
+
+.dark .page-heading-with-visual .page-heading-text p,
+.dark-theme .page-heading-with-visual .page-heading-text p {
+  color: var(--color-gray-300);
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 1024px) {
+  .page-heading {
+    @apply flex-row items-start justify-between gap-4;
+  }
+
+  .page-heading-content {
+    @apply min-w-0 flex-1;
+  }
+
+  .page-heading-actions {
+    @apply ml-auto w-auto shrink-0 justify-end;
+  }
+
+  .page-heading-text p {
+    @apply max-w-[420px];
+  }
+
+  .page-heading-with-visual {
+    @apply px-4 py-4;
+  }
+
+  .page-heading-icon {
+    @apply h-16 w-16;
+  }
+
+  .page-heading-icon i {
+    @apply text-[32px];
+  }
+
+  .page-heading-visual {
+    @apply h-[82px] w-[200px];
+  }
+
+  .page-heading-image {
+    @apply max-h-[74px];
+  }
+
+  .hotspot-one {
+    right: 208px;
+    top: 34px;
+  }
+
+  .hotspot-two {
+    right: 150px;
+    top: 40px;
+  }
+
+  .hotspot-three {
+    right: 38px;
+    top: 32px;
+  }
+
+  .page-heading-hotspot {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-page {
+    @apply px-2 py-0;
+  }
+
+  .page-heading {
+    @apply flex-col items-stretch gap-3 px-0 py-3;
+  }
+
+  .page-heading-content {
+    @apply w-full min-w-0;
+  }
+
+  .page-heading-text {
+    @apply pl-5;
+  }
+
+  .page-heading-with-visual .page-heading-text {
+    @apply pl-0;
+  }
+
+  .page-heading-text::before {
+    width: 3px;
+    height: 30px;
+  }
+
+  .page-heading-text::after {
+    top: 35px;
+  }
+
+  .page-heading-text h1 {
+    @apply text-xl;
+  }
+
+  .page-heading-text p {
+    @apply max-w-full text-xs leading-4;
+  }
+
+  .page-heading-actions {
+    @apply ml-0 w-full justify-start;
+  }
+
+  .page-heading-visual {
+    @apply hidden;
+  }
+
+  .page-heading-icon {
+    @apply h-14 w-14;
+  }
+
+  .page-heading-icon i {
+    @apply text-[28px];
+  }
+
+  .page-breadcrumb-container {
+    @apply px-2;
+  }
+}

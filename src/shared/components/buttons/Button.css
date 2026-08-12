@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+.p-button {
+  @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300 ease-in-out;
+}
+
+.p-button.p-button-icon-only {
+  @apply gap-0;
+}
+
+.p-button.p-button-icon-only .p-button-label {
+  @apply hidden;
+}
+
+.p-button.p-button-icon-only .p-button-icon {
+  @apply m-0;
+}
+
+.ripple {
+  @apply absolute rounded-full bg-[var(--ripple-color)] scale-0 pointer-events-none;
+  animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Button Icon Hover Micro-interactions */
+.p-button .pi {
+  @apply transition-transform duration-300 ease-out;
+}
+
+.p-button:not(.button-disabled):hover .pi-arrow-right {
+  transform: translateX(4px);
+}
+
+.p-button:not(.button-disabled):hover .pi-arrow-left {
+  transform: translateX(-4px);
+}
+
+.button-variant-primary {
+  @apply bg-[var(--primary-color)] border border-[var(--primary-color)] text-[var(--white)];
+}
+
+.button-variant-success {
+  @apply bg-transparent border border-[var(--success-color)] text-[var(--success-color)];
+}
+
+.button-variant-danger {
+  @apply bg-transparent border border-[var(--danger-color)] text-[var(--danger-color)] transition-all duration-200;
+}
+
+.button-variant-danger:not(.button-disabled):hover {
+  @apply bg-[var(--danger-color)] text-[var(--white)] shadow-[0_4px_14px_rgba(239,68,68,0.35)];
+}
+
+.button-variant-warning {
+  @apply bg-[var(--warning-color)] border border-[var(--warning-color)] text-[var(--white)];
+}
+
+.button-variant-info {
+  @apply bg-[var(--info-color)] border border-[var(--info-color)] text-[var(--white)];
+}
+
+.button-variant-outlined {
+  @apply bg-transparent border border-[var(--light-border-color)] text-[var(--primary-color)] w-auto whitespace-nowrap;
+}
+
+.button-width-auto {
+  @apply !w-auto;
+}
+
+.button-variant-text {
+  @apply bg-transparent min-w-[5.5rem];
+}
+
+/* Button Sizes */
+.button-size-small {
+  @apply py-1 px-2 text-sm w-auto whitespace-nowrap;
+}
+
+.button-size-medium {
+  @apply py-0 px-4 text-[0.9rem] h-[38px] no-underline w-auto whitespace-nowrap;
+}
+
+.button-size-large {
+  @apply py-3 px-6 text-lg;
+}
+
+.button-disabled {
+  @apply opacity-60 cursor-not-allowed pointer-events-none;
+}
+
+.dark-theme .button-variant-primary {
+  @apply bg-[var(--dark-button-bg)] border-[var(--dark-border-opacity)] text-[var(--dark-text)];
+}
+
+.dark-theme .button-variant-primary:hover {
+  @apply bg-[var(--dark-button-hover)];
+}
+
+.dark-theme .button-variant-success {
+  @apply bg-[var(--success-color)] border border-[var(--success-color)] text-[var(--white)];
+}
+
+.dark-theme .button-variant-danger {
+  @apply bg-[var(--danger-color)] border border-[var(--danger-color)] text-[var(--white)];
+}
+
+.dark-theme .button-variant-danger:not(.button-disabled):hover {
+  @apply bg-[#dc2626] shadow-[0_4px_14px_rgba(239,68,68,0.4)];
+}
+
+.dark-theme .button-variant-warning {
+  @apply bg-[var(--warning-color)] border border-[var(--warning-color)] text-[var(--white)];
+}
+
+.dark-theme .button-variant-info {
+  @apply bg-[var(--info-color)] border border-[var(--info-color)] text-[var(--white)];
+}
+
+.dark-theme .button-variant-outlined {
+  @apply bg-transparent border border-[var(--dark-border-opacity)] text-[var(--off-white)];
+}
+
+.dark-theme .button-variant-outlined:hover {
+  @apply bg-[var(--dark-link-hover)];
+}
+
+.dark-theme .button-variant-text {
+  @apply bg-transparent border-transparent text-[var(--dark-text)];
+}
+
+.dark-theme .button-variant-text:hover {
+  @apply bg-[var(--dark-link-hover)];
+}
+
+.p-button.p-button-success,
+.p-button-group.p-button-success > .p-button,
+.p-splitbutton.p-button-success > .p-button,
+.p-fileupload-choose.p-button-success {
+  @apply text-[var(--success-color-alt)] border border-[var(--success-color-alt)];
+}
+
+.p-button.p-button-danger,
+.p-button-group.p-button-danger > .p-button,
+.p-splitbutton.p-button-danger > .p-button,
+.p-fileupload-choose.p-button-danger {
+  @apply text-[var(--danger-color)] border border-[var(--danger-color)];
+}
+
+.primary-btn {
+  @apply bg-black text-[var(--white)] border border-[var(--primary-color)] py-0 px-4 text-[0.9rem] h-[38px] no-underline w-auto whitespace-nowrap;
+}

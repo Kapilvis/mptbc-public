@@ -1,0 +1,207 @@
+@reference "../../../index.css";
+
+@layer components {
+  .input-block {
+    @apply mb-1 flex w-full min-w-0 flex-col
+    transition-all duration-200 ease-in-out;
+  }
+
+  .input-block label {
+    @apply mb-1 flex items-start gap-1
+    self-start
+    text-sm font-semibold
+    tracking-tight
+    text-gray-700
+    dark:text-gray-300;
+  }
+
+  .input-block label > span:first-child {
+    @apply min-w-0;
+  }
+
+  .input-block .input-wrapper,
+  .input-wrapper {
+    @apply flex w-full min-w-0 flex-col;
+  }
+
+  .input-block .input-wrapper > * {
+    @apply w-full;
+  }
+
+  .input-panel.horizontal .input-block {
+    @apply justify-start;
+  }
+
+  .input-panel.horizontal .input-block .input-wrapper {
+    @apply mt-0;
+    height: auto;
+  }
+
+  .input-panel.horizontal .input-block .floating-error {
+    @apply static mt-1 w-full;
+  }
+
+  .floating-error {
+    @apply static mt-1 w-full;
+  }
+
+  .floating-error-text {
+    @apply block w-full
+    whitespace-normal break-words
+    text-xs leading-4
+    text-error-500;
+  }
+
+  .input-block.has-error label {
+    @apply text-error-500;
+  }
+
+  .input-block.has-error {
+    @apply mb-1;
+  }
+
+  .input-block.has-error .p-inputtext {
+    @apply border-error-500;
+  }
+
+  .input-block .required {
+    @apply font-bold text-error-500;
+  }
+
+  .required {
+    @apply shrink-0 text-error-500;
+  }
+
+  .sub-label {
+    @apply ml-1
+      text-caption font-normal
+      text-gray-400;
+  }
+
+  .sub-lable {
+    @apply ml-1 font-normal
+      text-gray-400 dark:text-gray-500;
+  }
+
+  /* =========================
+     Shared text-based controls
+  ========================== */
+
+  .p-inputtext,
+  .p-inputnumber-input,
+  .p-password-input,
+  .p-inputtextarea {
+    @apply h-[38px]
+      rounded-lg
+      border border-gray-200
+      bg-white
+      px-[0.65rem] py-[0.35rem]
+      text-label leading-[1.1]
+      text-gray-800
+      transition-all duration-200;
+  }
+
+  .p-inputtextarea {
+    @apply h-auto min-h-[90px] resize-y;
+  }
+
+  .p-inputtext:enabled:hover,
+  .p-inputnumber-input:enabled:hover,
+  .p-password-input:enabled:hover,
+  .p-inputtextarea:enabled:hover {
+    @apply border-gray-300 shadow-theme-xs;
+  }
+
+  .p-inputtext:enabled:focus,
+  .p-inputnumber-input:enabled:focus,
+  .p-password-input:enabled:focus,
+  .p-inputtextarea:enabled:focus {
+    @apply border-primary-500
+      outline-none
+      shadow-[0_0_0_4px_rgba(42,18,80,0.10)];
+  }
+
+  .p-inputtext::placeholder,
+  .p-inputnumber-input::placeholder,
+  .p-password-input::placeholder,
+  .p-inputtextarea::placeholder {
+    @apply text-gray-400;
+  }
+
+  /* Invalid state */
+  .p-inputtext.p-invalid,
+  .p-inputnumber-input.p-invalid,
+  .p-password-input.p-invalid,
+  .p-inputtextarea.p-invalid {
+    @apply border-error-500
+      bg-error-50;
+  }
+
+  .p-inputtext.p-invalid:enabled:focus,
+  .p-inputnumber-input.p-invalid:enabled:focus,
+  .p-password-input.p-invalid:enabled:focus,
+  .p-inputtextarea.p-invalid:enabled:focus {
+    @apply shadow-[0_0_0_4px_rgba(239,68,68,0.10)];
+  }
+}
+
+/* =========================================================
+   Dark mode overrides
+   Kept outside @layer so PrimeReact theme CSS cannot win.
+========================================================= */
+
+.dark .input-block label {
+  color: var(--color-gray-300);
+}
+
+.dark .input-block.has-error label {
+  color: var(--color-error-400);
+}
+
+.dark .p-inputtext,
+.dark .p-inputnumber-input,
+.dark .p-password-input,
+.dark .p-inputtextarea {
+  border-color: var(--color-gray-700) !important;
+  background-color: var(--color-gray-900) !important;
+  color: var(--color-gray-100) !important;
+  box-shadow: none;
+}
+
+.dark .p-inputtext:enabled:hover,
+.dark .p-inputnumber-input:enabled:hover,
+.dark .p-password-input:enabled:hover,
+.dark .p-inputtextarea:enabled:hover {
+  border-color: var(--color-gray-600) !important;
+}
+
+.dark .p-inputtext:enabled:focus,
+.dark .p-inputnumber-input:enabled:focus,
+.dark .p-password-input:enabled:focus,
+.dark .p-inputtextarea:enabled:focus {
+  border-color: var(--color-primary-400) !important;
+  background-color: var(--color-gray-900) !important;
+  box-shadow: 0 0 0 4px rgb(167 139 250 / 12%) !important;
+  outline: none;
+}
+
+.dark .p-inputtext::placeholder,
+.dark .p-inputnumber-input::placeholder,
+.dark .p-password-input::placeholder,
+.dark .p-inputtextarea::placeholder {
+  color: var(--color-gray-500) !important;
+}
+
+.dark .p-inputtext.p-invalid,
+.dark .p-inputnumber-input.p-invalid,
+.dark .p-password-input.p-invalid,
+.dark .p-inputtextarea.p-invalid {
+  border-color: var(--color-error-500) !important;
+  background-color: rgb(240 68 56 / 10%) !important;
+}
+
+/* PrimeReact wrappers */
+.dark .p-inputnumber,
+.dark .p-password {
+  background-color: transparent;
+}

@@ -1,0 +1,38 @@
+export const mockDistricts: Master.DistrictItem[] = [
+  {
+    districtId: 1,
+    name: "Bhopal",
+    localName: "भोपाल",
+    code: "BPL-D",
+    lgdCode: "401",
+    divisionName: "Bhopal Division",
+    isActive: true,
+  },
+  {
+    districtId: 2,
+    name: "Indore",
+    localName: "इन्दौर",
+    code: "IND-D",
+    lgdCode: "402",
+    divisionName: "Indore Division",
+    isActive: true,
+  },
+  {
+    districtId: 3,
+    name: "Sehore",
+    localName: "सीहोर",
+    code: "SEH-D",
+    lgdCode: "403",
+    divisionName: "Bhopal Division",
+    isActive: true,
+  },
+  {
+    districtId: 4,
+    name: "Raisen",
+    localName: "रायसेन",
+    code: "RAI-D",
+    lgdCode: "404",
+    divisionName: "Bhopal Division",
+    isActive: true,
+  },
+];

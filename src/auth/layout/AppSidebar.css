@@ -1,0 +1,778 @@
+@reference "tailwindcss";
+
+/* =========================
+   Main Sidebar
+========================= */
+
+.app-sidebar {
+  @apply fixed left-4 top-4 z-[9999]
+    flex h-[calc(100vh-2rem)] flex-col
+    overflow-visible rounded-[22px]
+    transition-[width,transform]
+    duration-300 ease-in-out;
+
+  isolation: isolate;
+
+  background:
+    radial-gradient(
+      circle at 82% 6%,
+      rgba(124, 58, 237, 0.24),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 8% 96%,
+      rgba(137, 54, 255, 0.16),
+      transparent 28%
+    ),
+    linear-gradient(180deg, #241044 0%, var(--primary-color) 42%, #1d0b3b 100%);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow:
+    0 16px 42px rgba(42, 18, 80, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.app-sidebar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.045), transparent 32%),
+    radial-gradient(
+      circle at 100% 50%,
+      rgba(120, 45, 210, 0.09),
+      transparent 42%
+    );
+}
+
+.app-sidebar-expanded {
+  @apply w-[280px];
+}
+
+.app-sidebar-collapsed {
+  @apply w-[88px];
+}
+
+.app-sidebar-mobile-open {
+  @apply translate-x-0 shadow-2xl;
+}
+
+.app-sidebar-mobile-closed {
+  @apply max-lg:-translate-x-[150%];
+}
+
+@media (min-width: 1024px) {
+  .app-sidebar {
+    transform: translateX(0);
+  }
+}
+
+/* =========================
+   Logo Section
+========================= */
+
+.sidebar-logo-section {
+  @apply relative z-20
+    flex h-[74px] min-h-[74px] max-h-[74px]
+    w-full shrink-0 items-center
+    border-b border-white/10
+    px-5;
+}
+
+.sidebar-logo-content {
+  @apply flex grow items-center;
+}
+
+.sidebar-logo-expanded {
+  @apply flex w-full items-center gap-2
+    transition-all duration-300;
+}
+
+.sidebar-logo-collapsed {
+  @apply flex w-full items-center
+    justify-center transition-all;
+}
+
+.sidebar-logo-image-expanded {
+  @apply relative z-10 h-[40px] w-[40px]
+    shrink-0 object-contain drop-shadow-md;
+}
+
+.sidebar-logo-image-collapsed {
+  @apply mx-auto h-[38px] w-[38px]
+    object-contain drop-shadow-md
+    transition-transform duration-300
+    hover:scale-110;
+}
+
+.sidebar-logo-title {
+  @apply max-w-[190px] break-words
+    text-[15px] font-semibold
+    uppercase leading-[1.25]
+    tracking-[0.5px]
+    text-white;
+}
+
+/* =========================
+   Mobile Close Button
+========================= */
+
+.sidebar-mobile-close {
+  @apply absolute right-4 top-1/2
+    hidden h-8 w-8
+    -translate-y-1/2
+    items-center justify-center
+    rounded-xl border border-white/20
+    bg-white/[0.06]
+    text-base text-white
+    shadow-sm backdrop-blur-sm
+    transition-all duration-200
+    hover:border-white/35
+    hover:bg-white/[0.12]
+    active:scale-95;
+}
+
+.sidebar-mobile-close i {
+  @apply text-[12px] leading-none;
+}
+
+/* =========================
+   Navigation Area
+========================= */
+
+.sidebar-nav-area {
+  @apply relative z-10
+    min-h-0 flex-1 overflow-visible;
+
+  margin-top: 10px;
+}
+
+.sidebar-nav-inner {
+  @apply overflow-visible;
+
+  padding: 0 14px 220px;
+}
+
+.sidebar-navigation {
+  @apply overflow-visible;
+}
+
+.sidebar-menu-list {
+  @apply flex flex-col overflow-visible;
+}
+
+.sidebar-menu-list-gap {
+  @apply gap-1;
+}
+
+.sidebar-menu-list-nested {
+  @apply mt-1;
+}
+
+.sidebar-menu-list-item {
+  @apply relative overflow-visible;
+}
+
+.sidebar-menu-action {
+  @apply w-full;
+}
+
+/* =========================
+   Expanded / Collapsed
+========================= */
+
+.sidebar-menu-item-collapsed {
+  @apply lg:justify-center lg:px-2;
+}
+
+.sidebar-menu-item-expanded {
+  @apply lg:justify-start;
+}
+
+/* =========================
+   Top-Level Menu Items
+========================= */
+
+.menu-item {
+  @apply relative flex w-full
+    items-center gap-3.5
+    rounded-[14px]
+    px-2 py-1
+    text-[14px] font-semibold
+    transition-all duration-300;
+}
+
+.menu-item-inactive {
+  @apply text-white/70
+    hover:bg-white/[0.06]
+    hover:text-white;
+}
+
+.menu-item-active {
+  @apply text-white;
+  background: linear-gradient(
+    90deg,
+    rgba(137, 43, 226, 0.64),
+    rgba(99, 57, 210, 0.38)
+  );
+
+  border: 1px solid rgba(187, 134, 252, 0.36);
+
+  box-shadow:
+    0 8px 24px rgba(105, 42, 190, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.menu-item-active::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -5px;
+  width: 4px;
+  height: 68%;
+  border-radius: 999px;
+  transform: translateY(-50%);
+
+  background: linear-gradient(180deg, #ffffff, #d8b4fe);
+
+  box-shadow:
+    0 0 8px rgba(255, 255, 255, 0.75),
+    0 0 14px rgba(192, 132, 252, 0.5);
+}
+
+/* =========================
+   Menu Icons
+========================= */
+
+.sidebar-menu-icon {
+  @apply flex h-8 w-8 shrink-0
+    items-center justify-center
+    rounded-xl text-[16px]
+    transition-all duration-300;
+}
+
+.menu-item-inactive .sidebar-menu-icon {
+  color: rgba(255, 255, 255, 0.62);
+  background: transparent;
+}
+
+.menu-item-active .sidebar-menu-icon {
+  @apply text-white;
+
+  background: rgba(112, 43, 189, 0.42);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 4px 14px rgba(67, 20, 126, 0.22);
+}
+
+.sidebar-menu-icon-collapsed {
+  @apply mx-auto;
+}
+
+.sidebar-menu-dot {
+  @apply absolute h-2 w-2 shrink-0 rounded-full transition-all duration-200;
+
+  left: -1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.sidebar-menu-dot-active {
+  background: #9254de;
+
+  box-shadow:
+    0 0 0 3px rgba(146, 84, 222, 0.12),
+    0 0 8px rgba(146, 84, 222, 0.4);
+}
+
+.sidebar-menu-dot-active {
+  background: #9254de;
+
+  box-shadow:
+    0 0 0 3px rgba(146, 84, 222, 0.12),
+    0 0 8px rgba(146, 84, 222, 0.4);
+}
+
+.sidebar-menu-dot-inactive {
+  background: rgba(151, 94, 220, 0.75);
+}
+
+/* =========================
+   Section Header
+========================= */
+
+.sidebar-section-header {
+  @apply relative mt-3 mb-1.5
+    flex items-center
+    px-2 text-[11px]
+    font-bold uppercase
+    tracking-[2.2px];
+
+  color: #9d6ce0;
+}
+
+.sidebar-section-header::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  margin-left: 14px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(157, 108, 224, 0.3),
+    rgba(157, 108, 224, 0.04)
+  );
+}
+
+/* =========================
+   Menu Labels
+========================= */
+
+.sidebar-menu-label {
+  @apply flex-1 break-words
+    text-left text-[14px]
+    font-medium leading-tight
+    tracking-[0.15px]
+    transition-colors duration-200;
+}
+
+.sidebar-menu-label-active {
+  @apply font-semibold text-white;
+}
+
+.sidebar-menu-label-inactive {
+  @apply text-white
+    group-hover:text-white;
+}
+
+/* =========================
+   Chevron
+========================= */
+
+.sidebar-menu-chevron {
+  @apply ml-auto text-[14px]
+    font-bold
+    transition-all duration-300;
+}
+
+.sidebar-menu-chevron-open {
+  @apply rotate-90 text-white;
+}
+
+.sidebar-menu-chevron-closed {
+  @apply text-white/45
+    group-hover:text-white/80;
+}
+
+/* =========================
+   Submenu Container
+========================= */
+
+.sidebar-submenu {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+
+  transition:
+    grid-template-rows 300ms ease-in-out,
+    opacity 220ms ease-in-out;
+}
+
+.sidebar-submenu-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.sidebar-submenu-closed {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+.sidebar-submenu-viewport {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sidebar-submenu-inner {
+  @apply relative ml-5 mt-1 border-l pl-5;
+
+  border-color: rgba(157, 108, 224, 0.22);
+}
+
+/* =========================
+   Mid-Level Menu Items
+========================= */
+
+.menu-dropdown-item {
+  @apply relative flex w-full
+    items-start gap-3
+    rounded-[12px]
+    px-3 py-2.5
+    text-[13.5px]
+    transition-all duration-300;
+}
+
+.menu-dropdown-item-active {
+  @apply text-white;
+
+  background: rgba(105, 48, 176, 0.28);
+
+  border: 1px solid rgba(177, 119, 238, 0.18);
+}
+
+.menu-dropdown-item-inactive {
+  @apply text-white/65
+    hover:bg-white/[0.045]
+    hover:text-white;
+}
+
+/* =========================
+   Leaf Items
+========================= */
+
+.menu-leaf-item {
+  @apply relative flex w-full
+    items-center gap-3
+    rounded-lg
+    px-3 py-2
+    text-[13px]
+    transition-all duration-300;
+  padding-left: 1.75rem;
+}
+
+.menu-leaf-item::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  bottom: 0;
+  left: 30px;
+  height: 1px;
+
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.menu-leaf-item:last-child::after {
+  display: none;
+}
+
+.menu-leaf-item-active {
+  @apply font-semibold text-white;
+
+  background: rgba(126, 63, 198, 0.2);
+}
+
+.menu-leaf-item-inactive {
+  @apply text-white/68
+    hover:bg-white/[0.04]
+    hover:text-white;
+}
+
+/* =========================
+   Icon-less Items
+========================= */
+
+.sidebar-iconless-item {
+  @apply my-0.5 items-start
+    rounded-xl px-3 py-2;
+
+  gap: 2px;
+}
+
+.sidebar-iconless-item-active {
+  @apply text-white;
+}
+
+.sidebar-iconless-item-inactive {
+  @apply bg-transparent text-white/65;
+}
+
+/* =========================
+   Collapsed Hover Flyout
+========================= */
+
+.sidebar-flyout {
+  @apply absolute left-[calc(100%+12px)] top-0
+    z-[10050] w-[260px]
+    overflow-visible
+    rounded-2xl border border-white/10
+    p-2 text-left
+    opacity-100 shadow-2xl;
+
+  background: linear-gradient(
+    180deg,
+    rgba(52, 24, 95, 0.98),
+    rgba(35, 14, 70, 0.99)
+  );
+
+  box-shadow:
+    0 18px 45px rgba(20, 8, 42, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.sidebar-flyout::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: -7px;
+  width: 14px;
+  height: 14px;
+  transform: rotate(45deg);
+
+  background: rgba(52, 24, 95, 0.98);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-flyout-label {
+  @apply absolute left-[calc(100%+12px)] top-1/2
+    z-[10050]
+    -translate-y-1/2
+    whitespace-nowrap
+    rounded-xl
+    border border-white/10
+    px-4 py-2.5
+    text-[13px] font-semibold
+    text-white
+    shadow-xl;
+
+  background: linear-gradient(
+    180deg,
+    rgba(52, 24, 95, 0.98),
+    rgba(35, 14, 70, 0.99)
+  );
+}
+
+.sidebar-flyout-label::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  transform: translateY(-50%) rotate(45deg);
+
+  background: rgba(52, 24, 95, 0.98);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 1023px) {
+  .sidebar-flyout-label {
+    @apply hidden;
+  }
+}
+
+.sidebar-flyout-title,
+.sidebar-flyout-submenu-title {
+  @apply px-3 py-2
+    text-[11px] font-bold uppercase
+    tracking-[1.6px] text-purple-300;
+}
+
+.sidebar-flyout-submenu-title {
+  @apply whitespace-normal break-words
+    px-3 py-2
+    text-[11px] font-bold uppercase
+    leading-4 tracking-[1.2px]
+    text-purple-300;
+}
+
+.sidebar-flyout-list {
+  @apply flex flex-col gap-1;
+}
+
+.sidebar-flyout-item {
+  @apply relative;
+}
+
+.sidebar-flyout-action {
+  @apply flex min-h-10 w-full
+    items-center justify-between gap-3
+    rounded-xl border border-transparent
+    px-3 py-2.5
+    text-left text-[13px] font-medium
+    text-white/75
+    transition-all duration-200
+    hover:border-white/10
+    hover:bg-white/[0.08]
+    hover:text-white;
+}
+
+.sidebar-flyout-action > i {
+  @apply text-[11px] text-white/45
+    transition-transform duration-200;
+}
+
+.sidebar-flyout-item-parent:hover > .sidebar-flyout-action > i {
+  @apply translate-x-0.5 text-white/80;
+}
+
+.sidebar-flyout-action-active {
+  @apply border-purple-300/20
+    bg-purple-500/20
+    font-semibold text-white;
+}
+
+.sidebar-flyout-submenu {
+  @apply pointer-events-none
+    absolute top-0
+    z-[10060] w-[260px]          
+    max-w-none                
+    overflow-y-auto overflow-x-hidden
+    rounded-2xl
+    border border-white/10
+    p-2 opacity-0 shadow-2xl
+    transition-all duration-200;
+
+  left: calc(100% + 10px);
+  max-height: calc(100vh - 140px);
+  transform: translateX(6px);
+
+  background: linear-gradient(
+    180deg,
+    rgba(52, 24, 95, 0.99),
+    rgba(35, 14, 70, 0.99)
+  );
+}
+
+.sidebar-flyout-item-parent:hover > .sidebar-flyout-submenu,
+.sidebar-flyout-submenu:hover {
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sidebar-flyout-item-parent::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -16px;
+  width: 16px;
+  height: 100%;
+}
+
+.sidebar-flyout-list-nested .sidebar-flyout-action {
+  @apply text-[12.5px];
+}
+
+.app-sidebar-collapsed .sidebar-menu-list-item {
+  @apply overflow-visible;
+}
+
+@media (max-width: 1023px) {
+  .sidebar-flyout {
+    @apply hidden;
+  }
+}
+
+/* =========================
+   Footer Decoration
+========================= */
+
+.sidebar-decoration {
+  @apply pointer-events-none
+    absolute bottom-0 left-0
+    z-0 w-full
+    overflow-hidden rounded-b-[22px];
+
+  height: 245px;
+}
+
+.sidebar-decoration::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 165px;
+
+  background: linear-gradient(180deg, transparent, rgba(90, 26, 175, 0.08));
+}
+
+.sidebar-decoration-image {
+  @apply absolute bottom-0 left-1/2
+    h-auto max-w-none
+    object-contain object-bottom;
+
+  width: 118%;
+  opacity: 0.55;
+
+  transform: translateX(-50%);
+  transform-origin: bottom center;
+
+  filter: saturate(0.92) brightness(0.92);
+}
+
+/* =========================
+   Collapsed Adjustments
+========================= */
+
+.app-sidebar-collapsed .sidebar-logo-section {
+  @apply px-2;
+}
+
+.app-sidebar-collapsed .sidebar-nav-inner {
+  @apply overflow-visible;
+
+  padding: 0 12px 220px;
+}
+
+.app-sidebar-collapsed .menu-item {
+  @apply justify-center px-2;
+}
+
+.app-sidebar-collapsed .menu-item-active::before {
+  left: -3px;
+}
+
+.sidebar-delay-0 {
+  animation-delay: 0ms;
+}
+
+.sidebar-delay-1 {
+  animation-delay: 40ms;
+}
+
+.sidebar-delay-2 {
+  animation-delay: 80ms;
+}
+
+.sidebar-delay-3 {
+  animation-delay: 120ms;
+}
+
+.sidebar-delay-4 {
+  animation-delay: 160ms;
+}
+
+.sidebar-delay-5 {
+  animation-delay: 200ms;
+}
+
+/* =========================
+   Small Screens
+========================= */
+
+@media (max-width: 1023px) {
+  .app-sidebar-expanded {
+    width: min(280px, calc(100vw - 32px));
+  }
+
+  .app-sidebar-mobile-open .sidebar-mobile-close {
+    @apply flex;
+  }
+
+  .app-sidebar-mobile-open .sidebar-logo-section {
+    @apply pr-16;
+  }
+
+  .app-sidebar-mobile-open .sidebar-logo-title {
+    @apply max-w-[150px] text-[14px];
+  }
+}

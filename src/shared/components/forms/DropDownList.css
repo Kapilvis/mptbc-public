@@ -1,0 +1,187 @@
+@reference "../../../index.css";
+
+@layer components {
+  .form-dropdown-panel {
+    @apply leading-normal;
+  }
+
+  .form-dropdown-wrapper {
+    @apply flex w-full items-center;
+  }
+
+  .form-dropdown-checkbox-wrapper {
+    @apply mr-2 flex items-center;
+  }
+
+  .form-dropdown-input {
+    @apply w-full;
+  }
+
+  .form-dropdown-input-with-checkbox {
+    @apply flex-1;
+  }
+
+  /* =========================
+     Dropdown Field
+  ========================== */
+
+  .p-dropdown {
+    @apply flex h-[38px] w-full
+      items-center overflow-hidden
+      rounded-lg
+      border border-gray-200
+      bg-white p-0
+      text-label
+      transition-all duration-200
+      dark:border-gray-700
+      dark:bg-gray-900;
+  }
+
+  .p-dropdown:not(.p-disabled):hover {
+    @apply border-gray-300
+      dark:border-gray-600;
+  }
+
+  .p-dropdown.p-focus {
+    @apply border-primary-500
+      outline-none
+      shadow-[0_0_0_4px_rgba(42,18,80,0.10)]
+      dark:border-primary-400
+      dark:shadow-[0_0_0_4px_rgba(167,139,250,0.12)];
+  }
+
+  .p-dropdown .p-dropdown-label.p-inputtext {
+    @apply flex h-full min-w-0 flex-1
+      items-center
+      border-none bg-transparent
+      px-[0.65rem] py-0
+      text-label text-gray-800
+      shadow-none
+      dark:text-gray-100;
+  }
+
+  .p-dropdown .p-dropdown-trigger {
+    @apply flex h-full w-8 shrink-0
+      items-center justify-center
+      rounded-none
+      border-0 border-l border-gray-200
+      bg-transparent p-0
+      text-gray-500
+      dark:border-gray-700
+      dark:text-gray-400;
+  }
+
+  .p-dropdown .p-dropdown-trigger svg {
+    @apply h-3.5 w-3.5;
+  }
+
+  .p-dropdown.p-invalid {
+    @apply border-error-500
+      bg-error-50
+      dark:bg-error-500/10;
+  }
+
+  /* =========================
+     Dropdown Panel
+  ========================== */
+
+  .p-dropdown-panel {
+    @apply rounded-lg
+      border border-primary-100
+      bg-white p-1
+      shadow-theme-lg
+      dark:border-primary-400/20
+      dark:bg-gray-900;
+  }
+
+  .p-dropdown-panel .p-dropdown-items {
+    @apply bg-transparent;
+  }
+
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    @apply mx-0 my-0.5
+      rounded-lg
+      px-3 py-2
+      text-label font-medium
+      text-gray-600
+      transition-colors duration-150
+      dark:text-gray-300;
+  }
+
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item:focus {
+    @apply outline-none shadow-none;
+  }
+
+  .p-dropdown-panel
+    .p-dropdown-items
+    .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
+    @apply bg-primary-50
+      text-primary-600
+      dark:bg-primary-400/10
+      dark:text-primary-300;
+  }
+
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+    @apply bg-gradient-to-br
+      from-primary-600 to-primary-500
+      font-semibold text-white;
+  }
+
+  .p-dropdown-panel
+    .p-dropdown-items
+    .p-dropdown-item.p-focus:not(.p-highlight) {
+    @apply bg-primary-50
+      text-primary-600;
+  }
+
+  .dark
+    .p-dropdown-panel
+    .p-dropdown-items
+    .p-dropdown-item.p-focus:not(.p-highlight) {
+    @apply bg-primary-400/10
+      text-primary-300;
+  }
+
+  /* =========================
+     Dropdown Search
+  ========================== */
+
+  .p-dropdown-panel .p-dropdown-header {
+    @apply mb-1
+      border-b border-gray-100
+      bg-transparent p-2
+      dark:border-gray-800;
+  }
+
+  .p-dropdown-panel .p-dropdown-filter-container {
+    @apply relative w-full;
+  }
+
+  .p-dropdown-panel .p-dropdown-filter.p-inputtext {
+    @apply box-border h-[34px] w-full
+      rounded-lg
+      border border-gray-200
+      bg-gray-50
+      py-1 pl-3 pr-8
+      text-label
+      transition-all duration-200
+      dark:border-gray-700
+      dark:bg-white/5
+      dark:text-gray-200;
+  }
+
+  .p-dropdown-panel .p-dropdown-filter.p-inputtext:focus {
+    @apply border-primary-500
+      bg-white
+      shadow-[0_0_0_3px_rgba(42,18,80,0.10)]
+      dark:border-primary-400
+      dark:bg-gray-900
+      dark:shadow-[0_0_0_3px_rgba(167,139,250,0.12)];
+  }
+
+  .p-dropdown-panel .p-dropdown-filter-icon {
+    @apply right-3
+      text-body-sm
+      text-gray-400;
+  }
+}

@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+.card {
+  @apply bg-[var(--white)] rounded-md shadow-[0_8px_20px_var(--card-box-shadow)] transition-all duration-300 ease-in-out max-w-full border border-[rgba(124,58,237,0.12)] border-t-[3px] border-t-[#7c3aed] relative overflow-hidden;
+}
+
+.app-layout.sidebar-open .card {
+  @apply max-w-full mx-4;
+}
+
+.card-title {
+  @apply m-0 mb-0 pt-5 px-6 pb-4 text-xl font-semibold text-[var(--primary-color)] text-left border-b border-[rgba(124,58,237,0.1)];
+}
+
+.card-close-btn {
+  @apply absolute top-6 right-6 bg-transparent border border-[rgba(0,0,0,0.1)] text-xl text-[#64748b] cursor-pointer p-0 w-8 h-8 flex items-center justify-center rounded-full transition-all duration-200 ease-in-out;
+}
+
+.dark-theme .card-close-btn {
+  @apply text-[#94a3b8] border-[rgba(255,255,255,0.15)];
+}
+
+.card-close-btn:hover {
+  @apply bg-[rgba(0,0,0,0.05)] text-[#1e293b] border-[rgba(0,0,0,0.25)] scale-105;
+}
+
+.dark-theme .card-close-btn:hover {
+  @apply bg-[rgba(255,255,255,0.08)] text-[#f1f5f9] border-[rgba(255,255,255,0.3)];
+}
+
+.card-content {
+  @apply text-black p-2 sm:p-4;
+}
+
+/* Mobile responsive */
+@media (max-width: 780px) {
+  .card {
+    @apply my-4 mx-0 max-w-full w-full box-border;
+  }
+}
+
+/* Dark Mode Support */
+.dark-theme .card,
+.dark .card {
+  @apply !bg-[#131124] !border-[rgba(167,139,250,0.12)] !shadow-[0_15px_35px_rgba(0,0,0,0.4)];
+}
+
+.dark-theme .card-title,
+.dark .card-title {
+  @apply !text-[#f8fafc];
+}
+
+.dark-theme .card-content,
+.dark .card-content {
+  @apply !text-[#cbd5e1];
+}

@@ -1,0 +1,36 @@
+@reference "../../index.css";
+
+.scrollbar-shell {
+  @apply relative w-full overflow-visible;
+}
+
+.scrollbar-content {
+  @apply h-full overflow-y-auto pointer-events-none;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-content::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-content-collapsed {
+  width: 760px;
+}
+
+.scrollbar-content-expanded {
+  width: 280px;
+}
+
+.scrollbar-content-inner {
+  @apply min-h-full pointer-events-auto;
+}
+
+.scrollbar-content-inner-collapsed {
+  width: 88px;
+}
+
+.scrollbar-content-inner-expanded {
+  width: 280px;
+}

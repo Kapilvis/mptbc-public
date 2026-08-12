@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+.grid-panel-header {
+  @apply flex items-center justify-between gap-3 py-3 mb-4 border-b-[1.5px] border-[#ede9f8];
+}
+
+.grid-panel-title {
+  @apply text-xl text-[var(--surface-900,#212529)] font-bold;
+}
+
+.grid-panel-toolbar {
+  @apply flex w-full items-center justify-between gap-4;
+}
+
+.grid-panel-toolbar-left {
+  @apply flex min-w-0 items-center gap-2;
+}
+
+.grid-panel-toolbar-right {
+  @apply ml-auto flex shrink-0 items-center justify-end gap-3;
+}
+
+/* Premium Grid/Mosaic view toggle */
+.grid-view-toggle {
+  @apply flex items-center gap-2 rounded-xl;
+}
+
+.toggle-btn {
+  @apply inline-flex h-10 items-center justify-center gap-2 rounded-lg border bg-white px-4 text-sm font-bold transition-all duration-200;
+  color: var(--primary-color);
+  border-color: var(--border-color);
+}
+
+.toggle-btn:hover {
+  background-color: var(--color-primary-50);
+  border-color: var(--color-primary-200);
+}
+
+.toggle-btn.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--white);
+  box-shadow: 0 8px 18px
+    color-mix(in srgb, var(--primary-color) 22%, transparent);
+}
+
+.toggle-btn i {
+  @apply text-sm;
+}
+
+.grid-panel-search {
+  @apply w-[360px] max-w-full;
+}
+
+.grid-panel-search .input-block,
+.grid-panel-search .input-wrapper {
+  @apply mb-0 w-full;
+}
+
+/* Add Button styling */
+.grid-panel-toolbar .add-button {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.grid-panel-toolbar .add-button:hover {
+  background-color: var(--color-primary-700);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .grid-panel-toolbar {
+    @apply flex-col items-stretch gap-3;
+  }
+
+  .grid-panel-toolbar-left,
+  .grid-panel-toolbar-right {
+    @apply w-full justify-between;
+  }
+
+  .grid-panel-search {
+    @apply flex-1;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid-panel-toolbar-right {
+    @apply flex-col items-stretch;
+  }
+
+  .grid-panel-search {
+    @apply w-full;
+  }
+
+  .grid-panel-toolbar-right button {
+    @apply w-full;
+  }
+
+  .grid-view-toggle {
+    @apply w-full;
+  }
+
+  .toggle-btn {
+    @apply flex-1 px-3;
+  }
+}

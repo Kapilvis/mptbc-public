@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/* Layout classes to replace inline Tailwind */
+.input-switch-container {
+  @apply w-full mb-1;
+}
+
+.input-switch-layout-vertical {
+  @apply flex flex-col gap-2;
+}
+
+.input-switch-layout-horizontal {
+  @apply flex flex-row items-center justify-between gap-2 w-full;
+}
+
+.input-switch-label {
+  @apply font-semibold text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-tight flex-1;
+}
+
+.input-switch-required {
+  @apply text-red-500;
+}
+
+.input-switch-control {
+  @apply shrink-0;
+}
+
+.input-switch-inner {
+  @apply flex items-center;
+}
+
+.input-switch-error {
+  @apply block mt-1 text-sm text-red-500 whitespace-nowrap;
+}
+
+/* InputSwitch Styles */
+
+.input-switch-container .p-inputswitch {
+  @apply w-[44px] h-[24px];
+}
+
+/* Track — unchecked */
+.input-switch-container .p-inputswitch .p-inputswitch-slider {
+  @apply bg-[#e2d8f9] rounded-[30px] transition-colors duration-200;
+}
+
+/* Track — checked */
+.input-switch-container
+  .p-inputswitch.p-inputswitch-checked
+  .p-inputswitch-slider,
+.input-switch-container.is-checked .p-inputswitch .p-inputswitch-slider {
+  @apply !bg-[#7c3aed];
+}
+
+/* Knob base */
+.input-switch-container .p-inputswitch .p-inputswitch-slider:before {
+  content: "";
+  @apply !absolute w-[18px] h-[18px] left-[3px] top-1/2 -mt-[9px] rounded-full transition-transform duration-200 !bg-white shadow-[0_2px_5px_rgba(0,0,0,0.3)];
+}
+
+/* Knob — translate when checked */
+.input-switch-container
+  .p-inputswitch.p-inputswitch-checked
+  .p-inputswitch-slider:before,
+.input-switch-container.is-checked .p-inputswitch .p-inputswitch-slider:before {
+  @apply !bg-white !transform translate-x-[20px];
+}
+
+/* Validation error state */
+.input-switch-container .p-inputswitch.p-invalid .p-inputswitch-slider {
+  @apply border-[var(--danger-color)];
+}
+
+/* Disabled */
+.input-switch-container .p-inputswitch.p-disabled {
+  @apply opacity-60 pointer-events-none;
+}
+
+/* Dark Mode */
+.dark .input-switch-container .p-inputswitch .p-inputswitch-slider {
+  @apply bg-[#2d2b45] border-[#3b3459];
+}
+
+.dark .input-switch-container.is-checked .p-inputswitch .p-inputswitch-slider {
+  @apply !bg-[#3b2f6b] !border-[#7c3aed];
+}
+
+.dark .input-switch-container .p-inputswitch .p-inputswitch-slider:before {
+  @apply !bg-[#9f8ec4];
+}
+
+.dark
+  .input-switch-container.is-checked
+  .p-inputswitch
+  .p-inputswitch-slider:before {
+  @apply !bg-[#e9d5ff];
+}

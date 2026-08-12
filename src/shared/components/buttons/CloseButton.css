@@ -1,0 +1,35 @@
+@reference "tailwindcss";
+
+@layer components {
+  .close-button {
+    @apply !flex
+      !h-9
+      !w-9
+      !min-w-0
+      !items-center
+      !justify-center
+      !p-0
+      !shadow-none
+      !transition-all
+      !duration-200;
+
+    color: var(--primary-color) !important;
+  }
+
+  .close-button .p-button-icon,
+  .close-button i {
+    @apply !m-0;
+
+    font-size: 13px !important;
+    line-height: 1 !important;
+  }
+
+  .close-button .p-button-label {
+    display: none !important;
+  }
+
+  .close-button:hover {
+    background-color: rgba(124, 58, 237, 0.06) !important;
+    border-color: rgba(124, 58, 237, 0.28) !important;
+  }
+}

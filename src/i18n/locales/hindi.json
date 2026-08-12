@@ -1,0 +1,135 @@
+{
+  "translation": {
+    "Home": "मुख्य पृष्ठ",
+    "Profile": "प्रोफ़ाइल",
+    "Master": "मुख्य",
+    "Configuration": " कॉन्फ़िगरेशन",
+    "Directory": "निर्देशिका",
+    "Madhya Pradesh Textbook Corporation": "महिला और बाल विकास",
+
+    "home": {
+      "welcome_portal": "डब्ल्यूसीडी ईआरपी पोर्टल में आपका स्वागत है",
+      "sub_header": "प्रमुख आँकड़ों एवं हाल की गतिविधियों का अवलोकन"
+    },
+
+    "commonMessages": {
+      "ErrorInvalidCredentials": "अमान्य उपयोगकर्ता नाम या पासवर्ड।",
+      "ErrorAccountLocked": "आपका खाता लॉक कर दिया गया है। कृपया सहायता टीम से संपर्क करें।",
+      "ErrorAccountDisabled": "आपका खाता निष्क्रिय कर दिया गया है।",
+      "ErrorInvalidToken": "अमान्य टोकन।",
+      "ErrorTokenExpired": "आपका सत्र समाप्त हो गया है। कृपया पुनः साइन इन करें।",
+      "ErrorUnauthorized": "आपको यह कार्य करने की अनुमति नहीं है।",
+      "ErrorAccessDenied": "प्रवेश अस्वीकृत।",
+      "ErrorLoginFailed": "लॉगिन असफल रहा। कृपया पुनः प्रयास करें।",
+      "ErrorPasswordExpired": "आपका पासवर्ड समाप्त हो गया है।",
+      "ErrorRecordNotFound": "अनुरोधित रिकॉर्ड नहीं मिला।",
+      "ErrorRecordAlreadyExists": "रिकॉर्ड पहले से मौजूद है।",
+      "ErrorCreateFailed": "रिकॉर्ड बनाने में विफल।",
+      "ErrorUpdateFailed": "रिकॉर्ड अपडेट करने में विफल।",
+      "ErrorDeleteFailed": "रिकॉर्ड हटाने में विफल।",
+      "ErrorUnexpected": "एक अप्रत्याशित त्रुटि हुई।",
+      "ErrorInternalServer": "आंतरिक सर्वर त्रुटि हुई।",
+      "ErrorBadRequest": "अनुरोध अमान्य है।",
+      "ErrorServiceUnavailable": "सेवा वर्तमान में उपलब्ध नहीं है। कृपया बाद में पुनः प्रयास करें।",
+      "ErrorConflict": "विरोध के कारण अनुरोधित कार्य पूरा नहीं किया जा सका।",
+      "ErrorRequestTimeout": "अनुरोध का समय समाप्त हो गया।",
+      "ErrorDuplicateRecord": "समान रिकॉर्ड पहले से मौजूद है।",
+      "ErrorDatabase": "डेटाबेस त्रुटि हुई।",
+      "ErrorFileNotFound": "निर्दिष्ट फ़ाइल नहीं मिली।",
+      "ErrorInvalidFile": "चयनित फ़ाइल अमान्य है।",
+      "ErrorFileUploadFailed": "फ़ाइल अपलोड करने में विफल।",
+      "ErrorFileTooLarge": "चयनित फ़ाइल अनुमत आकार से बड़ी है।",
+      "ValidationRequired": "यह फ़ील्ड आवश्यक है।",
+      "ValidationInvalidEmail": "कृपया एक मान्य ईमेल पता दर्ज करें।",
+      "ValidationInvalidPhoneNumber": "कृपया एक मान्य फ़ोन नंबर दर्ज करें।",
+      "ValidationInvalidFormat": "दिया गया मान अमान्य प्रारूप में है।",
+      "ValidationMinLength": "मान बहुत छोटा है।",
+      "ValidationMaxLength": "मान अनुमत अधिकतम लंबाई से अधिक है।",
+      "ValidationInvalidValue": "दिया गया मान अमान्य है।",
+      "SuccessRecordCreated": "रिकॉर्ड सफलतापूर्वक बनाया गया।",
+      "SuccessRecordUpdated": "रिकॉर्ड सफलतापूर्वक अपडेट किया गया।",
+      "SuccessRecordDeleted": "रिकॉर्ड सफलतापूर्वक हटाया गया।",
+      "SuccessOperationCompleted": "कार्य सफलतापूर्वक पूरा हुआ।",
+      "SuccessFileUploaded": "फ़ाइल सफलतापूर्वक अपलोड की गई।",
+      "InfoNoDataFound": "कोई डेटा नहीं मिला।",
+      "InfoNoRecordsFound": "कोई रिकॉर्ड नहीं मिला।",
+      "InfoDataRetrieved": "डेटा सफलतापूर्वक प्राप्त किया गया।",
+      "WarningUnsavedChanges": "आपके कुछ परिवर्तन अभी तक सहेजे नहीं गए हैं।"
+    },
+
+    "routes": {
+      "master": {
+        "office": {
+          "office": "कार्यालय",
+          "office-level": "कार्यालय स्तर",
+          "office-type": "कार्यालय प्रकार",
+          "office-registration": "कार्यालय पंजीकरण"
+        },
+
+        "location": {
+          "location": "स्थान",
+          "state": "राज्य",
+          "division": "प्रभाग",
+          "district": "जिला",
+          "project": "परियोजना",
+          "sector": "सेक्टर"
+        },
+
+        "hrManagement": {
+          "hr-management": "कर्मचारी प्रबंधन",
+          "designation": "पदनाम",
+          "designation-type": "पदनाम प्रकार",
+          "qualification": "योग्यता",
+          "qualification-type": "योग्यता प्रकार",
+          "qualification-subject": "योग्यता विषय"
+        },
+        "socialCategory": {
+          "social-category": "सामाजिक श्रेणी",
+          "caste": "जाति",
+          "marital-status": "वैवाहिक स्थिति",
+          "disability-type": "विकलांगता का प्रकार",
+          "disability-percentage": "विकलांगता का प्रतिशत"
+        },
+
+        "financialManagement": {
+          "financial-management": "वित्तीय प्रबंधन",
+          "bank": "बैंक",
+          "ifsc-code": "आईएफएससी कोड"
+        },
+
+        "userManagement": {
+          "user-management": "उपयोगकर्ता प्रबंधन",
+          "user-registration": "उपयोगकर्ता पंजीकरण",
+          "role-management": "भूमिका प्रबंधन",
+          "user-assignment": "उपयोगकर्ता असाइनमेंट",
+          "role-permissions": "भूमिका अनुमतियाँ"
+        },
+
+        "anganwadi-type": "आंगनवाड़ी प्रकार",
+        "anganwadi-center-service": "आंगनवाड़ी-केंद्र सेवा",
+        "supporting-agency": "सहायक एजेंसी",
+        "located-place": "स्थित स्थान",
+        "drinking-water-source": "पीने के पानी का स्रोत",
+        "network-connectivity": "नेटवर्क कनेक्टिविटी",
+        "building-status": "भवन की स्थिति",
+        "area-type": "क्षेत्र प्रकार",
+        "anganwadi-structure-type": "आंगनवाड़ी संरचना प्रकार"
+      },
+
+      "directory": {
+        "anganwadi": {
+          "anganwadi-directory": "आंगनवाड़ी निर्देशिका",
+          "anganwadi-center": "आंगनवाड़ी केंद्र",
+          "staff-registration": "कर्मचारी पंजीकरण"
+        },
+        "child": {
+          "child-directory": "बच्चा निर्देशिका",
+          "age-group": "आयु समूह",
+          "scheame": "योजना",
+          "health-issue": "स्वास्थ्य समस्या",
+          "immunization-status": "टीकाकरण स्थिति"
+        }
+      }
+    }
+  }
+}

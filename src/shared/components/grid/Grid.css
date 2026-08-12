@@ -1,0 +1,309 @@
+@reference "../../../index.css";
+
+@layer components {
+  /* =========================
+     Grid Container
+  ========================== */
+
+  .p-datatable {
+    @apply w-full overflow-hidden
+      rounded-xl border border-gray-200
+      bg-white text-gray-700
+      shadow-theme-sm
+      transition-all duration-300
+      dark:border-gray-800
+      dark:bg-gray-900
+      dark:text-gray-300;
+  }
+
+  .p-datatable-wrapper {
+    @apply overflow-auto;
+  }
+
+  /* =========================
+     Grid Header
+  ========================== */
+
+  .p-datatable .p-datatable-thead > tr > th {
+    @apply border-b-0 border-r
+      border-r-white/10
+      bg-gradient-to-br
+      from-primary-800 to-primary-600
+      px-3.5 py-2
+      text-label font-semibold
+      uppercase tracking-[0.05em]
+      text-white
+      transition-colors duration-200
+      dark:border-r-white/5
+      dark:from-gray-950
+      dark:to-primary-900
+      dark:text-gray-100;
+  }
+
+  .p-datatable .p-datatable-thead > tr > th:last-child {
+    @apply border-r-0;
+  }
+
+  .p-datatable .p-datatable-thead > tr > th.p-sortable-column:hover {
+    @apply from-primary-700 to-primary-500
+      text-white
+      dark:from-primary-900
+      dark:to-primary-800;
+  }
+
+  .p-datatable .p-datatable-thead > tr > th.p-sortable-column.p-highlight {
+    @apply from-primary-700 to-primary-500
+      text-white
+      dark:from-primary-900
+      dark:to-primary-800;
+  }
+
+  /* =========================
+     Grid Rows
+  ========================== */
+
+  .p-datatable .p-datatable-tbody > tr {
+    @apply relative
+      bg-white
+      transition-colors duration-200
+      dark:bg-gray-900;
+  }
+
+  .p-datatable-striped .p-datatable-tbody > tr.p-row-odd {
+    @apply bg-gray-50
+      dark:bg-gray-950;
+  }
+
+  .p-datatable-striped .p-datatable-tbody > tr.p-row-even {
+    @apply bg-white
+      dark:bg-gray-900;
+  }
+
+  .p-datatable .p-datatable-tbody > tr:hover {
+    @apply bg-primary-50
+      shadow-[inset_3px_0_0_var(--primary-color)]
+      dark:bg-primary-900/20
+      dark:shadow-[inset_3px_0_0_var(--color-primary-400)];
+  }
+
+  .p-datatable .p-datatable-tbody > tr > td {
+    @apply border-b border-gray-100
+      border-r-0
+      px-3.5 py-2
+      text-body-sm
+      text-gray-600
+      dark:border-gray-800
+      dark:text-gray-300;
+  }
+
+  .p-datatable .p-datatable-tbody > tr:last-child > td {
+    @apply border-b-0;
+  }
+
+  /* =========================
+     Empty State
+  ========================== */
+
+  .p-datatable .p-datatable-emptymessage > td {
+    @apply py-10 text-center
+      text-body-sm
+      text-gray-500
+      dark:text-gray-400;
+  }
+
+  /* =========================
+     Sort Icons
+  ========================== */
+
+  .p-sortable-column .p-sortable-column-icon {
+    @apply ml-1.5 text-white
+      dark:text-gray-300;
+  }
+
+  .p-sortable-column svg {
+    @apply h-2.5 w-2.5 stroke-[3px];
+  }
+
+  /* =========================
+     Action Buttons
+  ========================== */
+
+  .action-buttons-container {
+    @apply flex items-center justify-center gap-1.5;
+  }
+
+  .action-buttons-container .p-button {
+    @apply h-auto min-w-[4.5rem]
+      rounded-md
+      px-[0.45rem] py-[0.18rem]
+      text-caption font-semibold
+      tracking-[0.01em]
+      transition-all duration-200;
+  }
+
+  .action-buttons-container .p-button:has(.pi-eye) {
+    @apply border border-blue-200
+      bg-blue-50 text-blue-600
+      dark:border-blue-500/30
+      dark:bg-blue-500/10
+      dark:text-blue-300;
+  }
+
+  .action-buttons-container .p-button:has(.pi-eye):hover {
+    @apply border-blue-600
+      bg-blue-600 text-white
+      shadow-sm
+      dark:border-blue-500
+      dark:bg-blue-500;
+  }
+
+  .action-buttons-container .p-button:has(.pi-pencil) {
+    @apply border border-primary-200
+      bg-primary-50 text-primary-600
+      dark:border-primary-400/30
+      dark:bg-primary-400/10
+      dark:text-primary-300;
+  }
+
+  .action-buttons-container .p-button:has(.pi-pencil):hover {
+    @apply border-primary-600
+      bg-primary-600 text-white
+      shadow-sm
+      dark:border-primary-500
+      dark:bg-primary-500;
+  }
+
+  .action-buttons-container .p-button:has(.pi-trash),
+  .action-buttons-container .p-button.p-button-danger {
+    @apply border border-error-200
+      bg-error-50 text-error-600
+      dark:border-error-400/30
+      dark:bg-error-400/10
+      dark:text-error-300;
+  }
+
+  .action-buttons-container .p-button:has(.pi-trash):hover,
+  .action-buttons-container .p-button.p-button-danger:hover {
+    @apply border-error-600
+      bg-error-600 text-white
+      shadow-sm
+      dark:border-error-500
+      dark:bg-error-500;
+  }
+
+  /* =========================
+     Paginator
+  ========================== */
+
+  .p-paginator {
+    @apply flex items-center gap-0.5
+      rounded-b-xl
+      border-t border-gray-100
+      bg-white px-4 py-2.5
+      dark:border-gray-800
+      dark:bg-gray-900;
+  }
+
+  .p-paginator .p-inputtext {
+    @apply rounded-md px-[0.45rem] py-[0.3rem];
+  }
+
+  .grid-paginator-pages {
+    @apply mx-2 flex items-center;
+  }
+
+  .p-paginator-current {
+    @apply mr-auto
+      text-caption font-semibold
+      text-gray-500
+      dark:text-gray-400;
+  }
+
+  .p-paginator-rpp-options {
+    @apply ml-auto;
+  }
+
+  .p-paginator .p-paginator-page,
+  .p-paginator .p-paginator-prev,
+  .p-paginator .p-paginator-next,
+  .p-paginator .p-paginator-first,
+  .p-paginator .p-paginator-last {
+    @apply mx-[0.1rem]
+      inline-flex h-[30px] w-[30px]
+      min-w-[30px]
+      items-center justify-center
+      rounded-full
+      border border-gray-200
+      bg-white
+      text-caption text-gray-600
+      transition-all duration-200
+      dark:border-gray-700
+      dark:bg-gray-800
+      dark:text-gray-300;
+  }
+
+  .p-paginator .p-paginator-page:hover,
+  .p-paginator .p-paginator-prev:hover,
+  .p-paginator .p-paginator-next:hover,
+  .p-paginator .p-paginator-first:hover,
+  .p-paginator .p-paginator-last:hover {
+    @apply scale-105
+      border-primary-300
+      bg-primary-50
+      text-primary-600
+      dark:border-primary-400
+      dark:bg-primary-400/10
+      dark:text-primary-300;
+  }
+
+  .p-paginator .p-paginator-page.p-highlight {
+    @apply border-primary-500
+      bg-gradient-to-br
+      from-primary-600 to-primary-500
+      font-semibold text-white
+      shadow-sm
+      dark:border-primary-400
+      dark:from-primary-600
+      dark:to-primary-500;
+  }
+
+  .p-paginator .p-dropdown {
+    @apply h-[30px]
+      rounded-lg
+      border border-gray-200
+      bg-white
+      text-caption
+      dark:border-gray-700
+      dark:bg-gray-800;
+  }
+
+  .p-paginator .p-dropdown-label {
+    @apply flex items-center px-2 py-0.5
+      text-gray-600
+      dark:text-gray-300;
+  }
+
+  .p-paginator .p-dropdown-trigger {
+    @apply text-gray-400
+      dark:text-gray-500;
+  }
+
+  /* =========================
+     Grid Scrollbar
+  ========================== */
+
+  .p-datatable-wrapper::-webkit-scrollbar {
+    @apply h-1.5 w-1.5;
+  }
+
+  .p-datatable-wrapper::-webkit-scrollbar-track {
+    @apply bg-gray-100
+      dark:bg-gray-900;
+  }
+
+  .p-datatable-wrapper::-webkit-scrollbar-thumb {
+    @apply rounded-full
+      bg-gray-300
+      dark:bg-gray-700;
+  }
+}

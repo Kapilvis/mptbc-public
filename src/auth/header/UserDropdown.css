@@ -1,0 +1,274 @@
+@reference "tailwindcss";
+
+@layer components {
+  .dark .user-dropdown-menu {
+    background-color: var(--color-gray-950);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  /* Main Wrapper */
+
+  .wcd-user-dropdown {
+    @apply relative;
+  }
+
+  /* Toggle Button */
+
+  .user-dropdown-toggle {
+    @apply flex cursor-pointer items-center gap-3
+      rounded-full border border-transparent
+      bg-transparent p-1
+      transition-all duration-300
+      hover:bg-gray-100
+      focus-visible:outline-none
+      focus-visible:ring-2
+      dark:hover:border-white/10
+      dark:hover:bg-white/5;
+  }
+
+  .user-dropdown-toggle:focus-visible {
+    --tw-ring-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+  }
+
+  /* Avatar */
+
+  .user-dropdown-avatar-wrapper {
+    @apply relative shrink-0;
+  }
+
+  .user-dropdown-avatar {
+    @apply h-8 w-8 overflow-hidden
+      rounded-full border-2
+      transition-colors;
+
+    border-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  }
+
+  .user-dropdown-toggle:hover .user-dropdown-avatar {
+    border-color: var(--color-primary);
+  }
+
+  .user-dropdown-avatar-image {
+    @apply h-full w-full object-cover;
+  }
+
+  .user-dropdown-online-status {
+    @apply absolute block h-2.5 w-2.5
+      rounded-full ring-2
+      ring-white shadow-sm
+      dark:ring-gray-900;
+
+    right: -1px;
+    bottom: -1px;
+    z-index: 10;
+    background-color: var(--color-success-500);
+  }
+
+  /* User Details */
+
+  .user-dropdown-user-details {
+    @apply hidden text-left lg:block;
+  }
+
+  .user-dropdown-user-name {
+    @apply block text-sm font-bold
+      leading-tight text-gray-800
+      transition-colors
+      dark:text-white;
+  }
+
+  .user-dropdown-toggle:hover .user-dropdown-user-name {
+    color: var(--color-primary);
+  }
+
+  .dark .user-dropdown-toggle:hover .user-dropdown-user-name {
+    color: var(--color-brand-400, #818cf8);
+  }
+
+  .user-dropdown-user-role {
+    @apply block text-[10px] font-medium
+      uppercase tracking-wider
+      text-gray-400
+      dark:text-gray-500;
+  }
+
+  .user-dropdown-arrow {
+    @apply text-sm text-gray-400
+      transition-all duration-300
+      ease-in-out
+      dark:text-gray-500;
+  }
+
+  .user-dropdown-toggle:hover .user-dropdown-arrow {
+    color: var(--color-primary);
+  }
+
+  /* Dropdown Menu */
+
+  .user-dropdown-menu {
+    @apply absolute right-0 mt-3
+      flex flex-col overflow-hidden
+      rounded-2xl border
+      shadow-2xl;
+
+    width: 17.5rem;
+    z-index: 50;
+    border-color: var(--color-gray-200);
+    background-color: #ffffff;
+  }
+
+  .user-dropdown-menu-content {
+    @apply p-2;
+  }
+
+  .user-dropdown-heading {
+    @apply px-3 py-2
+      text-[10px] font-black
+      uppercase text-gray-400;
+
+    letter-spacing: 1.5px;
+  }
+
+  .user-dropdown-list {
+    @apply flex flex-col gap-0.5;
+  }
+
+  /* Common Menu Item */
+
+  .user-dropdown-item {
+    @apply flex w-full cursor-pointer
+      items-center gap-3
+      rounded-xl border-none
+      bg-transparent px-3 py-2.5
+      text-left
+      transition-all
+      hover:bg-white/5;
+  }
+
+  .user-dropdown-item:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 5%, transparent);
+  }
+
+  .dark .user-dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .user-dropdown-item-icon {
+    @apply flex items-center justify-center
+      rounded-lg bg-gray-50 p-2.5
+      text-sm text-gray-500
+      transition-all
+      dark:bg-white/5
+      dark:text-gray-400;
+  }
+
+  .user-dropdown-item:hover .user-dropdown-item-icon {
+    color: #ffffff;
+    background-color: var(--color-primary);
+  }
+
+  .user-dropdown-item-content {
+    @apply flex flex-col items-start;
+  }
+
+  .user-dropdown-item-title {
+    @apply text-sm font-bold
+      text-gray-700
+      transition-colors
+      dark:text-gray-300;
+  }
+
+  .user-dropdown-item:hover .user-dropdown-item-title {
+    color: var(--color-primary);
+  }
+
+  .dark .user-dropdown-item:hover .user-dropdown-item-title {
+    color: #ffffff;
+  }
+
+  .user-dropdown-item-description {
+    @apply text-[10px] text-gray-400;
+  }
+
+  .user-dropdown-settings {
+    @apply border-none;
+  }
+
+  /* Divider */
+
+  .user-dropdown-divider {
+    @apply my-2 border-t dark:border-white/5;
+
+    border-color: var(--color-gray-200);
+  }
+
+  /* Logout */
+
+  .user-dropdown-logout {
+    @apply flex w-full cursor-pointer
+      items-center gap-3
+      rounded-xl border-none
+      bg-transparent px-3 py-3
+      text-left
+      transition-all;
+  }
+
+  .user-dropdown-logout:hover {
+    background-color: color-mix(
+      in srgb,
+      var(--color-error-500) 8%,
+      transparent
+    );
+  }
+
+  .dark .user-dropdown-logout:hover {
+    background-color: color-mix(
+      in srgb,
+      var(--color-error-500) 10%,
+      transparent
+    );
+  }
+
+  .user-dropdown-logout-icon {
+    @apply flex items-center justify-center
+      rounded-lg p-2.5 text-sm
+      transition-all;
+
+    color: var(--color-error-500);
+    background-color: color-mix(
+      in srgb,
+      var(--color-error-500) 8%,
+      transparent
+    );
+  }
+
+  .dark .user-dropdown-logout-icon {
+    background-color: color-mix(
+      in srgb,
+      var(--color-error-500) 10%,
+      transparent
+    );
+  }
+
+  .user-dropdown-logout:hover .user-dropdown-logout-icon {
+    color: #ffffff;
+    background-color: var(--color-error-500);
+  }
+
+  .user-dropdown-logout-title {
+    @apply text-sm font-bold
+      transition-colors;
+
+    color: var(--color-error-600);
+  }
+
+  .user-dropdown-logout:hover .user-dropdown-logout-title {
+    color: var(--color-error-700);
+  }
+
+  .user-dropdown-logout-description {
+    @apply text-[10px] transition-colors;
+
+    color: color-mix(in srgb, var(--color-error-500) 60%, transparent);
+  }
+}
+

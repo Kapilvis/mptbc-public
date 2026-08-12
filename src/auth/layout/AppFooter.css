@@ -1,0 +1,42 @@
+@reference "../../index.css";
+
+.app-footer {
+  @apply mt-auto w-full
+    border-t
+    bg-white/70
+    px-3 py-1
+    backdrop-blur-md
+    dark:bg-gray-900/70
+    sm:px-6 sm:py-2;
+
+  border-top-color: var(--yellow);
+}
+
+.app-footer-content {
+  @apply flex w-full
+    flex-row
+    items-center
+    justify-between
+    gap-2;
+}
+
+.app-footer-copyright {
+  @apply flex min-w-0
+    flex-wrap
+    items-center gap-1;
+}
+
+.app-footer-credit {
+  @apply flex shrink-0
+    items-center gap-1
+    text-right;
+}
+
+.app-footer-company {
+  @apply shrink-0 font-bold;
+}
+
+.app-footer-content span {
+  @apply text-[11px] leading-4
+    sm:text-sm sm:leading-normal;
+}

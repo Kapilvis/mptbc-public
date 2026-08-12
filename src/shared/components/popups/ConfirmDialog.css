@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+.p-confirm-dialog {
+  @apply rounded-xl border-none shadow-[0_10px_40px_rgba(0,0,0,0.1)] min-w-[400px];
+  animation: fadeInScale 0.2s ease-out;
+}
+
+.p-confirm-dialog .p-dialog-header {
+  @apply bg-[#f8f9fa] border-b border-[#e9ecef] rounded-t-xl py-4 px-6;
+}
+
+.p-confirm-dialog .p-dialog-title {
+  @apply font-bold text-[#343a40] text-xl tracking-tight;
+}
+
+.p-confirm-dialog .p-dialog-content {
+  @apply py-8 px-6 flex items-start gap-4 bg-white;
+}
+
+.p-confirm-dialog .p-confirm-dialog-icon {
+  @apply text-[#f59e0b] text-[3rem] shrink-0;
+}
+
+.p-confirm-dialog .p-confirm-dialog-message {
+  @apply text-[#495057] text-base leading-relaxed m-0 font-medium;
+}
+
+.p-confirm-dialog .p-dialog-footer {
+  @apply bg-[#f8f9fa] border-t border-[#e9ecef] rounded-b-xl py-4 px-6 flex justify-end gap-3;
+}
+
+.p-confirm-dialog .p-dialog-footer button {
+  @apply m-0 py-[0.6rem] px-5 rounded-lg text-sm transition-all duration-200;
+}
+
+/* Accept/Confirm button (primary style) */
+.p-confirm-dialog .p-dialog-footer .p-confirm-dialog-accept {
+  @apply bg-[var(--primary-color,#007bff)] border border-[var(--primary-color,#007bff)] text-white font-semibold;
+}
+
+.p-confirm-dialog .p-dialog-footer .p-confirm-dialog-accept:hover {
+  @apply bg-[#0056b3] border-[#0056b3] text-white -translate-y-[1px] shadow-[0_4px_12px_rgba(0,123,255,0.3)];
+}
+
+.p-confirm-dialog .p-dialog-footer .p-confirm-dialog-accept:focus,
+.p-confirm-dialog .p-dialog-footer .p-confirm-dialog-accept:active,
+.p-confirm-dialog .p-dialog-footer .p-confirm-dialog-accept:focus-visible {
+  @apply outline-none shadow-none;
+}
+
+/* Reject/Cancel button (outline style) */
+.p-confirm-dialog .p-dialog-footer .p-confirm-dialog-reject {
+  @apply bg-transparent border-2 border-[var(--primary-color,#007bff)] text-[var(--primary-color,#007bff)] font-medium;
+}
+
+.p-confirm-dialog .p-dialog-footer .p-confirm-dialog-reject:hover {
+  @apply bg-[var(--primary-color,#007bff)] text-white -translate-y-[1px] shadow-[0_2px_8px_rgba(0,123,255,0.2)];
+}
+
+.p-confirm-dialog .p-dialog-footer .p-confirm-dialog-reject:focus,
+.p-confirm-dialog .p-dialog-footer .p-confirm-dialog-reject:active,
+.p-confirm-dialog .p-dialog-footer .p-confirm-dialog-reject:focus-visible {
+  @apply outline-none shadow-none;
+}
+
+/* Toast positioning */
+.p-toast {
+  @apply !z-[10010] w-[22rem];
+}
+
+.p-toast .p-toast-message {
+  @apply rounded-lg shadow-[0_4px_16px_rgba(0,0,0,0.1)] my-2 mx-0;
+}
+
+.p-toast .p-toast-message-content {
+  @apply py-[0.6rem] px-[0.9rem] items-center;
+}
+
+.p-toast .p-toast-detail {
+  @apply text-[0.82rem] m-0;
+}
+
+.p-toast .p-toast-summary {
+  @apply text-[0.875rem];
+}
+
+.p-toast .p-toast-message-success {
+  @apply bg-[#10b981] border-none text-white;
+}
+
+.p-toast .p-toast-message-error {
+  @apply bg-[#ef4444] border-none text-white;
+}
+
+.p-toast .p-toast-message-warn {
+  @apply bg-[#f59e0b] border-none text-white;
+}
+
+.p-toast .p-toast-message-info {
+  @apply bg-[#3b82f6] border-none text-white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .p-confirm-dialog {
+    @apply min-w-[300px] max-w-[90vw];
+  }
+
+  .p-confirm-dialog .p-dialog-content {
+    @apply py-6 px-4;
+  }
+
+  .p-confirm-dialog .p-confirm-dialog-icon {
+    @apply text-[2.5rem];
+  }
+
+  .p-confirm-dialog .p-dialog-footer {
+    @apply flex-col;
+  }
+
+  .p-confirm-dialog .p-dialog-footer button {
+    @apply w-full;
+  }
+}
+
+/* Dialog overlay */
+.p-dialog-mask {
+  @apply backdrop-blur-[3px] bg-[rgba(0,0,0,0.4)] !z-[10005];
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

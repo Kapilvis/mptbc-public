@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+.p-calendar {
+  @apply !flex w-full relative;
+}
+
+.p-calendar-w-btn .p-inputtext {
+  @apply !rounded-tr-none !rounded-br-none !border-r-0;
+}
+
+.p-calendar .p-datepicker-trigger {
+  @apply !bg-[#f5f3ff] !border !border-[#e2e8f0] !border-l-0 !text-[#7c3aed] !w-[2.375rem] !h-[2.375rem] !rounded-tr-lg !rounded-br-lg !rounded-tl-none !rounded-bl-none transition-all duration-200 !flex !items-center !justify-center !p-0;
+}
+
+.p-calendar .p-inputtext {
+  @apply !h-[2.375rem] flex-[1_1_auto] w-[1%];
+}
+
+.p-calendar .p-datepicker-trigger:enabled:hover {
+  @apply !bg-[#ede9fe] !text-[#6d28d9] !border-[#cbd5e1];
+}
+
+.p-calendar .p-datepicker-trigger:enabled:active {
+  @apply !bg-[#ddd6fe] scale-[0.98];
+}
+
+.p-calendar:has(.p-inputtext:focus) .p-datepicker-trigger {
+  @apply !border-[#7c3aed] !shadow-[0_0_0_4px_rgba(124,58,237,0.1)];
+}
+
+.p-datepicker {
+  @apply !bg-white !border !border-[#e2e8f0] !rounded-xl !shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] !p-[0.35rem] !mt-1 !font-[inherit] !w-auto;
+}
+
+.p-datepicker .p-datepicker-header {
+  @apply !bg-transparent !border-b !border-[#f1f5f9] !py-1 !px-0 !mb-1;
+}
+
+.p-datepicker .p-datepicker-title {
+  @apply !flex !items-center !justify-center !gap-[0.35rem] !font-bold !text-[#1e293b] !text-[0.9375rem];
+}
+
+.dark-theme .p-datepicker .p-datepicker-title {
+  @apply !text-[#e2e8f0];
+}
+
+.p-datepicker .p-datepicker-prev,
+.p-datepicker .p-datepicker-next {
+  @apply !w-6 !h-6 !rounded-md !text-[#64748b] transition-all duration-200;
+}
+
+.p-datepicker .p-datepicker-prev:hover,
+.p-datepicker .p-datepicker-next:hover {
+  @apply !bg-[#f1f5f9] !text-[#1e293b];
+}
+
+.p-datepicker table th {
+  @apply !p-[0.2rem] !font-semibold !text-[#94a3b8] !text-[0.65rem] !uppercase tracking-[0.05em];
+}
+
+.p-datepicker table td {
+  @apply !p-[1px];
+}
+
+.p-datepicker table td > span {
+  @apply !w-[1.65rem] !h-[1.65rem] !rounded-md !font-medium !text-[0.7rem] transition-all duration-200 !flex !items-center !justify-center;
+}
+
+.p-datepicker table td > span.p-highlight {
+  @apply !bg-gradient-to-br !from-[#7c3aed] !to-[#6d28d9] !text-white !shadow-[0_4px_12px_rgba(124,58,237,0.3)];
+}
+
+.p-datepicker table td.p-datepicker-today > span {
+  @apply !bg-[#f5f3ff] !text-[#7c3aed] !font-bold !border !border-[#7c3aed];
+}
+
+.p-datepicker table td.p-datepicker-today > span.p-highlight {
+  @apply !bg-gradient-to-br !from-[#7c3aed] !to-[#6d28d9] !text-white !border-none;
+}
+
+.p-datepicker table td > span:not(.p-highlight):not(.p-disabled):hover {
+  @apply !bg-[#f5f3ff] !text-[#7c3aed];
+}
+
+.p-datepicker-buttonbar {
+  @apply !border-t !border-[#f1f5f9] !pt-1 !px-0 !pb-[0.15rem] !flex !gap-[0.4rem];
+}
+
+.p-datepicker-buttonbar .p-button {
+  @apply !flex-1 !p-1 !text-xs !font-semibold !rounded-md transition-all duration-200;
+}
+
+.p-datepicker-buttonbar .p-button.p-datepicker-today-button {
+  @apply !bg-[#f5f3ff] !border !border-[rgba(124,58,237,0.15)] !text-[#7c3aed];
+}
+
+.p-datepicker-buttonbar .p-button.p-datepicker-today-button:hover {
+  @apply !bg-[#ede9fe] !text-[#6d28d9];
+}
+
+.p-datepicker-buttonbar .p-button.p-datepicker-clear-button {
+  @apply !bg-transparent !border !border-transparent !text-[#ef4444];
+}
+
+.p-datepicker-buttonbar .p-button.p-datepicker-clear-button:hover {
+  @apply !bg-[#fef2f2] !text-[#b91c1c];
+}
+
+.p-timepicker {
+  @apply !border-t !border-[#f1f5f9] !py-3 !px-0 !mt-2;
+}
+
+.p-timepicker span {
+  @apply !text-lg !font-semibold !text-[#1e293b];
+}
+
+.p-timepicker button {
+  @apply !w-8 !h-8 !text-[#7c3aed] !rounded-md !inline-flex !items-center !justify-center;
+}
+
+.p-timepicker button:hover {
+  @apply !bg-[#f5f3ff] !text-[#6d28d9];
+}
+
+.p-datepicker-timeonly .p-timepicker {
+  @apply !border-t-0;
+}
+
+.dark-theme .p-calendar .p-datepicker-trigger {
+  @apply !bg-[rgba(124,58,237,0.15)] !border-[#2d2a45] !text-[#c084fc];
+}
+
+.dark-theme .p-calendar .p-datepicker-trigger:enabled:hover {
+  @apply !bg-[rgba(124,58,237,0.25)] !border-[#4b4869] !text-[#e9d5ff];
+}
+
+.dark-theme .p-datepicker {
+  @apply !bg-[#131124] !border-[#2d2a45] !shadow-[0_10px_30px_-5px_rgba(0,0,0,0.5)];
+}
+
+.dark-theme .p-datepicker .p-datepicker-header {
+  @apply !border-b-[rgba(255,255,255,0.08)];
+}
+
+.dark-theme .p-datepicker .p-datepicker-title {
+  @apply !text-[#f1f5f9];
+}
+
+.dark-theme .p-datepicker .p-datepicker-prev,
+.dark-theme .p-datepicker .p-datepicker-next {
+  @apply !text-[#94a3b8];
+}
+
+.dark-theme .p-datepicker .p-datepicker-prev:hover,
+.dark-theme .p-datepicker .p-datepicker-next:hover {
+  @apply !bg-[rgba(255,255,255,0.05)] !text-[#f1f5f9];
+}
+
+.dark-theme .p-datepicker table th {
+  @apply !text-[#64748b];
+}
+
+.dark-theme
+  .p-datepicker
+  table
+  td
+  > span:not(.p-highlight):not(.p-disabled):hover {
+  @apply !bg-[rgba(124,58,237,0.15)] !text-[#c084fc];
+}
+
+.dark-theme .p-datepicker table td.p-datepicker-today > span {
+  @apply !bg-[rgba(124,58,237,0.15)] !text-[#c084fc] !border-[#7c3aed];
+}
+
+.dark-theme .p-datepicker-buttonbar {
+  @apply !border-t-[rgba(255,255,255,0.08)];
+}
+
+.dark-theme .p-datepicker-buttonbar .p-button.p-datepicker-today-button {
+  @apply !bg-[rgba(124,58,237,0.15)] !border-[rgba(124,58,237,0.25)] !text-[#c084fc];
+}
+
+.dark-theme .p-datepicker-buttonbar .p-button.p-datepicker-today-button:hover {
+  @apply !bg-[rgba(124,58,237,0.25)] !text-[#e9d5ff];
+}
+
+.dark-theme .p-timepicker {
+  @apply !border-t-[rgba(255,255,255,0.08)];
+}
+
+.dark-theme .p-timepicker span {
+  @apply !text-[#f1f5f9];
+}
+
+.dark-theme .p-timepicker button {
+  @apply !text-[#c084fc];
+}
+
+.dark-theme .p-timepicker button:hover {
+  @apply !bg-[rgba(124,58,237,0.15)] !text-[#e9d5ff];
+}

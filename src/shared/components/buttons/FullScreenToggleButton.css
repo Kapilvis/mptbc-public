@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+.fullscreen-toggle-btn {
+  @apply relative flex items-center justify-center text-slate-500 bg-white/75 backdrop-blur-md border border-[rgba(124,58,237,0.12)] rounded-full w-9 h-9 cursor-pointer shadow-[0_4px_6px_-1px_rgba(42,18,80,0.03),0_2px_4px_-1px_rgba(42,18,80,0.02)] transition-all duration-250 ease-in-out;
+}
+
+.fullscreen-toggle-btn:hover {
+  @apply bg-[rgba(245,243,255,0.95)] border-[rgba(124,58,237,0.3)] text-[#7c3aed] -translate-y-[1px] scale-105 shadow-[0_10px_15px_-3px_rgba(124,58,237,0.1),0_4px_6px_-2px_rgba(124,58,237,0.05)];
+}
+
+.fullscreen-toggle-btn:active {
+  @apply translate-y-0 scale-95 duration-100;
+}
+
+.fullscreen-toggle-btn i {
+  @apply text-base transition-transform duration-200 ease-in-out;
+}
+
+.fullscreen-toggle-btn:hover i {
+  @apply scale-110;
+}
+
+/* Dark mode */
+.dark .fullscreen-toggle-btn {
+  @apply border-[rgba(167,139,250,0.15)] bg-[rgba(30,27,46,0.65)] text-slate-400 shadow-[0_4px_10px_rgba(0,0,0,0.2)];
+}
+
+.dark .fullscreen-toggle-btn:hover {
+  @apply bg-[rgba(124,58,237,0.15)] border-[rgba(167,139,250,0.4)] text-purple-400 shadow-[0_10px_20px_-5px_rgba(124,58,237,0.25),0_0_12px_rgba(124,58,237,0.15)];
+}

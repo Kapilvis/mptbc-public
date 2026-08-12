@@ -1,0 +1,58 @@
+import { useFormServerError } from "auth/hooks/useFormServerError";
+import { errors } from "config/errors";
+import { useAppForm } from "shared/hooks/form";
+import validation from "shared/utils/validation";
+import { expressions } from "shared/utils/validation/config";
+
+const schema = validation.create<Master.DivisionForm>((o) => ({
+  name: o
+    .string()
+    .required()
+    .pattern(expressions.englishOnly)
+    .messages({ "string.pattern.base": errors.englishOnly })
+    .label("Name")
+    .max(45),
+  localName: o
+    .string()
+    .optional()
+    .allow("", null)
+    .pattern(expressions.hindiOnly)
+    .messages({ "string.pattern.base": errors.hindiOnly })
+    .label("Local name")
+    .max(50),
+  code: o
+    .string()
+    .required()
+    .pattern(expressions.alphaNumericOnly)
+    .messages({ "string.pattern.base": errors.alphaNumericOnly })
+    .label("Code")
+    .max(4),
+  lgdCode: o
+    .string()
+    .optional()
+    .allow("", null)
+    .pattern(expressions.numericOnly)
+    .messages({ "string.pattern.base": errors.numericOnly })
+    .label("Local Government Directory Code")
+    .max(4),
+}));
+
+export function useDivisionForm(
+  submitCallback: Forms.SubmitFunc<Master.DivisionForm>,
+  defaultValues?: Forms.FetchDataFunc<Master.DivisionForm>,
+) {
+  const form = useAppForm<Master.DivisionForm>({
+    defaultValues: defaultValues,
+    resolver: validation.resolver(schema),
+  });
+
+  useFormServerError(form);
+
+  const { register, handleSubmit, reset } = form;
+
+  return {
+    register,
+    handleSubmit: handleSubmit(submitCallback),
+    reset,
+  };
+}

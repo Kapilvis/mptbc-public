@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+.page-title {
+  @apply text-2xl text-center text-[var(--primary-color)] font-semibold m-0 leading-normal;
+}
+
+.page-subtitle {
+  @apply text-base text-center text-[var(--text-color-secondary)] mt-4 mb-0 pl-4 font-medium leading-relaxed opacity-100 ml-0 mr-auto max-w-[60rem] whitespace-normal break-words;
+}
+
+.page-subtitle p {
+  @apply m-0 -mt-3;
+}
+
+.dark-theme .page-title {
+  @apply text-[var(--dark-text)];
+}
+
+.dark-theme .page-subtitle {
+  @apply text-[var(--dark-text-secondary)] opacity-75;
+}

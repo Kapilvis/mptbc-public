@@ -1,0 +1,244 @@
+@reference "tailwindcss";
+
+/* =========================================================
+   MAIN HEADER
+========================================================= */
+
+.app-header {
+  @apply z-[100] flex h-12
+    min-h-12 max-h-12
+    w-full shrink-0 items-center
+    px-4 sm:px-6
+    transition-all duration-300;
+
+  border-bottom: 1px solid rgb(229 231 235 / 50%);
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 6%);
+}
+
+.app-header-container {
+  @apply flex w-full
+    items-center justify-between;
+}
+
+/* =========================================================
+   LEFT SECTION
+========================================================= */
+
+.app-header-left {
+  @apply flex min-w-0
+    items-center gap-4;
+}
+
+.sidebar-toggle-btn {
+  @apply flex h-[40px] w-[40px] shrink-0
+    items-center justify-center
+    rounded-full
+    bg-transparent p-0
+    transition-all duration-500
+    focus-visible:outline-none
+    focus-visible:ring-2
+    focus-visible:ring-violet-400/30;
+
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  color: #475569;
+}
+
+.sidebar-toggle-btn:hover {
+  background-color: #f8fafc;
+}
+
+.sidebar-toggle-icon {
+  @apply text-xl;
+}
+
+.app-header-page-info {
+  @apply min-w-0;
+}
+
+.app-header-mobile-title {
+  @apply truncate text-[15px]
+    font-bold
+    sm:hidden;
+
+  color: var(--black-text);
+}
+
+.app-header-breadcrumbs {
+  @apply hidden sm:block;
+}
+
+/* =========================================================
+   RIGHT SECTION
+========================================================= */
+
+.app-header-right {
+  @apply flex items-center gap-3;
+}
+
+.app-header-actions {
+  @apply flex items-center gap-2;
+}
+
+.app-header-divider {
+  @apply hidden h-8 w-px
+    sm:block;
+
+  background-color: #e5e7eb;
+}
+
+.app-header-user {
+  @apply flex items-center gap-3;
+}
+
+/* =========================================================
+   ANIMATED HAMBURGER
+========================================================= */
+
+.animated-hamburger {
+  @apply flex h-full w-full
+    cursor-pointer flex-col
+    items-start justify-between;
+
+  padding: 13px 12px;
+}
+
+.hamburger-line {
+  @apply block h-[2px] rounded-full;
+
+  background-color: var(--primary-color);
+  transform-origin: left center;
+  transition:
+    width 0.5s ease-in-out,
+    background-color 0.2s ease;
+}
+
+.hamburger-line-top {
+  width: 83.333%;
+  animation: hamburger-hover 1s ease-in-out 0.2s infinite alternate forwards;
+}
+
+.hamburger-line-middle {
+  width: 100%;
+  animation: hamburger-hover 1s ease-in-out 0.4s infinite alternate forwards;
+  transition-duration: 0.2s;
+}
+
+.hamburger-line-bottom {
+  width: 58.333%;
+  animation: hamburger-hover 1s ease-in-out 0.6s infinite alternate forwards;
+  transition-duration: 0.1s;
+}
+
+@keyframes hamburger-hover {
+  0%,
+  100% {
+    width: 100%;
+  }
+
+  50% {
+    width: 50%;
+  }
+}
+
+.sidebar-toggle-btn:hover .hamburger-line {
+  width: 100%;
+  background-color: var(--primary-color);
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+.dark .app-header {
+  border-color: #263244;
+  background-color: var(--black);
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 22%),
+    0 8px 24px rgb(0 0 0 / 12%);
+}
+
+.dark .app-header-mobile-title {
+  color: #ffffff;
+}
+
+.dark .app-header-divider {
+  background-color: #374151;
+}
+
+.dark .sidebar-toggle-btn {
+  border-color: rgb(167 139 250 / 24%);
+  color: #cbd5e1;
+  background-color: rgb(255 255 255 / 3%);
+}
+
+.dark .sidebar-toggle-btn:hover {
+  border-color: rgb(167 139 250 / 42%);
+  color: #ffffff;
+  background-color: rgb(255 255 255 / 7%);
+}
+
+.dark .hamburger-line,
+.dark .sidebar-toggle-btn:hover .hamburger-line {
+  background-color: var(--color-primary-300, #c4b5fd);
+}
+
+.dark .app-header-actions button {
+  border-color: rgb(255 255 255 / 8%);
+  color: #cbd5e1;
+  background-color: #1f2937;
+}
+
+.dark .app-header-actions button:hover {
+  border-color: rgb(167 139 250 / 35%);
+  color: #ffffff;
+  background-color: #273449;
+}
+
+.dark .app-header-user {
+  color: #e5e7eb;
+}
+
+.dark .app-header-user strong,
+.dark .app-header-user h3,
+.dark .app-header-user h4 {
+  color: #ffffff;
+}
+
+.dark .app-header-user span,
+.dark .app-header-user p,
+.dark .app-header-user small {
+  color: #94a3b8;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+  .app-header {
+    @apply px-3;
+  }
+
+  .app-header-left {
+    @apply gap-2;
+  }
+
+  .app-header-right {
+    @apply gap-1;
+  }
+
+  .sidebar-toggle-btn {
+    @apply h-8 w-8;
+  }
+
+  .animated-hamburger {
+    padding: 10px 9px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .app-header {
+    @apply px-3;
+  }
+}

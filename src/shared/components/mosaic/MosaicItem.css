@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* =========================
+   Mosaic Item Card
+========================= */
+
+.mosaic-item {
+  @apply relative flex h-full flex-col
+    rounded-xl border border-[#e9e6f4]
+    bg-white px-4 pb-3 pt-[14px]
+    shadow-[0_1px_4px_rgba(42,18,80,0.06)]
+    transition-[box-shadow,border-color,transform]
+    duration-200;
+}
+
+.mosaic-item:hover {
+  @apply -translate-y-[2px]
+    border-[#c4b5f8]
+    shadow-[0_10px_25px_-5px_rgba(42,18,80,0.08),0_8px_10px_-6px_rgba(42,18,80,0.06)];
+}
+
+.mosaic-item-content {
+  @apply w-full flex-1 overflow-hidden;
+}
+
+.mosaic-item-footer {
+  @apply mt-[10px] flex w-full
+    items-center justify-end gap-2
+    border-t border-[#f0ecfb] pt-2;
+}
+
+/* =========================
+   Mosaic Footer Buttons
+========================= */
+
+.mosaic-item-footer button {
+  @apply !inline-flex
+    !h-8 !min-w-8
+    !items-center !justify-center
+    !rounded-lg
+    !p-0
+    transition-all duration-200;
+}
+
+.mosaic-item-footer button:hover:not(:disabled) {
+  @apply scale-105;
+}
+
+.mosaic-item-footer button.p-button-icon-only {
+  @apply !w-8 !p-0;
+}
+
+.mosaic-item-footer button.p-button-icon-only .p-button-label {
+  @apply hidden;
+}
+
+.mosaic-item-footer button .pi {
+  @apply !m-0 !text-[13px] leading-none;
+}
+
+/* =========================
+   Deregistered Badge
+========================= */
+
+.deregistered-badge {
+  @apply inline-flex items-center
+    whitespace-nowrap rounded-full
+    border border-red-200
+    bg-red-50 px-2.5 py-1
+    text-[10px] font-semibold
+    leading-none tracking-[0.02em]
+    text-red-500;
+}
+
+/* =========================
+   Dark Mode
+========================= */
+
+.dark .mosaic-item {
+  @apply border-[#3b3459]
+    bg-[#1e1b2e]
+    shadow-[0_1px_4px_rgba(0,0,0,0.3)];
+}
+
+.dark .mosaic-item:hover {
+  @apply border-[#7c3aed]
+    shadow-[0_10px_25px_-5px_rgba(124,58,237,0.12)];
+}
+
+.dark .mosaic-item-footer {
+  @apply border-t-[#2d2b45];
+}
+
+.dark .deregistered-badge {
+  @apply border-[rgba(239,68,68,0.25)]
+    bg-[rgba(239,68,68,0.12)]
+    text-red-400;
+}

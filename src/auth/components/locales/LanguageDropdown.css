@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+.wcd-language-dropdown {
+  @apply relative inline-block;
+}
+
+.lang-toggle-btn {
+  @apply relative flex items-center justify-center gap-1.5 text-slate-500 bg-white/75 backdrop-blur-md border border-[rgba(124,58,237,0.12)] rounded-full px-2.5 h-9 cursor-pointer shadow-[0_4px_6px_-1px_rgba(42,18,80,0.03),0_2px_4px_-1px_rgba(42,18,80,0.02)] transition-all duration-250 ease-in-out;
+}
+
+.lang-toggle-btn:hover {
+  @apply bg-[rgba(245,243,255,0.95)] border-[rgba(124,58,237,0.3)] text-[#7c3aed] -translate-y-[1px] scale-105 shadow-[0_10px_15px_-3px_rgba(124,58,237,0.1),0_4px_6px_-2px_rgba(124,58,237,0.05)];
+}
+
+.lang-toggle-btn:active {
+  @apply translate-y-0 scale-95 duration-100;
+}
+
+.lang-flag {
+  @apply text-base leading-none select-none;
+}
+
+/* Custom styling for the PrimeReact Menu overlay */
+.wcd-lang-menu.p-menu {
+  @apply !border-slate-100 !rounded-2xl !shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_16px_-8px_rgba(0,0,0,0.05)] !overflow-hidden !w-40 !p-0 !mt-2;
+}
+
+.wcd-lang-menu .p-menu-list {
+  @apply !py-1 !m-0 !p-0;
+}
+
+.wcd-lang-menu .p-menuitem-content {
+  @apply !bg-transparent;
+}
+
+.lang-dropdown-item {
+  @apply flex items-center gap-2.5 w-full text-left px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all duration-150 ease-in-out cursor-pointer;
+}
+
+.lang-dropdown-item.active {
+  @apply bg-purple-50 text-[#7c3aed] font-semibold;
+}
+
+/* Dark mode */
+.dark .lang-toggle-btn {
+  @apply border-[rgba(167,139,250,0.15)] bg-[rgba(30,27,46,0.65)] text-slate-400 shadow-[0_4px_10px_rgba(0,0,0,0.2)];
+}
+
+.dark .lang-toggle-btn:hover {
+  @apply bg-[rgba(124,58,237,0.15)] border-[rgba(167,139,250,0.4)] text-purple-400 shadow-[0_10px_20px_-5px_rgba(124,58,237,0.25),0_0_12px_rgba(124,58,237,0.15)];
+}
+
+.dark .wcd-lang-menu.p-menu {
+  @apply !bg-slate-900 !border-slate-800 !shadow-[0_15px_30px_rgba(0,0,0,0.4)];
+}
+
+.dark .lang-dropdown-item {
+  @apply text-slate-300 hover:bg-slate-800/60 hover:text-white;
+}
+
+.dark .lang-dropdown-item.active {
+  @apply bg-purple-950/40 text-purple-400;
+}

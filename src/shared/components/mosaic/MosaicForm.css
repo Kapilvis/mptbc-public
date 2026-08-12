@@ -1,0 +1,12 @@
+@reference "tailwindcss";
+
+@layer components {
+  .mosaic-form {
+    @apply flex flex-col mt-1;
+  }
+
+  .mosaic-form__title {
+    @apply mb-2;
+    color: var(--text-primary, #e2e8f0);
+  }
+}

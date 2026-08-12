@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* CheckBox styles. Visual styling is delegated to InputBlock and PrimeReact. */
+.checkbox-input {
+  /* Placeholder for future custom styles */
+}

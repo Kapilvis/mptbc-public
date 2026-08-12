@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+.loader-container {
+  @apply flex justify-center items-center;
+}
+
+.loader-full {
+  @apply fixed inset-0 z-[9999] bg-white/40;
+}
+
+.loader-relative {
+  @apply absolute inset-0 z-10 bg-white/40;
+}
+
+.loader-inline {
+  @apply inline-flex;
+}
+
+.loader-blur {
+  @apply backdrop-blur-[4px];
+}
+
+.loader-content {
+  @apply flex flex-col items-center justify-center gap-4;
+  animation: fadeShow 0.25s ease-in-out;
+}
+
+.loader-ring-wrapper {
+  @apply relative;
+}
+
+.loader-ring-outer {
+  @apply absolute inset-0 rounded-full border-2 border-transparent border-t-purple-600 border-b-purple-600/30 shadow-[0_0_15px_rgba(124,58,237,0.15)];
+  animation: spin-slow 1.6s linear infinite;
+}
+
+.loader-ring-inner {
+  @apply absolute inset-[3px] rounded-full border-2 border-transparent border-r-indigo-500 border-l-indigo-500/30;
+  animation: spin-reverse 1s linear infinite;
+}
+
+.loader-core {
+  @apply absolute inset-[7px] rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 shadow-[0_0_12px_rgba(124,58,237,0.6)];
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.loader-text {
+  @apply text-[11px] font-bold tracking-[0.25em] text-slate-500 dark:text-slate-400 uppercase mt-2 animate-pulse;
+}
+
+.fade-in {
+  animation: fadeShow 0.25s ease-in-out;
+}
+@keyframes fadeShow {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Custom Orbital Keyframes */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.85;
+    box-shadow: 0 0 8px rgba(124, 58, 237, 0.3);
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 1;
+    box-shadow: 0 0 16px rgba(124, 58, 237, 0.7);
+  }
+}
+
+/* Custom Animation Classes */
+.animate-spin-slow {
+  animation: spin-slow 1.6s linear infinite;
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse 1s linear infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Dark mode backdrop overlays */
+.dark .loader-full,
+.dark-theme .loader-full {
+  @apply !bg-[#0f172a]/65;
+}
+
+.dark .loader-relative,
+.dark-theme .loader-relative {
+  @apply !bg-[#0f172a]/65;
+}

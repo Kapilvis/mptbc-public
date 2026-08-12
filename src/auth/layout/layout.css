@@ -1,0 +1,38 @@
+@reference "../../index.css";
+
+.layout-wrapper {
+  @apply h-screen overflow-hidden bg-gray-50 dark:bg-gray-900 transition-colors duration-300;
+}
+
+.layout-main-content {
+  @apply flex flex-col h-[calc(100vh-2rem)] my-4 mr-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 shadow-xl rounded-2xl transition-[margin] duration-300 ease-in-out overflow-hidden;
+}
+
+.layout-main-content-expanded {
+  @apply lg:ml-[312px];
+}
+
+.layout-main-content-collapsed {
+  @apply lg:ml-[120px];
+}
+
+/* .layout-main-content-mobile-open {
+  @apply ml-4;
+} */
+
+.layout-page-content {
+  @apply flex-1 overflow-y-auto w-full custom-scrollbar;
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 767px) {
+  .layout-main-content {
+    @apply h-[calc(100vh-0rem)] my-0 mr-0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .layout-main-content {
+    @apply h-[calc(100vh-0rem)] my-0 mr-0;
+  }
+}

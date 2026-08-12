@@ -1,0 +1,93 @@
+@reference "tailwindcss";
+
+/* =========================================================
+   BREADCRUMB
+========================================================= */
+
+.breadcrumb-nav {
+  @apply inline-flex items-center gap-1.5
+    whitespace-nowrap overflow-x-auto
+    text-xs font-medium
+    text-gray-400;
+
+  min-height: 24px;
+  line-height: 1;
+  scrollbar-width: none;
+}
+
+.breadcrumb-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.breadcrumb-link {
+  @apply inline-flex shrink-0
+    items-center gap-1
+    transition-colors;
+
+  min-height: 24px;
+  color: #374151;
+  font-size: 15.5px;
+  line-height: 1;
+}
+
+.breadcrumb-link:hover {
+  color: var(--primary-color);
+}
+
+.breadcrumb-home-icon {
+  @apply inline-flex shrink-0
+    items-center justify-center;
+
+  width: 20px;
+  height: 20px;
+  color: var(--primary-color);
+  font-size: 15.5px;
+  line-height: 1;
+}
+
+.breadcrumb-home-icon::before {
+  line-height: 1;
+}
+
+.breadcrumb-separator {
+  @apply inline-flex shrink-0
+    items-center justify-center
+    select-none;
+
+  height: 20px;
+  color: #d1d5db;
+  line-height: 1;
+}
+
+.breadcrumb-active {
+  @apply inline-flex shrink-0
+    items-center gap-1
+    font-semibold;
+
+  min-height: 24px;
+  color: var(--primary-color);
+  font-size: 15.5px;
+  line-height: 1;
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+.dark .breadcrumb-nav {
+  color: #64748b;
+}
+
+.dark .breadcrumb-link {
+  color: #cbd5e1;
+}
+
+.dark .breadcrumb-link:hover,
+.dark .breadcrumb-active,
+.dark .breadcrumb-home-icon {
+  color: var(--color-primary-300, #c4b5fd);
+}
+
+.dark .breadcrumb-separator {
+  color: #475569;
+}

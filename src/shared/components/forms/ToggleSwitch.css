@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+.toggle-switch-container {
+  @apply flex items-center justify-between py-2.5 px-3.5 bg-white border border-[var(--border-color)] rounded-xl min-h-[48px] w-full transition-all duration-200 relative;
+}
+
+.toggle-switch-container:hover:not(.disabled) {
+  @apply border-slate-300 bg-slate-50;
+}
+
+.toggle-switch-info {
+  @apply flex flex-col gap-0.5 select-none overflow-hidden mr-3;
+}
+
+.toggle-switch-label {
+  @apply text-[13px] font-semibold text-slate-700 cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis;
+}
+
+.toggle-switch-sublabel {
+  @apply text-[11px] text-slate-500;
+}
+
+.toggle-switch-required {
+  @apply text-red-500 ml-1;
+}
+
+/* Switch Pill */
+.toggle-switch-pill {
+  @apply w-11 h-6 rounded-[30px] bg-[#e2d8f9] relative border-none cursor-pointer transition-colors duration-300 p-0 shrink-0;
+}
+
+.toggle-switch-pill:focus {
+  @apply outline-2 outline-purple-400 outline-offset-2;
+}
+
+.toggle-switch-pill.active {
+  @apply bg-[#7c3aed];
+}
+
+/* Switch Handle */
+.toggle-switch-handle {
+  @apply block w-[18px] h-[18px] rounded-full bg-white absolute top-[3px] left-[3px] transition-transform duration-300 shadow-[0_1px_3px_rgba(0,0,0,0.15)];
+}
+
+.toggle-switch-pill.active .toggle-switch-handle {
+  @apply translate-x-[20px];
+}
+
+.toggle-switch-container.disabled {
+  @apply opacity-60 cursor-not-allowed;
+}
+
+.toggle-switch-container.disabled .toggle-switch-pill {
+  @apply cursor-not-allowed;
+}
+
+.toggle-switch-error {
+  @apply absolute -bottom-4 left-3.5 text-[10px] text-red-500;
+}

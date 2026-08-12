@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* NumberBox styles. Visual styling is delegated to InputBlock and PrimeReact. */
+.numberbox-input {
+  /* Placeholder for future custom styles */
+}

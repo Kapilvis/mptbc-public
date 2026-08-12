@@ -1,0 +1,40 @@
+@reference "tailwindcss";
+
+@layer components {
+  .add-button {
+    @apply m-0
+    !inline-flex
+    !h-[38px]
+    !items-center
+    !justify-center
+    !gap-2
+    !whitespace-nowrap
+    !border-slate-200
+    !px-[20px]
+    !shadow-none;
+  }
+
+  .add-button .p-button-icon,
+  .add-button i {
+    font-size: 11px !important;
+    width: 11px;
+    height: 11px;
+    line-height: 1 !important;
+    margin: 0 !important;
+
+    text-shadow:
+      0.4px 0 currentColor,
+      -0.4px 0 currentColor,
+      0 0.4px currentColor,
+      0 -0.4px currentColor;
+  }
+
+  .add-button .p-button-label,
+  .add-button span {
+    line-height: 1 !important;
+  }
+
+  .dark .add-button {
+    @apply !border-white/10;
+  }
+}

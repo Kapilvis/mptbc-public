@@ -1,0 +1,32 @@
+@reference "tailwindcss";
+
+@layer components {
+  .main-content {
+    @apply col-span-1 
+           sm:col-span-2 
+           md:col-span-3 
+           my-4 
+           md:my-0 
+           border-slate-200 
+           border-t 
+           sm:border-t-0 
+           sm:border-l 
+           min-h-[50vh] 
+           md:h-auto 
+           flex 
+           flex-col 
+           justify-between;
+  }
+
+  .main-content-body {
+    @apply sm:pl-4 md:pl-7 pr-2;
+  }
+
+  .main-content-title {
+    @apply text-xl text-900 font-bold dark:text-white mb-6;
+  }
+
+  .main-content-footer {
+    @apply sm:pl-4 md:pl-7 pr-2 mt-6;
+  }
+}

@@ -1,0 +1,7 @@
+@reference "tailwindcss";
+
+@layer components {
+  .button-column-btn {
+    @apply w-full;
+  }
+}

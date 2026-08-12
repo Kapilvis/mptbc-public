@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+.button-panel {
+  @apply flex justify-end flex-row flex-wrap gap-3 max-w-[1100px] my-6 mx-auto p-0 w-full box-border;
+}
+
+.custom-submit {
+  @apply !bg-[var(--primary-color)] !text-[var(--white)] !border !border-[var(--primary-color)];
+}
+
+.dark-theme .custom-submit {
+  @apply !bg-[var(--primary-color)] !text-[var(--white)] !border !border-[var(--white)];
+}
+
+.custom-reset {
+  @apply !bg-transparent !text-[var(--primary-color)] !border-2 !border-[var(--primary-color)];
+}
+
+.button-panel > button:last-child {
+  @apply ml-0;
+}
+
+.p-button.p-button-outlined {
+  @apply bg-transparent !text-[var(--primary-color)] border gap-2;
+}
+
+.custom-action-btn .pi {
+  @apply !text-[12px] mr-2;
+}
+
+.dark-theme .p-button.p-button-outlined {
+  @apply bg-transparent !text-[var(--off-white)] border border-[var(--dark-border-opacity)];
+}

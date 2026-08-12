@@ -1,0 +1,129 @@
+{
+  "translation": {
+    "Home": "Home",
+    "Profile": "Profile",
+    "Master": "Master",
+    "Configuration": "Configuration",
+    "Directory": "Directory",
+    "Madhya Pradesh Textbook Corporation": "Madhya Pradesh Textbook Corporation",
+
+    "home": {
+      "welcome_portal": "Welcome to Madhya Pradesh Textbook Corporation Portal",
+      "sub_header": "Overview of key statistics and recent activities"
+    },
+
+    "commonMessages": {
+      "ErrorInvalidCredentials": "Invalid username or password.",
+      "ErrorAccountLocked": "Your account has been locked. Please contact support.",
+      "ErrorAccountDisabled": "Your account has been disabled.",
+      "ErrorInvalidToken": "The token is invalid.",
+      "ErrorTokenExpired": "Your session has expired. Please sign in again.",
+      "ErrorUnauthorized": "You are not authorized to perform this action.",
+      "ErrorAccessDenied": "Access denied.",
+      "ErrorLoginFailed": "Login failed. Please try again.",
+      "ErrorPasswordExpired": "Your password has expired.",
+      "ErrorRecordNotFound": "The requested record was not found.",
+      "ErrorRecordAlreadyExists": "The record already exists.",
+      "ErrorCreateFailed": "Failed to create the record.",
+      "ErrorUpdateFailed": "Failed to update the record.",
+      "ErrorDeleteFailed": "Failed to delete the record.",
+      "ErrorUnexpected": "An unexpected error occurred.",
+      "ErrorInternalServer": "An internal server error occurred.",
+      "ErrorBadRequest": "The request is invalid.",
+      "ErrorServiceUnavailable": "The service is currently unavailable. Please try again later.",
+      "ErrorConflict": "The requested operation could not be completed due to a conflict.",
+      "ErrorRequestTimeout": "The request timed out.",
+      "ErrorDuplicateRecord": "A duplicate record already exists.",
+      "ErrorDatabase": "A database error occurred.",
+      "ErrorFileNotFound": "The specified file was not found.",
+      "ErrorInvalidFile": "The selected file is invalid.",
+      "ErrorFileUploadFailed": "File upload failed.",
+      "ErrorFileTooLarge": "The selected file exceeds the allowed size.",
+      "ValidationRequired": "This field is required.",
+      "ValidationInvalidEmail": "Please enter a valid email address.",
+      "ValidationInvalidPhoneNumber": "Please enter a valid phone number.",
+      "ValidationInvalidFormat": "The provided value has an invalid format.",
+      "ValidationMinLength": "The value is too short.",
+      "ValidationMaxLength": "The value exceeds the maximum allowed length.",
+      "ValidationInvalidValue": "The provided value is invalid.",
+      "SuccessRecordCreated": "Record created successfully.",
+      "SuccessRecordUpdated": "Record updated successfully.",
+      "SuccessRecordDeleted": "Record deleted successfully.",
+      "SuccessOperationCompleted": "Operation completed successfully.",
+      "SuccessFileUploaded": "File uploaded successfully.",
+      "InfoNoDataFound": "No data found.",
+      "InfoNoRecordsFound": "No records found.",
+      "InfoDataRetrieved": "Data retrieved successfully.",
+      "WarningUnsavedChanges": "You have unsaved changes."
+    },
+
+    "routes": {
+      "master": {
+        "office": {
+          "office": "Office",
+          "office-level": "Office Level",
+          "office-type": "Office Type",
+          "office-registration": "Office Registration"
+        },
+        "location": {
+          "location": "Location",
+          "state": "State",
+          "division": "Division",
+          "district": "District",
+          "project": "Project",
+          "sector": "Sector"
+        },
+        "hrManagement": {
+          "hr-management": "HR Management",
+          "designation": "Designation",
+          "designation-type": "Designation Type",
+          "qualification": "Qualification",
+          "qualification-type": "Qualification Type",
+          "qualification-subject": "Qualification Subject"
+        },
+        "socialCategory": {
+          "social-category": "Social Category",
+          "caste": "Caste",
+          "marital-status": "Marital Status",
+          "disability-type": "Disability Type",
+          "disability-percentage": "Disability Percentage"
+        },
+        "financialManagement": {
+          "financial-management": "Financial Management",
+          "bank": "Bank",
+          "ifsc-code": "IFSC Code"
+        },
+        "userManagement": {
+          "user-management": "User Management",
+          "user-registration": "User Registration",
+          "role-management": "Role Management",
+          "user-assignment": "User Assignment",
+          "role-permissions": "Role Permissions"
+        },
+        "anganwadi-type": "Anganwadi Type",
+        "anganwadi-center-service": "Anganwadi Center Service",
+        "supporting-agency": "Supporting Agency",
+        "located-place": "Located Place",
+        "drinking-water-source": "Drinking Water Source",
+        "network-connectivity": "Network Connectivity",
+        "building-status": "Building Status",
+        "area-type": "Area Type",
+        "anganwadi-structure-type": "Anganwadi Structure Type"
+      },
+      "directory": {
+        "anganwadi": {
+          "anganwadi-directory": "Anganwadi Directory",
+          "anganwadi-center": "Anganwadi Center",
+          "staff-registration": "Staff Registration"
+        },
+        "child": {
+          "child-directory": "Child Directory",
+          "age-group": "Age Group",
+          "scheame": "Scheame",
+          "health-issue": "Health Issue",
+          "immunization-status": "Immunization Status"
+        }
+      }
+    }
+  }
+}
