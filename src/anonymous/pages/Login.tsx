@@ -24,7 +24,7 @@ const BackgroundDecorations: React.FC = () => (
     <div className="mptbc-bg-map-container">
       <div className="mptbc-map-glow" />
       <img
-        src="/mp_map_bg.png"
+        src={`${import.meta.env.BASE_URL}mp_map_bg.png`}
         alt="Madhya Pradesh District Boundary Map"
         className="mptbc-bg-map-img"
       />
@@ -74,7 +74,7 @@ const PortalBranding: React.FC = () => (
   <div className="mptbc-branding-container">
     <div className="mptbc-emblem-wrapper">
       <img
-        src="/MP_LOGO.svg"
+        src={`${import.meta.env.BASE_URL}MP_LOGO.svg`}
         alt="Government of Madhya Pradesh Seal"
         className="mptbc-emblem-img"
       />
