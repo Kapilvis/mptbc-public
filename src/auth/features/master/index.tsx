@@ -1,8 +1,11 @@
 import { Route, Routes } from "react-router-dom";
+import BloodGroup from "./blood-group";
+import Caste from "./caste";
 import Designation from "./designation";
 import DesignationType from "./designation-type";
 import District from "./district";
 import Division from "./division";
+import Nationality from "./nationality";
 import Office from "./office";
 import OfficeLevel from "./office-level";
 import OfficeType from "./office-type";
@@ -10,8 +13,14 @@ import Project from "./project";
 import Qualification from "./qualification";
 import QualificationSubject from "./qualification-subject";
 import QualificationType from "./qualification-type";
+import Religion from "./religion";
 import Sector from "./sector";
 import State from "./state";
+import BookType from "./book-type";
+import ClassMaster from "./class";
+import Medium from "./medium";
+import GsmMaster from "./gsm";
+import TitleMaster from "./title";
 
 export default function Master() {
   return (
@@ -29,6 +38,10 @@ export default function Master() {
       <Route path="sector/*" element={<Sector />} />
 
       {/* HR Management */}
+      <Route path="caste/*" element={<Caste />} />
+      <Route path="religion/*" element={<Religion />} />
+      <Route path="blood-group/*" element={<BloodGroup />} />
+      <Route path="nationality/*" element={<Nationality />} />
       <Route path="designation/*" element={<Designation />} />
       <Route path="designation-type/*" element={<DesignationType />} />
       <Route path="qualification-type/*" element={<QualificationType />} />
@@ -37,6 +50,13 @@ export default function Master() {
         path="qualification-subject/*"
         element={<QualificationSubject />}
       />
+
+      {/* Curriculum */}
+      <Route path="class/*" element={<ClassMaster />} />
+      <Route path="book-type/*" element={<BookType />} />
+      <Route path="medium/*" element={<Medium />} />
+      <Route path="gsm/*" element={<GsmMaster />} />
+      <Route path="title/*" element={<TitleMaster />} />
     </Routes>
   );
 }

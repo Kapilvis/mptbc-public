@@ -75,11 +75,23 @@
         },
         "hrManagement": {
           "hr-management": "HR Management",
+          "caste": "Caste",
+          "religion": "Religion",
+          "blood-group": "Blood Group",
+          "nationality": "Nationality",
           "designation": "Designation",
           "designation-type": "Designation Type",
           "qualification": "Qualification",
           "qualification-type": "Qualification Type",
           "qualification-subject": "Qualification Subject"
+        },
+        "curriculum": {
+          "curriculum": "Curriculum",
+          "class": "Class",
+          "book-type": "Book Type",
+          "medium": "Medium",
+          "gsm": "GSM / Paper Specification",
+          "title": "Title Master"
         },
         "socialCategory": {
           "social-category": "Social Category",
@@ -99,6 +111,11 @@
           "role-management": "Role Management",
           "user-assignment": "User Assignment",
           "role-permissions": "Role Permissions"
+        },
+        "hrms": {
+          "hrms": "HRMS",
+          "employee-details": "Employee Details",
+          "employee-registration": "Employee Registration"
         },
         "anganwadi-type": "Anganwadi Type",
         "anganwadi-center-service": "Anganwadi Center Service",

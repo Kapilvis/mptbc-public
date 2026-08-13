@@ -1,5 +1,6 @@
 import { masterUrls } from "auth/features/master/urls";
 import { userManagementUrls } from "auth/features/user-management/urls";
+import { hrmsUrls } from "auth/features/hrms/urls";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthProvider";
@@ -84,6 +85,30 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         label: t("routes.master.hrManagement.hr-management"),
         children: [
           {
+            label: t("routes.master.hrManagement.caste"),
+            path: masterUrls.caste.root,
+            feature: "@master/caste",
+            action: "write",
+          },
+          {
+            label: t("routes.master.hrManagement.religion"),
+            path: masterUrls.religion.root,
+            feature: "@master/religion",
+            action: "write",
+          },
+          {
+            label: t("routes.master.hrManagement.blood-group"),
+            path: masterUrls.bloodGroup.root,
+            feature: "@master/blood-group",
+            action: "write",
+          },
+          {
+            label: t("routes.master.hrManagement.nationality"),
+            path: masterUrls.nationality.root,
+            feature: "@master/nationality",
+            action: "write",
+          },
+          {
             label: t("routes.master.hrManagement.designation"),
             path: masterUrls.designation.root,
             feature: "@master/designation",
@@ -111,6 +136,41 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
             label: t("routes.master.hrManagement.qualification-subject"),
             path: masterUrls.qualificationSubject.root,
             feature: "@master/qualification-subject",
+            action: "write",
+          },
+        ],
+      },
+      {
+        label: t("routes.master.curriculum.curriculum"),
+        children: [
+          {
+            label: t("routes.master.curriculum.class"),
+            path: masterUrls.class.root,
+            feature: "@master/class",
+            action: "write",
+          },
+          {
+            label: t("routes.master.curriculum.book-type"),
+            path: masterUrls.bookType.root,
+            feature: "@master/book-type",
+            action: "write",
+          },
+          {
+            label: t("routes.master.curriculum.medium"),
+            path: masterUrls.medium.root,
+            feature: "@master/medium",
+            action: "write",
+          },
+          {
+            label: t("routes.master.curriculum.gsm"),
+            path: masterUrls.gsm.root,
+            feature: "@master/gsm",
+            action: "write",
+          },
+          {
+            label: t("routes.master.curriculum.title"),
+            path: masterUrls.title.root,
+            feature: "@master/title",
             action: "write",
           },
         ],
@@ -144,6 +204,28 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         path: userManagementUrls.rolePermissions.root,
         feature: "@user-management/role-permissions",
         action: "write",
+      },
+    ],
+  },
+  {
+    label: t("routes.master.hrms.hrms"),
+    icon: "pi pi-id-card",
+    children: [
+      {
+        label: t("routes.master.hrms.employee-details"),
+        path: hrmsUrls.employeeDetails.root,
+        feature: "@hrms/employee-details",
+        action: "write",
+      },
+    ],
+  },
+  {
+    label: "Printer Section",
+    icon: "pi pi-print",
+    children: [
+      {
+        label: "Printer Registration",
+        path: "/printing/printer-registration",
       },
     ],
   },

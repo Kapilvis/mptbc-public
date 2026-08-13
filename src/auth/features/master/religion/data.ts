@@ -1,0 +1,51 @@
+export const mockReligions: Master.ReligionItem[] = [
+  {
+    religionId: 1,
+    name: "Hinduism",
+    localName: "हिंदू धर्म",
+    code: "REL-HIN",
+    isActive: true,
+  },
+  {
+    religionId: 2,
+    name: "Islam",
+    localName: "इस्लाम",
+    code: "REL-ISL",
+    isActive: true,
+  },
+  {
+    religionId: 3,
+    name: "Christianity",
+    localName: "ईसाई धर्म",
+    code: "REL-CHR",
+    isActive: true,
+  },
+  {
+    religionId: 4,
+    name: "Sikhism",
+    localName: "सिख धर्म",
+    code: "REL-SIK",
+    isActive: true,
+  },
+  {
+    religionId: 5,
+    name: "Buddhism",
+    localName: "बौद्ध धर्म",
+    code: "REL-BUD",
+    isActive: true,
+  },
+  {
+    religionId: 6,
+    name: "Jainism",
+    localName: "जैन धर्म",
+    code: "REL-JAI",
+    isActive: true,
+  },
+  {
+    religionId: 7,
+    name: "Others",
+    localName: "अन्य",
+    code: "REL-OTH",
+    isActive: true,
+  },
+];

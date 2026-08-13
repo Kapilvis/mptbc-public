@@ -20,6 +20,9 @@ declare namespace Permission {
     | "@master/division"
     | "@master/district"
     | "@master/caste"
+    | "@master/religion"
+    | "@master/blood-group"
+    | "@master/nationality"
     | "@master/project"
     | "@master/sector"
     | "@master/designation"
@@ -41,7 +44,14 @@ declare namespace Permission {
     | "@master/ifsc-code"
     | "@anganwadi/staff-type"
     | "@anganwadi/infrastructure"
-    | "@anganwadi/staff";
+    | "@anganwadi/staff"
+    | "@master/class"
+    | "@master/book-type"
+    | "@master/medium"
+    | "@master/gsm"
+    | "@master/title"
+    // HRMS
+    | "@hrms/employee-details";
   // Actions mapped to backend policies
   type Action = "read" | "write";
 }

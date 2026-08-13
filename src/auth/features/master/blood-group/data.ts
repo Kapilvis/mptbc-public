@@ -1,0 +1,58 @@
+export const mockBloodGroups: Master.BloodGroupItem[] = [
+  {
+    bloodGroupId: 1,
+    name: "A+",
+    localName: "ए पॉजिटिव",
+    code: "BG-A+",
+    isActive: true,
+  },
+  {
+    bloodGroupId: 2,
+    name: "A-",
+    localName: "ए नेगेटिव",
+    code: "BG-A-",
+    isActive: true,
+  },
+  {
+    bloodGroupId: 3,
+    name: "B+",
+    localName: "बी पॉजिटिव",
+    code: "BG-B+",
+    isActive: true,
+  },
+  {
+    bloodGroupId: 4,
+    name: "B-",
+    localName: "बी नेगेटिव",
+    code: "BG-B-",
+    isActive: true,
+  },
+  {
+    bloodGroupId: 5,
+    name: "AB+",
+    localName: "एबी पॉजिटिव",
+    code: "BG-AB+",
+    isActive: true,
+  },
+  {
+    bloodGroupId: 6,
+    name: "AB-",
+    localName: "एबी नेगेटिव",
+    code: "BG-AB-",
+    isActive: true,
+  },
+  {
+    bloodGroupId: 7,
+    name: "O+",
+    localName: "ओ पॉजिटिव",
+    code: "BG-O+",
+    isActive: true,
+  },
+  {
+    bloodGroupId: 8,
+    name: "O-",
+    localName: "ओ नेगेटिव",
+    code: "BG-O-",
+    isActive: true,
+  },
+];

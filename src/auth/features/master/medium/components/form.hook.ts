@@ -1,0 +1,50 @@
+import { useFormServerError } from "auth/hooks/useFormServerError";
+import { errors } from "config/errors";
+import { useAppForm } from "shared/hooks/form";
+import validation from "shared/utils/validation";
+import { expressions } from "shared/utils/validation/config";
+
+const schema = validation.create<Master.MediumForm>((o) => ({
+  name: o
+    .string()
+    .required()
+    .pattern(expressions.englishOnly)
+    .messages({
+      "string.pattern.base": errors.englishOnly,
+    })
+    .label("Name")
+    .max(45),
+
+  localName: o
+    .string()
+    .optional()
+    .allow("", null)
+    .pattern(expressions.hindiOnly)
+    .messages({
+      "string.pattern.base": errors.hindiOnly,
+    })
+    .label("Local Name")
+    .max(50),
+
+  code: o.string().required().label("Code").max(20),
+}));
+
+export function useMediumForm(
+  submitCallback: Forms.SubmitFunc<Master.MediumForm>,
+  defaultValues?: Forms.FetchDataFunc<Master.MediumForm>,
+) {
+  const form = useAppForm<Master.MediumForm>({
+    defaultValues: defaultValues,
+    resolver: validation.resolver(schema),
+  });
+
+  useFormServerError(form);
+
+  const { register, handleSubmit, reset } = form;
+
+  return {
+    register,
+    handleSubmit: handleSubmit(submitCallback),
+    reset,
+  };
+}

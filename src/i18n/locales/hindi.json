@@ -77,11 +77,23 @@
 
         "hrManagement": {
           "hr-management": "कर्मचारी प्रबंधन",
+          "caste": "जाति",
+          "religion": "धर्म",
+          "blood-group": "रक्त समूह",
+          "nationality": "राष्ट्रीयता",
           "designation": "पदनाम",
           "designation-type": "पदनाम प्रकार",
           "qualification": "योग्यता",
           "qualification-type": "योग्यता प्रकार",
           "qualification-subject": "योग्यता विषय"
+        },
+        "curriculum": {
+          "curriculum": "पाठ्यक्रम प्रबंधन",
+          "class": "कक्षा",
+          "book-type": "पुस्तक प्रकार",
+          "medium": "माध्यम",
+          "gsm": "जी.एस.एम. / कागज का प्रकार",
+          "title": "शीर्षक / टाइटिल मास्टर"
         },
         "socialCategory": {
           "social-category": "सामाजिक श्रेणी",
@@ -103,6 +115,11 @@
           "role-management": "भूमिका प्रबंधन",
           "user-assignment": "उपयोगकर्ता असाइनमेंट",
           "role-permissions": "भूमिका अनुमतियाँ"
+        },
+        "hrms": {
+          "hrms": "एचआरएमएस",
+          "employee-details": "कर्मचारी विवरण",
+          "employee-registration": "कर्मचारी पंजीकरण"
         },
 
         "anganwadi-type": "आंगनवाड़ी प्रकार",

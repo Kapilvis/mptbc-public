@@ -23,7 +23,7 @@ export default defineConfig({
   },
   server: {
     // https: true,
-    port: 5200,
+    port: 5377,
     strictPort: true,
   },
 });

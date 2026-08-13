@@ -456,4 +456,122 @@ declare namespace Master {
   }
 
   type IFSCCodeForm = IFSCCodeBase;
+
+  // Religion Master
+  interface ReligionBase {
+    name: string;
+    localName?: string;
+    code?: string;
+  }
+  interface ReligionItem extends ReligionBase {
+    religionId: number;
+    isActive: boolean;
+  }
+  type ReligionForm = ReligionBase;
+
+  // Blood Group Master
+  interface BloodGroupBase {
+    name: string;
+    localName?: string;
+    code?: string;
+  }
+  interface BloodGroupItem extends BloodGroupBase {
+    bloodGroupId: number;
+    isActive: boolean;
+  }
+  type BloodGroupForm = BloodGroupBase;
+
+  // Nationality Master
+  interface NationalityBase {
+    name: string;
+    localName?: string;
+    code?: string;
+  }
+  interface NationalityItem extends NationalityBase {
+    nationalityId: number;
+    isActive: boolean;
+  }
+  type NationalityForm = NationalityBase;
+
+  // Class Master
+  interface ClassBase {
+    name: string;
+    localName?: string;
+    code?: string;
+  }
+  interface ClassItem extends ClassBase {
+    classId: number;
+    isActive: boolean;
+  }
+  type ClassForm = ClassBase;
+
+  // Book Type Master
+  interface BookTypeBase {
+    name: string;
+    localName?: string;
+    code?: string;
+  }
+  interface BookTypeItem extends BookTypeBase {
+    bookTypeId: number;
+    isActive: boolean;
+  }
+  type BookTypeForm = BookTypeBase;
+
+  // Medium Master
+  interface MediumBase {
+    name: string;
+    localName?: string;
+    code?: string;
+  }
+  interface MediumItem extends MediumBase {
+    mediumId: number;
+    isActive: boolean;
+  }
+  type MediumForm = MediumBase;
+
+  // GSM / Paper Type Master
+  interface GsmBase {
+    name: string;
+    localName?: string;
+    gsmValue: number;
+    usage: string;
+    code: string;
+  }
+  interface GsmItem extends GsmBase {
+    gsmId: number;
+    isActive: boolean;
+  }
+  type GsmForm = GsmBase;
+
+  // Title Master
+  interface TitleBase {
+    name: string;
+    localName?: string;
+    code: string;
+    classId: number;
+    bookTypeId: number;
+    mediumId: number;
+    innerPages: number;
+    innerGsmId: number;
+    coverPages: number;
+    coverGsmId: number;
+    specialPages?: number;
+    specialGsmId?: number;
+    totalPages: number;
+    weight: number;
+    length: number;
+    width: number;
+    paperArea: number;
+  }
+  interface TitleItem extends TitleBase {
+    titleId: number;
+    className?: string;
+    bookTypeName?: string;
+    mediumName?: string;
+    innerGsmName?: string;
+    coverGsmName?: string;
+    specialGsmName?: string;
+    isActive: boolean;
+  }
+  type TitleForm = TitleBase;
 }
