@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { depotWiseDistrictTextbookSupplyStatusData } from "../data/depotWiseDistrictTextbookSupplyStatusData";
 
 interface SummaryCard {
@@ -11,6 +12,8 @@ interface SummaryCard {
 }
 
 export default function DepotWiseDistrictTextbookSupplyStatusSummary() {
+  const { t } = useTranslation();
+
   const stats = useMemo(() => {
     const dataRows = depotWiseDistrictTextbookSupplyStatusData.filter(
       (r) =>
@@ -34,7 +37,7 @@ export default function DepotWiseDistrictTextbookSupplyStatusSummary() {
 
   const cards: SummaryCard[] = [
     {
-      label: "Total Depots",
+      label: t("reports.supply_status.summary.total_depots"),
       value: stats.totalDepots,
       icon: "pi pi-building",
       colorClass: "text-indigo-700",
@@ -42,7 +45,7 @@ export default function DepotWiseDistrictTextbookSupplyStatusSummary() {
       borderClass: "border-indigo-100",
     },
     {
-      label: "Total Districts",
+      label: t("reports.supply_status.summary.total_districts"),
       value: stats.totalDistricts,
       icon: "pi pi-map",
       colorClass: "text-sky-700",
@@ -50,7 +53,7 @@ export default function DepotWiseDistrictTextbookSupplyStatusSummary() {
       borderClass: "border-sky-100",
     },
     {
-      label: "Total Demand",
+      label: t("reports.supply_status.summary.total_demand"),
       value: stats.totalDemand.toLocaleString("en-IN"),
       icon: "pi pi-book",
       colorClass: "text-amber-700",
@@ -58,7 +61,7 @@ export default function DepotWiseDistrictTextbookSupplyStatusSummary() {
       borderClass: "border-amber-100",
     },
     {
-      label: "Total Supply %",
+      label: t("reports.supply_status.summary.total_supply_percent"),
       value: `${stats.totalSupplyPct.toFixed(2)}%`,
       icon: "pi pi-check-circle",
       colorClass: "text-emerald-700",

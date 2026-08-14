@@ -149,9 +149,153 @@
         }
       },
       "distribution": {
-        "distribution": "वितरण अनुभाग / Distribution",
-        "department-demand": "विभाग से प्राप्त मांग (RSK / CPI)",
-        "dashboard": "समेकित वितरण डैशबोर्ड / Dashboard"
+        "distribution": "वितरण अनुभाग",
+        "department-demand": "प्राप्त मांग (RSK / CPI)",
+        "dashboard": "समेकित वितरण डैशबोर्ड",
+        "demand-approval": "एजेंसी मांग स्वीकृति"
+      },
+      "printing": {
+        "printing": "मुद्रक अनुभाग",
+        "printer-registration": "मुद्रक पंजीकरण"
+      },
+      "reports": {
+        "reports": "रिपोर्ट्स",
+        "depot-wise-district-textbook-supply-status": "डिपोवार जिला पाठ्यपुस्तक आपूर्ति स्थिति"
+      }
+    },
+    "printing": {
+      "list": {
+        "header": "पंजीकृत मुद्रक",
+        "subHeader": "एमपीटीबीसी पाठ्यपुस्तक निर्माण के लिए मुद्रण प्रेस विक्रेताओं को देखें, प्रबंधित करें और पंजीकृत करें।",
+        "add_printer": "Add",
+        "s_no": "क्र.सं.",
+        "printer_id": "मुद्रक आईडी",
+        "printer_name": "मुद्रक का नाम",
+        "depot_name": "डिपो का नाम",
+        "class_id": "कक्षा आईडी",
+        "district_id": "जिला आईडी",
+        "depot_id": "डिपो आईडी",
+        "status": "स्थिति",
+        "depot": "डिपो"
+      },
+      "registration": {
+        "header": "मुद्रक पंजीकरण",
+        "subHeader": "एक नया मुद्रण प्रेस प्रोफ़ाइल पंजीकृत करने के लिए नीचे विवरण भरें।",
+        "back_to_list": "सूची पर वापस जाएं",
+        "reset_form": "फॉर्म रीसेट करें",
+        "save_profile": "मुद्रक प्रोफ़ाइल सहेजें",
+        "sections": {
+          "firm_profile": {
+            "title": "फर्म और मुद्रक प्रोफ़ाइल",
+            "subTitle": "बुनियादी पहचान, कर विवरण, और प्रेस वर्गीकरण।"
+          },
+          "address_details": {
+            "title": "पता और भौगोलिक विवरण",
+            "subTitle": "पंजीकृत कारखाने और संचार पते के मार्कर प्रदान करें।"
+          },
+          "technical_profile": {
+            "title": "मुद्रण क्षमता और तकनीकी प्रोफ़ाइल",
+            "subTitle": "मशीन बुनियादी ढांचे, क्षमता सीमा और अनुमोदित कार्य दरों का आकलन करें।"
+          },
+          "bank_profile": {
+            "title": "बैंक खाता विवरण",
+            "subTitle": "बिलिंग, सुरक्षा जमा और भुगतान हस्तांतरण के लिए आवश्यक बैंक विवरण।"
+          }
+        },
+        "fields": {
+          "printer_name": "मुद्रक / प्रेस का नाम",
+          "firm_registration_no": "फर्म पंजीकरण संख्या",
+          "printer_type": "मुद्रक श्रेणी / प्रकार",
+          "select_category": "Select Category",
+          "category_a": "Category A",
+          "category_b": "Category B",
+          "category_c": "Category C",
+          "gstin_no": "जीएसटी नंबर",
+          "pan_no": "पैन नंबर",
+          "establishment_year": "स्थापना वर्ष",
+          "address_line1": "पता पंक्ति 1",
+          "address_line2": "पता पंक्ति 2",
+          "state": "राज्य",
+          "district": "जिला",
+          "select_district": "Select District",
+          "city": "शहर / कस्बा",
+          "pin_code": "पिन कोड",
+          "assessed_capacity": "मूल्यांकित मुद्रण क्षमता",
+          "permitted_capacity": "अनुमोदित अनुमत क्षमता",
+          "rates_approved": "अनुमोदित दरें (प्रति 1000 प्रतियां)",
+          "allocated_job": "आवंटित मुद्रण कार्य",
+          "machine_details": "मशीन और उपकरण बुनियादी ढांचा विवरण",
+          "bank_name": "बैंक का नाम",
+          "account_number": "खाता संख्या",
+          "ifsc_code": "आईएफएससी कोड",
+          "branch_name": "शाखा का नाम और स्थान"
+        }
+      }
+    },
+    "reports": {
+      "supply_status": {
+        "page_header": "डिपोवार जिला पाठ्यपुस्तक आपूर्ति स्थिति रिपोर्ट (कक्षा 1-12)",
+        "page_sub_header": "सत्र 2026-27 | मध्य प्रदेश पाठ्यपुस्तक निगम | निःशुल्क पाठ्यपुस्तक योजना",
+        "title": "डिपोवार जिला पाठ्यपुस्तक आपूर्ति स्थिति",
+        "metadata": {
+          "organisation": "संगठन",
+          "scheme": "योजना",
+          "classes": "कक्षाएं",
+          "report_date": "रिपोर्ट तिथि",
+          "report_type": "रिपोर्ट प्रकार"
+        },
+        "metadata_values": {
+          "free_textbook_scheme": "निःशुल्क पाठ्यपुस्तक योजना",
+          "1_to_12": "1 से 12",
+          "depot_district_supply_status": "डिपो और जिला आपूर्ति स्थिति"
+        },
+        "filters": {
+          "search": "खोजें",
+          "search_placeholder": "डिपो या जिला खोजें...",
+          "depot": "डिपो",
+          "all_depots": "सभी डिपो",
+          "district": "जिला",
+          "all_districts": "सभी जिले",
+          "supply_status": "आपूर्ति स्थिति",
+          "all": "सभी",
+          "supply_100": "100% आपूर्ति",
+          "below_100": "100% से कम",
+          "above_100": "100% से अधिक",
+          "apply": "लागू करें",
+          "reset": "रीसेट करें",
+          "export": "निर्यात करें"
+        },
+        "summary": {
+          "total_depots": "कुल डिपो",
+          "total_districts": "कुल जिले",
+          "total_demand": "कुल मांग",
+          "total_supply_percent": "कुल आपूर्ति %"
+        },
+        "table": {
+          "no_records": "चयनित फिल्टर के लिए कोई रिकॉर्ड नहीं मिला।",
+          "headers": {
+            "s_no": "क्र.सं.",
+            "depot": "डिपो",
+            "general_sale": "सामान्य बिक्री",
+            "district_name": "जिले का नाम",
+            "scheme_1_8": "निःशुल्क पाठ्यपुस्तक योजना (कक्षा 1-8)",
+            "scheme_9_12": "निःशुल्क पाठ्यपुस्तक योजना (कक्षा 9-12)",
+            "total_scheme": "कुल निःशुल्क पाठ्यपुस्तक योजना (कक्षा 1-12)",
+            "demand": "मांग",
+            "supply": "आपूर्ति",
+            "supply_percent": "आपूर्ति %",
+            "total_demand": "कुल मांग",
+            "total_supply": "कुल आपूर्ति"
+          },
+          "footer": {
+            "source": "स्रोत: मध्य प्रदेश पाठ्यपुस्तक निगम",
+            "session": "सत्र: 2026-27",
+            "date": "तिथि: 28/07/2026",
+            "supply_100": "100% आपूर्ति",
+            "supply_90_99": "90-99%",
+            "supply_below_90": "90% से कम"
+          }
+        }
       }
     }
   }

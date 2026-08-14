@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MPTBC — Static Prototype | म.प्र. पाठ्य पुस्तक निगम</title>
+<style>
+:root{
+  --navy:#08263f;
+  --panel:#123f63;
+  --sky:#1ba4dd;
+  --sky2:#33c1f2;
+  --btn:#1e88b8;
+  --btn2:#127a56;
+  --bg:#eef3f7;
+  --card:#ffffff;
+  --line:#cfdce6;
+  --line2:#e4edf3;
+  --text:#16202b;
+  --muted:#5c7386;
+  --hl:#fffbe0;
+  --tealcard:#12938a;
+  --redcard:#cf4f4a;
+  --bluecard:#2b7fb8;
+  --darkcard:#37475a;
+  --ok:#177a45;
+  --warn:#b3600d;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:"Nirmala UI","Noto Sans Devanagari","Kokila","Mangal","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  background:var(--bg);color:var(--text);font-size:13.5px;line-height:1.45;
+}
+a{color:#12608f;text-decoration:none}
+button{font-family:inherit}
+
+/* ---------- top chrome ---------- */
+.topstrip{background:var(--navy);color:#fff;padding:6px 14px;display:flex;align-items:center;gap:14px;font-size:12.5px}
+.topstrip .portal{flex:1;text-align:center;font-weight:700;letter-spacing:.3px;color:#8fd8ff}
+.topstrip .u{opacity:.9;margin-left:14px}
+.topstrip .u b{color:#fff}
+.brandband{background:linear-gradient(90deg,var(--sky) 0%,var(--sky2) 55%,#8ad6f2 100%);
+  color:#fff;padding:8px 14px;display:flex;align-items:center;gap:12px;border-bottom:3px solid #0d6f9c}
+.logo{width:40px;height:40px;margin-right:10px;border-radius:50%;background:#fff;color:var(--navy);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;text-align:center;
+  border:2px solid #0d6f9c;line-height:1.05}
+.brandband h1{margin:0;font-size:19px;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.18)}
+.brandband h1 small{display:block;font-size:11.5px;font-weight:600;opacity:.95}
+.brandband .sub{margin-left:auto;font-size:11.5px;text-align:right;opacity:.95}
+
+.menubar{background:#e8f6fd;border-bottom:1px solid #b9dced;padding:0 8px;display:flex;flex-wrap:wrap;align-items:stretch}
+.menubar .mi{padding:7px 12px;border-right:1px solid #cbe6f4;font-size:12.5px;cursor:pointer;white-space:nowrap}
+.menubar .mi:hover{background:#d3ecf9}
+.menubar .mi.active{background:var(--panel);color:#fff}
+.menubar .right{margin-left:auto;display:flex;align-items:center;gap:8px;padding:4px 8px}
+
+/* ---------- layout ---------- */
+.wrap{display:flex;min-height:calc(100vh - 150px);align-items:stretch}
+.side{width:268px;flex:0 0 268px;background:#fff;border-right:1px solid var(--line);overflow:auto}
+.side .roleSel{padding:8px;border-bottom:1px solid var(--line2);background:#f6fafd}
+.side .roleSel label{display:block;font-size:11px;color:var(--muted);margin-bottom:3px}
+.grp{border-bottom:1px solid var(--line2)}
+.grp>.gh{padding:8px 10px;font-weight:700;font-size:12.5px;background:#f3f8fb;cursor:pointer;
+  display:flex;align-items:center;gap:6px;color:#123f63}
+.grp>.gh:hover{background:#e7f2f9}
+.grp>.gh .ch{margin-left:auto;font-size:10px;color:var(--muted)}
+.grp .items{display:none;padding:2px 0 6px}
+.grp.open .items{display:block}
+.grp .items a{display:block;padding:5px 10px 5px 24px;font-size:12.3px;color:#24435c;border-left:3px solid transparent}
+.grp .items a:hover{background:#f0f7fb}
+.grp .items a.sel{background:#e3f2fb;border-left-color:var(--sky);font-weight:600;color:#0c4c73}
+.grp .items a i{display:block;font-style:normal;font-size:10.5px;color:var(--muted)}
+
+.main{flex:1;padding:12px;min-width:0}
+.crumb{font-size:11.5px;color:var(--muted);margin:0 2px 8px}
+.crumb b{color:#123f63}
+
+/* ---------- panel ---------- */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:2px;margin-bottom:14px;box-shadow:0 1px 2px rgba(10,40,70,.06)}
+.ph{background:var(--panel);color:#fff;padding:7px 12px;display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:700}
+.ph .en{font-weight:600;opacity:.92}
+.ph .tag{margin-left:auto;font-size:10.5px;font-weight:600;background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.3);padding:2px 7px;border-radius:10px}
+.pb{padding:12px}
+
+/* ---------- toolbar ---------- */
+.tb{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;padding:10px 12px;background:#f7fbfd;border-bottom:1px solid var(--line2)}
+.tb .sp{flex:1}
+
+/* ---------- form ---------- */
+.fgrid{display:flex;flex-wrap:wrap;gap:10px 22px;display:grid;grid-template-columns:1fr 1fr}
+.fgrid>.fld{flex:1 1 340px;min-width:0}
+.fgrid.one{grid-template-columns:1fr}
+.fld{display:grid;grid-template-columns:190px 1fr;gap:10px;align-items:start;padding:2px 0}
+.fld.wide{grid-column:1 / -1}
+.lbl{font-size:12.5px;font-weight:600;color:#1d3346;padding-top:5px}
+.lbl i{display:block;font-style:normal;font-size:11px;font-weight:500;color:var(--muted)}
+.lbl .req{color:#c0392b;margin-left:2px}
+input[type=text],input[type=date],input[type=number],input[type=password],select,textarea{
+  width:100%;padding:5px 7px;border:1px solid #b9c9d6;border-radius:2px;background:#fff;font-size:12.5px;
+  font-family:inherit;color:var(--text)}
+input:focus,select:focus,textarea:focus{outline:2px solid #7fc7ea;outline-offset:0;border-color:#4aa8d8}
+textarea{min-height:52px;resize:vertical}
+input[readonly]{background:#eef3f7;color:#44586b}
+.hint{font-size:10.8px;color:var(--muted);margin-top:2px}
+.chkrow{display:flex;flex-wrap:wrap;gap:14px;padding-top:5px;font-size:12.3px}
+.chkrow label{display:flex;gap:5px;align-items:center}
+.fileBox{border:1px dashed #9fbdd0;background:#f6fbfe;padding:7px 9px;font-size:12px;color:#40607a;border-radius:2px}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:6px;background:var(--btn);color:#fff;border:1px solid #14709b;
+  padding:5px 12px;border-radius:2px;font-size:12.4px;font-weight:600;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.btn.save{background:var(--btn2);border-color:#0d5c40}
+.btn.gray{background:#e9eff4;color:#2b4256;border-color:#c3d2dd}
+.btn.warn{background:#b3600d;border-color:#8c4a09}
+.btn.sm{padding:3px 9px;font-size:11.5px}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;padding:11px 12px;background:#f7fbfd;border-top:1px solid var(--line2)}
+
+/* ---------- table ---------- */
+.tblwrap{overflow:auto}
+table.grid{width:100%;border-collapse:collapse;font-size:12.3px}
+table.grid th{background:#dfeef7;border:1px solid #b9d5e6;padding:6px 7px;text-align:left;font-weight:700;color:#12405f;vertical-align:top}
+table.grid th i{display:block;font-style:normal;font-size:10.5px;font-weight:500;color:#4d6f88}
+table.grid td{border:1px solid #dbe6ee;padding:5px 7px;vertical-align:top}
+table.grid tbody tr:nth-child(even){background:#f8fbfd}
+table.grid tbody tr:hover{background:var(--hl)}
+table.grid td.num,table.grid th.num{text-align:right;font-variant-numeric:tabular-nums}
+table.grid td.act a{margin-right:8px;font-size:11.8px}
+.mini input{padding:3px 5px;font-size:11.5px}
+.pager{display:flex;gap:4px;padding:9px 12px;align-items:center;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.pager b{display:inline-block;min-width:24px;text-align:center;border:1px solid #c3d5e2;padding:2px 6px;background:#fff;cursor:pointer;font-weight:600}
+.pager b.on{background:var(--panel);color:#fff;border-color:var(--panel)}
+
+/* ---------- badges / status ---------- */
+.bdg{display:inline-block;padding:1px 7px;border-radius:9px;font-size:11px;font-weight:700;border:1px solid}
+.bdg.ok{background:#e6f6ec;color:#177a45;border-color:#a9dcbe}
+.bdg.pend{background:#fff5e2;color:#a35d09;border-color:#f0d19a}
+.bdg.rej{background:#fdeceb;color:#b5322b;border-color:#f2b8b4}
+.bdg.info{background:#e8f2fb;color:#1b5d8c;border-color:#b6d5ec}
+
+/* ---------- KPI cards ---------- */
+.kpis{display:flex;flex-wrap:wrap;gap:11px;display:grid;grid-template-columns:repeat(4,1fr)}
+.kpi{flex:1 1 210px}
+.kpi{color:#fff;border-radius:3px;overflow:hidden}
+.kpi .t{padding:6px 10px;font-size:11px;font-weight:700;letter-spacing:.4px;background:rgba(0,0,0,.13)}
+.kpi .v{padding:9px 10px 4px;display:flex;align-items:center;gap:10px}
+.kpi .v .ic{font-size:26px;opacity:.85}
+.kpi .v .n{font-size:25px;font-weight:800;line-height:1}
+.kpi .v .n small{display:block;font-size:10.5px;font-weight:600;opacity:.9;letter-spacing:.3px}
+.kpi .f{display:flex;background:rgba(0,0,0,.16)}
+.kpi .f div{flex:1;padding:5px 10px;font-size:10.5px;font-weight:600}
+.kpi .f div b{display:block;font-size:14px}
+.kpi.a{background:var(--tealcard)} .kpi.b{background:var(--redcard)}
+.kpi.c{background:var(--bluecard)} .kpi.d{background:var(--darkcard)}
+
+.cols2{display:flex;flex-wrap:wrap;gap:14px;display:grid;grid-template-columns:1fr 1fr}
+.cols2>*{flex:1 1 320px;min-width:0}
+.cols3{display:flex;flex-wrap:wrap;gap:14px;display:grid;grid-template-columns:1fr 1fr 1fr}
+.cols3>*{flex:1 1 260px;min-width:0}
+.cols37{display:flex;flex-wrap:wrap;gap:14px;display:grid;grid-template-columns:38fr 62fr}
+.cols37>*{min-width:0}
+
+/* ---------- chart ---------- */
+.chart{display:flex;align-items:flex-end;gap:12px;height:210px;padding:24px 6px 0;border-bottom:1px solid var(--line)}
+.chart .bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.chart .bar .b{width:100%;border-radius:2px 2px 0 0;position:relative}
+.chart .bar .b span{position:absolute;top:-16px;left:0;right:0;text-align:center;font-size:10.5px;font-weight:700;color:#3b5468}
+.chart .bar .l{font-size:10.5px;color:var(--muted);margin-top:5px;text-align:center;line-height:1.2}
+.legend{display:flex;gap:14px;font-size:11.5px;color:var(--muted);padding:8px 4px 0}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+
+/* ---------- activity ---------- */
+.acts{padding:4px 0}
+.acts .a{display:flex;gap:9px;align-items:flex-start;padding:7px 10px;border-bottom:1px solid var(--line2);font-size:12.3px}
+.acts .a .d{margin-left:auto;font-size:10.8px;color:var(--muted);white-space:nowrap}
+.acts .a .i{width:22px;height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;flex:0 0 22px}
+
+/* ---------- login ---------- */
+.loginwrap{min-height:100vh;background:linear-gradient(160deg,#0b3453,#12628d 55%,#1ba4dd);display:flex;align-items:center;justify-content:center;padding:20px}
+.loginbox{width:940px;max-width:100%;background:#fff;border-radius:4px;overflow:hidden;display:grid;grid-template-columns:1fr 380px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.loginbox .l{padding:34px;background:linear-gradient(150deg,#0d3d5f,#1a6c9b);color:#fff}
+.loginbox .l h2{margin:14px 0 4px;font-size:24px}
+.loginbox .l p{opacity:.9;font-size:12.5px;margin:0 0 18px}
+.loginbox .l ul{margin:0;padding-left:16px;font-size:12.3px;opacity:.92}
+.loginbox .l ul li{margin-bottom:5px}
+.loginbox .r{padding:28px 26px}
+.loginbox .r h3{margin:0 0 2px;font-size:17px;color:#12405f}
+.loginbox .r .sm{font-size:11.5px;color:var(--muted);margin-bottom:16px}
+.loginbox .r .fld{grid-template-columns:1fr;gap:3px;margin-bottom:11px}
+.cap{display:flex;gap:8px;align-items:center}
+.cap .cimg{background:repeating-linear-gradient(45deg,#e7eff5,#e7eff5 6px,#d7e5ee 6px,#d7e5ee 12px);
+  border:1px solid #b9c9d6;padding:5px 12px;font-weight:800;letter-spacing:5px;font-style:italic;color:#2a4a63;font-size:15px}
+
+/* ---------- misc ---------- */
+.note{background:#fff8e1;border:1px solid #f0dca4;padding:8px 11px;font-size:12px;color:#6b5312;border-radius:2px;margin-bottom:12px}
+.note b{color:#5a4409}
+.footer{background:var(--navy);color:#9fc4dd;text-align:center;padding:10px;font-size:11.5px}
+.toast{position:fixed;right:16px;bottom:16px;background:#123f63;color:#fff;padding:10px 16px;border-radius:3px;
+  font-size:12.5px;box-shadow:0 6px 20px rgba(0,0,0,.3);opacity:0;transform:translateY(10px);transition:.22s;z-index:99}
+.toast.on{opacity:1;transform:none}
+.tabs{display:flex;gap:2px;padding:8px 12px 0;background:#f7fbfd;border-bottom:1px solid var(--line2);flex-wrap:wrap}
+.tabs .t{padding:5px 12px;font-size:12.2px;border:1px solid var(--line);border-bottom:none;background:#e8f1f7;cursor:pointer;border-radius:3px 3px 0 0;color:#33566f}
+.tabs .t.on{background:#fff;font-weight:700;color:#0f4a70;position:relative;top:1px}
+.srsref{font-size:11px;color:var(--muted);padding:6px 12px;background:#fafcfe;border-top:1px dashed var(--line)}
+.searchScr{padding:8px;border-bottom:1px solid var(--line2)}
+.searchScr input{font-size:12.3px}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(2,1fr)}.cols2,.cols3,.cols37{grid-template-columns:1fr}
+ .fgrid{grid-template-columns:1fr}.side{width:220px;flex-basis:220px}}
+@media(max-width:760px){.wrap{flex-direction:column}.side{width:100%;flex-basis:auto}.fld{grid-template-columns:1fr}
+ .loginbox{grid-template-columns:1fr}.loginbox .l{display:none}}
+@media print{.side,.menubar,.topstrip{display:none}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast"></div>
+<script>
+/* ==========================================================================
+   MPTBC — Computerization of M.P. Text Book Corporation
+   STATIC PROTOTYPE (screen mock-ups) — derived from SRS v1.4 dated 21-08-2017
+   All data shown is dummy sample data for screen visualisation only.
+   ========================================================================== */
+/* ---------------- sample data pools (dummy) ---------------- */
+var POOL = {
+  depot:["भोपाल","इंदौर","ग्वालियर","जबलपुर","उज्जैन","सागर","रीवा","शहडोल","गुना","होशंगाबाद","सिवनी","मुरैना"],
+  printer:["मेसर्स अजन्ता पैकेजिंग","जी टेक प्रिंट वर्क्स","मेसर्स जयेश ऑफ़सेट प्रिंटर्स","मेसर्स दृष्टि ऑफ़सेट","मेसर्स एम.के. ऑफ़सेट","श्री बालाजी प्रिंटर्स","न्यू लक्ष्मी ऑफ़सेट"],
+  title:["भाषा भारती - 1","भाषा भारती - 2","सहायक वाचन - 6","इंग्लिश रीडर जनरल सीरीज - 1","गणित - 5","विज्ञान - 8","सामाजिक विज्ञान - 7","संस्कृत भारती - 6","हमारा पर्यावरण - 4"],
+  mill:["आई.टी.सी. लिमिटेड","जे.के. पेपर मिल्स","सेंचुरी पल्प एंड पेपर","एमामी पेपर मिल्स","टी.एन.पी.एल.","बल्लारपुर इंडस्ट्रीज"],
+  seller:["श्री बुक डिपो, भोपाल","सरस्वती पुस्तक भंडार, इंदौर","विद्या बुक सेंटर, ग्वालियर","न्यू कॉलेज बुक हाउस, जबलपुर","शारदा एजेंसी, उज्जैन"],
+  transporter:["मेसर्स राजदूत ट्रांसपोर्ट","भारत कैरियर्स","श्री गणेश रोडवेज","मालवा लॉजिस्टिक्स"],
+  employee:["आर. के. शर्मा","सुनीता वर्मा","प्रवीण सिंह भाटी","अमृतांश तिवारी","मीना चौहान","दिनेश पटेल","एस. के. जैन"],
+  desig:["सहायक प्रबंधक","लेखापाल","डिपो प्रबंधक","वरिष्ठ लिपिक","उप प्रबंधक","भण्डार पाल"],
+  block:["हुजूर","बैरसिया","सांवेर","देपालपुर","सिहोरा","पाटन","महू"],
+  papertype:["मुद्रण पेपर 58 GSM","मुद्रण पेपर 60 GSM","कवर पेपर 170 GSM","कवर पेपर 200 GSM","मैपलिथो 70 GSM"],
+  cls:["कक्षा 1","कक्षा 2","कक्षा 3","कक्षा 4","कक्षा 5","कक्षा 6","कक्षा 7","कक्षा 8"],
+  subject:["हिन्दी","अंग्रेजी","गणित","विज्ञान","सामाजिक विज्ञान","संस्कृत","उर्दू"],
+  medium:["हिन्दी","अंग्रेजी","उर्दू","मराठी"],
+  scheme:["नि:शुल्क पाठ्यपुस्तक योजना","सामान्य विक्रय","आर.एस.के. मांग","सी.पी.आई. मांग"],
+  status:["स्वीकृत","लंबित","निरस्त","प्रक्रियाधीन","पूर्ण"],
+  bank:["स्टेट बैंक ऑफ इंडिया","बैंक ऑफ इंडिया","पंजाब नेशनल बैंक","सेंट्रल बैंक ऑफ इंडिया"],
+  court:["माननीय उच्च न्यायालय, जबलपुर","जिला न्यायालय, भोपाल","श्रम न्यायालय, इंदौर"],
+  advtype:["त्यौहार अग्रिम","अनाज अग्रिम","चिकित्सा अग्रिम","यात्रा अग्रिम","भण्डार अग्रिम"],
+  yr:["2024-2025","2025-2026","2026-2027"]
+};
+function pick(a,i){ return a[i % a.length]; }
+function pad(n,w){ n=String(n); while(n.length<w) n="0"+n; return n; }
+function dt(i,base){ base=base||10; var d=new Date(2026,(i*2+3)%12,((i*5)%27)+1);
+  return pad(d.getDate(),2)+"-"+pad(d.getMonth()+1,2)+"-"+d.getFullYear(); }
+function money(i){ return (1250000 + i*387450).toLocaleString('en-IN'); }
+function qty(i){ return (12000 + i*8450).toLocaleString('en-IN'); }
+
+/* auto-generate a believable cell value from the English column label */
+function cellFor(en, i, hi, ci){
+  ci = ci||0; i = i + ci*3;
+  var s=(en||"").toLowerCase(), h=(hi||"");
+  if(s==="#"||s.indexOf("sr")===0||s.indexOf("s.no")>=0||s==="क्र.") return i+1;
+  if(s.indexOf("action")>=0) return "ACT";
+  if(s.indexOf("status")>=0) return "BDG";
+  if(s.indexOf("select")>=0||s.indexOf("check")>=0) return "CHK";
+  if(s.indexOf("entry")>=0&&s.indexOf("field")>=0) return "INP";
+  if(s.indexOf("academic year")>=0||s.indexOf("financial year")>=0||s==="year") return pick(POOL.yr,i);
+  if(s.indexOf("year")>=0) return pick(POOL.yr,i);
+  if(s.indexOf("printer type")>=0||s.indexOf("printers type")>=0||s.indexOf("seller category")>=0||s.indexOf("category")>=0)
+     return ["श्रेणी अ / Category A","श्रेणी ब / Category B","श्रेणी स / Category C"][i%3];
+  if(s.indexOf("type")>=0&&s.indexOf("paper")<0&&s.indexOf("machine")<0&&s.indexOf("advance")<0&&s.indexOf("house")<0)
+     return ["सामान्य / General","विशेष / Special","नियमित / Regular"][i%3];
+
+  if(s.indexOf("date")>=0) return dt(i);
+  if(s.indexOf("printer")>=0||s.indexOf("press")>=0) return pick(POOL.printer,i);
+  if(s.indexOf("depot")>=0||s.indexOf("depo")>=0) return pick(POOL.depot,i);
+  if(s.indexOf("mill")>=0||s.indexOf("vendor")>=0&&s.indexOf("paper")>=0) return pick(POOL.mill,i);
+  if(s.indexOf("transport")>=0) return pick(POOL.transporter,i);
+  if(s.indexOf("seller")>=0||s.indexOf("distributor")>=0||s.indexOf("reseller")>=0) return pick(POOL.seller,i);
+  if(s.indexOf("employee")>=0||s.indexOf("officer")>=0||s.indexOf("name of driver")>=0) return pick(POOL.employee,i);
+  if(s.indexOf("designation")>=0) return pick(POOL.desig,i);
+  if(s.indexOf("wh")>=0||s.indexOf("no of employees")>=0||s.indexOf("no of titles")>=0||s.indexOf("no of items")>=0||
+     s.indexOf("no of menus")>=0||s.indexOf("no of bids")>=0||s.indexOf("no of bidders")>=0||s.indexOf("service years")>=0||
+     s.indexOf("machines no")>=0||s.indexOf("days")>=0||s.indexOf("no of days")>=0) return (2+(i*3)%14);
+  if(s.indexOf("bank")>=0) return pick(POOL.bank,i);
+  if(s.indexOf("court")>=0) return pick(POOL.court,i);
+  if(s.indexOf("block")>=0) return pick(POOL.block,i);
+  if(s.indexOf("paper type")>=0||s.indexOf("gsm")>=0) return pick(POOL.papertype,i);
+  if(s.indexOf("scheme")>=0) return pick(POOL.scheme,i);
+  if(s.indexOf("subject")>=0) return pick(POOL.subject,i);
+  if(s.indexOf("medium")>=0) return pick(POOL.medium,i);
+  if(s.indexOf("class")>=0||s.indexOf("standard")>=0) return pick(POOL.cls,i);
+  if(s.indexOf("title")>=0||s.indexOf("book name")>=0||s.indexOf("book")>=0&&s.indexOf("no")<0) return pick(POOL.title,i);
+  if(s.indexOf("advance type")>=0||s.indexOf("type of advance")>=0) return pick(POOL.advtype,i);
+  if(s.indexOf("amount")>=0||s.indexOf("rate")>=0||s.indexOf("value")>=0||s.indexOf("cost")>=0||
+     s.indexOf("bill")>=0&&s.indexOf("no")<0||s.indexOf("payment")>=0||s.indexOf("penalty")>=0||s.indexOf("deposit")>=0||s.indexOf("emd")>=0)
+     return money(i);
+  if(s.indexOf("qty")>=0||s.indexOf("quantity")>=0||s.indexOf("stock")>=0||s.indexOf("balance")>=0||
+     s.indexOf("demand")>=0||s.indexOf("received")>=0||s.indexOf("dispatch")>=0||s.indexOf("supplied")>=0||
+     s.indexOf("allot")>=0||s.indexOf("copies")>=0||s.indexOf("no of")>=0||s.indexOf("total")>=0)
+     return qty(i);
+  if(s.indexOf("ton")>=0||s.indexOf("weight")>=0||s.indexOf("reel")>=0&&s.indexOf("no")<0) return (120.5+i*38.25).toFixed(3);
+  if(s.indexOf("percent")>=0||s==="%") return (72+i*3.4).toFixed(2)+"%";
+  if(s.indexOf("vehicle")>=0||s.indexOf("truck")>=0) return "MP-04-GA-"+(4120+i*37);
+  if(s.indexOf("mobile")>=0||s.indexOf("contact")>=0||s.indexOf("phone")>=0) return "9"+(400000000+i*13579246);
+  if(s.indexOf("email")>=0) return "user"+(i+1)+"@mptbc.mp.gov.in";
+  if(s.indexOf("gr no")>=0) return "GR/"+pad(2410+i,4);
+  if(s.indexOf("challan")>=0) return "CHL/2026/"+pad(118+i*7,4);
+  if(s.indexOf("group")>=0) return pad(1+i,4);
+  if(s.indexOf("job")>=0) return "JOB-"+pad(2026001+i,7);
+  if(s.indexOf("order no")>=0||s.indexOf("work order")>=0) return "WO/TBC/"+pad(340+i*6,4);
+  if(s.indexOf("tender")>=0) return "TND/2026/"+pad(21+i,3);
+  if(s.indexOf("voucher")>=0) return "VCH/"+pad(880+i*4,4);
+  if(s.indexOf("case")>=0) return "WP/"+(3410+i*23)+"/2026";
+  if(s.indexOf("code")>=0||s.indexOf("id")>=0||s.indexOf("no")>=0||s.indexOf("number")>=0) return pad(1001+i*7,5);
+  if(s.indexOf("address")>=0) return "औद्योगिक क्षेत्र, "+pick(POOL.depot,i);
+  if(s.indexOf("remark")>=0||s.indexOf("note")>=0) return i%3===0?"—":"नियमानुसार";
+  if(s.indexOf("name")>=0) return pick(POOL.employee,i);
+  return h? h+" "+(i+1) : "मान "+(i+1);
+}
+
+/* parse "हिन्दी|English|type|options" */
+function F(str){
+  var p=String(str).split("|");
+  return {hi:p[0]||"", en:p[1]||"", type:p[2]||"text", opt:(p[3]||""), extra:(p[4]||"")};
+}
+function C(str){
+  var p=String(str).split("|");
+  return {hi:p[0]||"", en:p[1]||"", w:p[2]||""};
+}
+
+/* ---------------- element helpers ---------------- */
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function fieldHTML(f){
+  var req = (f.extra.indexOf("o")>=0) ? "" : '<span class="req">*</span>';
+  var ctl="";
+  var opts = f.opt? f.opt.split(","): [];
+  switch(f.type){
+    case "select":
+      ctl='<select>'+(opts.length?opts:["चयन करें / Select"]).map(function(o,i){return '<option>'+esc(o)+'</option>';}).join("")+'</select>';
+      break;
+    case "date": ctl='<input type="text" value="'+(f.opt||dt(2))+'" placeholder="DD-MM-YYYY">'; break;
+    case "num": ctl='<input type="text" value="'+(f.opt||"")+'" placeholder="0">'; break;
+    case "ro": ctl='<input type="text" value="'+esc(f.opt||"")+'" readonly>'; break;
+    case "area": ctl='<textarea placeholder="'+esc(f.opt||"")+'"></textarea>'; break;
+    case "file": ctl='<div class="fileBox">📎 फ़ाइल चुनें / Choose file &nbsp; <span style="color:#7d94a6">'+(f.opt||"PDF / JPG, max 2 MB")+'</span></div>'; break;
+    case "chk": ctl='<div class="chkrow">'+opts.map(function(o){return '<label><input type="checkbox"> '+esc(o)+'</label>';}).join("")+'</div>'; break;
+    case "radio": ctl='<div class="chkrow">'+opts.map(function(o,i){return '<label><input type="radio" name="r'+Math.random().toString(36).slice(2,6)+'" '+(i?"":"checked")+'> '+esc(o)+'</label>';}).join("")+'</div>'; break;
+    default: ctl='<input type="text" value="'+esc(f.opt||"")+'">';
+  }
+  var cls = (f.extra.indexOf("w")>=0)? "fld wide":"fld";
+  return '<div class="'+cls+'"><div class="lbl">'+esc(f.hi)+req+'<i>'+esc(f.en)+'</i></div><div>'+ctl+
+    (f.extra.indexOf("h")>=0?'<div class="hint">'+esc(f.extra.split("~")[1]||"")+'</div>':'')+'</div></div>';
+}
+
+function tableHTML(cols, nrows, opts){
+  opts=opts||{};
+  var th = cols.map(function(c){
+    var cl = /qty|amount|no\.|total|%|ton/i.test(c.en)? ' class="num"':'';
+    return '<th'+cl+(c.w?' style="width:'+c.w+'px"':'')+'>'+esc(c.hi)+'<i>'+esc(c.en)+'</i></th>';
+  }).join("");
+  var body="";
+  for(var r=0;r<nrows;r++){
+    var tds = cols.map(function(c,ci){
+      var v = cellFor(c.en, r, c.hi, ci);
+      if(v==="ACT") return '<td class="act"><a href="#" onclick="tst(\'संपादन / Edit — prototype\');return false">संपादन/Edit</a><a href="#" onclick="tst(\'विवरण / View detail — prototype\');return false">विवरण/View</a><a href="#" onclick="tst(\'निष्क्रिय / Delete — prototype\');return false">हटाएँ/Delete</a></td>';
+      if(v==="BDG"){ var s=["ok","pend","info","rej"][r%4], t=["स्वीकृत / Approved","लंबित / Pending","प्रक्रियाधीन / In process","निरस्त / Rejected"][r%4];
+        return '<td><span class="bdg '+s+'">'+t+'</span></td>'; }
+      if(v==="CHK") return '<td style="text-align:center"><input type="checkbox"></td>';
+      if(v==="INP") return '<td class="mini"><input type="text" value="0"></td>';
+      var cl = /qty|amount|no\.|total|%|ton|quantity|balance|stock/i.test(c.en)? ' class="num"':'';
+      return '<td'+cl+'>'+esc(v)+'</td>';
+    }).join("");
+    body+='<tr>'+tds+'</tr>';
+  }
+  var tot = opts.total? '<tfoot><tr style="background:#eaf3f9;font-weight:700">'+cols.map(function(c,i){
+      return i===0? '<td colspan="1">योग / Total</td>' : (/qty|amount|total|quantity|ton/i.test(c.en)? '<td class="num">'+qty(9+i*4)+'</td>':'<td></td>');
+    }).join("")+'</tr></tfoot>':'';
+  return '<div class="tblwrap"><table class="grid"><thead><tr>'+th+'</tr></thead><tbody>'+body+'</tbody>'+tot+'</table></div>';
+}
+
+function pagerHTML(){
+  return '<div class="pager">कुल 148 रिकॉर्ड / 148 records &nbsp;'+
+   '<b class="on">1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>…</b><b>10</b>'+
+   '<span style="margin-left:auto">पृष्ठ आकार / Page size: <select style="width:auto;display:inline-block"><option>15</option><option>25</option><option>50</option></select></span></div>';
+}
+
+function toolbarHTML(s){
+  var t = s.toolbar || ["yr","search","add"];
+  var h='<div class="tb">';
+  t.forEach(function(k){
+    if(k==="yr") h+='<div><div class="lbl" style="padding:0 0 2px">शिक्षा सत्र<i>Academic Year</i></div><select style="width:150px"><option>2026-2027</option><option>2025-2026</option><option>2024-2025</option></select></div>';
+    if(k==="fy") h+='<div><div class="lbl" style="padding:0 0 2px">वित्तीय वर्ष<i>Financial Year</i></div><select style="width:150px"><option>2026-2027</option><option>2025-2026</option></select></div>';
+    if(k==="depot") h+='<div><div class="lbl" style="padding:0 0 2px">डिपो<i>Depot</i></div><select style="width:150px"><option>सभी / All</option>'+POOL.depot.map(function(d){return '<option>'+d+'</option>';}).join("")+'</select></div>';
+    if(k==="printer") h+='<div><div class="lbl" style="padding:0 0 2px">प्रिंटर<i>Printer</i></div><select style="width:190px"><option>सभी / All</option>'+POOL.printer.map(function(d){return '<option>'+d+'</option>';}).join("")+'</select></div>';
+    if(k==="from") h+='<div><div class="lbl" style="padding:0 0 2px">दिनांक से<i>From date</i></div><input type="text" value="01-04-2026" style="width:120px"></div>';
+    if(k==="to") h+='<div><div class="lbl" style="padding:0 0 2px">दिनांक तक<i>To date</i></div><input type="text" value="30-06-2026" style="width:120px"></div>';
+    if(k==="search") h+='<div><div class="lbl" style="padding:0 0 2px">खोजें<i>Search</i></div><input type="text" placeholder="कीवर्ड / keyword" style="width:190px"></div>';
+    if(k==="go") h+='<button class="btn" onclick="tst(\'खोज परिणाम / Search executed — prototype\')">🔍 खोजें / Search</button>';
+    if(k==="add") h+='<div class="sp"></div><button class="btn" onclick="tst(\'नया रिकॉर्ड फॉर्म / New record form — prototype\')">＋ नया जोड़ें / Add New</button>';
+    if(k==="excel") h+='<div class="sp"></div><button class="btn gray" onclick="tst(\'Excel export — prototype\')">⬇ Excel</button><button class="btn gray" onclick="tst(\'PDF export — prototype\')">⬇ PDF</button><button class="btn gray" onclick="window.print()">🖨 प्रिंट / Print</button>';
+  });
+  return h+'</div>';
+}
+
+function buttonsHTML(s){
+  var b = s.buttons || ["save","reset","back"];
+  var map = {
+    save:'<button class="btn save" onclick="tst(\'रिकॉर्ड सुरक्षित / Record saved — prototype\')">💾 सुरक्षित करें / Save</button>',
+    update:'<button class="btn save" onclick="tst(\'अद्यतन / Updated — prototype\')">💾 अद्यतन करें / Update</button>',
+    reset:'<button class="btn gray" onclick="tst(\'फॉर्म रिक्त / Form cleared\')">↺ रिक्त करें / Reset</button>',
+    back:'<button class="btn gray" onclick="tst(\'पिछली स्क्रीन / Back to view screen\')">◀ वापस / Cancel</button>',
+    approve:'<button class="btn save" onclick="tst(\'स्वीकृत / Approved — prototype\')">✔ स्वीकृत करें / Approve</button>',
+    reject:'<button class="btn warn" onclick="tst(\'निरस्त / Rejected — prototype\')">✖ निरस्त करें / Reject</button>',
+    forward:'<button class="btn" onclick="tst(\'अग्रेषित / Forwarded — prototype\')">➤ अग्रेषित करें / Forward</button>',
+    print:'<button class="btn gray" onclick="window.print()">🖨 प्रिंट / Print</button>',
+    challan:'<button class="btn" onclick="tst(\'चालान जनरेट / Challan generated — prototype\')">🧾 चालान बनाएँ / Generate Challan</button>',
+    receipt:'<button class="btn" onclick="tst(\'प्राप्ति रसीद / Receipt generated — prototype\')">🧾 रसीद बनाएँ / Generate Receipt</button>',
+    barcode:'<button class="btn" onclick="tst(\'बारकोड स्कैन / Barcode scan — prototype\')">▥ बारकोड स्कैन / Scan</button>',
+    submit:'<button class="btn save" onclick="tst(\'आवेदन जमा / Application submitted — prototype\')">➤ जमा करें / Submit</button>'
+  };
+  return '<div class="btnrow">'+b.map(function(k){return map[k]||"";}).join("")+'</div>';
+}
+
+
+/* ---------------- app shell / routing ---------------- */
+var STATE = { role:"ho", screen:null, filter:"" };
+
+function roleTitle(r){
+  var m = {
+    mgmt:["प्रबंधन (अध्यक्ष / प्रबंध संचालक)","Management — Chairman / Managing Director"],
+    ho:["मुख्यालय — विभागीय उपयोगकर्ता","Head Office — Departmental User"],
+    cdepot:["केन्द्रीय कागज डिपो","Central Paper Depot"],
+    depot:["जिला डिपो","District Depot"],
+    printer:["मुद्रक (बाह्य उपयोगकर्ता)","Printer — External User"],
+    pvendor:["कागज विक्रेता (बाह्य उपयोगकर्ता)","Paper Vendor — External User"],
+    bseller:["पुस्तक विक्रेता (बाह्य उपयोगकर्ता)","Book Seller — External User"],
+    brc:["बी.आर.सी. / ब्लॉक","BRC / Block User"],
+    emp:["कर्मचारी सेवा पोर्टल","Employee Self Service"],
+    admin:["सिस्टम प्रशासक","System Administrator"]
+  };
+  return m[r]||m.ho;
+}
+var ROLE_USER = { mgmt:"MD [ संचालक महोदय ]", ho:"printing [ एम. एम. ईसाई ]", cdepot:"CentralDepot [ प्रवीण सिंह भाटी ]",
+  depot:"DepoBhopal [ प्रवीण सिंह भाटी ]", printer:"Printer [ मेसर्स अजन्ता पैकेजिंग ]", pvendor:"PaperVendor [ जे.के. पेपर ]",
+  bseller:"BookSeller [ श्री बुक डिपो ]", brc:"BRC [ हुजूर ]", emp:"Employee [ आर. के. शर्मा ]", admin:"Admin [ System ]" };
+
+function screensFor(role){ return SCREENS.filter(function(s){ return s.roles.indexOf(role)>=0; }); }
+
+function sidebarHTML(){
+  var list = screensFor(STATE.role), groups=[], byG={};
+  var f = STATE.filter.toLowerCase();
+  list.forEach(function(s){
+    if(f && (s.hi+" "+s.en+" "+s.group).toLowerCase().indexOf(f)<0) return;
+    if(!byG[s.group]){ byG[s.group]=[]; groups.push(s.group); }
+    byG[s.group].push(s);
+  });
+  var h='<div class="roleSel"><label>उपयोगकर्ता भूमिका / User role — portal switch</label>'+
+    '<select onchange="setRole(this.value)">'+
+    [["mgmt","प्रबंधन / Management (MD)"],["ho","मुख्यालय / Head Office"],["cdepot","केन्द्रीय कागज डिपो / Central Paper Depot"],
+     ["depot","जिला डिपो / District Depot"],["printer","मुद्रक / Printer"],["pvendor","कागज विक्रेता / Paper Vendor"],
+     ["bseller","पुस्तक विक्रेता / Book Seller"],["brc","बी.आर.सी. / BRC-Block"],["emp","कर्मचारी / Employee"],
+     ["admin","प्रशासक / System Admin"]].map(function(o){
+      return '<option value="'+o[0]+'"'+(STATE.role===o[0]?' selected':'')+'>'+o[1]+'</option>'; }).join("")+'</select></div>'+
+    '<div class="searchScr"><input type="text" placeholder="🔍 स्क्रीन खोजें / Find a screen…" value="'+esc(STATE.filter)+'" oninput="setFilter(this.value)"></div>';
+
+  groups.forEach(function(g,gi){
+    var open = byG[g].some(function(s){return s.id===STATE.screen;}) || (f!=="") || gi===0;
+    h+='<div class="grp'+(open?' open':'')+'"><div class="gh" onclick="this.parentNode.classList.toggle(\'open\')">'+
+       esc(g)+'<span class="ch">▾</span></div><div class="items">'+
+       byG[g].map(function(s){
+         return '<a href="#'+s.id+'" class="'+(s.id===STATE.screen?'sel':'')+'" onclick="go(\''+s.id+'\');return false">'+
+           esc(s.hi)+'<i>'+esc(s.en)+'</i></a>'; }).join("")+'</div></div>';
+  });
+  if(!groups.length) h+='<div style="padding:14px;color:#7b91a3;font-size:12px">कोई स्क्रीन नहीं मिली / No screen matches.</div>';
+  return h;
+}
+
+function renderScreen(s){
+  if(!s) return '<div class="panel"><div class="pb">स्क्रीन उपलब्ध नहीं / Screen not found.</div></div>';
+  if(s.type==="custom") return s.render();
+  var h='<div class="crumb">आप यहाँ हैं / You are here: <b>'+esc(roleTitle(STATE.role)[0])+'</b> › '+esc(s.group)+' › <b>'+esc(s.hi)+'</b></div>';
+  if(s.note) h+='<div class="note"><b>प्रक्रिया / Process:</b> '+s.note+'</div>';
+  h+='<div class="panel"><div class="ph">'+esc(s.hi)+' <span class="en">/ '+esc(s.en)+'</span>'+
+     (s.srs?'<span class="tag">SRS '+esc(s.srs)+'</span>':'')+'</div>';
+
+  if(s.tabs) h+='<div class="tabs">'+s.tabs.map(function(t,i){return '<div class="t'+(i?'':' on')+'" onclick="tabSel(this)">'+esc(t)+'</div>';}).join("")+'</div>';
+
+  if(s.type==="form" || s.type==="formlist"){
+    h+='<div class="pb"><div class="fgrid'+(s.oneCol?' one':'')+'">'+
+        (s.fields||[]).map(function(x){ return fieldHTML(F(x)); }).join("")+'</div>';
+    if(s.gridIn) h+='<div style="margin-top:14px"><div style="font-weight:700;color:#12405f;margin-bottom:6px">'+esc(s.gridIn.t)+'</div>'+
+        tableHTML(s.gridIn.cols.map(C), s.gridIn.rows||4, {total:s.gridIn.total})+'</div>';
+    h+='</div>'+buttonsHTML(s);
+  }
+  if(s.type==="list" || s.type==="formlist" || s.type==="report"){
+    h+=toolbarHTML(s);
+    h+=tableHTML((s.cols||[]).map(C), s.rows||8, {total:s.total});
+    h+=pagerHTML();
+  }
+  if(s.type==="split"){
+    h+='<div class="pb"><div class="cols2"><div>'+
+       '<div style="font-weight:700;color:#12405f;margin-bottom:8px">'+esc(s.leftT||"प्रविष्टि / Entry")+'</div>'+
+       '<div class="fgrid one">'+(s.fields||[]).map(function(x){return fieldHTML(F(x));}).join("")+'</div></div><div>'+
+       '<div style="font-weight:700;color:#12405f;margin-bottom:8px">'+esc(s.rightT||"सूची / List")+'</div>'+
+       tableHTML((s.cols||[]).map(C), s.rows||6, {})+'</div></div></div>'+buttonsHTML(s);
+  }
+  h+= s.srsText? '<div class="srsref">संदर्भ / Reference: '+esc(s.srsText)+'</div>':'';
+  h+='</div>';
+  if(s.after) h+=s.after();
+  return h;
+}
+
+function draw(){
+  var s = screensFor(STATE.role).filter(function(x){return x.id===STATE.screen;})[0];
+  if(!s){ s = screensFor(STATE.role)[0]; STATE.screen = s? s.id : null; }
+  var rt = roleTitle(STATE.role);
+  document.getElementById("app").innerHTML =
+   '<div class="topstrip"><span>🏠 मुख्य पृष्ठ / Home</span><span class="portal">[ '+esc(rt[0])+' — '+esc(rt[1])+' ]</span>'+
+     '<span class="u">👤 <b>'+esc(ROLE_USER[STATE.role])+'</b></span><span class="u">🕐 12-08-2026</span>'+
+     '<span class="u" style="cursor:pointer" onclick="logout()">⏻ लॉगआउट / Logout</span></div>'+
+   '<div class="brandband"><div class="logo">MP<br>TBC</div>'+
+     '<h1>म.प्र. पाठ्य पुस्तक निगम<small>M.P. Text Book Corporation — Integrated ERP (Prototype)</small></h1>'+
+     '<div class="sub">शिक्षा सत्र / Academic Session: <b>2026-2027</b><br>SRS v1.4 — screen prototype</div></div>'+
+   '<div class="menubar">'+
+     ['मुख्य पृष्ठ / Home','आरंभिक जानकारी / Master','प्रक्रिया / Input','रिपोर्ट / Report','निर्देश पुस्तिका / User Manual']
+       .map(function(m,i){return '<div class="mi'+(i===0?' active':'')+'" onclick="menuSel(this)">'+m+' ▾</div>';}).join("")+
+     '<div class="right"><button class="btn sm gray" onclick="tst(\'भाषा बदली गई / Language toggled — prototype\')">अ / A — हिन्दी | English</button>'+
+     '<button class="btn sm gray" onclick="showMap()">🗺 स्क्रीन सूची / Screen index</button></div></div>'+
+   '<div class="wrap"><div class="side">'+sidebarHTML()+'</div><div class="main">'+renderScreen(s)+'</div></div>'+
+   '<div class="footer">Copyright © 2026 — म.प्र. पाठ्य पुस्तक निगम, भोपाल &nbsp;|&nbsp; Static screen prototype prepared from SRS v1.4 (21-08-2017) &nbsp;|&nbsp; सभी आँकड़े केवल प्रदर्शन हेतु / All data shown is dummy sample data</div>';
+  window.scrollTo(0,0);
+}
+
+function go(id){ STATE.screen=id; draw(); }
+function setRole(r){ STATE.role=r; STATE.screen=null; draw(); }
+function setFilter(v){ STATE.filter=v; var side=document.querySelector(".side"); if(side){ side.innerHTML=sidebarHTML();
+  var inp=side.querySelector(".searchScr input"); if(inp){ inp.focus(); inp.setSelectionRange(v.length,v.length);} } }
+function tabSel(el){ Array.prototype.forEach.call(el.parentNode.children,function(c){c.classList.remove("on");}); el.classList.add("on");
+  tst("टैब / Tab: "+el.textContent+" — prototype"); }
+function menuSel(el){ Array.prototype.forEach.call(el.parentNode.querySelectorAll(".mi"),function(c){c.classList.remove("active");}); el.classList.add("active"); }
+function tst(m){ var t=document.getElementById("toast"); t.textContent=m; t.classList.add("on");
+  clearTimeout(window._tt); window._tt=setTimeout(function(){t.classList.remove("on");},2200); }
+function logout(){ STATE.screen=null; renderLogin(); }
+function showMap(){ STATE.screen="__index"; draw(); }
+
+
+var SCREENS = [];
+
+/* ---------- reusable dashboard pieces ---------- */
+function kpi(cls,ic,title,val,unit,f1l,f1v,f2l,f2v){
+  return '<div class="kpi '+cls+'"><div class="t">'+title+'</div>'+
+   '<div class="v"><div class="ic">'+ic+'</div><div class="n">'+val+'<small>'+unit+'</small></div></div>'+
+   '<div class="f"><div>'+f1l+'<b>'+f1v+'</b></div><div>'+f2l+'<b>'+f2v+'</b></div></div></div>';
+}
+function chartBars(data,color){
+  var max = Math.max.apply(null,data.map(function(d){return d[1];}));
+  return '<div class="chart">'+data.map(function(d,i){
+    var h=Math.round(d[1]/max*100);
+    var c = color || ["#d9534f","#e8833a","#e8b23a","#c9d14a","#7fc04a","#4aa96c","#3f97b8","#3f6fb8"][i%8];
+    return '<div class="bar"><div class="b" style="height:'+h+'%;background:'+c+'"><span>'+d[1].toLocaleString('en-IN')+'</span></div><div class="l">'+d[0]+'</div></div>';
+  }).join("")+'</div>';
+}
+function actList(){
+  var rows=[["#2b7fb8","🗒","4 कार्य लंबित हैं — स्वीकृति हेतु / 4 tasks pending your approval","अभी / Just now"],
+   ["#12938a","📈","जून 2026 की वित्तीय रिपोर्ट जारी / Finance report for June 2026 released","20 मिनट"],
+   ["#cf4f4a","👥","5 मुद्रक पंजीयन नवीनीकरण हेतु लंबित / 5 printer renewals pending review","24 मिनट"],
+   ["#2b7fb8","📦","नया आदेश प्राप्त — संदर्भ क्र. DR23923 / New order received","30 मिनट"],
+   ["#b3600d","⚠","डिपो सिवनी में स्टॉक न्यूनतम स्तर से नीचे / Stock below reorder level at Seoni depot","2 घंटे"],
+   ["#37475a","🧾","मुद्रण बिल क्र. 118 भुगतान हेतु अग्रेषित / Printing bill #118 forwarded for payment","3 घंटे"]];
+  return '<div class="acts">'+rows.map(function(r){
+    return '<div class="a"><div class="i" style="background:'+r[0]+'">'+r[1]+'</div><div>'+r[2]+'</div><div class="d">'+r[3]+'</div></div>';
+  }).join("")+'</div>';
+}
+function pnl(t,en,body,tag){
+  return '<div class="panel"><div class="ph">'+t+' <span class="en">/ '+en+'</span>'+(tag?'<span class="tag">'+tag+'</span>':'')+'</div>'+body+'</div>';
+}
+
+/* ---------- 1. Management dashboard (SRS 2.6) ---------- */
+SCREENS.push({
+  id:"dash_mgmt", hi:"प्रबंधन डैशबोर्ड", en:"Management Dashboard", group:"डैशबोर्ड / Dashboard",
+  roles:["mgmt","ho"], type:"custom", srs:"§2.6",
+  render:function(){
+    var h='<div class="crumb">आप यहाँ हैं / You are here: <b>डैशबोर्ड / Dashboard</b> › प्रबंधन सारांश</div>';
+    h+='<div class="panel"><div class="ph">मुख्य पृष्ठ / Home — स्थिति दिनांक तक / As on Date : 12-08-2026<span class="tag">SRS §2.6</span></div>'+
+      '<div class="pb"><div class="kpis">'+
+      kpi("a","📚","पुस्तक आबंटन के विरुद्ध प्राप्ति / SUPPLY AGAINST ALLOTMENT","99.68","% पूर्ण / achieved","कुल आबंटन<br>Allotment","5,95,00,160","शेष<br>Balance","1,91,190")+
+      kpi("b","🖨","मुद्रकों को कागज आबंटन / PAPER ALLOTTED TO PRINTERS","25,389","मे.टन / M.Ton","प्रदाय<br>Supplied","16,574 MT","शेष<br>Balance","8,814 MT")+
+      kpi("c","🏬","खुले बाजार की पुस्तकों की मांग / OPEN MARKET DEMAND","10,44,441","प्रतियाँ / copies","राशि<br>Value (₹)","5,13,49,149","लंबित<br>Pending","2,18,340")+
+      kpi("d","🚚","योजना की पुस्तकों का प्रदाय / SCHEME BOOK SUPPLY","98.60","% पूर्ण / achieved","आबंटन<br>Allotment","5,34,11,443","शेष<br>Balance","7,45,454")+
+      '</div></div></div>';
+    h+='<div class="cols37">'+
+      pnl("डिपो के गोदाम की जानकारी","Depot warehouse summary",
+        tableHTML([{hi:"डिपो का नाम",en:"Depot"},{hi:"स्थाई गोदाम",en:"Permanent WH"},{hi:"अस्थाई गोदाम",en:"Temporary WH"},{hi:"कुल",en:"Total"}],8,{}))+
+      pnl("डिपो का स्टॉक","Depot-wise stock (Yojna / Samanya)",
+        tableHTML([{hi:"डिपो का नाम",en:"Depot Name"},{hi:"योजना",en:"Yojna Qty"},{hi:"सामान्य",en:"Samanya Qty"},{hi:"कुल",en:"Total Qty"}],8,{total:true}))+
+      '</div>';
+    h+='<div class="cols2">'+
+      pnl("मुद्रक अनुसार आबंटन का ग्राफ","Graph — printer wise allotment (in ’000 copies)",
+        '<div class="pb">'+chartBars([["अजन्ता",4320],["जी टेक",1960],["जयेश",1890],["दृष्टि",1380],["एम.के.",1210],["बालाजी",1160],["न्यू लक्ष्मी",1040],["अन्य",620]])+
+        '<div class="legend"><span><i style="background:#d9534f"></i>उच्च आबंटन / High</span><span><i style="background:#4aa96c"></i>मध्यम / Medium</span><span><i style="background:#3f6fb8"></i>निम्न / Low</span></div></div>')+
+      pnl("हाल की गतिविधियाँ","Recent activities & alerts", actList())+
+      '</div>';
+    h+=pnl("अनुभाग अनुसार प्रगति","Section-wise progress snapshot",
+      tableHTML([{hi:"अनुभाग",en:"Section"},{hi:"कुल कार्य",en:"Total jobs"},{hi:"पूर्ण",en:"Completed qty"},{hi:"लंबित",en:"Pending qty"},{hi:"प्रतिशत",en:"%"},{hi:"स्थिति",en:"Status"}],7,{}));
+    return h;
+  }
+});
+
+/* ---------- 2. Depot dashboard ---------- */
+SCREENS.push({
+  id:"dash_depot", hi:"डिपो डैशबोर्ड", en:"Depot Dashboard", group:"डैशबोर्ड / Dashboard",
+  roles:["depot"], type:"custom", srs:"§2.12.3",
+  render:function(){
+    var h='<div class="crumb">आप यहाँ हैं / You are here: <b>जिला डिपो — भोपाल</b> › मुख्य पृष्ठ</div>';
+    h+='<div class="panel"><div class="ph">मुख्य पृष्ठ / Home<span class="tag">[ All Unit In Metric Ton / Copies ]</span></div>'+
+      '<div class="pb"><div class="kpis">'+
+      kpi("a","📗","TOTAL STOCK QUANTITY IN DEPOT","25,000","पुस्तकें / books","प्रदाय<br>Supplied","18,000","शेष<br>Remaining","7,000")+
+      kpi("b","🖨","PRINTER WISE BOOKS ALLOTMENT","500","गठान / bundles","प्राप्त<br>Received","50","शेष<br>Remaining","450")+
+      kpi("c","🚛","DISPATCH INFO OF DEPOT TO BLOCK","60","ट्रिप / trips","प्रेषित<br>Supplied","20","शेष<br>Remaining","580")+
+      kpi("d","🏪","TODAY’S BOOKSELLER DEMAND","10,000","प्रतियाँ / copies","प्रदाय<br>Supplied","2,000","शेष<br>Remaining","8,000")+
+      '</div></div></div>';
+    h+='<div class="cols2">'+
+      pnl("मुद्रक अनुसार प्राप्ति का ग्राफ","Graph — printer wise receipt at depot",
+        '<div class="pb">'+chartBars([["अजन्ता",4320],["जी टेक",1960],["जयेश",1890],["दृष्टि",1380],["एम.के.",1210],["बालाजी",1160],["न्यू लक्ष्मी",1040],["अन्य",560]])+'</div>')+
+      pnl("हाल की गतिविधियाँ","Recent activities", actList())+'</div>';
+    h+='<div class="cols2">'+
+      pnl("शीर्षक अनुसार स्टॉक","Title wise stock position",
+        tableHTML([{hi:"शीर्षक",en:"Title"},{hi:"कक्षा",en:"Class"},{hi:"माध्यम",en:"Medium"},{hi:"प्राप्त",en:"Received Qty"},{hi:"वितरित",en:"Issued Qty"},{hi:"शेष",en:"Balance Qty"}],7,{total:true}))+
+      pnl("ब्लॉक अनुसार प्रदाय","Block wise supply status",
+        tableHTML([{hi:"ब्लॉक",en:"Block"},{hi:"चालान क्र.",en:"Challan No"},{hi:"दिनांक",en:"Date"},{hi:"मात्रा",en:"Qty"},{hi:"स्थिति",en:"Status"}],7,{}))+
+      '</div>';
+    return h;
+  }
+});
+
+/* ---------- 3. Central paper depot dashboard ---------- */
+SCREENS.push({
+  id:"dash_cdepot", hi:"केन्द्रीय कागज डिपो डैशबोर्ड", en:"Central Paper Depot Dashboard", group:"डैशबोर्ड / Dashboard",
+  roles:["cdepot"], type:"custom", srs:"§2.12.1",
+  render:function(){
+    var h='<div class="panel"><div class="ph">मुख्य पृष्ठ / Home — केन्द्रीय कागज डिपो<span class="tag">All units in Metric Ton</span></div>'+
+      '<div class="pb"><div class="kpis">'+
+      kpi("a","🧻","कागज प्राप्ति / PAPER RECEIVED FROM MILLS","25,389","मे.टन / MT","मुद्रण पेपर<br>Printing","23,476 MT","कवर पेपर<br>Cover","1,912 MT")+
+      kpi("b","📤","मुद्रकों को प्रदाय / DISPATCHED TO PRINTERS","16,574","मे.टन / MT","कवर पेपर<br>Cover","1,427 MT","शेष<br>Balance","8,814 MT")+
+      kpi("c","🔬","परीक्षण हेतु नमूने / SAMPLES SENT TO LAB","148","नमूने / samples","पास<br>Passed","132","अनुत्तीर्ण<br>Failed","16")+
+      kpi("d","⚠","दोषपूर्ण रील / DEFECTIVE REELS","37","रील / reels","वापसी<br>Returned","24","लंबित<br>Pending","13")+
+      '</div></div></div>';
+    h+='<div class="cols2">'+
+      pnl("कागज मिल अनुसार प्राप्ति","Paper mill wise receipt (MT)",
+        '<div class="pb">'+chartBars([["आई.टी.सी.",6480],["जे.के.",5210],["सेंचुरी",4390],["एमामी",3680],["टी.एन.पी.एल.",2910],["बल्लारपुर",2719]],"#2b7fb8")+'</div>')+
+      pnl("हाल की गतिविधियाँ","Recent activities", actList())+'</div>';
+    h+=pnl("गोदाम अनुसार कागज स्टॉक","Warehouse wise paper stock",
+      tableHTML([{hi:"गोदाम",en:"Warehouse"},{hi:"कागज का प्रकार",en:"Paper Type"},{hi:"रील संख्या",en:"No of Reels"},{hi:"वजन (टन)",en:"Weight in Ton"},{hi:"आबंटित",en:"Allotted Qty"},{hi:"शेष",en:"Balance Qty"}],7,{total:true}));
+    return h;
+  }
+});
+
+/* ---------- 4. Printer portal dashboard ---------- */
+SCREENS.push({
+  id:"dash_printer", hi:"मुद्रक डैशबोर्ड", en:"Printer Dashboard", group:"डैशबोर्ड / Dashboard",
+  roles:["printer"], type:"custom", srs:"§2.5, §2.26",
+  render:function(){
+    var h='<div class="note"><b>बाह्य उपयोगकर्ता / External user:</b> मुद्रक अपना मुद्रण कार्यक्रम देख सकता है, प्रतिदिन मुद्रण की स्थिति ऑनलाइन दर्ज कर सकता है तथा डिपो हेतु चालान ऑनलाइन बना सकता है। <i>(SRS §2.5 — Printer vendors can view printing schedule, update printing status online and create/send challan to Depot online.)</i></div>';
+    h+='<div class="panel"><div class="ph">मुख्य पृष्ठ / Home — मेसर्स अजन्ता पैकेजिंग</div><div class="pb"><div class="kpis">'+
+      kpi("a","📋","कार्यादेश / WORK ORDERS","12","आदेश / orders","पूर्ण<br>Completed","7","प्रगतिरत<br>In progress","5")+
+      kpi("b","🧻","कागज आबंटन / PAPER ALLOTTED","4,320","मे.टन / MT","उठाया<br>Lifted","3,180 MT","शेष<br>Balance","1,140 MT")+
+      kpi("c","📦","पुस्तक प्रदाय / BOOKS DELIVERED","18,45,600","प्रतियाँ / copies","लक्ष्य<br>Target","24,00,000","शेष<br>Balance","5,54,400")+
+      kpi("d","⚖","शास्ति / PENALTY LEVIED","₹ 2.45","लाख / lakh","निराकृत<br>Settled","₹1.10 L","लंबित<br>Pending","₹1.35 L")+
+      '</div></div></div>';
+    h+='<div class="cols2">'+
+      pnl("मुद्रण कार्यक्रम","Printing schedule — delivery vs actual",
+        tableHTML([{hi:"जॉब कोड",en:"Job Code"},{hi:"शीर्षक",en:"Title"},{hi:"मात्रा",en:"Ordered Qty"},{hi:"नियत दिनांक",en:"Schedule Date"},{hi:"वास्तविक दिनांक",en:"Actual Date"},{hi:"स्थिति",en:"Status"}],6,{}))+
+      pnl("हाल की गतिविधियाँ","Recent activities", actList())+'</div>';
+    return h;
+  }
+});
+
+/* ---------- 5. Paper vendor dashboard ---------- */
+SCREENS.push({
+  id:"dash_pvendor", hi:"कागज विक्रेता डैशबोर्ड", en:"Paper Vendor Dashboard", group:"डैशबोर्ड / Dashboard",
+  roles:["pvendor"], type:"custom", srs:"§2.10",
+  render:function(){
+    var h='<div class="note"><b>बाह्य उपयोगकर्ता / External user:</b> कागज विक्रेता अपना कार्य-योजना (work plan) देख सकता है एवं प्रदाय की स्थिति ऑनलाइन अद्यतन कर सकता है। <i>(SRS §2.5)</i></div>';
+    h+='<div class="panel"><div class="ph">मुख्य पृष्ठ / Home — जे.के. पेपर मिल्स</div><div class="pb"><div class="kpis">'+
+      kpi("a","📃","कार्य योजना / WORK PLAN","5,210","मे.टन / MT","प्रदाय<br>Supplied","3,940 MT","शेष<br>Balance","1,270 MT")+
+      kpi("b","🚛","प्रेषण / DISPATCHES","86","चालान / challans","प्राप्त<br>Received","78","पारगमन<br>In transit","8")+
+      kpi("c","🔬","गुणवत्ता परीक्षण / LAB TEST","62","नमूने / samples","उत्तीर्ण<br>Passed","57","अनुत्तीर्ण<br>Failed","5")+
+      kpi("d","💰","बिल भुगतान / BILL PAYMENT","₹ 8.42","करोड़ / crore","भुगतान<br>Paid","₹6.10 Cr","लंबित<br>Pending","₹2.32 Cr")+
+      '</div></div></div>';
+    h+=pnl("प्रेषण की स्थिति","Dispatch status — mill to central depot",
+      tableHTML([{hi:"चालान क्र.",en:"Challan No"},{hi:"चालान दिनांक",en:"Challan Date"},{hi:"जी.आर. क्र.",en:"GR No"},{hi:"ट्रक क्र.",en:"Truck No"},{hi:"कागज का प्रकार",en:"Paper Type"},{hi:"वजन (टन)",en:"Weight in Ton"},{hi:"स्थिति",en:"Status"}],8,{total:true}));
+    return h;
+  }
+});
+
+/* ---------- 6. Book seller dashboard ---------- */
+SCREENS.push({
+  id:"dash_bseller", hi:"पुस्तक विक्रेता डैशबोर्ड", en:"Book Seller Dashboard", group:"डैशबोर्ड / Dashboard",
+  roles:["bseller"], type:"custom", srs:"§2.13",
+  render:function(){
+    var h='<div class="note"><b>बाह्य उपयोगकर्ता / External user:</b> पुस्तक विक्रेता ऑनलाइन मांग पत्र (demand form) बना सकता है। <i>(SRS §2.5, §2.13)</i></div>';
+    h+='<div class="panel"><div class="ph">मुख्य पृष्ठ / Home — श्री बुक डिपो, भोपाल</div><div class="pb"><div class="kpis">'+
+      kpi("a","🧾","मेरी मांग / MY DEMANDS","18","मांग पत्र / forms","स्वीकृत<br>Approved","12","लंबित<br>Pending","6")+
+      kpi("b","📦","प्राप्त पुस्तकें / BOOKS LIFTED","62,400","प्रतियाँ / copies","मूल्य<br>Value","₹ 24.6 L","शेष<br>Balance","18,200")+
+      kpi("c","💳","जमा राशि / SECURITY DEPOSIT","₹ 2.50","लाख / lakh","उपयोग<br>Utilised","₹1.80 L","उपलब्ध<br>Available","₹0.70 L")+
+      kpi("d","↩","वापसी / BOOKS RETURNED","1,240","प्रतियाँ / copies","स्वीकृत<br>Accepted","1,090","लंबित<br>Pending","150")+
+      '</div></div></div>';
+    h+=pnl("मेरी मांग की स्थिति","My demand status",
+      tableHTML([{hi:"मांग क्र.",en:"Demand No"},{hi:"दिनांक",en:"Date"},{hi:"शीर्षक",en:"Title"},{hi:"मांग मात्रा",en:"Demand Qty"},{hi:"स्वीकृत मात्रा",en:"Approved Qty"},{hi:"राशि",en:"Amount"},{hi:"स्थिति",en:"Status"}],7,{total:true}));
+    return h;
+  }
+});
+
+/* ---------- 7. Employee self service dashboard ---------- */
+SCREENS.push({
+  id:"dash_emp", hi:"कर्मचारी डैशबोर्ड", en:"Employee Dashboard", group:"डैशबोर्ड / Dashboard",
+  roles:["emp"], type:"custom", srs:"§2.5, §2.43.25",
+  render:function(){
+    var h='<div class="note"><b>कर्मचारी / Employee:</b> कर्मचारी विभिन्न अग्रिम हेतु आवेदन एवं अवकाश हेतु ऑनलाइन आवेदन कर सकते हैं। <i>(SRS §2.5 — Employee can fill up various advance forms and apply leave online.)</i></div>';
+    h+='<div class="panel"><div class="ph">मुख्य पृष्ठ / Home — आर. के. शर्मा (सहायक प्रबंधक)</div><div class="pb"><div class="kpis">'+
+      kpi("a","🏖","अवकाश शेष / LEAVE BALANCE","42","दिन / days","अर्जित (EL)<br>Earned","28","आकस्मिक (CL)<br>Casual","14")+
+      kpi("b","💵","अग्रिम / ADVANCES","3","आवेदन / requests","स्वीकृत<br>Sanctioned","2","लंबित<br>Pending","1")+
+      kpi("c","🧾","देयक / BILLS","₹ 18,450","राशि / amount","भुगतान<br>Paid","₹12,000","लंबित<br>Pending","₹6,450")+
+      kpi("d","📄","वेतन पर्ची / PAY SLIP","जुलाई","2026","सकल<br>Gross","₹58,240","शुद्ध<br>Net","₹49,870")+
+      '</div></div></div>';
+    h+='<div class="cols2">'+
+      pnl("मेरे आवेदन","My requests",
+        tableHTML([{hi:"आवेदन क्र.",en:"Request No"},{hi:"प्रकार",en:"Type of advance"},{hi:"दिनांक",en:"Date"},{hi:"राशि",en:"Amount"},{hi:"स्थिति",en:"Status"}],6,{}))+
+      pnl("सूचनाएँ","Notifications", actList())+'</div>';
+    return h;
+  }
+});
+
+/* ---------- 8. Admin dashboard ---------- */
+SCREENS.push({
+  id:"dash_admin", hi:"प्रशासक डैशबोर्ड", en:"Administrator Dashboard", group:"डैशबोर्ड / Dashboard",
+  roles:["admin"], type:"custom", srs:"§2.5",
+  render:function(){
+    var h='<div class="panel"><div class="ph">मुख्य पृष्ठ / Home — सिस्टम प्रशासक</div><div class="pb"><div class="kpis">'+
+      kpi("a","👥","उपयोगकर्ता / USERS","1,284","कुल / total","सक्रिय<br>Active","1,196","निष्क्रिय<br>Inactive","88")+
+      kpi("b","🔐","भूमिकाएँ / ROLES","24","भूमिका / roles","आंतरिक<br>Internal","16","बाह्य<br>External","8")+
+      kpi("c","📡","आज के लॉगिन / LOGINS TODAY","612","सत्र / sessions","सफल<br>Success","598","असफल<br>Failed","14")+
+      kpi("d","⚙","अलर्ट / SYSTEM ALERTS","9","अलर्ट / alerts","गंभीर<br>Critical","2","सामान्य<br>Normal","7")+
+      '</div></div></div>';
+    h+=pnl("अंकेक्षण लॉग","Audit log — recent user activity",
+      tableHTML([{hi:"दिनांक/समय",en:"Date"},{hi:"उपयोगकर्ता",en:"Employee"},{hi:"भूमिका",en:"Designation"},{hi:"मॉड्यूल",en:"Module"},{hi:"क्रिया",en:"Remark"},{hi:"आई.पी.",en:"IP Code"}],9,{}));
+    return h;
+  }
+});
+
+/* ---------- 9. BRC / Block dashboard ---------- */
+SCREENS.push({
+  id:"dash_brc", hi:"बी.आर.सी. डैशबोर्ड", en:"BRC / Block Dashboard", group:"डैशबोर्ड / Dashboard",
+  roles:["brc"], type:"custom", srs:"§2.5, §2.37",
+  render:function(){
+    var h='<div class="note"><b>बाह्य उपयोगकर्ता / External user:</b> बी.आर.सी./डी.पी.आई. डिपो से चालान ऑनलाइन प्राप्त कर सकते हैं। <i>(SRS §2.5 — BRC/DPI can receive challan online from depot.)</i></div>';
+    h+='<div class="panel"><div class="ph">मुख्य पृष्ठ / Home — विकासखण्ड हुजूर</div><div class="pb"><div class="kpis">'+
+      kpi("a","📥","प्राप्त चालान / CHALLANS RECEIVED","46","चालान / challans","स्वीकृत<br>Acknowledged","39","लंबित<br>Pending","7")+
+      kpi("b","📚","प्राप्त पुस्तकें / BOOKS RECEIVED","3,42,180","प्रतियाँ / copies","वितरित<br>Distributed","2,98,400","शेष<br>Balance","43,780")+
+      kpi("c","🏫","शालाएँ / SCHOOLS COVERED","482","शाला / schools","पूर्ण<br>Completed","431","शेष<br>Pending","51")+
+      kpi("d","⚠","विसंगति / DISCREPANCY","12","प्रकरण / cases","निराकृत<br>Resolved","9","लंबित<br>Open","3")+
+      '</div></div></div>';
+    h+=pnl("डिपो से प्राप्त चालान","Challans received from depot",
+      tableHTML([{hi:"चालान क्र.",en:"Challan No"},{hi:"डिपो",en:"Depot"},{hi:"दिनांक",en:"Date"},{hi:"वाहन क्र.",en:"Vehicle No"},{hi:"मात्रा",en:"Qty"},{hi:"स्थिति",en:"Status"},{hi:"क्रिया",en:"Action"}],8,{}));
+    return h;
+  }
+});
+
+
+function S(o){ SCREENS.push(o); }
+var G = {
+  dist:"वितरण अनुभाग / Distribution",
+  print:"मुद्रण अनुभाग / Printing",
+  paper:"कागज अनुभाग / Paper",
+  cdep:"केन्द्रीय कागज डिपो / Central Paper Depot",
+  depot:"डिपो प्रक्रिया / Depot",
+  wh:"गोदाम एवं परिवहन / Warehouse & Transport",
+  sale:"विक्रय एवं वितरक / Sales & Reseller",
+  acad:"शैक्षणिक अनुभाग / Academic",
+  acc:"लेखा अनुभाग / Accounts",
+  est:"स्थापना अनुभाग / Establishment (HR)",
+  gen:"सामान्य अनुभाग / Building, Store, Library, Legal",
+  rep:"रिपोर्ट / Reports",
+  adm:"प्रशासन / Administration",
+  ext:"मेरी प्रक्रिया / My Transactions"
+};
+
+/* ================= DISTRIBUTION / DEMAND ================= */
+S({ id:"dm_gen", hi:"मांग निर्माण (सांकेतिक एवं वास्तविक)", en:"Demand Generation (Indicative & Actual)", group:G.dist,
+  roles:["ho","mgmt"], type:"formlist", srs:"§2.7", srsText:"SRS §2.7 Demand Generation Module — data file: BookTitle, DemandType, QuantitylastThreeYears, AnyChangeInContents, AverageQuantityLastThreeYears, EstimatedPercentageOfQuantity, ApprovalByDistributionSection, ActualDemandReceived",
+  note:"सांकेतिक मांग विगत 3 वर्षों के औसत पर तैयार की जाती है और निविदा हेतु उपयोग होती है; वास्तविक मांग आर.एस.के./सी.पी.आई. से प्राप्त मांग एवं डिपो के उपलब्ध स्टॉक के आधार पर बनती है।",
+  fields:["शिक्षा सत्र|Academic Year|select|2026-2027,2025-2026,2024-2025",
+    "मांग का प्रकार|Demand Type|select|सांकेतिक मांग / Indicative,वास्तविक मांग / Actual",
+    "पुस्तक का शीर्षक|Book Title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8,इंग्लिश रीडर - 1",
+    "कक्षा / माध्यम|Class / Medium|select|कक्षा 1 – हिन्दी,कक्षा 5 – हिन्दी,कक्षा 8 – अंग्रेजी",
+    "मांगकर्ता एजेंसी|Demanding Agency|select|आर.एस.के. (कक्षा 1-8) / RSK,सी.पी.आई. (कक्षा 9-12) / CPI,डिपो प्रबंधक / Depot Manager,खुला बाजार / Open Market",
+    "विगत 3 वर्षों की मात्रा|Quantity last three years|num|",
+    "विगत 3 वर्षों का औसत|Average quantity last three years|ro|18,42,600",
+    "विषय-वस्तु में परिवर्तन|Any change in contents|radio|हाँ / Yes,नहीं / No",
+    "अनुमानित वृद्धि प्रतिशत|Estimated percentage of quantity|num|5",
+    "वास्तविक प्राप्त मांग|Actual demand received|num|",
+    "वितरण अनुभाग की स्वीकृति|Approval by distribution section|select|लंबित / Pending,स्वीकृत / Approved",
+    "टिप्पणी|Remark|area||wo"],
+  gridIn:{t:"विगत वर्षों की मांग (स्वतः प्रदर्शित) / Demand history (auto-populated)",
+    cols:["वर्ष|Year|110","मांग मात्रा|Demand Qty|","प्रदाय मात्रा|Supplied Qty|","शेष|Balance Qty|","बिक्री %|Percent|"], rows:3},
+  toolbar:["yr","search","go","add"],
+  cols:["क्र.|#|50","शिक्षा सत्र|Academic Year|","शीर्षक|Book Title|","मांग का प्रकार|Demand Type|","औसत (3 वर्ष)|Average Qty|","वास्तविक मांग|Actual Demand Qty|","स्थिति|Status|","क्रिया|Action|170"],
+  buttons:["save","update","reset","back"] });
+
+S({ id:"dm_dept", hi:"विभाग से प्राप्त मांग की सूची", en:"Demand received from department (RSK / CPI)", group:G.dist,
+  roles:["ho"], type:"list", srs:"§2.7.1.4",
+  toolbar:["yr","depot","search","go","excel"],
+  cols:["क्र.|#|50","एजेंसी|Agency|","जिला|District|","शीर्षक|Title|","कक्षा|Class|","माध्यम|Medium|","मांग मात्रा|Demand Qty|","प्राप्ति दिनांक|Received Date|","स्थिति|Status|"],
+  total:true });
+
+S({ id:"dm_other", hi:"अन्य पाठ्य सामग्री की मांग", en:"Demand of other than textbook items", group:G.dist,
+  roles:["ho"], type:"formlist", srs:"§2.7.2.1",
+  fields:["शिक्षा सत्र|Academic Year|select|2026-2027,2025-2026",
+    "सामग्री का नाम|Item Name|select|कार्यपुस्तिका / Workbook,मानचित्र / Map,चार्ट / Chart,प्रयोग पुस्तिका / Practical book",
+    "मांगकर्ता|Demanding Agency|select|आर.एस.के. / RSK,सी.पी.आई. / CPI,डिपो / Depot",
+    "मांग मात्रा|Demand Quantity|num|","अनुमानित दर|Estimated Rate|num|","अनुमानित मूल्य|Estimated Value|ro|",
+    "आवश्यकता दिनांक|Required by Date|date|","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","सामग्री|Item Name|","मांगकर्ता|Agency|","मांग मात्रा|Demand Qty|","दर|Rate|","मूल्य|Value|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"dm_free", hi:"आर.एस.के. से नि:शुल्क नमूना पुस्तकों की मांग", en:"Demand of free sample books from RSK", group:G.dist,
+  roles:["ho"], type:"list", srs:"§2.7.2.2",
+  toolbar:["yr","search","go","excel"],
+  cols:["क्र.|#|50","पत्र क्रमांक|Letter No|","दिनांक|Date|","शीर्षक|Title|","कक्षा|Class|","मांग मात्रा|Demand Qty|","स्वीकृत मात्रा|Approved Qty|","स्थिति|Status|"] });
+
+S({ id:"dm_special", hi:"अध्यक्ष / प्रबंध संचालक से विशेष मांग", en:"Special demand from Chairman / MD", group:G.dist,
+  roles:["ho","mgmt"], type:"formlist", srs:"§2.7.2.3",
+  fields:["आदेश क्रमांक|Order No|text|","आदेश दिनांक|Order Date|date|","स्वीकृतकर्ता|Sanctioned By|select|अध्यक्ष / Chairman,प्रबंध संचालक / MD",
+    "शीर्षक|Title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8","मात्रा|Quantity|num|","प्राप्तकर्ता|Recipient|text|",
+    "प्रयोजन|Purpose|area||wo"],
+  cols:["क्र.|#|50","आदेश क्रमांक|Order No|","दिनांक|Date|","शीर्षक|Title|","मात्रा|Qty|","प्राप्तकर्ता|Recipient Name|","स्थिति|Status|","क्रिया|Action|170"],
+  buttons:["save","approve","reject","back"] });
+
+S({ id:"dm_group", hi:"मांग समूहीकरण / ग्रुप क्रिएशन", en:"Demand Grouping / Group Creation", group:G.dist,
+  roles:["ho"], type:"formlist", srs:"§2.8", srsText:"SRS §2.8 Demand Grouping Module — data file: ListTitles (2-D matrix), QuantityPrintingPaper, SelectedQuantities, GroupNumber, DetailsTitle",
+  note:"शीर्षकों की मात्रा को मुद्रण निविदा हेतु समूहों (Group) एवं उप-समूहों (Sub group) में विभाजित किया जाता है।",
+  fields:["शिक्षा सत्र|Academic Year|select|2026-2027,2025-2026","ग्रुप क्रमांक|Group Number|text|0001",
+    "उप ग्रुप क्रमांक|Sub Group No.|text|0","मुद्रण कागज की मात्रा (टन)|Quantity of printing paper|num|",
+    "चयनित मात्रा|Selected quantities|ro|","शीर्षकों की जानकारी|Details of title|select|भाषा भारती - 1(I),भाषा भारती - 2(B),सहायक वाचन - 6(D)"],
+  gridIn:{t:"शीर्षक चयन सूची / List of titles (2-D matrix)",
+    cols:["चयन|Select|60","शीर्षक|Title|","कक्षा|Class|","माध्यम|Medium|","मांग मात्रा|Demand Qty|","पृष्ठ संख्या|No of Pages|","कागज (टन)|Paper Ton|"], rows:6, total:true},
+  toolbar:["yr","search","go","add"],
+  cols:["क्रमांक|#|60","शैक्षणिक सत्र|Academic Year|","ग्रुप का नाम|Group Name|","सब ग्रुप क्रमांक|Sub Group No.|","शीर्षकों की जानकारी|Title Details|","क्रिया|Action|170"] });
+
+S({ id:"dm_titlemaster", hi:"शीर्षक मास्टर (अन्य सामग्री सहित)", en:"Title master (incl. other than textbook items)", group:G.dist,
+  roles:["ho"], type:"formlist", srs:"§2.7.1.1",
+  fields:["शीर्षक का नाम|Title Name|text|","शीर्षक कोड|Title Code|text|","कक्षा|Class|select|कक्षा 1,कक्षा 2,कक्षा 5,कक्षा 8",
+    "विषय|Subject|select|हिन्दी,अंग्रेजी,गणित,विज्ञान,सामाजिक विज्ञान","माध्यम|Medium|select|हिन्दी,अंग्रेजी,उर्दू,मराठी",
+    "पृष्ठ संख्या|No of pages|num|","फॉर्म संख्या|No of forms|num|","आकार|Size|select|Crown 1/8,Demy 1/8,Demy 1/4",
+    "मुद्रण रंग|Printing colour|select|एक रंगीय / One colour,दो रंगीय / Two colour,चार रंगीय / Four colour",
+    "मुद्रित मूल्य|Printed price|num|","श्रेणी|Category|select|पाठ्यपुस्तक / Textbook,अन्य सामग्री / Other item","स्थिति|Status|select|सक्रिय / Active,निष्क्रिय / Inactive"],
+  cols:["क्र.|#|50","शीर्षक|Title|","कक्षा|Class|","विषय|Subject|","माध्यम|Medium|","पृष्ठ|No of pages|","मूल्य|Printed price|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"dm_insco", hi:"बीमा कंपनी की जानकारी", en:"Insurance company information", group:G.dist,
+  roles:["ho"], type:"formlist", srs:"§2.7.1.2",
+  fields:["बीमा कंपनी का नाम|Insurance company name|text|","पंजीयन क्रमांक|Registration No|text|","पता|Address|area||w",
+    "संपर्क अधिकारी|Contact person|text|","मोबाइल नं.|Contact No|num|","ई-मेल|Email Id|text|",
+    "पॉलिसी क्रमांक|Policy No|text|","पॉलिसी अवधि (से)|Policy from date|date|","पॉलिसी अवधि (तक)|Policy to date|date|",
+    "बीमित राशि|Sum insured|num|","प्रीमियम राशि|Premium amount|num|","अनुबंध|Agreement copy|file|"],
+  cols:["क्र.|#|50","बीमा कंपनी|Insurance company name|","पॉलिसी क्रमांक|Policy No|","अवधि|Policy Date|","बीमित राशि|Sum insured Amount|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"dm_instech", hi:"बीमा निविदा की तकनीकी शर्तें", en:"Technical conditions for insurance tender", group:G.dist,
+  roles:["ho"], type:"formlist", srs:"§2.7.1.3",
+  fields:["निविदा क्रमांक|Tender No|text|","निविदा दिनांक|Tender Date|date|","शर्त क्रमांक|Condition No|num|",
+    "शर्त का विवरण|Condition description|area||w","अनिवार्य / वैकल्पिक|Mandatory / Optional|radio|अनिवार्य / Mandatory,वैकल्पिक / Optional","अंक भार|Weightage marks|num|"],
+  cols:["क्र.|#|50","निविदा क्रमांक|Tender No|","शर्त क्र.|Condition No|","विवरण|Condition Remark|","प्रकार|Type|","अंक भार|Marks|","क्रिया|Action|170"] });
+
+S({ id:"dm_bill", hi:"बिल प्रक्रिया एवं प्राप्त भुगतान", en:"Bill process and payment received information", group:G.dist,
+  roles:["ho"], type:"formlist", srs:"§2.7.2.4",
+  fields:["बिल क्रमांक|Bill No|text|","बिल दिनांक|Bill Date|date|","एजेंसी|Agency|select|आर.एस.के. / RSK,सी.पी.आई. / CPI,पुस्तक विक्रेता / Book seller",
+    "बिल राशि|Bill Amount|num|","कर राशि|Tax Amount|num|","कुल देय|Total payable|ro|",
+    "प्राप्त राशि|Amount received|num|","प्राप्ति दिनांक|Receipt date|date|","भुगतान माध्यम|Payment mode|select|आर.टी.जी.एस. / RTGS,चेक / Cheque,डी.डी. / DD",
+    "यू.टी.आर./चेक क्र.|UTR / Cheque No|text|","शेष राशि|Balance amount|ro|","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","बिल क्रमांक|Bill No|","दिनांक|Bill Date|","एजेंसी|Agency Name|","बिल राशि|Bill Amount|","प्राप्त राशि|Received Amount|","शेष|Balance Amount|","स्थिति|Status|"],
+  total:true });
+
+S({ id:"dm_adv", hi:"प्राप्त अग्रिम भुगतान का विवरण", en:"Advance payment received details", group:G.dist,
+  roles:["ho"], type:"list", srs:"§2.7.2.5",
+  toolbar:["fy","from","to","go","excel"],
+  cols:["क्र.|#|50","एजेंसी|Agency Name|","अग्रिम राशि|Advance Amount|","प्राप्ति दिनांक|Receipt Date|","यू.टी.आर.|UTR No|","समायोजित|Adjusted Amount|","शेष|Balance Amount|","स्थिति|Status|"],
+  total:true });
+
+S({ id:"dm_claim", hi:"बीमा दावा की जानकारी", en:"Insurance claim information", group:G.dist,
+  roles:["ho"], type:"formlist", srs:"§2.7.2.6",
+  fields:["दावा क्रमांक|Claim No|text|","दावा दिनांक|Claim Date|date|","बीमा कंपनी|Insurance company|select|न्यू इंडिया एश्योरेंस,ओरिएंटल इंश्योरेंस,यूनाइटेड इंडिया",
+    "घटना का विवरण|Incident description|area||w","क्षति की मात्रा|Damaged quantity|num|","क्षति राशि|Loss amount|num|",
+    "दावा राशि|Claim amount|num|","स्वीकृत राशि|Approved amount|num|","निपटान दिनांक|Settlement date|date|",
+    "दस्तावेज संलग्न|Supporting documents|file|"],
+  cols:["क्र.|#|50","दावा क्रमांक|Claim No|","दिनांक|Claim Date|","बीमा कंपनी|Insurance Company|","दावा राशि|Claim Amount|","स्वीकृत राशि|Approved Amount|","स्थिति|Status|"] });
+
+/* -------- distribution reports -------- */
+S({ id:"rp_free", hi:"नि:शुल्क पुस्तक मांग की स्थिति", en:"Free books demand status report", group:G.rep,
+  roles:["ho","mgmt"], type:"report", srs:"§2.7.2.7.1", toolbar:["yr","depot","go","excel"],
+  cols:["क्र.|#|50","जिला|District|","शीर्षक|Title|","कक्षा|Class|","मांग|Demand Qty|","आबंटन|Allotted Qty|","प्रदाय|Supplied Qty|","शेष|Balance Qty|","प्रतिशत|Percent|"], total:true });
+
+S({ id:"rp_other", hi:"अन्य अध्ययन सामग्री की मांग", en:"Other studying books demand report", group:G.rep,
+  roles:["ho","mgmt"], type:"report", srs:"§2.7.2.7.2", toolbar:["yr","depot","go","excel"],
+  cols:["क्र.|#|50","सामग्री|Item Name|","मांग|Demand Qty|","आपूर्ति|Supplied Qty|","शेष|Balance Qty|","मूल्य|Value Amount|"], total:true });
+
+S({ id:"rp_special", hi:"अध्यक्ष / प्रबंध संचालक की विशेष मांग", en:"Special demand from Chairman / MD report", group:G.rep,
+  roles:["ho","mgmt"], type:"report", srs:"§2.7.2.7.3", toolbar:["yr","from","to","go","excel"],
+  cols:["क्र.|#|50","आदेश क्रमांक|Order No|","दिनांक|Date|","शीर्षक|Title|","मात्रा|Qty|","प्राप्तकर्ता|Recipient Name|","स्थिति|Status|"] });
+
+/* ================= ACADEMIC ================= */
+S({ id:"ac_author", hi:"लेखक की जानकारी", en:"Author's information", group:G.acad,
+  roles:["ho"], type:"formlist", srs:"§2.16",
+  fields:["लेखक का नाम|Author Name|text|","पिता / पति का नाम|Father / Husband Name|text|","पदनाम|Designation|text|",
+    "संस्था|Institution|text|","शैक्षणिक योग्यता|Qualification|text|","अनुभव (वर्ष)|Experience in years|num|",
+    "मोबाइल नं.|Contact No|num|","ई-मेल|Email Id|text|","पता|Address|area||w",
+    "बैंक खाता क्रमांक|Bank Account No|text|","आई.एफ.एस.सी.|IFSC Code|text|","पैन नं.|PAN No|text|",
+    "मानदेय दर|Honorarium rate|num|","फोटो / दस्तावेज|Photo / Document|file|"],
+  cols:["क्र.|#|50","लेखक का नाम|Author Name|","पदनाम|Designation|","संस्था|Institution Name|","मोबाइल|Contact No|","शीर्षक संख्या|No of titles|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"ac_subauthor", hi:"सह-लेखक की जानकारी", en:"Sub author's information", group:G.acad,
+  roles:["ho"], type:"formlist", srs:"§2.17",
+  fields:["मुख्य लेखक|Main Author|select|आर. के. शर्मा,सुनीता वर्मा,मीना चौहान","सह-लेखक का नाम|Sub author name|text|",
+    "पदनाम|Designation|text|","शीर्षक|Title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8",
+    "योगदान का विवरण|Contribution details|area||w","मोबाइल नं.|Contact No|num|","मानदेय राशि|Honorarium amount|num|"],
+  cols:["क्र.|#|50","सह-लेखक|Sub author Name|","मुख्य लेखक|Main Author Name|","शीर्षक|Title|","मानदेय|Honorarium Amount|","क्रिया|Action|170"] });
+
+S({ id:"ac_group", hi:"मुद्रण निविदा हेतु ग्रुप निर्माण की जानकारी", en:"Group creation information for printing tender", group:G.acad,
+  roles:["ho"], type:"list", srs:"§2.18", toolbar:["yr","search","go","add"],
+  cols:["क्र.|#|50","ग्रुप क्रमांक|Group No|","शीर्षकों की संख्या|No of titles|","कुल मात्रा|Total Qty|","कागज (टन)|Paper Ton|","निविदा क्रमांक|Tender No|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"ac_demand", hi:"मांग की जानकारी (शैक्षणिक)", en:"Demand information — academic", group:G.acad,
+  roles:["ho"], type:"list", srs:"§2.19", toolbar:["yr","search","go","excel"],
+  cols:["क्र.|#|50","शीर्षक|Title|","कक्षा|Class|","माध्यम|Medium|","सांकेतिक मांग|Indicative Qty|","वास्तविक मांग|Actual Demand Qty|","अंतर|Balance Qty|"], total:true });
+
+S({ id:"ac_tender", hi:"मुद्रण निविदा की जानकारी", en:"Printing tender information", group:G.acad,
+  roles:["ho"], type:"formlist", srs:"§2.20",
+  fields:["निविदा क्रमांक|Tender No|text|","निविदा दिनांक|Tender Date|date|","शिक्षा सत्र|Academic Year|select|2026-2027,2025-2026",
+    "ग्रुप क्रमांक|Group No|select|0001,0002,0003","निविदा प्रकार|Tender type|select|खुली निविदा / Open,सीमित निविदा / Limited,ई-निविदा / e-Tender",
+    "प्रकाशन दिनांक|Publish date|date|","अंतिम दिनांक|Last date of submission|date|","तकनीकी बिड खोलने की दिनांक|Technical bid opening date|date|",
+    "वित्तीय बिड खोलने की दिनांक|Financial bid opening date|date|","धरोहर राशि (ई.एम.डी.)|EMD Amount|num|",
+    "निविदा शुल्क|Tender fee|num|","निविदा दस्तावेज|Tender document|file|"],
+  cols:["क्र.|#|50","निविदा क्रमांक|Tender No|","दिनांक|Tender Date|","ग्रुप|Group No|","ई.एम.डी.|EMD Amount|","अंतिम दिनांक|Last Date|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"ac_penalty", hi:"शास्ति (पेनल्टी) की जानकारी", en:"Penalty information", group:G.acad,
+  roles:["ho"], type:"formlist", srs:"§2.21", srsText:"SRS §2.21 — receipt tracking at 1st level (handling / receiving / sending), 2nd level handling, proof approval and handing over for bulk printing",
+  fields:["प्राप्ति का विवरण|Details of receipt|text|","प्रथम स्तर — प्राप्ति दिनांक|1st level receiving date|date|",
+    "प्रथम स्तर — प्रेषण दिनांक|1st level sending date|date|","प्रथम स्तर — कार्यवाही|1st level handling by|select|शैक्षणिक अनुभाग,मुद्रण अनुभाग",
+    "द्वितीय स्तर — कार्यवाही|2nd level handling by|select|उप प्रबंधक,महाप्रबंधक","प्रूफ स्वीकृति|Proof approved by|text|",
+    "बल्क मुद्रण हेतु सौंपा गया|Handed over for bulk printing|date|","विलंब (दिवस)|Delay in days|ro|","शास्ति राशि|Penalty amount|num|",
+    "टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","शीर्षक|Title|","मुद्रक|Printer|","नियत दिनांक|Schedule Date|","वास्तविक दिनांक|Actual Date|","विलंब (दिवस)|Delay days|","शास्ति राशि|Penalty Amount|","स्थिति|Status|"],
+  total:true, buttons:["save","approve","print","back"] });
+
+S({ id:"ac_report", hi:"शैक्षणिक अनुभाग रिपोर्ट", en:"Academic section reports", group:G.rep,
+  roles:["ho"], type:"report", srs:"§2.15, §2.21.2", toolbar:["yr","search","go","excel"],
+  cols:["क्र.|#|50","शीर्षक|Title|","लेखक|Author Name|","प्रूफ स्तर|Proof level|","प्राप्ति दिनांक|Receipt Date|","स्वीकृति दिनांक|Approval Date|","विलंब|Delay days|","स्थिति|Status|"] });
+
+
+/* ================= PRINTING SECTION ================= */
+S({ id:"pr_machine", hi:"मशीन मास्टर", en:"Machine master", group:G.print, roles:["ho"], type:"formlist", srs:"§2.26.1.1",
+  fields:["मशीन का प्रकार|Machine Type|select|शीट फेड / Sheet Fed,वेब ऑफ़सेट / Web offset,डिजिटल / Digital",
+    "मशीन का नाम|Machine name|text|","निर्माता|Manufacturer|text|","रंग क्षमता|Colour capacity|select|एक रंगीय / One colour,दो रंगीय / Two colour,चार रंगीय / Four colour",
+    "प्रति घंटा क्षमता|Capacity per hour|num|","स्थिति|Status|select|सक्रिय / Active,निष्क्रिय / Inactive"],
+  cols:["क्र.|#|50","मशीन का प्रकार|Machine Type|","मशीन का नाम|Machine name|","रंग क्षमता|Colour|","क्षमता/घंटा|Capacity per hour|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"pr_category", hi:"श्रेणी मास्टर", en:"Category master", group:G.print, roles:["ho"], type:"formlist", srs:"§2.26.1.2",
+  fields:["श्रेणी का नाम|Category name|text|","श्रेणी कोड|Category code|text|","न्यूनतम क्षमता (टन)|Minimum capacity in ton|num|",
+    "अधिकतम कार्य आबंटन|Maximum work allotment|num|","विवरण|Description|area||w"],
+  cols:["क्र.|#|50","श्रेणी|Category name|","कोड|Category code|","न्यूनतम क्षमता|Minimum Ton|","अधिकतम आबंटन|Maximum Qty|","क्रिया|Action|170"] });
+
+S({ id:"pr_bookmark", hi:"बुकमार्क मास्टर", en:"Bookmark master", group:G.print, roles:["ho"], type:"formlist", srs:"§2.26.1.3",
+  fields:["शिक्षा सत्र|Academic Year|select|2026-2027,2025-2026","शीर्षक|Title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8",
+    "बुकमार्क क्रमांक|Bookmark No|text|","आवरण डिजाइन|Cover design|file|","अनुमोदन दिनांक|Approval date|date|"],
+  cols:["क्र.|#|50","शीर्षक|Title|","बुकमार्क क्रमांक|Bookmark No|","अनुमोदन दिनांक|Approval Date|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"pr_emd", hi:"ई.एम.डी. संग्रहण मास्टर", en:"EMD collection master", group:G.print, roles:["ho"], type:"formlist", srs:"§2.26.1.4",
+  fields:["निविदा क्रमांक|Tender No|select|TND/2026/021,TND/2026/022","मुद्रक का नाम|Printer Name|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स",
+    "ई.एम.डी. राशि|EMD Amount|num|","भुगतान का प्रकार|Instrument type|select|डी.डी. / DD,बैंक गारंटी / BG,आर.टी.जी.एस. / RTGS",
+    "इंस्ट्रूमेंट क्रमांक|Instrument No|text|","बैंक का नाम|Bank Name|select|स्टेट बैंक ऑफ इंडिया,बैंक ऑफ इंडिया,पंजाब नेशनल बैंक",
+    "दिनांक|Date|date|","वैधता दिनांक|Valid up to|date|","वापसी दिनांक|Refund date|date||o"],
+  cols:["क्र.|#|50","निविदा क्रमांक|Tender No|","मुद्रक|Printer|","ई.एम.डी. राशि|EMD Amount|","प्रकार|Instrument type|","दिनांक|Date|","स्थिति|Status|","क्रिया|Action|170"], total:true });
+
+S({ id:"pr_reg", hi:"मुद्रक पंजीयन", en:"Printer registration", group:G.print, roles:["ho"], type:"formlist", srs:"§2.26.1.5",
+  fields:["मुद्रक का नाम|Printer Name|text|","पंजीयन क्रमांक|Registration No|text|","पंजीयन दिनांक|Registration Date|date|",
+    "फर्म का प्रकार|Firm type|select|प्रोपराइटरशिप,पार्टनरशिप,प्राइवेट लिमिटेड","पता|Printer Address|area||w",
+    "मोबाइल नं.|Contact No|num|","ई-मेल|Email Id|text|","जी.एस.टी. नं.|GST No|text|","पैन नं.|PAN No|text|",
+    "सहयोग वर्ष|Association year|select|2026-2027,2025-2026,2024-2025","मुद्रक का प्रकार|Printer type|select|श्रेणी अ / Category A,श्रेणी ब / Category B,श्रेणी स / Category C",
+    "मशीनों की संख्या|No of printers (machines)|num|","मुद्रक ग्रुप|Printer group|select|ग्रुप 1,ग्रुप 2,ग्रुप 3",
+    "ग्रुप की दर|Rates of group|num|","अनुबंध (पी.डी.एफ.)|Agreement (PDF)|file|"],
+  cols:["क्र.|#|50","मुद्रक का नाम|Printer Name|","पंजीयन क्रमांक|Registration No|","प्रकार|Printer type|","सहयोग वर्ष|Association Year|","मोबाइल|Contact No|","स्थिति|Status|","क्रिया|Action|170"],
+  srsText:"SRS §2.9 Printer's profile — data file: PrinterName, PrinterAddress, ContactNo, EmailId, AssociationYear, Agreement (PDF), PrintersType, printersNo, PrinterGroup, RatesGroup" });
+
+S({ id:"pr_year", hi:"शैक्षणिक सत्र मास्टर", en:"Academic year master", group:G.print, roles:["ho","admin"], type:"formlist", srs:"§2.26.1.6",
+  fields:["शैक्षणिक सत्र|Academic year|text|2026-2027","प्रारंभ दिनांक|Start date|date|","समाप्ति दिनांक|End date|date|",
+    "वर्तमान सत्र|Current session|radio|हाँ / Yes,नहीं / No"],
+  cols:["क्र.|#|50","शैक्षणिक सत्र|Academic Year|","प्रारंभ दिनांक|Start Date|","समाप्ति दिनांक|End Date|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"pr_renew", hi:"मुद्रक नवीनीकरण", en:"Printer renewal", group:G.print, roles:["ho"], type:"formlist", srs:"§2.26.1.7",
+  fields:["मुद्रक का नाम|Printer Name|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स,मेसर्स दृष्टि ऑफ़सेट",
+    "पूर्व पंजीयन क्रमांक|Previous registration No|ro|","नवीनीकरण वर्ष|Renewal year|select|2026-2027,2025-2026",
+    "आवेदन दिनांक|Application date|date|","नवीनीकरण शुल्क|Renewal fee|num|","निरीक्षण दिनांक|Inspection date|date|",
+    "निरीक्षण प्रतिवेदन|Inspection report|file|","नवीनीकरण स्थिति|Renewal status|select|लंबित / Pending,स्वीकृत / Approved,निरस्त / Rejected"],
+  cols:["क्र.|#|50","मुद्रक|Printer Name|","नवीनीकरण वर्ष|Renewal Year|","आवेदन दिनांक|Application Date|","शुल्क|Fee Amount|","स्थिति|Status|","क्रिया|Action|170"],
+  buttons:["save","approve","reject","back"] });
+
+S({ id:"pr_capacity", hi:"मुद्रक की क्षमता (वित्तीय सत्र अनुसार)", en:"Printer capacity — financial year wise", group:G.print,
+  roles:["ho"], type:"list", srs:"§2.26.1.8", toolbar:["fy","printer","go","excel"],
+  cols:["क्र.|#|50","प्रिंटर का नाम|Printer Name|","मशीन का प्रकार|Machine Type|","एक रंगीय क्षमता (टन)|One Colour Ton|","दो रंगीय क्षमता (टन)|Two Colour Ton|","चार रंगीय क्षमता (टन)|Four Colour Ton|","अनुमानित क्षमता|Tentative capacity entry field|130"],
+  buttons:["save","reset"] });
+
+S({ id:"pr_profile", hi:"मुद्रक प्रोफाइल", en:"Printer's profile", group:G.print, roles:["ho","printer"], type:"formlist", srs:"§2.9",
+  note:"मुद्रक की पूर्ण प्रोफाइल — पंजीयन, मशीन क्षमता, ग्रुप, दर एवं अनुबंध की जानकारी एक स्थान पर।",
+  tabs:["सामान्य जानकारी / General","मशीन क्षमता / Machine capacity","अनुबंध / Agreement","कार्य इतिहास / Work history","शास्ति / Penalty"],
+  fields:["मुद्रक का नाम|Printer Name|ro|मेसर्स अजन्ता पैकेजिंग","पंजीयन क्रमांक|Registration No|ro|01008",
+    "पता|Printer Address|area|औद्योगिक क्षेत्र, गोविंदपुरा, भोपाल|w","मोबाइल नं.|Contact No|num|9407512345",
+    "ई-मेल|Email Id|text|ajanta@printers.in","सहयोग वर्ष|Association Year|ro|2014-15 से",
+    "मुद्रक का प्रकार|Printers Type|select|श्रेणी अ / Category A,श्रेणी ब / Category B","मशीनों की संख्या|Printers No|num|6",
+    "मुद्रक ग्रुप|Printer Group|select|ग्रुप 1,ग्रुप 2","ग्रुप की दर (प्रति फॉर्म)|Rates of group|num|4.85",
+    "अनुबंध|Agreement (PDF)|file|","स्थिति|Status|select|सक्रिय / Active,निलंबित / Suspended"],
+  cols:["क्र.|#|50","मुद्रक का नाम|Printer Name|","प्रकार|Printers Type|","मशीन संख्या|Printers No|","ग्रुप|Printer Group|","दर|Rates of group|","मोबाइल|Contact No|","क्रिया|Action|170"] });
+
+S({ id:"pr_paperEval", hi:"कागज मूल्यांकन", en:"Paper evaluation", group:G.print, roles:["ho"], type:"formlist", srs:"§2.26.1.10",
+  fields:["मुद्रक|Printer Name|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स","जॉब कोड|Job Code|select|JOB-2026001,JOB-2026002",
+    "आबंटित कागज (टन)|Allotted paper in ton|num|","उपयोग किया गया कागज|Paper consumed in ton|num|",
+    "मुद्रित पुस्तकें|Books printed|num|","अपव्यय प्रतिशत|Wastage percent|ro|","स्वीकार्य अपव्यय|Permissible wastage percent|ro|3.00",
+    "अतिरिक्त अपव्यय|Excess wastage|ro|","वसूली योग्य राशि|Recoverable amount|ro|","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","मुद्रक|Printer|","जॉब कोड|Job Code|","आबंटित (टन)|Allotted Ton|","उपयोग (टन)|Consumed Ton|","अपव्यय %|Wastage Percent|","वसूली राशि|Recovery Amount|","स्थिति|Status|"], total:true });
+
+S({ id:"pr_groupform", hi:"ग्रुप निर्माण (मुद्रण)", en:"Group formation", group:G.print, roles:["ho"], type:"list", srs:"§2.26.1.11",
+  toolbar:["yr","search","go","add"],
+  cols:["क्र.|#|50","ग्रुप क्रमांक|Group No|","शीर्षक संख्या|No of titles|","कुल मात्रा|Total Qty|","कागज (टन)|Paper Ton|","श्रेणी|Category|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"pr_tender", hi:"निविदा विवरण", en:"Tender details", group:G.print, roles:["ho"], type:"list", srs:"§2.26.1.12",
+  toolbar:["yr","search","go","add"],
+  cols:["क्र.|#|50","निविदा क्रमांक|Tender No|","निविदा दिनांक|Tender Date|","ग्रुप|Group No|","प्राप्त निविदाएँ|No of bids|","न्यूनतम दर|Lowest Rate|","सफल मुद्रक|Printer Name|","स्थिति|Status|"] });
+
+S({ id:"pr_wo", hi:"कार्यादेश एवं अनुबंध", en:"Work order and agreement", group:G.print, roles:["ho","printer"], type:"formlist", srs:"§2.26.1.13",
+  fields:["कार्यादेश क्रमांक|Work order No|text|","कार्यादेश दिनांक|Print order date|date|","मुद्रक|Printer Name|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स",
+    "जॉब कोड|Job Code|ro|JOB-2026001","ग्रुप क्रमांक|Printing ordered group|select|0001,0002,0003",
+    "आदेशित मात्रा|Group quantities ordered|num|","दर (प्रति फॉर्म)|Rate per form|num|","कुल मूल्य|Total value|ro|",
+    "प्रदाय अनुसूची|Delivery schedule|date|","अनुबंध दिनांक|Agreement date|date|","सुरक्षा निधि|Security deposit|num|",
+    "अनुबंध दस्तावेज|Agreement document|file|"],
+  gridIn:{t:"प्रदाय अनुसूची (चरणबद्ध) / Delivery schedule (phased)",
+    cols:["चरण|Phase|80","शीर्षक|Title|","मात्रा|Qty|","नियत दिनांक|Schedule Date|","वास्तविक दिनांक|Actual Delivery Date|","स्थिति|Status|"], rows:4},
+  cols:["क्र.|#|50","कार्यादेश क्रमांक|Work order No|","दिनांक|Print Order Date|","मुद्रक|Printer Name|","ग्रुप|Group No|","मात्रा|Ordered Qty|","मूल्य|Total Amount|","स्थिति|Status|"],
+  total:true,
+  srsText:"SRS §2.14 Project Planning & Management — data file: PrinterName, JobCode, PrintOrder, PrintOrderDate, PrintingOrderedGroup, GroupQuantitiesOrdered, DeliverySchedule, ActualDeliveryDate, ApplicablePenaltytypeAmount" });
+
+S({ id:"pr_paperAllot", hi:"कागज आबंटन मास्टर", en:"Paper allotment master", group:G.print, roles:["ho"], type:"formlist", srs:"§2.26.1.14",
+  fields:["मुद्रक|Printer Name|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स","जॉब कोड|Job Code|select|JOB-2026001,JOB-2026002",
+    "कागज का प्रकार|Paper Type|select|मुद्रण पेपर 58 GSM,मुद्रण पेपर 60 GSM,कवर पेपर 170 GSM",
+    "आवश्यक मात्रा (टन)|Paper required for job|num|","आबंटित मात्रा (टन)|Allotted paper quantity|num|",
+    "देय मात्रा|Disbursable paper quantity|ro|","जमा सुरक्षा निधि|Security deposit submitted|num|",
+    "कागज उठाने का आदेश क्रमांक|Paper order No|ro|","आबंटन दिनांक|Allotment date|date|"],
+  cols:["क्र.|#|50","मुद्रक|Printer|","जॉब कोड|Job Code|","कागज का प्रकार|Paper Type|","आवश्यक (टन)|Required Ton|","आबंटित (टन)|Allotted Ton|","उठाया (टन)|Lifted Ton|","शेष (टन)|Balance Ton|"], total:true });
+
+S({ id:"pr_pm", hi:"परियोजना नियोजन एवं प्रबंधन", en:"Project Planning and Management", group:G.print, roles:["ho","mgmt"], type:"list", srs:"§2.14",
+  note:"प्रत्येक जॉब की नियत प्रदाय तिथि बनाम वास्तविक प्रदाय तिथि की निगरानी एवं विलंब पर लागू शास्ति की गणना।",
+  toolbar:["yr","printer","go","excel"],
+  cols:["क्र.|#|50","जॉब कोड|Job Code|","मुद्रक|Printer Name|","ग्रुप|Group No|","आदेशित मात्रा|Ordered Qty|","नियत दिनांक|Schedule Date|","वास्तविक दिनांक|Actual Delivery Date|","विलंब|Delay days|","शास्ति|Penalty Amount|","स्थिति|Status|"], total:true });
+
+S({ id:"pr_inspect", hi:"मुद्रणालय का निरीक्षण", en:"Inspection of printing press", group:G.print, roles:["ho"], type:"formlist", srs:"§2.26.1.16",
+  fields:["मुद्रक|Printer Name|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स","निरीक्षण दिनांक|Inspection date|date|",
+    "निरीक्षण दल|Inspection team|text|","मशीनों की संख्या (पाई गई)|Machines found|num|","कार्यरत मशीनें|Machines working|num|",
+    "गुणवत्ता|Quality observed|select|उत्तम / Good,संतोषजनक / Satisfactory,असंतोषजनक / Poor",
+    "प्रगति (प्रतिशत)|Progress percent|num|","अनुशंसा|Recommendation|area||w","निरीक्षण प्रतिवेदन|Inspection report|file|"],
+  cols:["क्र.|#|50","मुद्रक|Printer Name|","निरीक्षण दिनांक|Inspection Date|","मशीनें|Machines No|","प्रगति|Progress Percent|","गुणवत्ता|Quality Remark|","क्रिया|Action|170"] });
+
+S({ id:"pr_penalty", hi:"मुद्रक शास्ति", en:"Printer penalty", group:G.print, roles:["ho"], type:"formlist", srs:"§2.26.1.17",
+  fields:["मुद्रक|Printer Name|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स","जॉब कोड|Job Code|select|JOB-2026001,JOB-2026002",
+    "शास्ति का प्रकार|Penalty type|select|विलंब हेतु / For delay,गुणवत्ता हेतु / For quality,कागज अपव्यय / Paper wastage",
+    "नियत दिनांक|Schedule date|date|","वास्तविक दिनांक|Actual date|date|","विलंब (दिवस)|Delay in days|ro|",
+    "शास्ति दर|Penalty rate percent|num|","शास्ति राशि|Applicable penalty amount|ro|",
+    "वसूली का माध्यम|Recovery mode|select|बिल से कटौती / From bill,सुरक्षा निधि से / From security deposit","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","मुद्रक|Printer Name|","जॉब कोड|Job Code|","शास्ति का प्रकार|Penalty type|","विलंब|Delay days|","शास्ति राशि|Penalty Amount|","वसूली|Recovered Amount|","स्थिति|Status|"], total:true });
+
+S({ id:"pr_billchallan", hi:"बिल में चालान जोड़ना", en:"Adding challan in bill details", group:G.print, roles:["ho"], type:"split", srs:"§2.26.1.18",
+  leftT:"बिल विवरण / Bill details", rightT:"संलग्न चालान / Attached challans",
+  fields:["बिल क्रमांक|Bill No|text|","बिल दिनांक|Bill Date|date|","मुद्रक|Printer Name|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स",
+    "जॉब कोड|Job Code|select|JOB-2026001,JOB-2026002","चालान क्रमांक|Challan No|text|","चालान दिनांक|Challan Date|date|",
+    "मात्रा|Quantity|num|","दर|Rate|num|","राशि|Amount|ro|"],
+  cols:["चालान क्र.|Challan No|","दिनांक|Challan Date|","डिपो|Depot|","मात्रा|Qty|","राशि|Amount|"],
+  buttons:["save","forward","back"] });
+
+S({ id:"pr_realloc", hi:"निविदा ग्रुप पुनर्आबंटन", en:"Tender group re-allocation", group:G.print, roles:["ho"], type:"formlist", srs:"§2.26.1.19",
+  fields:["ग्रुप क्रमांक|Group No|select|0001,0002,0003","वर्तमान मुद्रक|Existing printer|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स",
+    "पुनर्आबंटन का कारण|Reason for re-allocation|select|क्षमता से अधिक कार्य / Overload,विलंब / Delay,गुणवत्ता / Quality,अनुबंध निरस्त / Contract terminated",
+    "नया मुद्रक|New printer|select|मेसर्स दृष्टि ऑफ़सेट,मेसर्स एम.के. ऑफ़सेट,श्री बालाजी प्रिंटर्स",
+    "पुनर्आबंटित मात्रा|Re-allotted Qty|num|","आदेश दिनांक|Order date|date|","अनुमोदन अधिकारी|Approving authority|select|महाप्रबंधक,प्रबंध संचालक",
+    "टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","ग्रुप|Group No|","पूर्व मुद्रक|Existing Printer Name|","नया मुद्रक|New Printer Name|","मात्रा|Qty|","दिनांक|Order Date|","स्थिति|Status|"],
+  buttons:["save","approve","back"] });
+
+S({ id:"pr_daily", hi:"मुद्रक की दैनिक प्रगति रिपोर्टिंग", en:"Printer Daily Reporting", group:G.print, roles:["ho","printer"], type:"formlist", srs:"§2.25",
+  note:"मुद्रक प्रतिदिन मुद्रण की स्थिति ऑनलाइन दर्ज करता है — मुद्रित फॉर्म, बाइंडिंग एवं तैयार पुस्तकों की संख्या।",
+  fields:["दिनांक|Reporting date|date|","मुद्रक|Printer Name|ro|मेसर्स अजन्ता पैकेजिंग","जॉब कोड|Job Code|select|JOB-2026001,JOB-2026002",
+    "शीर्षक|Title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8","मुद्रित फॉर्म|Forms printed|num|",
+    "मुद्रित प्रतियाँ|Copies printed today|num|","बाइंडिंग पूर्ण|Binding completed|num|","तैयार पुस्तकें|Books ready for dispatch|num|",
+    "उपयोग कागज (टन)|Paper consumed in ton|num|","संचयी प्रगति|Cumulative Qty|ro|","शेष मात्रा|Balance Qty|ro|","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","दिनांक|Date|","जॉब कोड|Job Code|","शीर्षक|Title|","आज मुद्रित|Printed Qty|","संचयी|Cumulative Qty|","शेष|Balance Qty|","स्थिति|Status|"], total:true });
+
+S({ id:"pr_dispatch", hi:"मुद्रक प्रेषण (चालान)", en:"Printer Dispatch / Challan", group:G.print, roles:["ho","printer"], type:"formlist", srs:"§2.26",
+  srsText:"SRS §2.26 — data file: JobCode, VehicleNumber, QuantitiesDispatched, DispatchDate, GenerateDispatchReceipt, SerialNoOfBundlesInDispatchLot, SerialNoOfBooksInBundle",
+  fields:["जॉब कोड|Job Code|select|JOB-2026001,JOB-2026002","प्रेषण दिनांक|Dispatch date|date|",
+    "गंतव्य डिपो|Destination depot|select|भोपाल,इंदौर,ग्वालियर,जबलपुर","वाहन क्रमांक|Vehicle number|text|",
+    "चालक का नाम|Name of driver|text|","चालक का मोबाइल|Mobile no of driver|num|",
+    "शीर्षक|Title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8","प्रेषित मात्रा|Quantities dispatched|num|",
+    "गठान की संख्या|No of bundles|num|","गठान क्रमांक (से-तक)|Serial no of bundles in dispatch lot|text|",
+    "पुस्तक क्रमांक (से-तक)|Serial no of books in bundle|text|","बारकोड|Barcode|text|","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","चालान क्रमांक|Challan No|","प्रेषण दिनांक|Dispatch Date|","जॉब कोड|Job Code|","डिपो|Depot|","वाहन|Vehicle No|","मात्रा|Dispatched Qty|","स्थिति|Status|"],
+  total:true, buttons:["save","challan","print","back"] });
+
+S({ id:"pr_reports", hi:"मुद्रण अनुभाग रिपोर्ट", en:"Printing section reports", group:G.rep, roles:["ho","mgmt"], type:"report", srs:"§2.26.1.20",
+  toolbar:["yr","printer","from","to","go","excel"],
+  cols:["क्र.|#|50","मुद्रक|Printer Name|","ग्रुप|Group No|","आदेशित|Ordered Qty|","मुद्रित|Printed Qty|","प्रेषित|Dispatched Qty|","शेष|Balance Qty|","प्रतिशत|Percent|","शास्ति|Penalty Amount|"], total:true });
+
+/* ================= PAPER SECTION ================= */
+S({ id:"pp_type", hi:"कागज का प्रकार", en:"Paper type master", group:G.paper, roles:["ho"], type:"formlist", srs:"§2.22.1.1",
+  fields:["कागज का प्रकार|Paper type|text|","जी.एस.एम.|GSM|num|","उपयोग|Usage|select|मुद्रण / Printing,आवरण / Cover",
+    "मानक|Specification / IS standard|text|","स्थिति|Status|select|सक्रिय / Active,निष्क्रिय / Inactive"],
+  cols:["क्र.|#|50","कागज का प्रकार|Paper Type|","जी.एस.एम.|GSM|","उपयोग|Usage|","मानक|Specification|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"pp_master", hi:"कागज मास्टर", en:"Paper master", group:G.paper, roles:["ho"], type:"formlist", srs:"§2.22.1.2",
+  fields:["कागज का प्रकार|Paper Type|select|मुद्रण पेपर 58 GSM,मुद्रण पेपर 60 GSM,कवर पेपर 170 GSM",
+    "रील की चौड़ाई (से.मी.)|Reel size in cm|num|","रील का औसत वजन (कि.ग्रा.)|Average reel weight in kg|num|",
+    "ब्राइटनेस|Brightness|num|","बल्क|Bulk|num|","दर (प्रति मे.टन)|Rate per MT|num|","स्थिति|Status|select|सक्रिय / Active,निष्क्रिय / Inactive"],
+  cols:["क्र.|#|50","कागज का प्रकार|Paper Type|","रील साइज|Reel size|","औसत वजन|Average weight|","दर|Rate Amount|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"pp_mill", hi:"कागज मिल की जानकारी", en:"Information of paper mill", group:G.paper, roles:["ho"], type:"formlist", srs:"§2.22.1.3",
+  fields:["मिल का नाम|Paper mill name|text|","पंजीयन क्रमांक|Registration No|text|","पता|Address|area||w",
+    "संपर्क अधिकारी|Contact person|text|","मोबाइल नं.|Contact No|num|","ई-मेल|Email Id|text|",
+    "जी.एस.टी. नं.|GST No|text|","पैन नं.|PAN No|text|","वार्षिक उत्पादन क्षमता (टन)|Annual capacity in ton|num|",
+    "अनुबंध दिनांक|Agreement date|date|","अनुबंध|Agreement (PDF)|file|","स्थिति|Status|select|सक्रिय / Active,निष्क्रिय / Inactive"],
+  cols:["क्र.|#|50","मिल का नाम|Paper Mill Name|","संपर्क|Contact No|","क्षमता (टन)|Capacity Ton|","अनुबंध दिनांक|Agreement Date|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"pp_tendercond", hi:"निविदा की शर्तें", en:"Conditions of tender", group:G.paper, roles:["ho"], type:"formlist", srs:"§2.22.1.4",
+  fields:["निविदा क्रमांक|Tender No|text|","शर्त क्रमांक|Condition No|num|","शर्त का विवरण|Condition description|area||w",
+    "प्रकार|Type|radio|तकनीकी / Technical,वित्तीय / Financial","अनिवार्यता|Mandatory|radio|हाँ / Yes,नहीं / No"],
+  cols:["क्र.|#|50","निविदा क्रमांक|Tender No|","शर्त क्र.|Condition No|","विवरण|Condition Remark|","प्रकार|Type|","क्रिया|Action|170"] });
+
+S({ id:"pp_lab", hi:"प्रयोगशाला मास्टर", en:"Lab master", group:G.paper, roles:["ho"], type:"formlist", srs:"§2.22.1.5",
+  fields:["प्रयोगशाला का नाम|Lab name|text|","मान्यता (NABL)|Accreditation No|text|","पता|Address|area||w",
+    "संपर्क|Contact No|num|","परीक्षण शुल्क|Testing fee|num|","परीक्षण के मापदंड|Test parameters|chk|जी.एस.एम. / GSM,ब्राइटनेस / Brightness,बल्क / Bulk,ओपेसिटी / Opacity,टियर इंडेक्स / Tear index"],
+  cols:["क्र.|#|50","प्रयोगशाला|Lab Name|","मान्यता क्रमांक|Accreditation No|","संपर्क|Contact No|","शुल्क|Fee Amount|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"pp_vendor", hi:"कागज विक्रेता प्रोफाइल", en:"Paper vendor profile", group:G.paper, roles:["ho","pvendor"], type:"formlist", srs:"§2.10",
+  tabs:["प्रोफाइल / Profile","कार्य योजना / Work plan","प्रदाय / Supply","बिल / Bills"],
+  fields:["विक्रेता का नाम|Paper vendor name|text|","मिल का नाम|Paper mill name|select|आई.टी.सी. लिमिटेड,जे.के. पेपर मिल्स,सेंचुरी पल्प एंड पेपर",
+    "पता|Address|area||w","संपर्क नं.|Contact No|num|","ई-मेल|Email Id|text|",
+    "अनुबंध वर्ष|Agreement year|select|2026-2027,2025-2026","स्वीकृत मात्रा (टन)|Approved quantity in ton|num|",
+    "दर (प्रति मे.टन)|Rate per MT|num|","सुरक्षा निधि|Security deposit|num|","अनुबंध|Agreement (PDF)|file|"],
+  cols:["क्र.|#|50","विक्रेता / मिल|Paper Mill Name|","अनुबंध वर्ष|Agreement Year|","स्वीकृत मात्रा|Approved Ton|","प्रदाय|Supplied Ton|","शेष|Balance Ton|","दर|Rate Amount|","क्रिया|Action|170"], total:true });
+
+S({ id:"pp_workplan", hi:"कागज मिल की कार्य योजना एवं अनुबंध", en:"Work plan and agreement of paper mill", group:G.paper,
+  roles:["ho","pvendor"], type:"formlist", srs:"§2.10.1.1",
+  fields:["मिल|Paper mill|select|आई.टी.सी. लिमिटेड,जे.के. पेपर मिल्स,सेंचुरी पल्प एंड पेपर","अनुबंध क्रमांक|Agreement No|text|",
+    "अनुबंध दिनांक|Agreement date|date|","कागज का प्रकार|Paper Type|select|मुद्रण पेपर 58 GSM,कवर पेपर 170 GSM",
+    "कुल मात्रा (टन)|Total quantity in ton|num|","मासिक प्रदाय योजना|Monthly supply plan|num|",
+    "प्रारंभ दिनांक|Start date|date|","समाप्ति दिनांक|End date|date|"],
+  gridIn:{t:"मासिक कार्य योजना / Month wise work plan",
+    cols:["माह|Month|110","नियोजित मात्रा (टन)|Planned Ton|","प्रदाय मात्रा (टन)|Supplied Ton|","शेष (टन)|Balance Ton|","स्थिति|Status|"], rows:5, total:true},
+  cols:["क्र.|#|50","मिल|Paper Mill Name|","अनुबंध क्रमांक|Agreement No|","कागज का प्रकार|Paper Type|","कुल मात्रा|Total Ton|","प्रदाय|Supplied Ton|","शेष|Balance Ton|"], total:true });
+
+S({ id:"pp_order", hi:"कागज आदेश एवं बिलिंग", en:"Paper Order and Billing", group:G.paper, roles:["ho"], type:"formlist", srs:"§2.11",
+  fields:["आदेश क्रमांक|Order No|text|","आदेश दिनांक|Order Date|date|","मिल / विक्रेता|Paper mill / vendor|select|आई.टी.सी. लिमिटेड,जे.के. पेपर मिल्स",
+    "कागज का प्रकार|Paper Type|select|मुद्रण पेपर 58 GSM,कवर पेपर 170 GSM","आदेशित मात्रा (टन)|Ordered quantity in ton|num|",
+    "दर (प्रति मे.टन)|Rate per MT|num|","मूल राशि|Basic amount|ro|","जी.एस.टी. (%)|GST percent|num|18",
+    "कुल राशि|Total amount|ro|","प्रदाय स्थान|Place of delivery|select|केन्द्रीय कागज डिपो, भोपाल,डिपो — इंदौर",
+    "प्रदाय दिनांक|Delivery date|date|","बिल क्रमांक|Bill No|text|","बिल दिनांक|Bill Date|date|","बिल की प्रति|Bill copy|file|"],
+  cols:["क्र.|#|50","आदेश क्रमांक|Order No|","दिनांक|Order Date|","मिल|Paper Mill Name|","कागज का प्रकार|Paper Type|","मात्रा (टन)|Ordered Ton|","राशि|Total Amount|","बिल स्थिति|Status|"], total:true });
+
+S({ id:"pp_request", hi:"कागज मांग (मुद्रक द्वारा)", en:"Paper Request Module", group:G.paper, roles:["ho","printer"], type:"formlist", srs:"§2.23",
+  srsText:"SRS §2.23 — data file: JobCode, PaperRequiredForJob, PaperGivenToPrinter, BooksDelivered, AllottedPaperQuantity, DisbursablePaperQuantity, SecurityDepositSubmitted, RequestForExtraPaperQuantity, PaymentStatus",
+  note:"मुद्रक द्वारा जॉब हेतु कागज की मांग; प्रदत्त कागज, प्रदाय पुस्तकें एवं जमा सुरक्षा निधि के आधार पर देय मात्रा की गणना।",
+  fields:["जॉब कोड|Job Code|select|JOB-2026001,JOB-2026002","मुद्रक|Printer Name|ro|मेसर्स अजन्ता पैकेजिंग",
+    "जॉब हेतु आवश्यक कागज|Paper required for job|ro|1,240.500","अब तक प्रदत्त कागज|Paper given to printer|ro|860.250",
+    "प्रदाय पुस्तकें|Books delivered|ro|12,45,600","आबंटित कागज मात्रा|Allotted paper quantity|ro|1,240.500",
+    "देय कागज मात्रा|Disbursable paper quantity|ro|380.250","जमा सुरक्षा निधि|Security deposit submitted|ro|₹ 12,50,000",
+    "अतिरिक्त कागज की मांग|Request for extra paper quantity|num|","मांग का कारण|Reason for request|area||w",
+    "भुगतान की स्थिति|Payment status|ro|भुगतान प्राप्त / Received"],
+  cols:["क्र.|#|50","मांग क्रमांक|Request No|","दिनांक|Request Date|","जॉब कोड|Job Code|","मांग मात्रा (टन)|Requested Ton|","स्वीकृत (टन)|Approved Ton|","स्थिति|Status|","क्रिया|Action|170"],
+  buttons:["submit","approve","reject","back"] });
+
+S({ id:"pp_dispatch", hi:"कागज प्रेषण", en:"Paper Dispatch Module", group:G.paper, roles:["ho","cdepot"], type:"formlist", srs:"§2.24",
+  fields:["प्रेषण दिनांक|Dispatch date|date|","मुद्रक|Printer Name|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स",
+    "कागज उठाने हेतु आदेश क्रमांक|Paper order No|select|PO/2026/118,PO/2026/119","आदेश दिनांक|Paper order date|date|",
+    "कागज का प्रकार|Paper Type|select|मुद्रण पेपर 58 GSM,कवर पेपर 170 GSM","रील संख्या|No of reels|num|",
+    "कुल वजन (टन)|Total weight in ton|num|","चालान क्रमांक|Challan No|text|","चालान दिनांक|Challan Date|date|",
+    "ट्रक क्रमांक|Truck No|text|","चालक का नाम|Name of driver|text|","चालक का मोबाइल|Mobile No of driver|num|",
+    "जी.आर. क्रमांक|GR No|text|","जी.आर. दिनांक|GR Date|date|","गोदाम|Warehouse|select|गोदाम 1,गोदाम 2,गोदाम 3","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","चालान क्रमांक|Challan No|","दिनांक|Challan Date|","मुद्रक|Printer Name|","कागज का प्रकार|Paper Type|","रील|No of reels|","वजन (टन)|Weight Ton|","स्थिति|Status|"],
+  total:true, buttons:["save","challan","print","back"] });
+
+S({ id:"pp_reports", hi:"कागज अनुभाग रिपोर्ट", en:"Paper section reports", group:G.rep, roles:["ho","mgmt","pvendor"], type:"report", srs:"§2.10.2, §2.22.3",
+  note:"कागज मिल की कार्य योजना, रील की प्रदाय स्थिति, मुद्रक-वार आबंटन एवं शेष कागज की रिपोर्ट।",
+  toolbar:["fy","from","to","go","excel"],
+  cols:["क्र.|#|50","मिल|Paper Mill Name|","कागज का प्रकार|Paper Type|","अनुबंधित (टन)|Agreed Ton|","प्राप्त (टन)|Received Ton|","आबंटित (टन)|Allotted Ton|","शेष (टन)|Balance Ton|","प्रतिशत|Percent|"], total:true });
+
+
+/* ================= CENTRAL PAPER DEPOT ================= */
+S({ id:"cd_receipt", hi:"कागज मिल से केन्द्रीय डिपो को प्रेषण की जानकारी", en:"Dispatch information of paper mill to central depot", group:G.cdep,
+  roles:["cdepot","ho"], type:"formlist", srs:"§2.12.1.1",
+  fields:["शिक्षा सत्र|Academic Year|select|2026-2027,2025-2026","मिल का नाम|Paper mill name|select|आई.टी.सी. लिमिटेड,जे.के. पेपर मिल्स,सेंचुरी पल्प एंड पेपर",
+    "आदेश क्रमांक|Paper Order No|select|PO/2026/118,PO/2026/119","आदेश दिनांक|Paper Order Date|date|",
+    "चालान क्रमांक|Challan No|text|","चालान दिनांक|Challan Date|date|",
+    "ट्रक क्रमांक|Truck No|text|","चालक का नाम|Name of driver|text|","चालक का मोबाइल|Mobile No of driver|num|",
+    "जी.आर. क्रमांक|GR No|text|","जी.आर. दिनांक|GR Date|date|","कागज का प्रकार|Paper Type|select|मुद्रण पेपर 58 GSM,कवर पेपर 170 GSM",
+    "रील की संख्या|No of reels|num|","कुल वजन (टन)|Total weight in ton|num|","गोदाम|Warehouse|select|गोदाम 1,गोदाम 2,गोदाम 3",
+    "प्रदायकर्ता का नाम|Supplier Name|select|आई.टी.सी. लिमिटेड,जे.के. पेपर मिल्स","टिप्पणी|Remark|area||wo"],
+  gridIn:{t:"रील-वार विवरण / Reel wise details",
+    cols:["रील क्रमांक|Reel No|","जी.एस.एम.|GSM|","चौड़ाई (से.मी.)|Reel size|","वजन (कि.ग्रा.)|Weight in kg|","स्थिति|Status|"], rows:5, total:true},
+  cols:["क्र.|#|50","चालान क्रमांक|Challan No|","चालान दिनांक|Challan Date|","मिल|Paper Mill Name|","कागज का प्रकार|Paper Type|","रील|No of reels|","वजन (टन)|Weight Ton|","स्थिति|Status|"],
+  total:true, buttons:["save","receipt","print","back"] });
+
+S({ id:"cd_demand", hi:"पाठ्यपुस्तक / अन्य सामग्री हेतु कागज की मांग", en:"Paper demand of textbook / other than textbook", group:G.cdep,
+  roles:["cdepot","ho"], type:"formlist", srs:"§2.12.1.2",
+  fields:["शिक्षा सत्र|Academic Year|select|2026-2027,2025-2026","पेपर डिमांड|Paper demand of|select|पाठ्यपुस्तक / Textbook,अन्य पाठ्य सामग्री / Other than textbook",
+    "प्रिंटर का नाम|Printer Name|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स","कागज उठाने हेतु आदेश क्रमांक|Paper Order No|select|PO/2026/118,PO/2026/119",
+    "कागज उठाने हेतु आदेश दिनांक|Paper Order Date|date|","चालान क्रमांक|Challan No|text|","चालान दिनांक|Challan Date|date|",
+    "ड्राईवर का मोबाइल नं.|Mobile No of driver|num|","ड्राईवर का नाम|Name of driver|text|",
+    "ट्रक नं.|Truck No|text|","जी.आर. दिनांक|GR Date|date|","जी.आर. क्रमांक|GR No|text|",
+    "वेयरहाउस|Warehouse|select|गोदाम 1,गोदाम 2,गोदाम 3","ब्लॉक नंबर|Block No|text|",
+    "शीर्षक का नाम|Title Name|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8","प्रदायकर्ता का नाम|Supplier Name|select|ABDUL MUZIB KHAN,आई.टी.सी. लिमिटेड",
+    "टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","आदेश क्रमांक|Paper Order No|","दिनांक|Paper Order Date|","प्रिंटर|Printer Name|","चालान क्र.|Challan No|","मात्रा (टन)|Qty Ton|","स्थिति|Status|"] });
+
+S({ id:"cd_defect", hi:"दोषपूर्ण रील की जानकारी", en:"Information of the defective reel", group:G.cdep,
+  roles:["cdepot"], type:"formlist", srs:"§2.12.1.3",
+  fields:["रील क्रमांक|Reel No|text|","मिल का नाम|Paper mill name|select|आई.टी.सी. लिमिटेड,जे.के. पेपर मिल्स",
+    "चालान क्रमांक|Challan No|select|CHL/2026/0118,CHL/2026/0125","प्राप्ति दिनांक|Receipt date|date|",
+    "दोष का प्रकार|Type of defect|select|फटी हुई रील / Torn,नमी / Moisture,कम वजन / Under weight,जी.एस.एम. भिन्नता / GSM variation",
+    "दोषपूर्ण वजन (कि.ग्रा.)|Defective weight in kg|num|","प्रयोगशाला परीक्षण|Lab test required|radio|हाँ / Yes,नहीं / No",
+    "कार्यवाही|Action taken|select|मिल को वापस / Returned to mill,मूल्य में कटौती / Rate deduction,स्वीकृत / Accepted",
+    "फोटो / प्रतिवेदन|Photo / report|file|","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","रील क्रमांक|Reel No|","मिल|Paper Mill Name|","चालान|Challan No|","दोष|Type of defect|","वजन (कि.ग्रा.)|Weight|","कार्यवाही|Action Remark|","स्थिति|Status|"] });
+
+S({ id:"cd_toprinter", hi:"केन्द्रीय डिपो से मुद्रक को प्रेषण", en:"Central depot dispatch to printer", group:G.cdep,
+  roles:["cdepot"], type:"formlist", srs:"§2.12.2",
+  fields:["आदेश क्रमांक|Paper Order No|select|PO/2026/118,PO/2026/119","मुद्रक|Printer Name|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स",
+    "कागज का प्रकार|Paper Type|select|मुद्रण पेपर 58 GSM,कवर पेपर 170 GSM","आबंटित मात्रा (टन)|Allotted Ton|ro|",
+    "प्रेषित रील|Reels dispatched|num|","प्रेषित वजन (टन)|Weight dispatched in ton|num|","शेष आबंटन|Balance allotment|ro|",
+    "चालान क्रमांक|Challan No|text|","चालान दिनांक|Challan Date|date|","ट्रक क्रमांक|Truck No|text|",
+    "चालक का नाम|Name of driver|text|","गेट पास क्रमांक|Gate pass No|text|"],
+  cols:["क्र.|#|50","चालान क्रमांक|Challan No|","दिनांक|Challan Date|","मुद्रक|Printer Name|","कागज का प्रकार|Paper Type|","रील|No of reels|","वजन (टन)|Weight Ton|","स्थिति|Status|"],
+  total:true, buttons:["save","challan","print","back"] });
+
+S({ id:"cd_reports", hi:"केन्द्रीय डिपो रिपोर्ट", en:"Central depot reports", group:G.rep, roles:["cdepot","ho","mgmt"], type:"report", srs:"§2.12.1.4",
+  toolbar:["fy","from","to","go","excel"],
+  cols:["क्र.|#|50","कागज का प्रकार|Paper Type|","प्रारंभिक शेष|Opening Ton|","प्राप्ति|Received Ton|","प्रेषण|Dispatched Ton|","दोषपूर्ण|Defective Ton|","अंतिम शेष|Closing Ton|"], total:true });
+
+/* ================= DEPOT ================= */
+S({ id:"dp_whmaster", hi:"गोदाम मास्टर", en:"Warehouse master", group:G.depot, roles:["depot","ho"], type:"formlist", srs:"§2.12.3.1.1",
+  fields:["डिपो|Depot|select|भोपाल,इंदौर,ग्वालियर,जबलपुर","गोदाम का नाम|Warehouse name|text|","गोदाम का प्रकार|Warehouse type|radio|स्थाई / Permanent,अस्थाई / Temporary",
+    "पता|Address|area||w","क्षमता (वर्ग फीट)|Capacity in sq ft|num|","धारण क्षमता (गठान)|Storage capacity in bundles|num|",
+    "किराया (मासिक)|Monthly rent|num|","अनुबंध दिनांक (से)|Agreement from date|date|","अनुबंध दिनांक (तक)|Agreement to date|date|",
+    "गोदाम प्रभारी|Warehouse in-charge|text|","स्थिति|Status|select|सक्रिय / Active,निष्क्रिय / Inactive"],
+  cols:["क्र.|#|50","डिपो|Depot|","गोदाम|Warehouse Name|","प्रकार|Warehouse type|","क्षमता|Capacity Qty|","किराया|Rent Amount|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"dp_trmaster", hi:"परिवहन मास्टर", en:"Transport master", group:G.depot, roles:["depot","ho"], type:"formlist", srs:"§2.12.3.1.2",
+  fields:["परिवहनकर्ता का नाम|Transport vendor name|text|","पता|Address|area||w","संपर्क नं.|Contact No|num|",
+    "जी.एस.टी. नं.|GST No|text|","अनुबंध क्रमांक|Agreement No|text|","अनुबंध अवधि (से)|Agreement from|date|",
+    "अनुबंध अवधि (तक)|Agreement to|date|","दर का आधार|Rate basis|select|प्रति कि.मी. / Per km,प्रति टन / Per ton,प्रति ट्रिप / Per trip",
+    "दर|Rate quoted by vendor|num|","सुरक्षा निधि|Security deposit|num|"],
+  cols:["क्र.|#|50","परिवहनकर्ता|Transport Vendor|","अनुबंध क्रमांक|Agreement No|","दर आधार|Rate basis|","दर|Rate Amount|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"dp_bsmaster", hi:"पुस्तक विक्रेता मास्टर", en:"Book seller master", group:G.depot, roles:["depot","ho"], type:"formlist", srs:"§2.12.3.1.3",
+  fields:["विक्रेता का नाम|Book seller name|text|","फर्म का नाम|Firm name|text|","पता|Address|area||w",
+    "जिला|District|select|भोपाल,इंदौर,ग्वालियर,जबलपुर","संपर्क नं.|Contact No|num|","ई-मेल|Email Id|text|",
+    "पंजीयन क्रमांक|Registration No|text|","विक्रेता श्रेणी|Seller category|select|थोक विक्रेता / Wholesaler,फुटकर विक्रेता / Retailer,एजेंसी / Agency",
+    "श्रेणी अनुसार छूट (%)|Category discount|num|","जमा सुरक्षा निधि|Deposit submitted|num|","स्थिति|Status|select|सक्रिय / Active,निलंबित / Suspended"],
+  cols:["क्र.|#|50","विक्रेता|Book Seller Name|","जिला|District|","श्रेणी|Seller Category|","छूट %|Discount Percent|","जमा राशि|Deposit Amount|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"dp_stock", hi:"स्टॉक मास्टर", en:"Stock master", group:G.depot, roles:["depot"], type:"list", srs:"§2.12.3.1.4",
+  toolbar:["yr","depot","search","go","excel"],
+  cols:["क्र.|#|50","शीर्षक|Title|","कक्षा|Class|","माध्यम|Medium|","प्रारंभिक शेष|Opening Qty|","प्राप्ति|Received Qty|","वितरण|Issued Qty|","शेष स्टॉक|Balance Qty|","गोदाम|Warehouse|"], total:true });
+
+S({ id:"dp_openmkt", hi:"खुले बाजार की पुस्तकों की मांग", en:"Open market book demand", group:G.depot, roles:["depot"], type:"formlist", srs:"§2.12.3.2.1",
+  fields:["मांग दिनांक|Demand date|date|","पुस्तक विक्रेता|Book Seller Name|select|श्री बुक डिपो, भोपाल,सरस्वती पुस्तक भंडार, इंदौर",
+    "शीर्षक|Title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8","कक्षा|Class|select|कक्षा 1,कक्षा 5,कक्षा 8",
+    "मांग मात्रा|Demand Qty|num|","उपलब्ध स्टॉक|Available stock|ro|","स्वीकृत मात्रा|Approved Qty|num|",
+    "मुद्रित मूल्य|Printed price|ro|","छूट (%)|Discount percent|ro|","देय राशि|Payable amount|ro|",
+    "भुगतान का प्रकार|Payment mode|select|नकद / Cash,डी.डी. / DD,आर.टी.जी.एस. / RTGS"],
+  cols:["क्र.|#|50","मांग क्रमांक|Demand No|","दिनांक|Date|","विक्रेता|Book Seller Name|","शीर्षक|Title|","मांग|Demand Qty|","स्वीकृत|Approved Qty|","राशि|Amount|","स्थिति|Status|"], total:true });
+
+S({ id:"dp_recv", hi:"मुद्रक / अंतर-डिपो से प्राप्त पुस्तकें", en:"Received books from printer / inter-depot", group:G.depot,
+  roles:["depot"], type:"formlist", srs:"§2.12.3.2.2",
+  fields:["प्राप्ति दिनांक|Receipt date|date|","स्रोत|Source|radio|मुद्रक से / From printer,अंतर-डिपो से / From inter depot",
+    "मुद्रक / डिपो|Printer / Depot|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स,डिपो — इंदौर",
+    "चालान क्रमांक|Challan No|text|","चालान दिनांक|Challan Date|date|","वाहन क्रमांक|Vehicle No|text|",
+    "शीर्षक|Title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8","प्रेषित मात्रा|Dispatched Qty|num|",
+    "प्राप्त मात्रा|Received Qty|num|","कमी / क्षति|Shortage / damage Qty|num|","गोदाम|Warehouse|select|गोदाम 1,गोदाम 2",
+    "टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","चालान क्रमांक|Challan No|","दिनांक|Challan Date|","स्रोत|Printer Name|","शीर्षक|Title|","प्रेषित|Dispatched Qty|","प्राप्त|Received Qty|","अंतर|Balance Qty|","स्थिति|Status|"],
+  total:true, buttons:["save","receipt","back"] });
+
+S({ id:"dp_barcode", hi:"मुद्रक / डिपो प्राप्ति (बारकोड)", en:"Printer / depot received books — barcode", group:G.depot,
+  roles:["depot"], type:"formlist", srs:"§2.12.3.2.3, §2.36.1",
+  note:"बारकोड स्कैन द्वारा गठान एवं पुस्तकों की प्राप्ति दर्ज की जाती है — प्रत्येक गठान का सीरियल क्रमांक स्वतः सत्यापित होता है।",
+  fields:["चालान क्रमांक|Challan No|select|CHL/2026/0118,CHL/2026/0125","बारकोड स्कैन करें|Scan barcode|text|",
+    "गठान क्रमांक|Bundle serial No|ro|","शीर्षक|Title|ro|","पुस्तकों की संख्या|Books in bundle|ro|",
+    "स्कैन की गई गठान|Bundles scanned|ro|","शेष गठान|Bundles pending|ro|"],
+  cols:["क्र.|#|50","बारकोड|Barcode No|","गठान क्रमांक|Bundle No|","शीर्षक|Title|","पुस्तकें|Books Qty|","स्कैन दिनांक|Scan Date|","स्थिति|Status|"],
+  buttons:["barcode","save","back"] });
+
+S({ id:"dp_interbar", hi:"अंतर-डिपो बारकोड प्राप्ति", en:"Inter depot barcode receipt", group:G.depot, roles:["depot"], type:"list", srs:"§2.12.3.2.4",
+  toolbar:["depot","from","to","go","excel"],
+  cols:["क्र.|#|50","चालान क्रमांक|Challan No|","प्रेषक डिपो|From Depot|","दिनांक|Date|","गठान|Bundles Qty|","पुस्तकें|Books Qty|","स्कैन पूर्ण|Scanned Qty|","स्थिति|Status|"], total:true });
+
+S({ id:"dp_count", hi:"गणना रसीद एवं 100% गणना", en:"Counting receipt & 100% calculated receipt", group:G.depot,
+  roles:["depot"], type:"formlist", srs:"§2.12.3.2.5, §2.12.3.2.6",
+  fields:["चालान क्रमांक|Challan No|select|CHL/2026/0118,CHL/2026/0125","गणना का प्रकार|Counting type|radio|10% नमूना गणना / 10 percent,100% गणना / 100 percent",
+    "गणना दिनांक|Counting date|date|","गणना दल|Counting team|text|","जाँची गई गठान|Bundles checked|num|",
+    "जाँची गई पुस्तकें|Books checked|num|","कमी|Shortage Qty|num|","क्षतिग्रस्त|Damaged Qty|num|",
+    "गुणवत्ता|Quality|select|उत्तम / Good,संतोषजनक / Satisfactory,अस्वीकृत / Rejected","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","चालान क्रमांक|Challan No|","गणना दिनांक|Counting Date|","प्रकार|Counting type|","जाँची गठान|Bundles Qty|","कमी|Shortage Qty|","क्षति|Damaged Qty|","स्थिति|Status|"],
+  buttons:["save","receipt","print","back"] });
+
+S({ id:"dp_scheme", hi:"योजना आधारित पुस्तक वितरण", en:"Scheme based books distribution", group:G.depot, roles:["depot"], type:"formlist", srs:"§2.12.3.2.7",
+  fields:["योजना|Scheme|select|नि:शुल्क पाठ्यपुस्तक योजना,आर.एस.के. मांग,सी.पी.आई. मांग","शिक्षा सत्र|Academic Year|select|2026-2027,2025-2026",
+    "विकासखण्ड|Block|select|हुजूर,बैरसिया,सांवेर,देपालपुर","बी.आर.सी. केन्द्र|BRC centre|text|",
+    "शीर्षक|Title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8","आबंटित मात्रा|Allotted Qty|ro|",
+    "वितरित मात्रा|Issued Qty|num|","चालान क्रमांक|Challan No|ro|","वाहन क्रमांक|Vehicle No|text|",
+    "प्राप्तकर्ता का नाम|Receiver name|text|","प्राप्तकर्ता का मोबाइल|Receiver contact No|num|"],
+  cols:["क्र.|#|50","चालान क्रमांक|Challan No|","दिनांक|Date|","ब्लॉक|Block|","शीर्षक|Title|","आबंटित|Allotted Qty|","वितरित|Issued Qty|","शेष|Balance Qty|","स्थिति|Status|"],
+  total:true, buttons:["save","challan","print","back"] });
+
+S({ id:"dp_inter", hi:"अंतर-डिपो पुस्तक वितरण", en:"Inter depot book distribution", group:G.depot, roles:["depot"], type:"formlist", srs:"§2.12.3.2.8",
+  fields:["प्रेषक डिपो|From depot|ro|भोपाल","प्राप्तकर्ता डिपो|To depot|select|इंदौर,ग्वालियर,जबलपुर,उज्जैन",
+    "स्थानांतरण आदेश क्रमांक|Transfer order No|text|","आदेश दिनांक|Order date|date|",
+    "शीर्षक|Title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8","मात्रा|Qty|num|",
+    "वाहन क्रमांक|Vehicle No|text|","परिवहनकर्ता|Transport vendor|select|मेसर्स राजदूत ट्रांसपोर्ट,भारत कैरियर्स",
+    "प्रेषण दिनांक|Dispatch date|date|","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","आदेश क्रमांक|Transfer Order No|","दिनांक|Date|","प्राप्तकर्ता डिपो|To Depot|","शीर्षक|Title|","मात्रा|Qty|","स्थिति|Status|"] });
+
+S({ id:"dp_toseller", hi:"पुस्तक विक्रेता को वितरण", en:"Books distribution to book seller", group:G.depot, roles:["depot"], type:"formlist", srs:"§2.12.3.2.9",
+  fields:["मांग क्रमांक|Demand No|select|DMD/2026/0118,DMD/2026/0125","पुस्तक विक्रेता|Book Seller Name|select|श्री बुक डिपो, भोपाल,सरस्वती पुस्तक भंडार, इंदौर",
+    "बीजक क्रमांक|Invoice No|ro|","बीजक दिनांक|Invoice Date|date|","शीर्षक|Title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8",
+    "मात्रा|Qty|num|","मुद्रित मूल्य|Printed price|ro|","छूट (%)|Discount percent|ro|","देय राशि|Payable amount|ro|",
+    "प्राप्त राशि|Amount received|num|","भुगतान का प्रकार|Payment mode|select|नकद / Cash,डी.डी. / DD,आर.टी.जी.एस. / RTGS",
+    "उठाव की स्थिति|Status of pickup by reseller|select|उठाव लंबित / Pending,उठाव पूर्ण / Picked up"],
+  cols:["क्र.|#|50","बीजक क्रमांक|Invoice No|","दिनांक|Invoice Date|","विक्रेता|Book Seller Name|","शीर्षक|Title|","मात्रा|Qty|","राशि|Amount|","स्थिति|Status|"],
+  total:true, buttons:["save","print","back"] });
+
+S({ id:"dp_item", hi:"स्थाई एवं अस्थाई सामग्री", en:"Permanent and non-permanent item", group:G.depot, roles:["depot"], type:"formlist", srs:"§2.12.3.2.10",
+  fields:["सामग्री का नाम|Item name|text|","सामग्री का प्रकार|Item type|radio|स्थाई / Permanent,अस्थाई / Non-permanent",
+    "सामग्री कोड|Item code|text|","इकाई|Unit|select|नग / Nos,कि.ग्रा. / Kg,मीटर / Meter",
+    "प्रारंभिक शेष|Opening Qty|num|","प्राप्ति|Received Qty|num|","व्यय|Issued Qty|num|","शेष|Balance Qty|ro|",
+    "दर|Rate|num|","मूल्य|Value amount|ro|"],
+  cols:["क्र.|#|50","सामग्री|Item Name|","प्रकार|Item type|","इकाई|Unit|","प्राप्ति|Received Qty|","व्यय|Issued Qty|","शेष|Balance Qty|","मूल्य|Value Amount|"], total:true });
+
+S({ id:"dp_tender", hi:"डिपो निविदा की जानकारी", en:"Depot tender information", group:G.depot, roles:["depot"], type:"list", srs:"§2.12.3.3",
+  toolbar:["fy","search","go","add"],
+  cols:["क्र.|#|50","निविदा क्रमांक|Tender No|","निविदा दिनांक|Tender Date|","विषय|Subject|","अनुमानित मूल्य|Estimated Amount|","सफल निविदाकार|Vendor Name|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"dp_finance", hi:"डिपो वित्तीय जानकारी", en:"Depot financial information", group:G.depot, roles:["depot"], type:"report", srs:"§2.12.3.4",
+  toolbar:["fy","from","to","go","excel"],
+  cols:["क्र.|#|50","दिनांक|Date|","विवरण|Particulars Remark|","प्राप्ति|Receipt Amount|","भुगतान|Payment Amount|","शेष|Balance Amount|","संदर्भ|Voucher No|"], total:true });
+
+S({ id:"dp_store", hi:"डिपो भण्डार / बारकोड खोज", en:"Depot store & barcode search", group:G.depot, roles:["depot"], type:"formlist", srs:"§2.36",
+  fields:["बारकोड / गठान क्रमांक|Barcode / Bundle No|text|","खोज का प्रकार|Search by|radio|बारकोड / Barcode,गठान क्रमांक / Bundle No,चालान क्रमांक / Challan No"],
+  cols:["क्र.|#|50","बारकोड|Barcode No|","शीर्षक|Title|","मुद्रक|Printer Name|","चालान|Challan No|","प्राप्ति दिनांक|Receipt Date|","गोदाम|Warehouse|","वर्तमान स्थिति|Status|"],
+  buttons:["barcode","print"] });
+
+S({ id:"dp_reports", hi:"डिपो रिपोर्ट", en:"Depot reports", group:G.rep, roles:["depot","ho","mgmt"], type:"report", srs:"§2.12.3.5",
+  toolbar:["yr","depot","from","to","go","excel"],
+  cols:["क्र.|#|50","डिपो|Depot|","शीर्षक|Title|","प्रारंभिक शेष|Opening Qty|","प्राप्ति|Received Qty|","वितरण|Issued Qty|","शेष|Balance Qty|","मूल्य|Value Amount|"], total:true });
+
+/* ================= WAREHOUSE / DELIVERY / TRANSPORT ================= */
+S({ id:"wh_module", hi:"गोदाम प्रबंधन", en:"Warehouse Module", group:G.wh, roles:["depot","ho"], type:"formlist", srs:"§2.28",
+  srsText:"SRS §2.28 — data file: WarehouseName, AssociatedDepotName, GenerateHundredPerReceipt, ReceiptWithDetails, DispatchBookdetails, PhysicalInspectionDetails, Remarks",
+  fields:["गोदाम का नाम|Warehouse Name|select|गोदाम 1,गोदाम 2,गोदाम 3","संबद्ध डिपो|Associated depot name|select|भोपाल,इंदौर,ग्वालियर",
+    "100% प्राप्ति रसीद|Generate 100% receipt|radio|हाँ / Yes,नहीं / No","प्राप्ति का विवरण|Receipt with details|area||w",
+    "प्रेषित पुस्तकों का विवरण|Dispatch book details|area||w","भौतिक सत्यापन का विवरण|Physical inspection details|area||w",
+    "सत्यापन दिनांक|Inspection date|date|","सत्यापनकर्ता|Inspected by|text|","टिप्पणी|Remarks|area||wo"],
+  cols:["क्र.|#|50","गोदाम|Warehouse Name|","डिपो|Depot|","प्राप्ति|Received Qty|","प्रेषण|Dispatched Qty|","शेष स्टॉक|Balance Qty|","अंतिम सत्यापन|Inspection Date|","स्थिति|Status|"],
+  total:true, buttons:["save","receipt","back"] });
+
+S({ id:"dl_module", hi:"प्रदाय (डिलीवरी) मॉड्यूल", en:"Delivery Module", group:G.wh, roles:["depot","ho"], type:"formlist", srs:"§2.27",
+  srsText:"SRS §2.27 — data file: PrinterName, DeliveryDate, ReceivedBookTitle, ReceivedBookSerialNo, 10Percent, 100Percent, Other",
+  note:"प्राप्त पुस्तकों की 10% नमूना जाँच अथवा 100% गणना के आधार पर प्रदाय स्वीकार किया जाता है।",
+  fields:["मुद्रक|Printer Name|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स","प्रदाय दिनांक|Delivery Date|date|",
+    "प्राप्त पुस्तक का शीर्षक|Received book title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8",
+    "पुस्तक क्रमांक|Received book serial No|text|","प्राप्त मात्रा|Received Qty|num|",
+    "जाँच का प्रकार|Verification type|radio|10% नमूना / 10 Percent,100% गणना / 100 Percent",
+    "जाँची गई मात्रा|Checked Qty|num|","स्वीकृत मात्रा|Accepted Qty|num|","अस्वीकृत मात्रा|Rejected Qty|num|","टिप्पणी|Other remark|area||wo"],
+  cols:["क्र.|#|50","प्रदाय दिनांक|Delivery Date|","मुद्रक|Printer Name|","शीर्षक|Title|","प्राप्त|Received Qty|","स्वीकृत|Accepted Qty|","अस्वीकृत|Rejected Qty|","स्थिति|Status|"],
+  total:true, buttons:["save","receipt","back"] });
+
+S({ id:"tr_module", hi:"परिवहन मॉड्यूल", en:"Transport Module", group:G.wh, roles:["ho","depot"], type:"formlist", srs:"§2.29",
+  srsText:"SRS §2.29 — data file: TransportationVendorName, PlaceForRatesQuoted, RatesQuotedByVendor, TransportOrderCreationMonitoring, Remark",
+  tabs:["परिवहन आदेश / Transport order","निविदा / Tender","वाहन / Vehicle","ईंधन / Fuel","बीमा / Insurance"],
+  fields:["परिवहनकर्ता का नाम|Transportation vendor name|select|मेसर्स राजदूत ट्रांसपोर्ट,भारत कैरियर्स,श्री गणेश रोडवेज",
+    "दर हेतु स्थान|Place for rates quoted|select|भोपाल — इंदौर,भोपाल — ग्वालियर,भोपाल — जबलपुर",
+    "विक्रेता द्वारा प्रस्तुत दर|Rates quoted by vendor|num|","परिवहन आदेश क्रमांक|Transport order No|text|",
+    "आदेश दिनांक|Order date|date|","प्रेषण स्थान|From place|select|केन्द्रीय डिपो भोपाल,डिपो — इंदौर","गंतव्य|To place|select|डिपो — इंदौर,विकासखण्ड — हुजूर",
+    "वाहन क्रमांक|Vehicle No|text|","मात्रा (टन)|Qty in ton|num|","देय राशि|Payable amount|ro|","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","परिवहन आदेश|Transport Order No|","दिनांक|Order Date|","परिवहनकर्ता|Transport Vendor|","मार्ग|Place|","वाहन|Vehicle No|","मात्रा (टन)|Qty Ton|","राशि|Amount|","स्थिति|Status|"],
+  total:true });
+
+S({ id:"tr_vehicle", hi:"वाहन का विवरण एवं बीमा", en:"Details of vehicle & insurance", group:G.wh, roles:["ho"], type:"formlist", srs:"§2.29.1.3, §2.29.1.7",
+  fields:["वाहन क्रमांक|Vehicle No|text|","वाहन का प्रकार|Vehicle type|select|ट्रक / Truck,कार / Car,जीप / Jeep,दुपहिया / Two wheeler",
+    "निर्माता / मॉडल|Make / Model|text|","पंजीयन दिनांक|Registration date|date|","इंजन क्रमांक|Engine No|text|",
+    "चेसिस क्रमांक|Chassis No|text|","चालक का नाम|Name of driver|select|आर. के. शर्मा,दिनेश पटेल",
+    "बीमा कंपनी|Insurance company|select|न्यू इंडिया एश्योरेंस,ओरिएंटल इंश्योरेंस","पॉलिसी क्रमांक|Policy No|text|",
+    "बीमा वैधता (से)|Insurance from date|date|","बीमा वैधता (तक)|Insurance to date|date|","प्रीमियम राशि|Premium amount|num|",
+    "फिटनेस वैधता|Fitness valid up to|date|","पी.यू.सी. वैधता|PUC valid up to|date|"],
+  cols:["क्र.|#|50","वाहन क्रमांक|Vehicle No|","प्रकार|Vehicle type|","चालक|Name of driver|","बीमा वैधता|Insurance To Date|","फिटनेस|Fitness Date|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"tr_fuel", hi:"ईंधन एवं अनुदान की जानकारी", en:"Fuel details & grant information", group:G.wh, roles:["ho"], type:"formlist", srs:"§2.29.1.5, §2.29.1.6",
+  fields:["वाहन क्रमांक|Vehicle No|select|MP-04-GA-4120,MP-04-GA-4157","दिनांक|Date|date|",
+    "ईंधन का प्रकार|Fuel type|select|डीजल / Diesel,पेट्रोल / Petrol,सी.एन.जी. / CNG",
+    "मात्रा (लीटर)|Quantity in litre|num|","दर|Rate per litre|num|","राशि|Amount|ro|",
+    "मीटर रीडिंग|Meter reading (km)|num|","औसत (कि.मी./ली.)|Average km per litre|ro|",
+    "पंप का नाम|Fuel station|text|","बिल क्रमांक|Bill No|text|","अनुदान मद|Grant head|select|वाहन संचालन,रखरखाव"],
+  cols:["क्र.|#|50","दिनांक|Date|","वाहन|Vehicle No|","ईंधन प्रकार|Fuel type|","मात्रा|Quantity|","दर|Rate|","राशि|Amount|","औसत|Average|"], total:true });
+
+S({ id:"bl_challan", hi:"ब्लॉक — चालान विवरण", en:"Block module — challan details", group:G.wh, roles:["brc","depot"], type:"formlist", srs:"§2.37",
+  note:"बी.आर.सी./विकासखण्ड उपयोगकर्ता डिपो से भेजे गए चालान को ऑनलाइन प्राप्त (acknowledge) करता है।",
+  fields:["चालान क्रमांक|Challan No|select|CHL/2026/0118,CHL/2026/0125","चालान दिनांक|Challan Date|date|",
+    "डिपो|Depot|ro|भोपाल","विकासखण्ड|Block|ro|हुजूर","वाहन क्रमांक|Vehicle No|ro|MP-04-GA-4120",
+    "शीर्षक|Title|ro|भाषा भारती - 1","प्रेषित मात्रा|Dispatched Qty|ro|24,500",
+    "प्राप्त मात्रा|Received Qty|num|","कमी / क्षति|Shortage / damage Qty|num|",
+    "प्राप्तकर्ता का नाम|Receiver name|text|","प्राप्ति दिनांक|Receipt date|date|","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","चालान क्रमांक|Challan No|","दिनांक|Challan Date|","डिपो|Depot|","शीर्षक|Title|","प्रेषित|Dispatched Qty|","प्राप्त|Received Qty|","स्थिति|Status|","क्रिया|Action|170"],
+  buttons:["save","receipt","print","back"] });
+
+
+/* ================= SALES / RESELLER ================= */
+S({ id:"sl_profile", hi:"वितरक / पुनर्विक्रेता प्रोफाइल प्रबंधन", en:"Distributor / Reseller Profile Management", group:G.sale,
+  roles:["ho","depot"], type:"formlist", srs:"§2.30",
+  srsText:"SRS §2.30 — data file: DistributorName, Address, Contact details, SellerCategory, CategoryDiscount, Deposit Submitted, Remarks",
+  fields:["वितरक का नाम|Distributor Name|text|","पता|Address|area||w","संपर्क विवरण|Contact details|num|",
+    "ई-मेल|Email Id|text|","जिला|District|select|भोपाल,इंदौर,ग्वालियर,जबलपुर",
+    "विक्रेता श्रेणी|Seller Category|select|थोक विक्रेता / Wholesaler,फुटकर विक्रेता / Retailer,संस्थागत / Institutional",
+    "श्रेणी अनुसार छूट (%)|Category Discount|num|","जमा राशि|Deposit Submitted|num|",
+    "जी.एस.टी. नं.|GST No|text|","पैन नं.|PAN No|text|","अनुबंध|Agreement (PDF)|file|","टिप्पणी|Remarks|area||wo"],
+  cols:["क्र.|#|50","वितरक का नाम|Distributor Name|","जिला|District|","श्रेणी|Seller Category|","छूट %|Discount Percent|","जमा राशि|Deposit Amount|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"sl_sale", hi:"पुस्तक विक्रय एवं स्थानांतरण", en:"Book Sale & Transfer Module", group:G.sale, roles:["ho","depot"], type:"formlist", srs:"§2.31",
+  srsText:"SRS §2.31 — data file: Order No., OrderType, TitleWiseOrdering, CheckAvailability, GeneratePerformaInvoice, Marking inventory, StatusofpickupbyReseller, Trackingtransfer, Remark",
+  fields:["आदेश क्रमांक|Order No.|text|","आदेश दिनांक|Order date|date|",
+    "आदेश का प्रकार|Order Type|select|विक्रय / Sale,स्थानांतरण / Transfer,योजना / Scheme",
+    "वितरक / डिपो|Distributor / Depot|select|श्री बुक डिपो, भोपाल,डिपो — इंदौर",
+    "शीर्षक अनुसार आदेश|Title wise ordering|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8",
+    "मात्रा|Qty|num|","उपलब्धता जाँच|Check availability|radio|उपलब्ध / Available,अनुपलब्ध / Not available",
+    "प्रोफार्मा बीजक|Generate performa invoice|radio|हाँ / Yes,नहीं / No",
+    "स्टॉक अंकन|Marking inventory|radio|हाँ / Yes,नहीं / No",
+    "उठाव की स्थिति|Status of pickup by reseller|select|लंबित / Pending,पूर्ण / Completed",
+    "स्थानांतरण ट्रैकिंग|Tracking transfer|text|","टिप्पणी|Remark|area||wo"],
+  gridIn:{t:"आदेश की मदें / Order line items",
+    cols:["शीर्षक|Title|","कक्षा|Class|","मात्रा|Qty|","मुद्रित मूल्य|Printed price|","छूट %|Discount Percent|","देय राशि|Payable Amount|"], rows:4, total:true},
+  cols:["क्र.|#|50","आदेश क्रमांक|Order No|","दिनांक|Order Date|","प्रकार|Order Type|","वितरक|Distributor Name|","मात्रा|Qty|","राशि|Amount|","उठाव|Status|"],
+  total:true, buttons:["save","print","back"] });
+
+S({ id:"sl_return", hi:"पुस्तक वापसी", en:"Books Return Module", group:G.sale, roles:["ho","depot"], type:"formlist", srs:"§2.32",
+  srsText:"SRS §2.32 — data file: ResellerID, SerialNoofthebook, DetailsofDefect, Remark",
+  fields:["वितरक आई.डी.|Reseller ID|select|01001 — श्री बुक डिपो,01008 — सरस्वती पुस्तक भंडार",
+    "वापसी दिनांक|Return date|date|","बीजक क्रमांक|Original invoice No|select|INV/2026/0118,INV/2026/0125",
+    "पुस्तक का क्रमांक|Serial No of the book|text|","शीर्षक|Title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8",
+    "वापसी मात्रा|Return Qty|num|","दोष का विवरण|Details of defect|select|मुद्रण दोष / Printing defect,बाइंडिंग दोष / Binding defect,क्षतिग्रस्त / Damaged,अतिरिक्त स्टॉक / Excess stock",
+    "स्वीकृत मात्रा|Accepted Qty|num|","क्रेडिट नोट राशि|Credit note amount|ro|","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","वापसी क्रमांक|Return No|","दिनांक|Return Date|","वितरक|Reseller Name|","शीर्षक|Title|","वापसी मात्रा|Return Qty|","स्वीकृत|Accepted Qty|","राशि|Amount|","स्थिति|Status|"],
+  total:true, buttons:["save","approve","reject","back"] });
+
+S({ id:"sl_bsdemand", hi:"पुस्तक विक्रेता मांग पत्र", en:"Book seller demand form", group:G.ext, roles:["bseller"], type:"formlist", srs:"§2.13",
+  note:"पुस्तक विक्रेता ऑनलाइन मांग पत्र भरता है; डिपो द्वारा स्वीकृति के बाद बीजक तैयार होता है।",
+  fields:["विक्रेता का नाम|Book Seller Name|ro|श्री बुक डिपो, भोपाल","डिपो|Depot|select|भोपाल,इंदौर,ग्वालियर",
+    "मांग दिनांक|Demand date|date|","शिक्षा सत्र|Academic Year|select|2026-2027,2025-2026",
+    "शीर्षक|Title|select|भाषा भारती - 1,गणित - 5,विज्ञान - 8","कक्षा|Class|select|कक्षा 1,कक्षा 5,कक्षा 8",
+    "मांग मात्रा|Demand Qty|num|","उपलब्ध जमा राशि|Available deposit|ro|₹ 70,000",
+    "अनुमानित देय राशि|Estimated payable amount|ro|","भुगतान का प्रकार|Payment mode|select|आर.टी.जी.एस. / RTGS,डी.डी. / DD,नकद / Cash"],
+  cols:["क्र.|#|50","मांग क्रमांक|Demand No|","दिनांक|Date|","शीर्षक|Title|","मांग मात्रा|Demand Qty|","स्वीकृत|Approved Qty|","राशि|Amount|","स्थिति|Status|"],
+  buttons:["submit","reset","back"] });
+
+S({ id:"sl_advreq", hi:"अग्रिम मांग मॉड्यूल", en:"Advance Request Module", group:G.sale, roles:["ho","depot"], type:"formlist", srs:"§2.33",
+  note:"शिक्षा सत्र एवं माह अनुसार मद-वार अनुमानित व्यय, उपलब्ध राशि तथा मांग दर्ज की जाती है (अग्रिम पत्रक)।",
+  fields:["शिक्षा सत्र|Academic Year|select|2026-2027,2025-2026","आगामी अग्रिम मांग दिनांक|Next demand date|date|01-07-2026",
+    "डिमांड का माह|Demand month|select|जनवरी / January,फरवरी / February,मार्च / March,अप्रैल / April"],
+  gridIn:{t:"मद अनुसार अग्रिम मांग / Head wise advance demand",
+    cols:["चयन|Select|60","मद का नाम|Item Name|","अनुमानित व्यय|Cost Amount|","उपलब्ध राशि|Available Amount|","मांग|Demand Amount|"], rows:8, total:true},
+  cols:["क्र.|#|50","मांग क्रमांक|Request No|","दिनांक|Date|","माह|Month|","कुल मांग|Demand Amount|","स्वीकृत|Approved Amount|","स्थिति|Status|"],
+  buttons:["save","forward","back"] });
+
+S({ id:"sl_secdep", hi:"सुरक्षा निधि मॉड्यूल", en:"Security Deposit Module", group:G.sale, roles:["ho","depot"], type:"formlist", srs:"§2.35",
+  fields:["पक्षकार का प्रकार|Party type|select|मुद्रक / Printer,कागज विक्रेता / Paper vendor,पुस्तक विक्रेता / Book seller,परिवहनकर्ता / Transporter",
+    "पक्षकार का नाम|Party name|select|मेसर्स अजन्ता पैकेजिंग,जे.के. पेपर मिल्स,श्री बुक डिपो","निधि का प्रकार|Deposit type|select|ई.एम.डी. / EMD,कार्य निष्पादन जमानत / Performance security,स्थाई जमा / Permanent deposit",
+    "इंस्ट्रूमेंट|Instrument type|select|डी.डी. / DD,बैंक गारंटी / BG,एफ.डी.आर. / FDR","इंस्ट्रूमेंट क्रमांक|Instrument No|text|",
+    "बैंक|Bank Name|select|स्टेट बैंक ऑफ इंडिया,बैंक ऑफ इंडिया","राशि|Deposit Amount|num|",
+    "जमा दिनांक|Deposit date|date|","वैधता दिनांक|Valid up to|date|","वापसी दिनांक|Release date|date||o","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","पक्षकार|Party Name|","निधि का प्रकार|Deposit type|","इंस्ट्रूमेंट|Instrument No|","राशि|Deposit Amount|","वैधता|Valid Date|","स्थिति|Status|","क्रिया|Action|170"], total:true });
+
+S({ id:"sl_tax", hi:"कर रिपोर्ट मॉड्यूल", en:"Tax Reports Module", group:G.rep, roles:["ho","mgmt"], type:"report", srs:"§2.34",
+  toolbar:["fy","from","to","go","excel"],
+  cols:["क्र.|#|50","कर का प्रकार|Tax type|","अवधि|Period|","देयता|Tax Amount|","जमा राशि|Deposited Amount|","शेष|Balance Amount|","विवरणी दिनांक|Return Date|","स्थिति|Status|"], total:true });
+
+/* ================= ACCOUNTS ================= */
+S({ id:"ac_bank", hi:"बैंक एवं शाखा मास्टर", en:"Bank & branch master", group:G.acc, roles:["ho"], type:"formlist", srs:"§2.43.1.1, §2.43.1.2",
+  fields:["बैंक का नाम|Bank Name|text|","शाखा का नाम|Branch name|text|","आई.एफ.एस.सी. कोड|IFSC Code|text|",
+    "पता|Address|area||w","खाता क्रमांक|Account No|text|","खाते का प्रकार|Account type|select|चालू / Current,बचत / Saving",
+    "प्रारंभिक शेष|Opening balance|num|","स्थिति|Status|select|सक्रिय / Active,निष्क्रिय / Inactive"],
+  cols:["क्र.|#|50","बैंक|Bank Name|","शाखा|Branch Name|","आई.एफ.एस.सी.|IFSC Code|","खाता क्रमांक|Account No|","प्रारंभिक शेष|Opening Amount|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"ac_ledger", hi:"समूह / उप-समूह / लेजर मास्टर", en:"Group, sub group, account & ledger master", group:G.acc, roles:["ho"], type:"formlist", srs:"§2.43.1.3 – §2.43.1.6",
+  tabs:["समूह / Group","उप-समूह / Sub group","खाता / Account","लेजर / Ledger","लेजर ओपनिंग / Ledger opening"],
+  fields:["समूह का नाम|Group Name|select|आय / Income,व्यय / Expenditure,परिसंपत्ति / Assets,दायित्व / Liabilities",
+    "उप-समूह का नाम|Sub group name|text|","खाते का नाम|Account name|text|","लेजर का नाम|Ledger name|text|",
+    "लेजर कोड|Ledger code|text|","प्रारंभिक शेष|Opening balance|num|","डेबिट / क्रेडिट|Dr / Cr|radio|डेबिट / Debit,क्रेडिट / Credit",
+    "वित्तीय वर्ष|Financial Year|select|2026-2027,2025-2026"],
+  cols:["क्र.|#|50","समूह|Group Name|","उप-समूह|Sub group|","लेजर|Ledger Name|","कोड|Ledger Code|","प्रारंभिक शेष|Opening Amount|","Dr/Cr|Type|","क्रिया|Action|170"] });
+
+S({ id:"ac_cheque", hi:"चेक बुक मास्टर", en:"Cheque book master", group:G.acc, roles:["ho"], type:"formlist", srs:"§2.43.1.7",
+  fields:["बैंक खाता|Bank account|select|SBI — 3210045678,BOI — 8830012345","चेक बुक क्रमांक|Cheque book No|text|",
+    "प्रारंभ चेक क्र.|From cheque No|num|","अंतिम चेक क्र.|To cheque No|num|","प्राप्ति दिनांक|Receipt date|date|",
+    "पत्रकों की संख्या|No of leaves|ro|","उपयोग|Used leaves|ro|","शेष|Balance leaves|ro|"],
+  cols:["क्र.|#|50","बैंक खाता|Bank Account No|","चेक बुक|Cheque book No|","से|From No|","तक|To No|","उपयोग|Used Qty|","शेष|Balance Qty|","स्थिति|Status|"] });
+
+S({ id:"ac_pay", hi:"भुगतान वाउचर", en:"Payment voucher", group:G.acc, roles:["ho"], type:"formlist", srs:"§2.43.3.3",
+  fields:["वाउचर क्रमांक|Voucher No|ro|","वाउचर दिनांक|Voucher Date|date|",
+    "भुगतान का प्रकार|Payment type|select|नकद / Cash,बैंक / Bank,आर.टी.जी.एस. / RTGS,चेक / Cheque",
+    "बैंक खाता|Bank account|select|SBI — 3210045678,BOI — 8830012345","चेक क्रमांक|Cheque No|text|",
+    "प्राप्तकर्ता|Paid to|text|","लेजर शीर्ष|Ledger head|select|मुद्रण व्यय,कागज क्रय,परिवहन व्यय,स्थापना व्यय",
+    "राशि|Amount|num|","टी.डी.एस. कटौती|TDS deducted|num|","शुद्ध भुगतान|Net payment|ro|",
+    "विवरण|Narration|area||w","बिल संदर्भ|Bill reference|text|"],
+  cols:["क्र.|#|50","वाउचर क्रमांक|Voucher No|","दिनांक|Voucher Date|","प्राप्तकर्ता|Paid to Name|","लेजर शीर्ष|Ledger head|","राशि|Amount|","स्थिति|Status|","क्रिया|Action|170"],
+  total:true, buttons:["save","forward","print","back"] });
+
+S({ id:"ac_contra", hi:"कॉन्ट्रा वाउचर एवं डी.डी. जमा पंजी", en:"Contra voucher & DD deposit register", group:G.acc, roles:["ho"], type:"formlist", srs:"§2.43.3.4, §2.43.3.5",
+  fields:["वाउचर क्रमांक|Voucher No|ro|","दिनांक|Voucher Date|date|","लेन-देन का प्रकार|Transaction type|select|नकद से बैंक / Cash to Bank,बैंक से नकद / Bank to Cash,बैंक से बैंक / Bank to Bank",
+    "स्रोत खाता|From account|select|नकद / Cash,SBI — 3210045678","गंतव्य खाता|To account|select|SBI — 3210045678,BOI — 8830012345",
+    "डी.डी. / चेक क्रमांक|DD / Cheque No|text|","राशि|Amount|num|","विवरण|Narration|area||w"],
+  cols:["क्र.|#|50","वाउचर क्रमांक|Voucher No|","दिनांक|Voucher Date|","प्रकार|Transaction type|","से|From Account|","को|To Account|","राशि|Amount|","स्थिति|Status|"], total:true });
+
+S({ id:"ac_approve", hi:"वाउचर स्वीकृति (लंबित)", en:"Voucher approval — pending for approval", group:G.acc, roles:["ho","mgmt"], type:"list", srs:"§2.43.3.6 – §2.43.3.8",
+  toolbar:["fy","from","to","go","excel"],
+  cols:["चयन|Select|60","वाउचर क्रमांक|Voucher No|","दिनांक|Voucher Date|","प्रस्तुतकर्ता|Employee|","लेजर शीर्ष|Ledger head|","राशि|Amount|","स्तर|Approval level|","स्थिति|Status|"],
+  buttons:["approve","reject","forward","back"] });
+
+S({ id:"ac_cashbook", hi:"रोकड़ बही (कैशबुक)", en:"Cashbook / MD Cashbook", group:G.acc, roles:["ho","mgmt"], type:"report", srs:"§2.43.3.9, §2.43.42",
+  toolbar:["fy","from","to","go","excel"],
+  cols:["क्र.|#|50","दिनांक|Date|","वाउचर क्रमांक|Voucher No|","विवरण|Particulars Remark|","प्राप्ति (Dr)|Receipt Amount|","भुगतान (Cr)|Payment Amount|","शेष|Balance Amount|"], total:true });
+
+S({ id:"ac_rp", hi:"प्राप्ति एवं भुगतान खाता", en:"Receipt and payment account", group:G.acc, roles:["ho","mgmt"], type:"report", srs:"§2.43.3.10",
+  toolbar:["fy","from","to","go","excel"],
+  cols:["क्र.|#|50","शीर्ष|Ledger head|","प्राप्ति|Receipt Amount|","भुगतान|Payment Amount|","शुद्ध|Net Amount|"], total:true });
+
+S({ id:"ac_advpatrak", hi:"अग्रिम पत्रक", en:"Advance patrak", group:G.acc, roles:["ho"], type:"report", srs:"§2.43.3.11, §2.43.1.8",
+  toolbar:["fy","search","go","excel"],
+  cols:["क्र.|#|50","कर्मचारी|Employee|","अग्रिम का प्रकार|Type of advance|","स्वीकृति दिनांक|Sanction Date|","अग्रिम राशि|Advance Amount|","समायोजित|Adjusted Amount|","शेष|Balance Amount|","स्थिति|Status|"], total:true });
+
+S({ id:"ac_monthly", hi:"मासिक व्यय रिपोर्ट", en:"Monthly expenditure report", group:G.rep, roles:["ho","mgmt"], type:"report", srs:"§2.43.3.12",
+  toolbar:["fy","go","excel"],
+  cols:["क्र.|#|50","व्यय शीर्ष|Ledger head|","बजट|Budget Amount|","माह का व्यय|Monthly Amount|","संचयी व्यय|Cumulative Amount|","शेष बजट|Balance Amount|","प्रतिशत|Percent|"], total:true });
+
+S({ id:"ac_tb", hi:"तलपट (ट्रायल बैलेंस)", en:"Trial balance", group:G.acc, roles:["ho","mgmt"], type:"report", srs:"§2.43.3.13",
+  toolbar:["fy","go","excel"],
+  cols:["क्र.|#|50","लेजर|Ledger Name|","समूह|Group Name|","डेबिट|Debit Amount|","क्रेडिट|Credit Amount|"], total:true });
+
+S({ id:"ac_brs", hi:"बैंक समाधान विवरण", en:"Bank reconciliation statement", group:G.acc, roles:["ho"], type:"report", srs:"§2.43.3.14, §2.43.3.15",
+  toolbar:["fy","from","to","go","excel"],
+  cols:["क्र.|#|50","दिनांक|Date|","चेक / यू.टी.आर.|Cheque No|","विवरण|Particulars Remark|","बही शेष|Book Amount|","बैंक शेष|Bank Amount|","अंतर|Difference Amount|","स्थिति|Status|"], total:true });
+
+S({ id:"ac_printbill", hi:"मुद्रण बिल का भुगतान", en:"Payment of printing bills", group:G.acc, roles:["ho"], type:"formlist", srs:"§2.43.16",
+  fields:["मुद्रक|Printer Name|select|मेसर्स अजन्ता पैकेजिंग,जी टेक प्रिंट वर्क्स","बिल क्रमांक|Bill No|select|BILL/2026/118,BILL/2026/125",
+    "बिल दिनांक|Bill Date|date|","कार्यादेश क्रमांक|Work order No|ro|WO/TBC/0340","बिल राशि|Bill Amount|num|",
+    "जी.एस.टी.|GST Amount|num|","शास्ति कटौती|Penalty deduction|num|","कागज मूल्य कटौती|Paper cost deduction|num|",
+    "टी.डी.एस.|TDS Amount|num|","अन्य कटौती|Other deduction|num|","शुद्ध देय|Net payable|ro|",
+    "भुगतान दिनांक|Payment date|date|","भुगतान संदर्भ|Payment reference|text|"],
+  cols:["क्र.|#|50","बिल क्रमांक|Bill No|","दिनांक|Bill Date|","मुद्रक|Printer Name|","बिल राशि|Bill Amount|","कटौती|Deduction Amount|","शुद्ध देय|Net Amount|","स्थिति|Status|"],
+  total:true, buttons:["save","approve","print","back"] });
+
+S({ id:"ac_paperbill", hi:"कागज क्रय का भुगतान", en:"Payment of paper purchase", group:G.acc, roles:["ho"], type:"formlist", srs:"§2.43.17",
+  fields:["कागज विक्रेता / मिल|Paper Mill Name|select|आई.टी.सी. लिमिटेड,जे.के. पेपर मिल्स","बिल क्रमांक|Bill No|text|",
+    "बिल दिनांक|Bill Date|date|","आदेश क्रमांक|Order No|ro|PO/2026/118","प्राप्त मात्रा (टन)|Received Ton|ro|",
+    "दर|Rate per MT|ro|","बिल राशि|Bill Amount|num|","जी.एस.टी.|GST Amount|num|",
+    "गुणवत्ता कटौती|Quality deduction|num|","टी.डी.एस.|TDS Amount|num|","शुद्ध देय|Net payable|ro|","भुगतान दिनांक|Payment date|date|"],
+  cols:["क्र.|#|50","बिल क्रमांक|Bill No|","दिनांक|Bill Date|","मिल|Paper Mill Name|","मात्रा (टन)|Received Ton|","बिल राशि|Bill Amount|","शुद्ध देय|Net Amount|","स्थिति|Status|"],
+  total:true, buttons:["save","approve","print","back"] });
+
+S({ id:"ac_statutory", hi:"वैधानिक कटौती एवं विवरणी", en:"Statutory deductions & returns (GPF/GIS, EPF, PT, TDS, VAT)", group:G.acc,
+  roles:["ho"], type:"formlist", srs:"§2.43.11 – §2.43.20",
+  tabs:["जी.पी.एफ./जी.आई.एस.","ई.पी.एफ.","व्यवसाय कर (PT)","आयकर (TDS)","वैट / VAT"],
+  fields:["कटौती का प्रकार|Deduction type|select|जी.पी.एफ. / GPF,जी.आई.एस. / GIS,ई.पी.एफ. / EPF,व्यवसाय कर / PT,आयकर / TDS,वैट / VAT",
+    "अवधि (माह/तिमाही)|Period|select|जुलाई 2026,अगस्त 2026,तिमाही 1 / Q1,तिमाही 2 / Q2",
+    "कर्मचारी अंशदान|Employee contribution|num|","नियोक्ता अंशदान|Employer contribution|num|",
+    "कुल जमा राशि|Total deposit amount|ro|","चालान क्रमांक|Challan No|text|","जमा दिनांक|Deposit date|date|",
+    "विवरणी दाखिल दिनांक|Return filing date|date|","पावती क्रमांक|Acknowledgement No|text|","चालान की प्रति|Challan copy|file|"],
+  cols:["क्र.|#|50","कटौती का प्रकार|Deduction type|","अवधि|Period|","कुल राशि|Total Amount|","चालान क्रमांक|Challan No|","जमा दिनांक|Deposit Date|","विवरणी|Return Date|","स्थिति|Status|"], total:true });
+
+S({ id:"ac_bhawan", hi:"एम.पी. भवन व्यय का भुगतान", en:"Payment of MP Bhawan expenses", group:G.acc, roles:["ho"], type:"formlist", srs:"§2.43.15",
+  fields:["माह|Month|select|जुलाई 2026,अगस्त 2026","व्यय का प्रकार|Expense type|select|आवास शुल्क / Room charges,भोजन / Food,अन्य / Other",
+    "बिल क्रमांक|Bill No|text|","बिल दिनांक|Bill Date|date|","राशि|Amount|num|","स्वीकृतकर्ता|Sanctioned by|select|महाप्रबंधक,प्रबंध संचालक",
+    "भुगतान दिनांक|Payment date|date|","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","बिल क्रमांक|Bill No|","दिनांक|Bill Date|","व्यय का प्रकार|Expense type|","राशि|Amount|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"ac_telephone", hi:"दूरभाष बिल भुगतान", en:"Telephone bill payment", group:G.acc, roles:["ho"], type:"formlist", srs:"§2.43.39",
+  fields:["दूरभाष क्रमांक|Telephone No|text|","सेवा प्रदाता|Service provider|select|बी.एस.एन.एल.,एयरटेल,जियो",
+    "अनुभाग|Section|select|मुद्रण,कागज,वितरण,लेखा,स्थापना","बिल अवधि|Bill period|select|जुलाई 2026,अगस्त 2026",
+    "बिल क्रमांक|Bill No|text|","बिल राशि|Bill Amount|num|","देय दिनांक|Due date|date|","भुगतान दिनांक|Payment date|date|"],
+  cols:["क्र.|#|50","दूरभाष क्रमांक|Telephone No|","अनुभाग|Section|","अवधि|Period|","बिल राशि|Bill Amount|","देय दिनांक|Due Date|","स्थिति|Status|"], total:true });
+
+/* ================= ESTABLISHMENT / HR ================= */
+S({ id:"hr_emp", hi:"कर्मचारी मास्टर", en:"Employee master", group:G.est, roles:["ho","admin"], type:"formlist", srs:"§2.43.24",
+  tabs:["व्यक्तिगत / Personal","सेवा / Service","वेतन / Pay","नामांकन / Nomination","दस्तावेज / Documents"],
+  fields:["कर्मचारी कोड|Employee code|text|","कर्मचारी का नाम|Employee Name|text|","पिता / पति का नाम|Father / Husband name|text|",
+    "जन्म दिनांक|Date of birth|date|","नियुक्ति दिनांक|Date of appointment|date|","पदनाम|Designation|select|सहायक प्रबंधक,लेखापाल,डिपो प्रबंधक,वरिष्ठ लिपिक",
+    "अनुभाग|Section|select|मुद्रण,कागज,वितरण,लेखा,स्थापना,विधि","पदस्थापना|Posting place|select|मुख्यालय भोपाल,डिपो — इंदौर,डिपो — ग्वालियर",
+    "सेवा का प्रकार|Service type|select|नियमित / Regular,संविदा / Contract,दैनिक वेतन / Daily wages",
+    "वेतनमान|Pay scale|text|","मूल वेतन|Basic pay|num|","बैंक खाता क्रमांक|Bank Account No|text|",
+    "पैन नं.|PAN No|text|","जी.पी.एफ. / ई.पी.एफ. क्रमांक|GPF / EPF No|text|","मोबाइल नं.|Contact No|num|",
+    "सेवानिवृत्ति दिनांक|Date of retirement|ro|","फोटो|Photo|file|"],
+  cols:["क्र.|#|50","कर्मचारी कोड|Employee Code|","नाम|Employee Name|","पदनाम|Designation|","अनुभाग|Section|","पदस्थापना|Posting|","नियुक्ति दिनांक|Appointment Date|","स्थिति|Status|"] });
+
+S({ id:"hr_appoint", hi:"नई नियुक्ति एवं स्थायीकरण", en:"New appointment & confirmation", group:G.est, roles:["ho"], type:"formlist", srs:"§2.43.28, §2.43.29",
+  fields:["आवेदक का नाम|Candidate name|text|","विज्ञापन क्रमांक|Advertisement No|text|","पद|Post|select|सहायक प्रबंधक,लेखापाल,वरिष्ठ लिपिक",
+    "चयन का माध्यम|Mode of selection|select|सीधी भर्ती / Direct,पदोन्नति / Promotion,प्रतिनियुक्ति / Deputation",
+    "नियुक्ति आदेश क्रमांक|Appointment order No|text|","नियुक्ति दिनांक|Date of appointment|date|",
+    "कार्यभार ग्रहण दिनांक|Date of joining|date|","परिवीक्षा अवधि (माह)|Probation period in months|num|12",
+    "स्थायीकरण दिनांक|Confirmation date|date||o","स्थायीकरण आदेश|Confirmation order No|text||o","आदेश की प्रति|Order copy|file|"],
+  cols:["क्र.|#|50","आदेश क्रमांक|Order No|","नाम|Employee Name|","पद|Designation|","नियुक्ति दिनांक|Appointment Date|","कार्यभार दिनांक|Joining Date|","स्थिति|Status|"] });
+
+S({ id:"hr_increment", hi:"वार्षिक वेतन वृद्धि", en:"Annual increment", group:G.est, roles:["ho"], type:"list", srs:"§2.43.30",
+  toolbar:["fy","search","go","excel"],
+  cols:["चयन|Select|60","कर्मचारी|Employee Name|","पदनाम|Designation|","वर्तमान मूल वेतन|Current Basic Amount|","वृद्धि दर|Increment Amount|","नया मूल वेतन|New Basic Amount|","प्रभावी दिनांक|Effective Date|","स्थिति|Status|"],
+  buttons:["approve","print","back"] });
+
+S({ id:"hr_leave", hi:"अवकाश आवेदन एवं अभिलेख", en:"Leave application & annual leave record", group:G.est, roles:["ho","emp"], type:"formlist", srs:"§2.43.31, §2.43.32",
+  fields:["कर्मचारी|Employee Name|ro|आर. के. शर्मा","अवकाश का प्रकार|Type of leave|select|अर्जित अवकाश / Earned Leave,आकस्मिक अवकाश / Casual Leave,चिकित्सा अवकाश / Medical Leave,अर्धवेतन अवकाश / Half Pay Leave",
+    "प्रारंभ दिनांक|From date|date|","समाप्ति दिनांक|To date|date|","दिवसों की संख्या|No of days|ro|",
+    "उपलब्ध शेष|Available balance|ro|28","अवकाश के दौरान पता|Address during leave|area||w",
+    "कारण|Reason|area||w","स्थानापन्न कर्मचारी|Substitute employee|select|सुनीता वर्मा,दिनेश पटेल"],
+  cols:["क्र.|#|50","आवेदन क्रमांक|Application No|","कर्मचारी|Employee Name|","अवकाश प्रकार|Type of leave|","से दिनांक|From Date|","दिवस|No of days|","शेष|Balance days|","स्थिति|Status|"],
+  buttons:["submit","approve","reject","back"] });
+
+S({ id:"hr_de", hi:"विभागीय जाँच", en:"Departmental Enquiry (DE)", group:G.est, roles:["ho"], type:"formlist", srs:"§2.43.33",
+  fields:["कर्मचारी|Employee Name|select|आर. के. शर्मा,सुनीता वर्मा,दिनेश पटेल","प्रकरण क्रमांक|Case No|text|",
+    "आरोप का विवरण|Charges|area||w","आरोप पत्र दिनांक|Charge sheet date|date|","जाँच अधिकारी|Enquiry officer|select|महाप्रबंधक,उप प्रबंधक",
+    "प्रस्तुतिकरण अधिकारी|Presenting officer|text|","जाँच प्रारंभ दिनांक|Enquiry start date|date|",
+    "प्रतिवेदन दिनांक|Report date|date|","निर्णय|Decision|select|दोषमुक्त / Exonerated,निंदा / Censure,वेतन वृद्धि रोक / Increment withheld,सेवा से पृथक / Dismissal",
+    "आदेश दिनांक|Order date|date|","दस्तावेज|Documents|file|"],
+  cols:["क्र.|#|50","प्रकरण क्रमांक|Case No|","कर्मचारी|Employee Name|","आरोप पत्र दिनांक|Charge Sheet Date|","जाँच अधिकारी|Enquiry Officer|","निर्णय|Decision Remark|","स्थिति|Status|"] });
+
+S({ id:"hr_seniority", hi:"वार्षिक वरिष्ठता सूची", en:"Annual seniority list", group:G.est, roles:["ho"], type:"report", srs:"§2.43.34",
+  toolbar:["fy","search","go","excel"],
+  cols:["क्रमांक|Seniority No|","कर्मचारी|Employee Name|","पदनाम|Designation|","नियुक्ति दिनांक|Appointment Date|","पदोन्नति दिनांक|Promotion Date|","जन्म दिनांक|Date|","सेवा अवधि|Service years|"] });
+
+S({ id:"hr_transfer", hi:"कर्मचारी स्थानांतरण", en:"Transfer of employee", group:G.est, roles:["ho"], type:"formlist", srs:"§2.43.35",
+  fields:["कर्मचारी|Employee Name|select|आर. के. शर्मा,सुनीता वर्मा,दिनेश पटेल","वर्तमान पदस्थापना|Present posting|ro|मुख्यालय भोपाल",
+    "स्थानांतरित पदस्थापना|Transferred to|select|डिपो — इंदौर,डिपो — ग्वालियर,डिपो — जबलपुर",
+    "आदेश क्रमांक|Transfer order No|text|","आदेश दिनांक|Order date|date|","कार्यमुक्ति दिनांक|Relieving date|date|",
+    "कार्यभार ग्रहण दिनांक|Joining date|date||o","स्थानांतरण का कारण|Reason for transfer|select|प्रशासनिक / Administrative,अनुरोध पर / On request,पदोन्नति / Promotion",
+    "यात्रा भत्ता देय|TA payable|radio|हाँ / Yes,नहीं / No"],
+  cols:["क्र.|#|50","आदेश क्रमांक|Transfer Order No|","कर्मचारी|Employee Name|","से|From Posting|","को|To Posting|","आदेश दिनांक|Order Date|","स्थिति|Status|"] });
+
+S({ id:"hr_salary", hi:"वेतन प्रक्रिया", en:"Salary process", group:G.est, roles:["ho"], type:"formlist", srs:"§2.43.26",
+  note:"माह का चयन कर वेतन बिल तैयार किया जाता है — भत्ते, कटौतियाँ एवं शुद्ध देय राशि की गणना स्वतः होती है।",
+  fields:["माह|Month|select|जुलाई 2026,अगस्त 2026","अनुभाग|Section|select|समस्त / All,मुद्रण,कागज,वितरण,लेखा",
+    "वेतन बिल क्रमांक|Salary bill No|ro|","तैयार दिनांक|Prepared on|date|"],
+  gridIn:{t:"वेतन बिल विवरण / Salary bill details",
+    cols:["कर्मचारी|Employee Name|","मूल वेतन|Basic Amount|","महँगाई भत्ता|DA Amount|","मकान भत्ता|HRA Amount|","सकल|Gross Amount|","कटौती|Deduction Amount|","शुद्ध देय|Net Amount|"], rows:6, total:true},
+  cols:["क्र.|#|50","वेतन बिल क्रमांक|Salary Bill No|","माह|Period|","कर्मचारी संख्या|No of employees|","सकल|Gross Amount|","कटौती|Deduction Amount|","शुद्ध देय|Net Amount|","स्थिति|Status|"],
+  total:true, buttons:["save","approve","print","back"] });
+
+S({ id:"hr_advance", hi:"अग्रिम आवेदन (त्यौहार / अनाज / चिकित्सा / यात्रा)", en:"Advance application — festival / grain / medical / tour", group:G.est,
+  roles:["emp","ho"], type:"formlist", srs:"§2.43.4 – §2.43.9",
+  note:"कर्मचारी ऑनलाइन अग्रिम हेतु आवेदन करता है; अनुभाग → लेखा → स्वीकृतकर्ता के क्रम में अनुमोदन होता है।",
+  fields:["कर्मचारी|Employee Name|ro|आर. के. शर्मा","कर्मचारी कोड|Employee code|ro|01008",
+    "अग्रिम का प्रकार|Type of advance|select|त्यौहार अग्रिम / Festival,अनाज अग्रिम / Grain,चिकित्सा अग्रिम / Medical,यात्रा अग्रिम / Tour,भण्डार अग्रिम / Store,जलपान अग्रिम / Refreshment",
+    "आवेदन दिनांक|Application date|date|","मांगी गई राशि|Amount requested|num|",
+    "मूल वेतन|Basic pay|ro|₹ 38,400","पूर्व अग्रिम शेष|Previous advance balance|ro|₹ 0",
+    "किस्तों की संख्या|No of installments|num|10","प्रयोजन|Purpose|area||w",
+    "यात्रा का विवरण (यदि लागू)|Tour details if applicable|area||wo","संलग्न दस्तावेज|Supporting document|file|"],
+  cols:["क्र.|#|50","आवेदन क्रमांक|Request No|","दिनांक|Date|","अग्रिम का प्रकार|Type of advance|","मांगी राशि|Requested Amount|","स्वीकृत राशि|Sanctioned Amount|","स्थिति|Status|","क्रिया|Action|170"],
+  buttons:["submit","approve","reject","back"] });
+
+S({ id:"hr_ta", hi:"यात्रा देयक (टी.ए. बिल) भुगतान / समायोजन", en:"Payment / adjustment of T.A. Bill", group:G.est, roles:["emp","ho"], type:"formlist", srs:"§2.43.8",
+  fields:["कर्मचारी|Employee Name|ro|आर. के. शर्मा","यात्रा आदेश क्रमांक|Tour order No|text|",
+    "यात्रा प्रारंभ दिनांक|Journey from date|date|","यात्रा समाप्ति दिनांक|Journey to date|date|",
+    "गंतव्य|Destination|text|","यात्रा का प्रयोजन|Purpose of journey|area||w",
+    "प्राप्त अग्रिम|Advance taken|ro|₹ 8,000","किराया|Fare Amount|num|","दैनिक भत्ता|Daily allowance Amount|num|",
+    "आवास व्यय|Lodging Amount|num|","अन्य व्यय|Other Amount|num|","कुल दावा|Total claim Amount|ro|",
+    "समायोजन के बाद देय / वसूली|Net payable / recoverable|ro|","बिल संलग्न|Bills attached|file|"],
+  cols:["क्र.|#|50","टी.ए. बिल क्रमांक|Bill No|","कर्मचारी|Employee Name|","यात्रा दिनांक|Date|","दावा राशि|Claim Amount|","अग्रिम|Advance Amount|","शुद्ध देय|Net Amount|","स्थिति|Status|"],
+  total:true, buttons:["submit","approve","print","back"] });
+
+S({ id:"hr_gratuity", hi:"अवकाश नकदीकरण एवं उपादान", en:"Leave encashment & gratuity", group:G.est, roles:["ho"], type:"formlist", srs:"§2.43.38",
+  fields:["कर्मचारी|Employee Name|select|आर. के. शर्मा,सुनीता वर्मा","सेवानिवृत्ति / पृथक्करण दिनांक|Date of retirement / separation|date|",
+    "कुल सेवा अवधि|Total service years|ro|32","अंतिम मूल वेतन|Last basic pay|num|","महँगाई भत्ता|DA Amount|num|",
+    "अर्जित अवकाश शेष (दिवस)|EL balance days|num|","अवकाश नकदीकरण राशि|Leave encashment amount|ro|",
+    "उपादान राशि|Gratuity amount|ro|","अन्य देयता|Other dues|num|","कुल देय|Total payable|ro|","भुगतान दिनांक|Payment date|date|"],
+  cols:["क्र.|#|50","कर्मचारी|Employee Name|","सेवानिवृत्ति दिनांक|Retirement Date|","सेवा वर्ष|Service years|","अवकाश नकदीकरण|Encashment Amount|","उपादान|Gratuity Amount|","कुल देय|Total Amount|","स्थिति|Status|"], total:true });
+
+S({ id:"hr_welfare", hi:"कर्मचारी कल्याण निधि / अनुग्रह अनुदान", en:"Employee welfare fund & ex-gratia payment", group:G.est, roles:["ho"], type:"formlist", srs:"§2.43.36, §2.43.37",
+  fields:["भुगतान का प्रकार|Payment type|select|कल्याण निधि से सहायता / Welfare fund,अनुग्रह अनुदान / Ex-gratia",
+    "कर्मचारी / आश्रित|Employee / dependent|text|","प्रकरण का विवरण|Case details|area||w",
+    "मांगी गई राशि|Amount requested|num|","समिति की अनुशंसा|Committee recommendation|area||w",
+    "स्वीकृत राशि|Sanctioned amount|num|","स्वीकृति दिनांक|Sanction date|date|","भुगतान दिनांक|Payment date|date|"],
+  cols:["क्र.|#|50","प्रकरण क्रमांक|Case No|","प्रकार|Payment type|","कर्मचारी|Employee Name|","मांगी राशि|Requested Amount|","स्वीकृत|Sanctioned Amount|","स्थिति|Status|"], total:true });
+
+S({ id:"hr_reports", hi:"स्थापना रिपोर्ट", en:"Establishment reports", group:G.rep, roles:["ho"], type:"report", srs:"§2.43.27",
+  toolbar:["fy","search","go","excel"],
+  cols:["क्र.|#|50","कर्मचारी|Employee Name|","पदनाम|Designation|","अनुभाग|Section|","सकल वेतन|Gross Amount|","कटौती|Deduction Amount|","शुद्ध वेतन|Net Amount|","अवकाश शेष|Balance days|"], total:true });
+
+
+/* ================= BUILDING SECTION ================= */
+S({ id:"bd_house", hi:"भवन / आवास का विवरण", en:"House details (short & summarized)", group:G.gen, roles:["ho"], type:"formlist", srs:"§2.40.1.1, §2.40.1.2",
+  fields:["भवन / आवास कोड|House code|text|","भवन का नाम|Building name|text|","स्थान|Location|select|मुख्यालय परिसर, भोपाल,डिपो परिसर — इंदौर",
+    "आवास का प्रकार|House type|select|टाइप 1,टाइप 2,टाइप 3,टाइप 4","क्षेत्रफल (वर्ग फीट)|Area in sq ft|num|",
+    "निर्माण वर्ष|Year of construction|num|","किराया दर (मासिक)|Monthly rent rate|num|",
+    "वर्तमान स्थिति|Present status|select|आबंटित / Allotted,रिक्त / Vacant,मरम्मत हेतु / Under repair",
+    "टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","भवन कोड|House Code|","भवन का नाम|Building Name|","प्रकार|House type|","क्षेत्रफल|Area|","किराया|Rent Amount|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"bd_allot", hi:"आवास आबंटन", en:"House allotment", group:G.gen, roles:["ho"], type:"formlist", srs:"§2.40.2",
+  fields:["आवास कोड|House code|select|H-101,H-102,H-201","कर्मचारी|Employee Name|select|आर. के. शर्मा,सुनीता वर्मा,दिनेश पटेल",
+    "आबंटन आदेश क्रमांक|Allotment order No|text|","आबंटन दिनांक|Allotment date|date|",
+    "कब्जा दिनांक|Occupation date|date|","मासिक किराया|Monthly rent|ro|","रिक्ति दिनांक|Vacation date|date||o",
+    "जमा सुरक्षा राशि|Security deposit|num|"],
+  cols:["क्र.|#|50","आदेश क्रमांक|Allotment Order No|","आवास कोड|House Code|","कर्मचारी|Employee Name|","आबंटन दिनांक|Allotment Date|","किराया|Rent Amount|","स्थिति|Status|"] });
+
+S({ id:"bd_whrenew", hi:"गोदाम नवीनीकरण का विवरण", en:"Warehouse renewal details", group:G.gen, roles:["ho","depot"], type:"formlist", srs:"§2.40.1.3",
+  fields:["गोदाम|Warehouse Name|select|गोदाम 1,गोदाम 2,गोदाम 3","डिपो|Depot|select|भोपाल,इंदौर,ग्वालियर",
+    "भवन स्वामी|Owner name|text|","वर्तमान अनुबंध समाप्ति|Present agreement to date|date|",
+    "नवीनीकरण अवधि (माह)|Renewal period in months|num|","नया किराया|New rent amount|num|",
+    "वृद्धि (%)|Increase percent|ro|","नवीनीकरण दिनांक|Renewal date|date|","अनुबंध की प्रति|Agreement copy|file|"],
+  cols:["क्र.|#|50","गोदाम|Warehouse Name|","डिपो|Depot|","भवन स्वामी|Owner Name|","वर्तमान किराया|Present Rent Amount|","नया किराया|New Rent Amount|","नवीनीकरण दिनांक|Renewal Date|","स्थिति|Status|"] });
+
+S({ id:"bd_bill", hi:"भवन — देयक भुगतान एवं वाउचर", en:"Building — bill payment & voucher information", group:G.gen, roles:["ho"], type:"formlist", srs:"§2.40.3, §2.40.4",
+  fields:["देयक का प्रकार|Bill type|select|विद्युत / Electricity,जल / Water,संपत्ति कर / Property tax,मरम्मत / Repair,किराया / Rent",
+    "भवन / परिसर|Building|select|मुख्यालय भवन,डिपो भवन — इंदौर","बिल क्रमांक|Bill No|text|",
+    "बिल अवधि|Bill period|select|जुलाई 2026,अगस्त 2026","बिल राशि|Bill Amount|num|",
+    "देय दिनांक|Due date|date|","वाउचर क्रमांक|Voucher No|ro|","भुगतान दिनांक|Payment date|date|","टिप्पणी|Remark|area||wo"],
+  cols:["क्र.|#|50","बिल क्रमांक|Bill No|","प्रकार|Bill type|","भवन|Building Name|","अवधि|Period|","राशि|Bill Amount|","वाउचर|Voucher No|","स्थिति|Status|"], total:true });
+
+S({ id:"bd_activity", hi:"गतिविधि / निर्माण कार्य का विवरण", en:"Activity & construction detail", group:G.gen, roles:["ho"], type:"formlist", srs:"§2.40.1.4",
+  fields:["कार्य का नाम|Activity name|text|","कार्य का प्रकार|Activity type|select|नवीन निर्माण / New construction,मरम्मत / Repair,विस्तार / Extension",
+    "स्थान|Location|text|","प्राक्कलन राशि|Estimated amount|num|","निविदा क्रमांक|Tender No|text|",
+    "ठेकेदार|Contractor name|text|","कार्यादेश दिनांक|Work order date|date|","पूर्णता की नियत दिनांक|Target completion date|date|",
+    "वास्तविक पूर्णता|Actual completion date|date||o","भुगतान की गई राशि|Amount paid|num|","प्रगति (%)|Progress percent|num|"],
+  cols:["क्र.|#|50","कार्य|Activity Name|","प्रकार|Activity type|","प्राक्कलन|Estimated Amount|","ठेकेदार|Contractor Name|","नियत दिनांक|Target Date|","प्रगति|Progress Percent|","स्थिति|Status|"], total:true });
+
+/* ================= STORE ================= */
+S({ id:"st_indent", hi:"भण्डार — इंडेंट निर्माण", en:"Store — indent generation", group:G.gen, roles:["ho","depot"], type:"formlist", srs:"§2.40.6.1",
+  fields:["इंडेंट क्रमांक|Indent No|ro|","इंडेंट दिनांक|Indent date|date|","अनुभाग|Section|select|मुद्रण,कागज,वितरण,लेखा,स्थापना",
+    "मांगकर्ता|Indented by|select|आर. के. शर्मा,सुनीता वर्मा","सामग्री का नाम|Item Name|select|स्टेशनरी,कंप्यूटर सामग्री,फर्नीचर,सफाई सामग्री",
+    "मात्रा|Qty|num|","औचित्य|Justification|area||w","आवश्यकता दिनांक|Required by date|date|"],
+  gridIn:{t:"इंडेंट की मदें / Indent line items",
+    cols:["सामग्री|Item Name|","इकाई|Unit|","मांग मात्रा|Demand Qty|","उपलब्ध स्टॉक|Stock Qty|","स्वीकृत मात्रा|Approved Qty|"], rows:4},
+  cols:["क्र.|#|50","इंडेंट क्रमांक|Indent No|","दिनांक|Indent Date|","अनुभाग|Section|","मदों की संख्या|No of items|","स्थिति|Status|","क्रिया|Action|170"],
+  buttons:["save","forward","approve","back"] });
+
+S({ id:"st_damage", hi:"भण्डार — क्षति / वापसी एवं मरम्मत", en:"Store — damage / return & repair status", group:G.gen, roles:["ho","depot"], type:"formlist", srs:"§2.40.6.2, §2.40.6.3",
+  fields:["सामग्री|Item Name|select|कंप्यूटर,प्रिंटर,फर्नीचर,ए.सी.","सामग्री कोड|Item code|text|",
+    "प्रकार|Entry type|radio|क्षति / Damage,वापसी / Return,मरम्मत / Repair","दिनांक|Date|date|",
+    "मात्रा|Qty|num|","क्षति का विवरण|Details of damage|area||w","मरम्मत हेतु प्रेषित|Sent for repair to|text|",
+    "अनुमानित व्यय|Estimated cost|num|","मरम्मत की स्थिति|Repair status|select|प्रेषित / Sent,प्रगतिरत / In progress,पूर्ण / Completed,अमरम्मत योग्य / Beyond repair",
+    "वापसी दिनांक|Return date|date||o"],
+  cols:["क्र.|#|50","सामग्री|Item Name|","प्रकार|Entry type|","दिनांक|Date|","मात्रा|Qty|","व्यय|Cost Amount|","मरम्मत की स्थिति|Status|","क्रिया|Action|170"] });
+
+/* ================= LIBRARY ================= */
+S({ id:"lb_recv", hi:"पुस्तकालय — प्राप्त पुस्तकों का विवरण", en:"Library — books received details", group:G.gen, roles:["ho"], type:"formlist", srs:"§2.42.1",
+  fields:["परिग्रहण क्रमांक|Accession No|ro|","प्राप्ति दिनांक|Receipt date|date|","पुस्तक का नाम|Book Name|text|",
+    "लेखक|Author Name|text|","प्रकाशक|Publisher|text|","संस्करण / वर्ष|Edition / year|text|",
+    "आई.एस.बी.एन.|ISBN No|text|","प्रतियाँ|No of copies|num|","मूल्य|Price Amount|num|",
+    "विषय वर्ग|Subject category|select|शिक्षा,विधि,प्रबंधन,साहित्य,संदर्भ","स्रोत|Source|select|क्रय / Purchase,उपहार / Gift,विनिमय / Exchange",
+    "रैक क्रमांक|Rack No|text|"],
+  cols:["क्र.|#|50","परिग्रहण क्रमांक|Accession No|","पुस्तक का नाम|Book Name|","लेखक|Author Name|","प्रकाशक|Publisher Name|","प्रतियाँ|Copies Qty|","मूल्य|Price Amount|","स्थिति|Status|"], total:true });
+
+S({ id:"lb_issue", hi:"पुस्तकालय — पुस्तक निर्गमन एवं वितरण", en:"Library — book issue & distribution detail", group:G.gen, roles:["ho"], type:"formlist", srs:"§2.42.2",
+  fields:["परिग्रहण क्रमांक|Accession No|select|ACC-1001,ACC-1002","पुस्तक का नाम|Book Name|ro|",
+    "प्राप्तकर्ता|Issued to|select|आर. के. शर्मा,सुनीता वर्मा,दिनेश पटेल","निर्गमन दिनांक|Issue date|date|",
+    "वापसी की नियत दिनांक|Due date|date|","वास्तविक वापसी दिनांक|Actual return date|date||o",
+    "विलंब (दिवस)|Delay in days|ro|","विलंब शुल्क|Late fee amount|ro|","स्थिति|Status|select|निर्गमित / Issued,वापस / Returned,विलंबित / Overdue"],
+  cols:["क्र.|#|50","परिग्रहण क्रमांक|Accession No|","पुस्तक|Book Name|","प्राप्तकर्ता|Issued to Name|","निर्गमन दिनांक|Issue Date|","नियत वापसी|Due Date|","स्थिति|Status|","क्रिया|Action|170"] });
+
+/* ================= LEGAL ================= */
+S({ id:"lg_case", hi:"न्यायालयीन प्रकरण", en:"Court cases", group:G.gen, roles:["ho"], type:"formlist", srs:"§2.38.1.1, §2.38.1.2",
+  srsText:"SRS §2.38 Legal Administration Module — masters for court cases and case details, with reports",
+  fields:["प्रकरण क्रमांक|Case No|text|","प्रकरण का प्रकार|Case type|select|रिट याचिका / Writ Petition,सिविल वाद / Civil Suit,श्रम प्रकरण / Labour Case,अपील / Appeal,मध्यस्थता / Arbitration",
+    "न्यायालय|Court Name|select|माननीय उच्च न्यायालय, जबलपुर,जिला न्यायालय, भोपाल,श्रम न्यायालय, इंदौर",
+    "याचिकाकर्ता|Petitioner name|text|","प्रतिवादी|Respondent name|text|","दायर दिनांक|Filing date|date|",
+    "प्रकरण का विषय|Subject of case|area||w","निगम के अधिवक्ता|Advocate for corporation|text|",
+    "अधिवक्ता शुल्क|Advocate fee|num|","विवादित राशि|Disputed amount|num|",
+    "अगली सुनवाई दिनांक|Next hearing date|date|","वर्तमान स्थिति|Present status|select|विचाराधीन / Pending,निर्णीत / Decided,स्थगित / Stayed,समझौता / Settled",
+    "अंतिम आदेश|Final order|file|"],
+  cols:["क्र.|#|50","प्रकरण क्रमांक|Case No|","प्रकार|Case type|","न्यायालय|Court Name|","याचिकाकर्ता|Petitioner Name|","दायर दिनांक|Filing Date|","अगली सुनवाई|Next Hearing Date|","स्थिति|Status|"] });
+
+S({ id:"lg_hearing", hi:"सुनवाई एवं आदेश का विवरण", en:"Hearing & order details", group:G.gen, roles:["ho"], type:"formlist", srs:"§2.38.1.2",
+  fields:["प्रकरण क्रमांक|Case No|select|WP/3410/2026,WP/3433/2026","सुनवाई दिनांक|Hearing date|date|",
+    "उपस्थित अधिकारी|Officer attended|select|विधि अधिकारी,उप प्रबंधक","आदेश का सारांश|Order summary|area||w",
+    "अगली सुनवाई दिनांक|Next hearing date|date|","आवश्यक कार्यवाही|Action required|area||w",
+    "अनुपालन दिनांक|Compliance date|date||o","आदेश की प्रति|Order copy|file|"],
+  cols:["क्र.|#|50","प्रकरण क्रमांक|Case No|","सुनवाई दिनांक|Hearing Date|","आदेश का सारांश|Order Remark|","अगली सुनवाई|Next Hearing Date|","अनुपालन|Status|"] });
+
+S({ id:"lg_report", hi:"विधि अनुभाग रिपोर्ट", en:"Legal section reports", group:G.rep, roles:["ho","mgmt"], type:"report", srs:"§2.38.2",
+  toolbar:["fy","search","go","excel"],
+  cols:["क्र.|#|50","प्रकरण क्रमांक|Case No|","न्यायालय|Court Name|","प्रकार|Case type|","विवादित राशि|Disputed Amount|","अधिवक्ता शुल्क|Advocate Fee Amount|","अवधि (दिवस)|Pending days|","स्थिति|Status|"], total:true });
+
+/* ================= GRIEVANCE ================= */
+S({ id:"gr_lodge", hi:"शिकायत निवारण प्रणाली", en:"Grievance Redressal System", group:G.gen, roles:["ho","bseller","printer","pvendor","emp","brc","depot"], type:"formlist", srs:"§2.39",
+  note:"शिकायत दर्ज होने पर सिस्टम स्वतः पंजीयन क्रमांक जारी करता है एवं संबंधित अनुभाग को अग्रेषित कर निराकरण की समय-सीमा निर्धारित करता है।",
+  fields:["शिकायत क्रमांक|Complaint No|ro|","दिनांक|Date|date|",
+    "शिकायतकर्ता का प्रकार|Complainant type|select|मुद्रक / Printer,कागज विक्रेता / Paper vendor,पुस्तक विक्रेता / Book seller,कर्मचारी / Employee,नागरिक / Citizen",
+    "शिकायतकर्ता का नाम|Complainant name|text|","मोबाइल नं.|Contact No|num|","ई-मेल|Email Id|text|",
+    "संबंधित अनुभाग|Concerned section|select|मुद्रण,कागज,वितरण,लेखा,स्थापना,डिपो",
+    "शिकायत का विषय|Subject of complaint|text|","शिकायत का विवरण|Complaint description|area||w",
+    "संलग्न दस्तावेज|Attachment|file|","प्राथमिकता|Priority|select|सामान्य / Normal,उच्च / High,अति आवश्यक / Urgent"],
+  cols:["क्र.|#|50","शिकायत क्रमांक|Complaint No|","दिनांक|Date|","शिकायतकर्ता|Complainant Name|","अनुभाग|Section|","विषय|Subject Remark|","निराकरण दिनांक|Resolution Date|","स्थिति|Status|"],
+  buttons:["submit","forward","approve","back"] });
+
+/* ================= TENDER EVALUATION ================= */
+S({ id:"te_eval", hi:"निविदा मूल्यांकन", en:"Tender Evaluation", group:G.gen, roles:["ho"], type:"formlist", srs:"§2.41",
+  note:"तकनीकी एवं वित्तीय बिड का तुलनात्मक मूल्यांकन — अंक भार के आधार पर स्वतः रैंकिंग।",
+  fields:["निविदा क्रमांक|Tender No|select|TND/2026/021,TND/2026/022","निविदा का विषय|Tender subject|ro|मुद्रण कार्य — ग्रुप 0001",
+    "मूल्यांकन दिनांक|Evaluation date|date|","समिति के सदस्य|Committee members|area||w",
+    "मूल्यांकन का प्रकार|Evaluation type|radio|तकनीकी / Technical,वित्तीय / Financial"],
+  gridIn:{t:"निविदाकार अनुसार तुलनात्मक विवरण / Bidder wise comparative statement",
+    cols:["निविदाकार|Vendor Name|","तकनीकी अंक|Technical marks|","दर (प्रति फॉर्म)|Rate Amount|","कुल मूल्य|Total Amount|","रैंक|Rank|","अर्हता|Status|"], rows:5},
+  cols:["क्र.|#|50","निविदा क्रमांक|Tender No|","विषय|Subject Remark|","निविदाकार|No of bidders|","न्यूनतम दर|Lowest Rate Amount|","सफल निविदाकार|Vendor Name|","स्थिति|Status|"],
+  buttons:["save","approve","print","back"] });
+
+/* ================= ADMIN ================= */
+S({ id:"ad_user", hi:"उपयोगकर्ता प्रबंधन", en:"User management", group:G.adm, roles:["admin"], type:"formlist", srs:"§2.5",
+  fields:["उपयोगकर्ता नाम|User name (login id)|text|","पूरा नाम|Full name|text|",
+    "उपयोगकर्ता का प्रकार|User type|select|सिस्टम प्रशासक / System Admin,विभागीय उपयोगकर्ता / Departmental,प्रबंधन / Management,बाह्य उपयोगकर्ता / External,कर्मचारी / Employee",
+    "अनुभाग / कार्यालय|Section / Office|select|मुख्यालय — मुद्रण,मुख्यालय — कागज,मुख्यालय — वितरण,डिपो — भोपाल,केन्द्रीय कागज डिपो",
+    "भूमिका|Role|select|मेकर / Maker,चेकर / Checker,स्वीकृतकर्ता / Approver,केवल पठन / Read only",
+    "मोबाइल नं.|Contact No|num|","ई-मेल|Email Id|text|","डिजिटल हस्ताक्षर (PKI)|PKI based authentication|radio|सक्रिय / Enabled,निष्क्रिय / Disabled",
+    "प्रारंभ दिनांक|Valid from|date|","समाप्ति दिनांक|Valid up to|date|","स्थिति|Status|select|सक्रिय / Active,निष्क्रिय / Inactive,अवरुद्ध / Locked"],
+  cols:["क्र.|#|50","उपयोगकर्ता नाम|User Name|","पूरा नाम|Employee Name|","प्रकार|User type|","अनुभाग|Section|","अंतिम लॉगिन|Date|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"ad_role", hi:"भूमिका एवं मेनू अनुमति", en:"Role & menu permission", group:G.adm, roles:["admin"], type:"formlist", srs:"§2.5",
+  note:"सिस्टम प्रशासक प्रत्येक भूमिका हेतु मेनू / सब-मेनू की अनुमति (जोड़ें / संपादन / देखें / स्वीकृति) निर्धारित करता है।",
+  fields:["भूमिका|Role|select|विभागीय उपयोगकर्ता,डिपो प्रबंधक,मुद्रक,कागज विक्रेता,पुस्तक विक्रेता,प्रबंधन",
+    "मॉड्यूल|Module|select|वितरण,मुद्रण,कागज,डिपो,लेखा,स्थापना,विधि"],
+  gridIn:{t:"मेनू अनुमति / Menu permissions",
+    cols:["मेनू / सब-मेनू|Menu name|","देखें|View|80","जोड़ें|Add|80","संपादन|Edit|80","हटाएँ|Delete|80","स्वीकृति|Approve|80"], rows:8},
+  cols:["क्र.|#|50","भूमिका|Role Name|","मॉड्यूल|Module Name|","अनुमत मेनू|No of menus|","अंतिम संशोधन|Date|","क्रिया|Action|170"] });
+
+S({ id:"ad_master", hi:"सामान्य मास्टर (जिला / विकासखण्ड / शाला)", en:"General masters — district, block, school", group:G.adm, roles:["admin","ho"], type:"formlist", srs:"§2.43.24",
+  tabs:["जिला / District","विकासखण्ड / Block","संकुल / Cluster","शाला / School"],
+  fields:["जिला|District|select|भोपाल,इंदौर,ग्वालियर,जबलपुर","विकासखण्ड|Block|text|","संकुल|Cluster|text|",
+    "शाला का नाम|School name|text|","डाइस कोड|DISE code|text|","शाला का प्रकार|School type|select|प्राथमिक / Primary,माध्यमिक / Middle,हाई स्कूल / High,हायर सेकेण्डरी / Hr. Sec.",
+    "छात्र संख्या|No of students|num|","संबद्ध डिपो|Associated depot|select|भोपाल,इंदौर,ग्वालियर"],
+  cols:["क्र.|#|50","जिला|District|","विकासखण्ड|Block|","शाला का नाम|School Name|","डाइस कोड|DISE Code|","छात्र संख्या|Students Qty|","डिपो|Depot|","स्थिति|Status|"] });
+
+S({ id:"ad_alert", hi:"अलर्ट / सूचना विन्यास", en:"Alert configuration (SMS / e-mail)", group:G.adm, roles:["admin"], type:"formlist", srs:"§4.1",
+  note:"SRS §4.1 — विभिन्न स्तरों पर अलर्ट: नियत तिथि से पूर्व, विलंब होने पर, स्टॉक न्यूनतम स्तर पर, अनुबंध / बीमा की वैधता समाप्ति पर।",
+  fields:["अलर्ट का नाम|Alert name|text|","घटना|Trigger event|select|प्रदाय की नियत तिथि निकट / Delivery due,प्रदाय में विलंब / Delivery delayed,स्टॉक न्यूनतम स्तर / Low stock,अनुबंध समाप्ति / Agreement expiry,बीमा समाप्ति / Insurance expiry,बिल लंबित / Bill pending",
+    "पूर्व सूचना (दिवस)|Days before event|num|7","प्राप्तकर्ता भूमिका|Recipient role|chk|विभागीय उपयोगकर्ता,डिपो प्रबंधक,प्रबंधन,मुद्रक,कागज विक्रेता",
+    "माध्यम|Channel|chk|एस.एम.एस. / SMS,ई-मेल / Email,सिस्टम सूचना / In-app","संदेश टेम्पलेट|Message template|area||w",
+    "स्थिति|Status|select|सक्रिय / Active,निष्क्रिय / Inactive"],
+  cols:["क्र.|#|50","अलर्ट|Alert Name|","घटना|Trigger event|","पूर्व सूचना|Days|","माध्यम|Channel|","प्राप्तकर्ता|Recipient role|","स्थिति|Status|","क्रिया|Action|170"] });
+
+S({ id:"ad_audit", hi:"अंकेक्षण लॉग", en:"Audit log", group:G.adm, roles:["admin"], type:"report", srs:"§4",
+  toolbar:["from","to","search","go","excel"],
+  cols:["क्र.|#|50","दिनांक / समय|Date|","उपयोगकर्ता|User Name|","भूमिका|Role|","मॉड्यूल|Module Name|","क्रिया|Action Remark|","रिकॉर्ड आई.डी.|Record Id|","आई.पी. पता|IP Code|"] });
+
+/* ================= PORTAL ================= */
+SCREENS.push({
+  id:"portal", hi:"एकीकृत पोर्टल-सह-वेबसाइट", en:"Integrated Portal-cum-Website for TBC", group:G.adm,
+  roles:["admin","ho","mgmt"], type:"custom", srs:"§2.43.43",
+  render:function(){
+    var h='<div class="crumb">आप यहाँ हैं / You are here: <b>प्रशासन</b> › एकीकृत पोर्टल-सह-वेबसाइट</div>';
+    h+='<div class="note"><b>SRS §2.43.43:</b> निगम की सार्वजनिक वेबसाइट एवं पोर्टल — नागरिकों हेतु सूचना, निविदा, पुस्तक सूची, ऑनलाइन मांग एवं शिकायत की सुविधा।</div>';
+    h+='<div class="panel"><div class="ph">सार्वजनिक पोर्टल का पूर्वावलोकन / Public portal preview<span class="tag">SRS §2.43.43</span></div><div class="pb">';
+    h+='<div style="border:1px solid #cfdce6">'+
+      '<div style="background:linear-gradient(90deg,#0d3d5f,#1ba4dd);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px">'+
+      '<div class="logo">MP<br>TBC</div><div><div style="font-size:19px;font-weight:700">म.प्र. पाठ्य पुस्तक निगम</div>'+
+      '<div style="font-size:11.5px;opacity:.9">Madhya Pradesh Text Book Corporation — School Education Department, Govt. of M.P.</div></div>'+
+      '<div style="margin-left:auto;font-size:11.5px;text-align:right">स्क्रीन रीडर | A- A A+ | हिन्दी / English</div></div>'+
+      '<div style="background:#e8f6fd;padding:7px 14px;font-size:12.3px;border-bottom:1px solid #b9dced">'+
+      ['मुख्य पृष्ठ','निगम के बारे में','पुस्तक सूची','निविदा','मुद्रक लॉगिन','विक्रेता लॉगिन','शिकायत','सम्पर्क','आर.टी.आई.']
+      .map(function(m){return '<span style="margin-right:18px">'+m+'</span>';}).join("")+'</div>'+
+      '<div style="padding:14px;display:grid;grid-template-columns:2fr 1fr;gap:14px">'+
+      '<div><div style="background:#123f63;color:#fff;padding:6px 10px;font-weight:700;font-size:13px">समाचार एवं सूचनाएँ / What’s New</div>'+
+      '<ul style="margin:8px 0 0;padding-left:18px;font-size:12.4px;line-height:1.9">'+
+      '<li>शिक्षा सत्र 2026-27 हेतु पाठ्यपुस्तक मुद्रण निविदा आमंत्रित — अंतिम दिनांक 28-08-2026</li>'+
+      '<li>कागज क्रय हेतु ई-निविदा सूचना क्रमांक TND/2026/022</li>'+
+      '<li>पुस्तक विक्रेता पंजीयन / नवीनीकरण ऑनलाइन प्रारंभ</li>'+
+      '<li>नि:शुल्क पाठ्यपुस्तक वितरण की प्रगति — जिलेवार रिपोर्ट</li></ul></div>'+
+      '<div><div style="background:#12938a;color:#fff;padding:6px 10px;font-weight:700;font-size:13px">त्वरित सेवाएँ / Quick services</div>'+
+      '<div style="display:grid;gap:6px;margin-top:8px">'+
+      ['📘 पुस्तक सूची एवं मूल्य','🧾 ऑनलाइन मांग पत्र','📄 निविदा दस्तावेज','🔎 चालान की स्थिति','📝 शिकायत दर्ज करें','📞 सम्पर्क सूची']
+      .map(function(x){return '<div style="border:1px solid #cfdce6;background:#f7fbfd;padding:6px 9px;font-size:12.3px">'+x+'</div>';}).join("")+
+      '</div></div></div>'+
+      '<div style="background:#08263f;color:#9fc4dd;text-align:center;padding:9px;font-size:11.3px">Copyright © 2026 M.P. Text Book Corporation, Bhopal</div>'+
+      '</div>';
+    h+='</div></div>';
+    return h;
+  }
+});
+
+/* ================= SCREEN INDEX ================= */
+SCREENS.push({
+  id:"__index", hi:"स्क्रीन सूची (सम्पूर्ण प्रोटोटाइप)", en:"Screen index — complete prototype", group:"डैशबोर्ड / Dashboard",
+  roles:["mgmt","ho","cdepot","depot","printer","pvendor","bseller","brc","emp","admin"], type:"custom",
+  render:function(){
+    var byG={},gs=[];
+    SCREENS.forEach(function(s){ if(s.id==="__index") return;
+      if(!byG[s.group]){byG[s.group]=[];gs.push(s.group);} byG[s.group].push(s); });
+    var h='<div class="panel"><div class="ph">स्क्रीन सूची / Screen index — '+(SCREENS.length-1)+' screens<span class="tag">SRS v1.4 mapping</span></div>'+
+      '<div class="pb"><div class="note">प्रत्येक स्क्रीन SRS के संबंधित अनुच्छेद से जुड़ी है। किसी भी स्क्रीन पर जाने हेतु उसके नाम पर क्लिक करें। / Click any screen name to open it; the SRS clause is shown against each.</div>';
+    gs.forEach(function(g){
+      h+='<div style="margin-bottom:14px"><div style="background:#dfeef7;border:1px solid #b9d5e6;padding:5px 9px;font-weight:700;color:#12405f;font-size:12.7px">'+esc(g)+'</div>'+
+        '<table class="grid"><thead><tr><th style="width:50px">क्र.<i>#</i></th><th>स्क्रीन<i>Screen</i></th><th style="width:110px">SRS संदर्भ<i>SRS clause</i></th><th style="width:170px">प्रकार<i>Type</i></th><th>भूमिका<i>Roles</i></th></tr></thead><tbody>';
+      byG[g].forEach(function(s,i){
+        var ty={form:"प्रविष्टि फॉर्म / Entry form",list:"सूची / List view",formlist:"फॉर्म + सूची / Form + list",
+          report:"रिपोर्ट / Report",split:"फॉर्म + ग्रिड / Split",custom:"डैशबोर्ड / Dashboard"}[s.type]||s.type;
+        h+='<tr><td>'+(i+1)+'</td><td><a href="#'+s.id+'" onclick="go(\''+s.id+'\');return false"><b>'+esc(s.hi)+'</b> / '+esc(s.en)+'</a></td>'+
+           '<td>'+esc(s.srs||"—")+'</td><td>'+ty+'</td><td style="font-size:11.5px;color:#5c7386">'+s.roles.join(", ")+'</td></tr>';
+      });
+      h+='</tbody></table></div>';
+    });
+    return h+'</div></div>';
+  }
+});
+
+/* ================= LOGIN ================= */
+function renderLogin(){
+  document.getElementById("app").innerHTML =
+  '<div class="loginwrap"><div class="loginbox">'+
+    '<div class="l"><div class="logo" style="width:56px;height:56px;font-size:14px">MP<br>TBC</div>'+
+    '<h2>म.प्र. पाठ्य पुस्तक निगम</h2>'+
+    '<p>Computerization of MPTBC — Integrated ERP &amp; Portal<br><span style="font-size:11.5px">Static screen prototype prepared from SRS v1.4 (21-08-2017)</span></p>'+
+    '<ul><li>मांग निर्माण, समूहीकरण एवं मुद्रण निविदा</li><li>कागज क्रय, केन्द्रीय डिपो एवं मुद्रक आबंटन</li>'+
+    '<li>डिपो, गोदाम, परिवहन एवं ब्लॉक वितरण</li><li>विक्रय, वितरक, वापसी एवं सुरक्षा निधि</li>'+
+    '<li>लेखा, स्थापना, विधि, भवन एवं पुस्तकालय</li></ul>'+
+    '<p style="margin-top:18px;font-size:11.5px;opacity:.8">Application is available in both Hindi and English (SRS §2.6).</p></div>'+
+    '<div class="r"><h3>उपयोगकर्ता लॉगिन / User Login</h3><div class="sm">कृपया अपनी भूमिका चुनकर लॉगिन करें (प्रोटोटाइप — कोई प्रमाणीकरण नहीं)</div>'+
+    '<div class="fld"><div class="lbl">उपयोगकर्ता का प्रकार<i>User type</i></div><div><select id="lgRole">'+
+      [["ho","विभागीय उपयोगकर्ता / Departmental User"],["mgmt","प्रबंधन / Management (MD)"],["cdepot","केन्द्रीय कागज डिपो / Central Paper Depot"],
+       ["depot","जिला डिपो / District Depot"],["printer","मुद्रक / Printer"],["pvendor","कागज विक्रेता / Paper Vendor"],
+       ["bseller","पुस्तक विक्रेता / Book Seller"],["brc","बी.आर.सी. / BRC-Block"],["emp","कर्मचारी / Employee"],
+       ["admin","सिस्टम प्रशासक / System Admin"]].map(function(o){return '<option value="'+o[0]+'">'+o[1]+'</option>';}).join("")+
+    '</select></div></div>'+
+    '<div class="fld"><div class="lbl">उपयोगकर्ता नाम<i>User name</i></div><div><input type="text" value="demo.user"></div></div>'+
+    '<div class="fld"><div class="lbl">पासवर्ड<i>Password</i></div><div><input type="password" value="********"></div></div>'+
+    '<div class="fld"><div class="lbl">कैप्चा<i>Captcha</i></div><div class="cap"><span class="cimg">7K4QP</span><input type="text" placeholder="ऊपर दिया कोड लिखें"></div></div>'+
+    '<div class="fld"><div class="lbl">डिजिटल हस्ताक्षर<i>PKI authentication</i></div><div style="font-size:12.2px;color:#5c7386;padding-top:5px">'+
+      '<label><input type="checkbox"> डिजिटल हस्ताक्षर से लॉगिन करें (SRS §4.2)</label></div></div>'+
+    '<button class="btn save" style="width:100%;justify-content:center;margin-top:6px;padding:8px" onclick="doLogin()">प्रवेश करें / Sign in</button>'+
+    '<div style="text-align:center;margin-top:10px;font-size:11.8px"><a href="#" onclick="tst(\'पासवर्ड रीसेट — prototype\');return false">पासवर्ड भूल गए? / Forgot password</a> &nbsp;|&nbsp; '+
+    '<a href="#" onclick="tst(\'नया पंजीयन — prototype\');return false">नया पंजीयन / New registration</a></div>'+
+    '<div style="margin-top:16px;font-size:11px;color:#7b91a3;text-align:center">Design &amp; Developed By Vayam Technologies Ltd. &amp; C-Net Infotech Pvt. Ltd.</div>'+
+    '</div></div></div>';
+}
+function doLogin(){ STATE.role=document.getElementById("lgRole").value; STATE.screen=null; STATE.filter=""; draw(); }
+
+/* ================= INIT ================= */
+renderLogin();
+
+</script>
+</body>
+</html>

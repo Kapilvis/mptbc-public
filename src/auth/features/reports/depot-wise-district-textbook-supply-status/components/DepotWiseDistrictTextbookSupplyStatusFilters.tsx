@@ -88,7 +88,7 @@ export default function DepotWiseDistrictTextbookSupplyStatusFilters({
     <div className="mb-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
       <div className="flex flex-wrap items-end gap-3">
         {/* Search */}
-        <div className="min-w-[180px] flex-1">
+        <div className="min-w-45 flex-1">
           <label
             htmlFor="dw-search"
             className="mb-1 block text-xs font-semibold text-gray-600"
@@ -109,7 +109,7 @@ export default function DepotWiseDistrictTextbookSupplyStatusFilters({
         </div>
 
         {/* Depot */}
-        <div className="min-w-[150px]">
+        <div className="min-w-37.5">
           <label
             htmlFor="dw-depot"
             className="mb-1 block text-xs font-semibold text-gray-600"
@@ -132,7 +132,7 @@ export default function DepotWiseDistrictTextbookSupplyStatusFilters({
         </div>
 
         {/* District */}
-        <div className="min-w-[150px]">
+        <div className="min-w-37.5">
           <label
             htmlFor="dw-district"
             className="mb-1 block text-xs font-semibold text-gray-600"
@@ -155,7 +155,7 @@ export default function DepotWiseDistrictTextbookSupplyStatusFilters({
         </div>
 
         {/* Supply Status */}
-        <div className="min-w-[150px]">
+        <div className="min-w-37.5">
           <label
             htmlFor="dw-supply-status"
             className="mb-1 block text-xs font-semibold text-gray-600"

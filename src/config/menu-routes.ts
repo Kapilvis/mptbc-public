@@ -226,11 +226,11 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     ],
   },
   {
-    label: "Printer Section",
+    label: t("routes.printing.printing"),
     icon: "pi pi-print",
     children: [
       {
-        label: "Printer Registration",
+        label: t("routes.printing.printer-registration"),
         path: "/printing/printer-registration",
       },
     ],
@@ -251,14 +251,20 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         feature: "@distribution/dashboard",
         action: "read",
       },
+      {
+        label: t("routes.distribution.demand-approval"),
+        path: "/distribution/demand-approval",
+        feature: "@distribution/demand-approval",
+        action: "read",
+      },
     ],
   },
   {
-    label: "Reports",
+    label: t("routes.reports.reports"),
     icon: "pi pi-chart-bar",
     children: [
       {
-        label: "Depot Wise District Textbook Supply Status",
+        label: t("routes.reports.depot-wise-district-textbook-supply-status"),
         path: "/reports/depot-wise-district-textbook-supply-status",
       },
     ],

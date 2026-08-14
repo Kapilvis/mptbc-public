@@ -6,12 +6,10 @@
     "Configuration": "Configuration",
     "Directory": "Directory",
     "Madhya Pradesh Textbook Corporation": "Madhya Pradesh Textbook Corporation",
-
     "home": {
       "welcome_portal": "Welcome to Madhya Pradesh Textbook Corporation Portal",
       "sub_header": "Overview of key statistics and recent activities"
     },
-
     "commonMessages": {
       "ErrorInvalidCredentials": "Invalid username or password.",
       "ErrorAccountLocked": "Your account has been locked. Please contact support.",
@@ -56,7 +54,6 @@
       "InfoDataRetrieved": "Data retrieved successfully.",
       "WarningUnsavedChanges": "You have unsaved changes."
     },
-
     "routes": {
       "master": {
         "office": {
@@ -145,7 +142,151 @@
       "distribution": {
         "distribution": "Distribution Section",
         "department-demand": "Demand Received (RSK / CPI)",
-        "dashboard": "Consolidated Distribution Dashboard"
+        "dashboard": "Consolidated Distribution Dashboard",
+        "demand-approval": "Agency Demand Approval"
+      },
+      "printing": {
+        "printing": "Printer Section",
+        "printer-registration": "Printer Registration"
+      },
+      "reports": {
+        "reports": "Reports",
+        "depot-wise-district-textbook-supply-status": "Depot Wise District Textbook Supply Status"
+      }
+    },
+    "printing": {
+      "list": {
+        "header": "Registered Printers",
+        "subHeader": "View, manage, and register printing press vendors for MPTBC textbook manufacturing.",
+        "add_printer": "Add",
+        "s_no": "S.No",
+        "printer_id": "Printer ID",
+        "printer_name": "Printer Name",
+        "depot_name": "Depot Name",
+        "class_id": "Class ID",
+        "district_id": "District ID",
+        "depot_id": "Depot ID",
+        "status": "Status",
+        "depot": "Depot"
+      },
+      "registration": {
+        "header": "Printer Registration",
+        "subHeader": "Fill in the details below to register a new printing press profile.",
+        "back_to_list": "Back to List",
+        "reset_form": "Reset Form",
+        "save_profile": "Save Printer Profile",
+        "sections": {
+          "firm_profile": {
+            "title": "Firm & Printer Profile",
+            "subTitle": "Basic identity, tax details, and press categorization."
+          },
+          "address_details": {
+            "title": "Address & Geography Details",
+            "subTitle": "Provide registered factory and communication address markers."
+          },
+          "technical_profile": {
+            "title": "Printing Capacity & Technical Profile",
+            "subTitle": "Assess machine infrastructure, capacity limits, and approved job rates."
+          },
+          "bank_profile": {
+            "title": "Bank Account Profile",
+            "subTitle": "Bank details required for billing, security deposit, and payment transfers."
+          }
+        },
+        "fields": {
+          "printer_name": "Printer / Press Name",
+          "firm_registration_no": "Firm Registration Number",
+          "printer_type": "Printer Category / Type",
+          "select_category": "Select Category",
+          "category_a": "Category A",
+          "category_b": "Category B",
+          "category_c": "Category C",
+          "gstin_no": "GSTIN Number",
+          "pan_no": "PAN Number",
+          "establishment_year": "Establishment Year",
+          "address_line1": "Address Line 1",
+          "address_line2": "Address Line 2",
+          "state": "State",
+          "district": "District",
+          "select_district": "Select District",
+          "city": "City / Town",
+          "pin_code": "PIN Code",
+          "assessed_capacity": "Assessed Printing Capacity",
+          "permitted_capacity": "Approved Permitted Capacity",
+          "rates_approved": "Rates Approved (per 1000 copies)",
+          "allocated_job": "Printing Job Allotted",
+          "machine_details": "Machine & Equipment Infrastructure Details",
+          "bank_name": "Bank Name",
+          "account_number": "Account Number",
+          "ifsc_code": "IFSC Code",
+          "branch_name": "Branch Name & Location"
+        }
+      }
+    },
+    "reports": {
+      "supply_status": {
+        "page_header": "Depot Wise District Textbook Supply Status Report (Class 1–12)",
+        "page_sub_header": "Session 2026-27 | Madhya Pradesh Textbook Corporation | Free Textbook Scheme",
+        "title": "Depot Wise District Textbook Supply Status",
+        "metadata": {
+          "organisation": "Organisation",
+          "scheme": "Scheme",
+          "classes": "Classes",
+          "report_date": "Report Date",
+          "report_type": "Report Type"
+        },
+        "metadata_values": {
+          "free_textbook_scheme": "Free Textbook Scheme",
+          "1_to_12": "1 to 12",
+          "depot_district_supply_status": "Depot & District Supply Status"
+        },
+        "filters": {
+          "search": "Search",
+          "search_placeholder": "Search depot or district…",
+          "depot": "Depot",
+          "all_depots": "All Depots",
+          "district": "District",
+          "all_districts": "All Districts",
+          "supply_status": "Supply Status",
+          "all": "All",
+          "supply_100": "100% Supply",
+          "below_100": "Below 100%",
+          "above_100": "Above 100%",
+          "apply": "Apply",
+          "reset": "Reset",
+          "export": "Export"
+        },
+        "summary": {
+          "total_depots": "Total Depots",
+          "total_districts": "Total Districts",
+          "total_demand": "Total Demand",
+          "total_supply_percent": "Total Supply %"
+        },
+        "table": {
+          "no_records": "No records found for the selected filters.",
+          "headers": {
+            "s_no": "S.No.",
+            "depot": "Depot",
+            "general_sale": "General Sale",
+            "district_name": "District Name",
+            "scheme_1_8": "Free Textbook Scheme (Class 1–8)",
+            "scheme_9_12": "Free Textbook Scheme (Class 9–12)",
+            "total_scheme": "Total Free Textbook Scheme (Class 1–12)",
+            "demand": "Demand",
+            "supply": "Supply",
+            "supply_percent": "Supply %",
+            "total_demand": "Total Demand",
+            "total_supply": "Total Supply"
+          },
+          "footer": {
+            "source": "Source: Madhya Pradesh Textbook Corporation",
+            "session": "Session: 2026-27",
+            "date": "Date: 28/07/2026",
+            "supply_100": "100% Supply",
+            "supply_90_99": "90–99%",
+            "supply_below_90": "Below 90%"
+          }
+        }
       }
     }
   }

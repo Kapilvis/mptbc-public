@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Button } from "shared/components/buttons";
 
@@ -32,6 +33,8 @@ const FormSection: React.FC<FormSectionProps> = ({
 );
 
 export default function PrinterRegistration() {
+  const { t: baseT } = useTranslation();
+  const t = (key: string) => baseT(key, { lng: "en" });
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     // Basic Details
@@ -110,10 +113,10 @@ export default function PrinterRegistration() {
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">
-            Printer Registration / मुद्रक पंजीकरण
+            {t("printing.registration.header")}
           </h1>
           <p className="text-sm text-gray-500 mt-1">
-            Fill in the details below to register a new printing press profile.
+            {t("printing.registration.subHeader")}
           </p>
         </div>
         <div>
@@ -123,7 +126,7 @@ export default function PrinterRegistration() {
             className="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold px-3.5 py-2 rounded-lg border border-gray-300 transition-all cursor-pointer"
           >
             <i className="pi pi-arrow-left text-xs" />
-            <span>Back to List / वापस सूचि</span>
+            <span>{t("printing.registration.back_to_list")}</span>
           </button>
         </div>
       </div>
@@ -132,13 +135,14 @@ export default function PrinterRegistration() {
         {/* 1. Basic & Firm Details */}
         <FormSection
           icon="pi pi-building"
-          title="Firm & Printer Profile"
-          subtitle="Basic identity, tax details, and press categorization."
+          title={t("printing.registration.sections.firm_profile.title")}
+          subtitle={t("printing.registration.sections.firm_profile.subTitle")}
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Printer / Press Name <span className="text-red-500">*</span>
+                {t("printing.registration.fields.printer_name")}{" "}
+                <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -152,7 +156,8 @@ export default function PrinterRegistration() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Firm Registration Number <span className="text-red-500">*</span>
+                {t("printing.registration.fields.firm_registration_no")}{" "}
+                <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -166,7 +171,8 @@ export default function PrinterRegistration() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Printer Category / Type <span className="text-red-500">*</span>
+                {t("printing.registration.fields.printer_type")}{" "}
+                <span className="text-red-500">*</span>
               </label>
               <select
                 name="printerType"
@@ -174,16 +180,24 @@ export default function PrinterRegistration() {
                 onChange={handleChange}
                 className="w-full px-3.5 py-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all bg-white"
               >
-                <option value="">Select Category</option>
-                <option value="Category A">Category A (श्रेणी अ)</option>
-                <option value="Category B">Category B (श्रेणी ब)</option>
-                <option value="Category C">Category C (श्रेणी स)</option>
+                <option value="">
+                  {t("printing.registration.fields.select_category")}
+                </option>
+                <option value="Category A">
+                  {t("printing.registration.fields.category_a")}
+                </option>
+                <option value="Category B">
+                  {t("printing.registration.fields.category_b")}
+                </option>
+                <option value="Category C">
+                  {t("printing.registration.fields.category_c")}
+                </option>
               </select>
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                GSTIN Number
+                {t("printing.registration.fields.gstin_no")}
               </label>
               <input
                 type="text"
@@ -197,7 +211,7 @@ export default function PrinterRegistration() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                PAN Number
+                {t("printing.registration.fields.pan_no")}
               </label>
               <input
                 type="text"
@@ -211,7 +225,7 @@ export default function PrinterRegistration() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Establishment Year
+                {t("printing.registration.fields.establishment_year")}
               </label>
               <input
                 type="text"
@@ -228,13 +242,16 @@ export default function PrinterRegistration() {
         {/* 2. Address & Geography Details */}
         <FormSection
           icon="pi pi-map-marker"
-          title="Address & Geography Details"
-          subtitle="Provide registered factory and communication address markers."
+          title={t("printing.registration.sections.address_details.title")}
+          subtitle={t(
+            "printing.registration.sections.address_details.subTitle",
+          )}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Address Line 1 <span className="text-red-500">*</span>
+                {t("printing.registration.fields.address_line1")}{" "}
+                <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -248,7 +265,7 @@ export default function PrinterRegistration() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Address Line 2
+                {t("printing.registration.fields.address_line2")}
               </label>
               <input
                 type="text"
@@ -264,7 +281,7 @@ export default function PrinterRegistration() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                State
+                {t("printing.registration.fields.state")}
               </label>
               <select
                 name="state"
@@ -281,7 +298,7 @@ export default function PrinterRegistration() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                District
+                {t("printing.registration.fields.district")}
               </label>
               <select
                 name="district"
@@ -289,7 +306,9 @@ export default function PrinterRegistration() {
                 onChange={handleChange}
                 className="w-full px-3.5 py-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all bg-white"
               >
-                <option value="">Select District</option>
+                <option value="">
+                  {t("printing.registration.fields.select_district")}
+                </option>
                 <option value="Bhopal">Bhopal</option>
                 <option value="Indore">Indore</option>
                 <option value="Gwalior">Gwalior</option>
@@ -300,7 +319,7 @@ export default function PrinterRegistration() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                City / Town
+                {t("printing.registration.fields.city")}
               </label>
               <input
                 type="text"
@@ -314,7 +333,7 @@ export default function PrinterRegistration() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                PIN Code
+                {t("printing.registration.fields.pin_code")}
               </label>
               <input
                 type="text"
@@ -331,13 +350,15 @@ export default function PrinterRegistration() {
         {/* 3. Printing Capacity & Infrastructure */}
         <FormSection
           icon="pi pi-cog"
-          title="Printing Capacity & Technical Profile"
-          subtitle="Assess machine infrastructure, capacity limits, and approved job rates."
+          title={t("printing.registration.sections.technical_profile.title")}
+          subtitle={t(
+            "printing.registration.sections.technical_profile.subTitle",
+          )}
         >
           <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-5">
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Assessed Printing Capacity{" "}
+                {t("printing.registration.fields.assessed_capacity")}{" "}
                 <span className="text-red-500">*</span>
               </label>
               <input
@@ -352,7 +373,7 @@ export default function PrinterRegistration() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Approved Permitted Capacity{" "}
+                {t("printing.registration.fields.permitted_capacity")}{" "}
                 <span className="text-red-500">*</span>
               </label>
               <input
@@ -367,7 +388,7 @@ export default function PrinterRegistration() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Rates Approved (per 1000 copies)
+                {t("printing.registration.fields.rates_approved")}
               </label>
               <input
                 type="text"
@@ -381,7 +402,7 @@ export default function PrinterRegistration() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Printing Job Allotted
+                {t("printing.registration.fields.allocated_job")}
               </label>
               <input
                 type="text"
@@ -396,7 +417,7 @@ export default function PrinterRegistration() {
 
           <div>
             <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-              Machine & Equipment Infrastructure Details
+              {t("printing.registration.fields.machine_details")}
             </label>
             <textarea
               name="machineDetails"
@@ -412,13 +433,13 @@ export default function PrinterRegistration() {
         {/* 4. Bank Account Profile */}
         <FormSection
           icon="pi pi-credit-card"
-          title="Bank Account Profile"
-          subtitle="Bank details required for billing, security deposit, and payment transfers."
+          title={t("printing.registration.sections.bank_profile.title")}
+          subtitle={t("printing.registration.sections.bank_profile.subTitle")}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Bank Name
+                {t("printing.registration.fields.bank_name")}
               </label>
               <input
                 type="text"
@@ -432,7 +453,7 @@ export default function PrinterRegistration() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Account Number
+                {t("printing.registration.fields.account_number")}
               </label>
               <input
                 type="text"
@@ -448,7 +469,7 @@ export default function PrinterRegistration() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                IFSC Code
+                {t("printing.registration.fields.ifsc_code")}
               </label>
               <input
                 type="text"
@@ -462,7 +483,7 @@ export default function PrinterRegistration() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Branch Name & Location
+                {t("printing.registration.fields.branch_name")}
               </label>
               <input
                 type="text"
@@ -480,11 +501,15 @@ export default function PrinterRegistration() {
         <div className="bg-white rounded-xl border border-gray-200/80 p-4 flex items-center justify-end gap-3 shadow-xs">
           <Button
             type="button"
-            label="Reset Form"
+            label={t("printing.registration.reset_form")}
             icon="refresh"
             onClick={handleReset}
           />
-          <Button type="submit" label="Save Printer Profile" icon="save" />
+          <Button
+            type="submit"
+            label={t("printing.registration.save_profile")}
+            icon="save"
+          />
         </div>
       </form>
     </div>
