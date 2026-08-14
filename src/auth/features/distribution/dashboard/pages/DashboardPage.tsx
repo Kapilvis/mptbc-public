@@ -1,5 +1,6 @@
 import { Button } from "shared/components/buttons";
 import Page from "shared/components/panels/Page";
+import { DemandApprovalPipelineWidget } from "../components/DemandApprovalPipelineWidget";
 import { DemandSupplyBarChart } from "../components/DemandSupplyBarChart";
 import { DistrictMatrixTable } from "../components/DistrictMatrixTable";
 import { FulfillmentDonutChart } from "../components/FulfillmentDonutChart";
@@ -28,7 +29,10 @@ export default function DashboardPage() {
       {/* Top 4 KPI Cards */}
       <KpiCards metrics={metrics} />
 
-      {/* Charts Row */}
+      {/* Demand Approval Pipeline Status Row Widget (Progress Slider Bars + Pending Donut) */}
+      <DemandApprovalPipelineWidget />
+
+      {/* Main Charts Row (Demand vs Supply Bar Chart + Fulfillment Donut Chart) */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
         <div className="lg:col-span-2">
           <DemandSupplyBarChart />
@@ -38,7 +42,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Data Matrix Section */}
+      {/* Title Wise Textbook Distribution Report Data Matrix Section */}
       <DistrictMatrixTable data={matrixData} loading={isMatrixLoading} />
     </Page>
   );

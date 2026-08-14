@@ -17,7 +17,7 @@ export default function GridPanel<T>({
   addButtonLabel = "Add",
   toolbarPlacement = "panel",
   mode = "both",
-  defaultMode = "mosaic",
+  defaultMode = "grid",
   data,
   renderContent,
   renderFooterActions,

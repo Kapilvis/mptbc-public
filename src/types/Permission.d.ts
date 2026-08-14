@@ -55,7 +55,8 @@ declare namespace Permission {
     | "@hrms/employee-details"
     // Distribution
     | "@distribution/department-demand"
-    | "@distribution/dashboard";
+    | "@distribution/dashboard"
+    | "@distribution/demand-approval";
   // Actions mapped to backend policies
   type Action = "read" | "write";
 }

@@ -1,5 +1,10 @@
 declare namespace Distribution {
-  type DemandStatus = "Approved" | "Pending" | "In Process" | "Rejected";
+  type DemandStatus =
+    | "Approved"
+    | "Pending"
+    | "In Process"
+    | "Rejected"
+    | "Hold";
 
   interface DepartmentDemandItem {
     id: number;
@@ -28,6 +33,29 @@ declare namespace Distribution {
     department?: string;
     district?: string;
     medium?: string;
+    search?: string;
+  }
+
+  interface DemandApprovalItem {
+    id: number;
+    agencyName: string;
+    district: string;
+    titleName: string;
+    bookType: string;
+    classGroup: string;
+    medium: string;
+    requestedDemand: number;
+    currentStock: number;
+    variance: string;
+    status: DemandStatus;
+    academicYear?: string;
+  }
+
+  interface DemandApprovalFilter {
+    academicYear?: string;
+    agency?: string;
+    bookType?: string;
+    classGroup?: string;
     search?: string;
   }
 }

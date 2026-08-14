@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 interface TableProps {
   data: Report.DepotWiseDistrictTextbookSupplyStatusRow[];
 }
@@ -59,12 +61,14 @@ function groupByDepot(
 export default function DepotWiseDistrictTextbookSupplyStatusTable({
   data,
 }: TableProps) {
+  const { t } = useTranslation();
+
   if (!data || data.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-gray-400">
         <i className="pi pi-inbox mb-3 text-4xl" />
         <p className="text-sm font-medium">
-          No records found for the selected filters.
+          {t("reports.supply_status.table.no_records")}
         </p>
       </div>
     );
@@ -76,7 +80,7 @@ export default function DepotWiseDistrictTextbookSupplyStatusTable({
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
       {/* Scrollable table */}
       <div className="custom-scrollbar overflow-x-auto">
-        <table className="w-full min-w-[1400px] border-collapse text-xs">
+        <table className="w-full min-w-350 border-collapse text-xs">
           {/* ── Two-row grouped header ────────────────────────────────── */}
           <thead>
             <tr className="bg-table-header text-[11px] font-bold uppercase tracking-wide text-white">
@@ -84,72 +88,72 @@ export default function DepotWiseDistrictTextbookSupplyStatusTable({
                 rowSpan={2}
                 className="bg-table-header sticky left-0 z-20 w-10 border border-green-700 px-2 py-2 text-center"
               >
-                S.No.
+                {t("reports.supply_status.table.headers.s_no")}
               </th>
               <th
                 rowSpan={2}
-                className="bg-table-header sticky left-10 z-20 min-w-[110px] border border-green-700 px-3 py-2 text-left"
+                className="bg-table-header sticky left-10 z-20 min-w-27.5 border border-green-700 px-3 py-2 text-left"
               >
-                Depot
+                {t("reports.supply_status.table.headers.depot")}
               </th>
               <th
                 rowSpan={2}
-                className="min-w-[100px] border border-green-700 px-3 py-2 text-right"
+                className="min-w-25 border border-green-700 px-3 py-2 text-right"
               >
-                General Sale
+                {t("reports.supply_status.table.headers.general_sale")}
               </th>
               <th
                 rowSpan={2}
-                className="min-w-[120px] border border-green-700 px-3 py-2 text-left"
+                className="min-w-30 border border-green-700 px-3 py-2 text-left"
               >
-                District Name
+                {t("reports.supply_status.table.headers.district_name")}
               </th>
               <th
                 colSpan={3}
                 className="border border-green-700 px-3 py-1.5 text-center"
               >
-                Free Textbook Scheme (Class 1–8)
+                {t("reports.supply_status.table.headers.scheme_1_8")}
               </th>
               <th
                 colSpan={3}
                 className="border border-green-700 px-3 py-1.5 text-center"
               >
-                Free Textbook Scheme (Class 9–12)
+                {t("reports.supply_status.table.headers.scheme_9_12")}
               </th>
               <th
                 colSpan={3}
                 className="border border-green-700 px-3 py-1.5 text-center"
               >
-                Total Free Textbook Scheme (Class 1–12)
+                {t("reports.supply_status.table.headers.total_scheme")}
               </th>
             </tr>
             <tr className="bg-table-header text-[10px] font-semibold text-white">
-              <th className="min-w-[90px] border border-green-700 px-2 py-1.5 text-right">
-                Demand
+              <th className="min-w-22.5 border border-green-700 px-2 py-1.5 text-right">
+                {t("reports.supply_status.table.headers.demand")}
               </th>
-              <th className="min-w-[90px] border border-green-700 px-2 py-1.5 text-right">
-                Supply
+              <th className="min-w-22.5 border border-green-700 px-2 py-1.5 text-right">
+                {t("reports.supply_status.table.headers.supply")}
               </th>
-              <th className="min-w-[70px] border border-green-700 px-2 py-1.5 text-center">
-                Supply %
+              <th className="min-w-17.5 border border-green-700 px-2 py-1.5 text-center">
+                {t("reports.supply_status.table.headers.supply_percent")}
               </th>
-              <th className="min-w-[90px] border border-green-700 px-2 py-1.5 text-right">
-                Demand
+              <th className="min-w-22.5 border border-green-700 px-2 py-1.5 text-right">
+                {t("reports.supply_status.table.headers.demand")}
               </th>
-              <th className="min-w-[90px] border border-green-700 px-2 py-1.5 text-right">
-                Supply
+              <th className="min-w-22.5 border border-green-700 px-2 py-1.5 text-right">
+                {t("reports.supply_status.table.headers.supply")}
               </th>
-              <th className="min-w-[70px] border border-green-700 px-2 py-1.5 text-center">
-                Supply %
+              <th className="min-w-17.5 border border-green-700 px-2 py-1.5 text-center">
+                {t("reports.supply_status.table.headers.supply_percent")}
               </th>
-              <th className="min-w-[90px] border border-green-700 px-2 py-1.5 text-right">
-                Total Demand
+              <th className="min-w-22.5 border border-green-700 px-2 py-1.5 text-right">
+                {t("reports.supply_status.table.headers.total_demand")}
               </th>
-              <th className="min-w-[90px] border border-green-700 px-2 py-1.5 text-right">
-                Total Supply
+              <th className="min-w-22.5 border border-green-700 px-2 py-1.5 text-right">
+                {t("reports.supply_status.table.headers.total_supply")}
               </th>
-              <th className="min-w-[70px] border border-green-700 px-2 py-1.5 text-center">
-                Supply %
+              <th className="min-w-17.5 border border-green-700 px-2 py-1.5 text-center">
+                {t("reports.supply_status.table.headers.supply_percent")}
               </th>
             </tr>
           </thead>
@@ -281,21 +285,28 @@ export default function DepotWiseDistrictTextbookSupplyStatusTable({
       {/* Footer legend */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-t border-gray-100 bg-gray-50 px-4 py-2.5">
         <p className="text-[10px] text-gray-400">
-          Source: Madhya Pradesh Textbook Corporation &nbsp;|&nbsp; Session:
-          2026-27 &nbsp;|&nbsp; Date: 28/07/2026
+          {t("reports.supply_status.table.footer.source")} &nbsp;|&nbsp;{" "}
+          {t("reports.supply_status.table.footer.session")} &nbsp;|&nbsp;{" "}
+          {t("reports.supply_status.table.footer.date")}
         </p>
         <div className="flex items-center gap-3 text-[10px]">
           <span className="flex items-center gap-1">
             <span className="inline-block h-2.5 w-2.5 rounded-sm bg-emerald-600" />
-            <span className="text-gray-500">100% Supply</span>
+            <span className="text-gray-500">
+              {t("reports.supply_status.table.footer.supply_100")}
+            </span>
           </span>
           <span className="flex items-center gap-1">
             <span className="inline-block h-2.5 w-2.5 rounded-sm bg-amber-500" />
-            <span className="text-gray-500">90–99%</span>
+            <span className="text-gray-500">
+              {t("reports.supply_status.table.footer.supply_90_99")}
+            </span>
           </span>
           <span className="flex items-center gap-1">
             <span className="inline-block h-2.5 w-2.5 rounded-sm bg-red-500" />
-            <span className="text-gray-500">Below 90%</span>
+            <span className="text-gray-500">
+              {t("reports.supply_status.table.footer.supply_below_90")}
+            </span>
           </span>
         </div>
       </div>
