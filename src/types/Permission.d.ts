@@ -50,8 +50,12 @@ declare namespace Permission {
     | "@master/medium"
     | "@master/gsm"
     | "@master/title"
+    | "@master/block"
     // HRMS
-    | "@hrms/employee-details";
+    | "@hrms/employee-details"
+    // Distribution
+    | "@distribution/department-demand"
+    | "@distribution/dashboard";
   // Actions mapped to backend policies
   type Action = "read" | "write";
 }

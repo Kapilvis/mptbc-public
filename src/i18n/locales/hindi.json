@@ -72,7 +72,8 @@
           "division": "प्रभाग",
           "district": "जिला",
           "project": "परियोजना",
-          "sector": "सेक्टर"
+          "sector": "सेक्टर",
+          "block": "विकासखंड / ब्लॉक"
         },
 
         "hrManagement": {
@@ -146,6 +147,11 @@
           "health-issue": "स्वास्थ्य समस्या",
           "immunization-status": "टीकाकरण स्थिति"
         }
+      },
+      "distribution": {
+        "distribution": "वितरण अनुभाग / Distribution",
+        "department-demand": "विभाग से प्राप्त मांग (RSK / CPI)",
+        "dashboard": "समेकित वितरण डैशबोर्ड / Dashboard"
       }
     }
   }

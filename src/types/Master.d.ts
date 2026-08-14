@@ -574,4 +574,21 @@ declare namespace Master {
     isActive: boolean;
   }
   type TitleForm = TitleBase;
+
+  // Block Master
+  interface BlockBase {
+    name: string;
+    localName?: string;
+    code: string;
+    districtId: number;
+    divisionId?: number;
+    lgdCode?: string;
+  }
+  interface BlockItem extends BlockBase {
+    blockId: number;
+    districtName?: string;
+    divisionName?: string;
+    isActive: boolean;
+  }
+  type BlockForm = BlockBase;
 }

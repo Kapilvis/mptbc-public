@@ -71,7 +71,8 @@
           "division": "Division",
           "district": "District",
           "project": "Project",
-          "sector": "Sector"
+          "sector": "Sector",
+          "block": "Block"
         },
         "hrManagement": {
           "hr-management": "HR Management",
@@ -140,6 +141,11 @@
           "health-issue": "Health Issue",
           "immunization-status": "Immunization Status"
         }
+      },
+      "distribution": {
+        "distribution": "Distribution Section",
+        "department-demand": "Demand Received (RSK / CPI)",
+        "dashboard": "Consolidated Distribution Dashboard"
       }
     }
   }

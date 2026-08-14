@@ -20,6 +20,7 @@ import { classUrls } from "./class/urls";
 import { mediumUrls } from "./medium/urls";
 import { gsmUrls } from "./gsm/urls";
 import { titleUrls } from "./title/urls";
+import { blockUrls } from "./block/urls";
 
 const baseUrl = "/master";
 export const masterUrls = {
@@ -45,4 +46,5 @@ export const masterUrls = {
   medium: mediumUrls(baseUrl),
   gsm: gsmUrls(baseUrl),
   title: titleUrls(baseUrl),
+  block: blockUrls,
 };

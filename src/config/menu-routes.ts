@@ -68,17 +68,23 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
             action: "write",
           },
           {
-            label: t("routes.master.location.project"),
-            path: masterUrls.project.root,
-            feature: "@master/project",
+            label: t("routes.master.location.block"),
+            path: masterUrls.block.root,
+            feature: "@master/block",
             action: "write",
           },
-          {
-            label: t("routes.master.location.sector"),
-            path: masterUrls.sector.root,
-            feature: "@master/sector",
-            action: "write",
-          },
+          // {
+          //   label: t("routes.master.location.project"),
+          //   path: masterUrls.project.root,
+          //   feature: "@master/project",
+          //   action: "write",
+          // },
+          // {
+          //   label: t("routes.master.location.sector"),
+          //   path: masterUrls.sector.root,
+          //   feature: "@master/sector",
+          //   action: "write",
+          // },
         ],
       },
       {
@@ -226,6 +232,34 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
       {
         label: "Printer Registration",
         path: "/printing/printer-registration",
+      },
+    ],
+  },
+  {
+    label: "Distribution Section",
+    icon: "pi pi-truck",
+    children: [
+      {
+        label: t("routes.distribution.department-demand"),
+        path: "/distribution/department-demand",
+        feature: "@distribution/department-demand",
+        action: "read",
+      },
+      {
+        label: t("routes.distribution.dashboard"),
+        path: "/distribution/dashboard",
+        feature: "@distribution/dashboard",
+        action: "read",
+      },
+    ],
+  },
+  {
+    label: "Reports",
+    icon: "pi pi-chart-bar",
+    children: [
+      {
+        label: "Depot Wise District Textbook Supply Status",
+        path: "/reports/depot-wise-district-textbook-supply-status",
       },
     ],
   },

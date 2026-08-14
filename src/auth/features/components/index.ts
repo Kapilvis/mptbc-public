@@ -25,3 +25,4 @@ export { default as SelectClass } from "./SelectClass";
 export { default as SelectBookType } from "./SelectBookType";
 export { default as SelectGsm } from "./SelectGsm";
 export { default as SelectTitle } from "./SelectTitle";
+export { default as SelectBlock } from "./SelectBlock";
