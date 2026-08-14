@@ -21,6 +21,7 @@ import ClassMaster from "./class";
 import Medium from "./medium";
 import GsmMaster from "./gsm";
 import TitleMaster from "./title";
+import BlockMaster from "./block";
 
 export default function Master() {
   return (
@@ -36,6 +37,7 @@ export default function Master() {
       <Route path="district/*" element={<District />} />
       <Route path="project/*" element={<Project />} />
       <Route path="sector/*" element={<Sector />} />
+      <Route path="block/*" element={<BlockMaster />} />
 
       {/* HR Management */}
       <Route path="caste/*" element={<Caste />} />
