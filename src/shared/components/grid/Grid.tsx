@@ -12,6 +12,7 @@ function mapColumns<T>(columns: Controls.ColumnProps<T>[]) {
         body={column.cell}
         field={column.field as string}
         header={column.header}
+        footer={column.footer}
         className={
           column.width
             ? `col-width-${String(column.width).replace("%", "pct").replace("px", "").replace("rem", "rem")}`

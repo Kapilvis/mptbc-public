@@ -59,7 +59,9 @@ declare namespace Permission {
     // Distribution
     | "@distribution/department-demand"
     | "@distribution/dashboard"
-    | "@distribution/demand-approval";
+    | "@distribution/demand-approval"
+    | "@distribution/title-received"
+    | "@distribution/title-approval";
   // Actions mapped to backend policies
   type Action = "read" | "write";
 }

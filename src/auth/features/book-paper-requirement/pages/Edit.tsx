@@ -7,7 +7,6 @@ import Page from "shared/components/panels/Page";
 import { Card } from "shared/components/panels";
 import { Button } from "shared/components/buttons";
 import BookPaperRequirementForm from "../components/BookPaperRequirementForm";
-import PaperCalculationPreview from "../components/PaperCalculationPreview";
 import {
   getGsmOptions,
   getBookPaperRequirements,
@@ -153,11 +152,6 @@ export default function Edit() {
           onReset={handleReset}
           isSaving={updateMutation.isPending}
           isEditMode={true}
-        />
-
-        <PaperCalculationPreview
-          innerPaperMt={liveCalculations.innerPaperMt}
-          coverPaperMt={liveCalculations.coverPaperMt}
         />
       </Card>
     </Page>

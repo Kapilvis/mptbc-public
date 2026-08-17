@@ -26,6 +26,7 @@ export default function GridPanel<T>({
   EditForm,
   showExport = true,
   exportFilename,
+  renderMosaicFooter,
   ...gridProps
 }: GridPanelProps<T>) {
   const {
@@ -110,7 +111,7 @@ export default function GridPanel<T>({
       />
 
       {hasBeenViewed.grid && (
-        <div style={{ display: viewMode === "grid" ? "block" : "none" }}>
+        <div className={viewMode === "grid" ? "block" : "hidden"}>
           <GridPanelList
             data={data}
             globalFilter={globalFilter}
@@ -123,7 +124,7 @@ export default function GridPanel<T>({
       )}
 
       {hasBeenViewed.mosaic && (
-        <div style={{ display: viewMode === "mosaic" ? "block" : "none" }}>
+        <div className={viewMode === "mosaic" ? "block" : "hidden"}>
           <GridPanelMosaic
             data={data ?? []}
             searchFields={(gridProps.searchFields as (keyof T)[]) ?? []}
@@ -139,6 +140,7 @@ export default function GridPanel<T>({
             emptyMessage={gridProps.emptyMessage}
             columns={gridProps.columns}
           />
+          {renderMosaicFooter?.()}
         </div>
       )}
     </div>
