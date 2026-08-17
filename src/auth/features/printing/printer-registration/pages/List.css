@@ -1,0 +1,4 @@
+/* Page level dashboard styles */
+.printer-registration-list-page .action-column {
+  display: none !important;
+}

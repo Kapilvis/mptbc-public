@@ -1,0 +1,89 @@
+/* Override FormWizard styles to use green theme */
+.wizard-steps-container {
+  border-color: rgba(22, 163, 74, 0.08) !important;
+}
+
+.wizard-progress-fill {
+  background-color: #16a34a !important; /* Green-600 */
+}
+
+/* Hover effect on enabled steps */
+.wizard-step:not(:disabled):hover .wizard-step-circle {
+  border-color: #86efac !important; /* Green-300 */
+  color: #16a34a !important;
+  box-shadow: 0 4px 8px rgba(22, 163, 74, 0.08) !important;
+}
+
+.wizard-step:not(:disabled):hover .wizard-step-label {
+  color: #16a34a !important;
+}
+
+/* Active step */
+.wizard-step.active .wizard-step-circle {
+  background-color: #16a34a !important;
+  border-color: #16a34a !important;
+  color: #ffffff !important;
+  animation: pulse-ring-green 2s infinite cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+@keyframes pulse-ring-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(22, 163, 74, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+  }
+}
+
+.wizard-step.active .wizard-step-label {
+  color: #16a34a !important;
+}
+
+/* Completed step */
+.wizard-step.completed:not(.active) .wizard-step-circle {
+  background-color: #f0fdf4 !important; /* Green-50 */
+  border-color: #16a34a !important;
+  color: #16a34a !important;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.06) !important;
+}
+
+.wizard-step.completed:not(.active) .wizard-step-label {
+  color: #15803d !important; /* Green-700 */
+}
+
+/* Dark mode overrides */
+.dark .wizard-steps-container {
+  border-color: rgba(74, 222, 128, 0.12) !important;
+}
+
+.dark .wizard-step:not(:disabled):hover .wizard-step-circle {
+  border-color: #16a34a !important;
+  color: #4ade80 !important;
+}
+
+.dark .wizard-step:not(:disabled):hover .wizard-step-label {
+  color: #4ade80 !important;
+}
+
+.dark .wizard-step.active .wizard-step-circle {
+  background-color: #16a34a !important;
+  border-color: #16a34a !important;
+  color: #ffffff !important;
+}
+
+.dark .wizard-step.active .wizard-step-label {
+  color: #4ade80 !important;
+}
+
+.dark .wizard-step.completed:not(.active) .wizard-step-circle {
+  background-color: rgba(22, 163, 74, 0.15) !important;
+  border-color: #16a34a !important;
+  color: #4ade80 !important;
+}
+
+.dark .wizard-step.completed:not(.active) .wizard-step-label {
+  color: #86efac !important;
+}

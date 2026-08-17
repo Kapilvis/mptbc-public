@@ -168,7 +168,7 @@ export default function List() {
               align: "center",
               header: "S.No.",
             },
-            { field: "agency", header: "Agency", align: "center" },
+            { field: "agency", header: "Department", align: "center" },
             { field: "district", header: "District" },
             { field: "block", header: "Block" },
             { field: "titleName", header: "Title Name" },

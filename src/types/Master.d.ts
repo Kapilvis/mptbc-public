@@ -529,17 +529,20 @@ declare namespace Master {
   }
   type MediumForm = MediumBase;
 
-  // GSM / Paper Type Master
+  // GSM Master (Paper Specification)
   interface GsmBase {
-    name: string;
-    localName?: string;
-    gsmValue: number;
-    usage: string;
-    code: string;
+    gsm: number;
+    reelWidth: number;
+    cutoff: number;
+    sheetSize: string;
+    area: number;
+    sheetWeightInGM: number;
+    reamWeightInKG: number;
   }
   interface GsmItem extends GsmBase {
     gsmId: number;
     isActive: boolean;
+    name?: string;
   }
   type GsmForm = GsmBase;
 
@@ -562,6 +565,8 @@ declare namespace Master {
     length: number;
     width: number;
     paperArea: number;
+    matterDocumentUrl?: string;
+    receivedDate?: string;
   }
   interface TitleItem extends TitleBase {
     titleId: number;
@@ -591,4 +596,28 @@ declare namespace Master {
     isActive: boolean;
   }
   type BlockForm = BlockBase;
+
+  // Depot Master
+  interface DepotBase {
+    name: string;
+    code?: string;
+    isActive: boolean;
+  }
+  interface Depot extends DepotBase {
+    depotId: number;
+  }
+  type DepotForm = DepotBase;
+
+  // Sub Depot Master
+  interface SubDepotBase {
+    depotId: number;
+    name: string;
+    code?: string;
+    isActive: boolean;
+  }
+  interface SubDepot extends SubDepotBase {
+    subDepotId: number;
+    depotName: string;
+  }
+  type SubDepotForm = SubDepotBase;
 }

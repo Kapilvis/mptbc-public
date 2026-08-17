@@ -1,17 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastService } from "services";
-import { masterUrls } from "auth/features/master/urls";
+import { Button } from "shared/components/buttons";
 import StatusButton from "shared/components/buttons/StatusButton";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
+import { Modal } from "shared/components/popups";
 import { usePageTitle } from "shared/hooks/usePageTitle";
+import { masterUrls } from "../../urls";
 import { useTitleActiveStatusMutation, useTitlesQuery } from "../queries";
 
 export default function List() {
-  const navigate = useNavigate();
   const { data = [], isLoading } = useTitlesQuery();
   const { mutateAsync: toggleStatus } = useTitleActiveStatusMutation();
+  const [selectedTitleDoc, setSelectedTitleDoc] =
+    useState<Master.TitleItem | null>(null);
 
   const handleToggleStatus = async (item: Master.TitleItem) => {
     try {
@@ -27,36 +30,12 @@ export default function List() {
     }
   };
 
-  function CreateRedirect({ onSave }: { onSave: () => void }) {
-    useEffect(() => {
-      onSave();
-      navigate(masterUrls.title.create);
-    }, [onSave]);
-    return null;
-  }
-
-  function EditRedirect({
-    data: item,
-    onSave,
-  }: {
-    data: Master.TitleItem;
-    onSave: () => void;
-  }) {
-    useEffect(() => {
-      onSave();
-      if (item?.titleId) {
-        navigate(masterUrls.title.edit(item.titleId));
-      }
-    }, [item, onSave]);
-    return null;
-  }
-
   const pageTitle = usePageTitle();
 
   return (
     <Page
       header={`${pageTitle}`}
-      subHeader="Create and manage book titles, dimensions, GSM specifications, and paper area calculations."
+      subHeader="View, manage, and create textbook title specifications, GSM parameters, and matter soft copies."
       showHeaderActions
     >
       <Card>
@@ -100,10 +79,17 @@ export default function List() {
               cell: (row: Master.TitleItem) => <span>{row.weight} g</span>,
             },
             {
-              field: "paperArea",
-              header: "Paper Area",
+              header: "Soft Copy",
               align: "center",
-              cell: (row: Master.TitleItem) => <span>{row.paperArea} m²</span>,
+              cell: (row: Master.TitleItem) => (
+                <Button
+                  icon="pi pi-file-pdf"
+                  label="View Doc"
+                  size="small"
+                  variant="outlined"
+                  onClick={() => setSelectedTitleDoc(row)}
+                />
+              ),
             },
             {
               field: "isActive",
@@ -133,6 +119,131 @@ export default function List() {
           )}
         />
       </Card>
+
+      {/* Redesigned Clean Soft Copy Document Viewer Modal */}
+      <Modal
+        visible={!!selectedTitleDoc}
+        onHide={() => setSelectedTitleDoc(null)}
+        header={`Title Matter Document Specs - ${selectedTitleDoc?.code || ""}`}
+        size="medium"
+      >
+        {selectedTitleDoc && (
+          <div className="space-y-4 p-1">
+            {/* Header info box */}
+            <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800">
+              <div className="flex items-center justify-between gap-2 mb-1">
+                <span className="text-[11px] font-extrabold tracking-wider uppercase text-emerald-800 dark:text-emerald-300">
+                  {selectedTitleDoc.code}
+                </span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-extrabold bg-emerald-600 text-white">
+                  Title Master Record
+                </span>
+              </div>
+              <h3 className="font-extrabold text-base text-gray-900 dark:text-white">
+                {selectedTitleDoc.name}
+              </h3>
+              {selectedTitleDoc.localName && (
+                <p className="text-xs text-gray-600 dark:text-gray-300 mt-0.5">
+                  {selectedTitleDoc.localName}
+                </p>
+              )}
+            </div>
+
+            {/* Specification Grid */}
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div className="bg-gray-50 dark:bg-gray-800/80 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                <span className="text-gray-500 dark:text-gray-400 font-semibold block text-[11px]">
+                  Class & Medium
+                </span>
+                <span className="font-bold text-gray-900 dark:text-white text-sm">
+                  {selectedTitleDoc.className || "Class 8"} (
+                  {selectedTitleDoc.mediumName || "Hindi"})
+                </span>
+              </div>
+
+              <div className="bg-gray-50 dark:bg-gray-800/80 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                <span className="text-gray-500 dark:text-gray-400 font-semibold block text-[11px]">
+                  Book Type & Pages
+                </span>
+                <span className="font-bold text-gray-900 dark:text-white text-sm">
+                  {selectedTitleDoc.bookTypeName || "Main Textbook"} (
+                  {selectedTitleDoc.totalPages} Pages)
+                </span>
+              </div>
+
+              <div className="bg-gray-50 dark:bg-gray-800/80 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                <span className="text-gray-500 dark:text-gray-400 font-semibold block text-[11px]">
+                  Inner & Cover GSM
+                </span>
+                <span className="font-bold text-gray-900 dark:text-white text-sm">
+                  {selectedTitleDoc.innerGsmName || "58 GSM"} /{" "}
+                  {selectedTitleDoc.coverGsmName || "200 GSM"}
+                </span>
+              </div>
+
+              <div className="bg-gray-50 dark:bg-gray-800/80 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                <span className="text-gray-500 dark:text-gray-400 font-semibold block text-[11px]">
+                  Weight & Paper Area
+                </span>
+                <span className="font-bold text-gray-900 dark:text-white text-sm">
+                  {selectedTitleDoc.weight}g | {selectedTitleDoc.paperArea} m²
+                </span>
+              </div>
+            </div>
+
+            {/* Matter Attachment Box */}
+            <div className="border border-dashed border-emerald-300 dark:border-emerald-700 rounded-xl p-5 text-center bg-emerald-50/30 dark:bg-emerald-950/20">
+              <i className="pi pi-file-pdf text-red-500 text-3xl mb-2 inline-block" />
+              <p className="text-xs font-bold text-gray-900 dark:text-white">
+                {selectedTitleDoc.code}_SoftCopy_Matter.pdf
+              </p>
+              <p className="text-[11px] text-gray-500 mt-1">
+                Official approved textbook soft copy matter for printing press
+                manufacturing.
+              </p>
+
+              <div className="flex items-center justify-center gap-3 mt-4">
+                <Button
+                  icon="pi pi-download"
+                  label="Download Matter PDF"
+                  size="small"
+                  onClick={() =>
+                    ToastService.success("Downloading Title Soft Copy PDF...")
+                  }
+                />
+                <Button
+                  icon="pi pi-eye"
+                  label="Open Soft Copy Preview"
+                  size="small"
+                  variant="outlined"
+                  onClick={() =>
+                    ToastService.success("Opening soft copy matter viewer...")
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </Modal>
     </Page>
   );
 }
+
+const CreateRedirect: React.FC<{ onSave: () => void }> = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate(masterUrls.title.create);
+  }, [navigate]);
+  return null;
+};
+
+const EditRedirect: React.FC<{
+  data: Master.TitleItem;
+  onSave: () => void;
+}> = ({ data }) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate(masterUrls.title.edit(data.titleId));
+  }, [navigate, data]);
+  return null;
+};

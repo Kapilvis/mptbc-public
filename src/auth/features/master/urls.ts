@@ -21,8 +21,11 @@ import { mediumUrls } from "./medium/urls";
 import { gsmUrls } from "./gsm/urls";
 import { titleUrls } from "./title/urls";
 import { blockUrls } from "./block/urls";
+import { depotUrls } from "./depot/urls";
+import { subDepotUrls } from "./sub-depot/urls";
 
 const baseUrl = "/master";
+
 export const masterUrls = {
   office: officeUrls(baseUrl),
   officeLevel: officeLevelUrls(baseUrl),
@@ -47,4 +50,6 @@ export const masterUrls = {
   gsm: gsmUrls(baseUrl),
   title: titleUrls(baseUrl),
   block: blockUrls,
+  depot: depotUrls,
+  subDepot: subDepotUrls,
 };

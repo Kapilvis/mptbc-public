@@ -58,6 +58,8 @@
     },
 
     "routes": {
+      "paper-section": "कागज अनुभाग",
+      "book-paper-requirement": "पुस्तक कागज आवश्यकता",
       "master": {
         "office": {
           "office": "कार्यालय",
@@ -73,7 +75,9 @@
           "district": "जिला",
           "project": "परियोजना",
           "sector": "सेक्टर",
-          "block": "विकासखंड / ब्लॉक"
+          "block": "विकासखंड / ब्लॉक",
+          "depot": "डिपो",
+          "sub-depot": "उप डिपो"
         },
 
         "hrManagement": {
@@ -95,6 +99,10 @@
           "medium": "माध्यम",
           "gsm": "जी.एस.एम. / कागज का प्रकार",
           "title": "शीर्षक / टाइटिल मास्टर"
+        },
+        "paper": {
+          "paper": "कागज",
+          "gsm": "जी.एस.एम."
         },
         "socialCategory": {
           "social-category": "सामाजिक श्रेणी",
@@ -152,7 +160,8 @@
         "distribution": "वितरण अनुभाग",
         "department-demand": "प्राप्त मांग (RSK / CPI)",
         "dashboard": "समेकित वितरण डैशबोर्ड",
-        "demand-approval": "एजेंसी मांग स्वीकृति"
+        "demand-approval": "एजेंसी मांग स्वीकृति",
+        "title-approval": "शीर्षक स्वीकृति"
       },
       "printing": {
         "printing": "मुद्रक अनुभाग",
@@ -160,7 +169,8 @@
       },
       "reports": {
         "reports": "रिपोर्ट्स",
-        "depot-wise-district-textbook-supply-status": "डिपोवार जिला पाठ्यपुस्तक आपूर्ति स्थिति"
+        "depot-wise-district-textbook-supply-status": "डिपोवार जिला पाठ्यपुस्तक आपूर्ति स्थिति",
+        "agency-wise-demand": "एजेंसीवार मांग रिपोर्ट"
       }
     },
     "printing": {

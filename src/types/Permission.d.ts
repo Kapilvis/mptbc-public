@@ -51,6 +51,9 @@ declare namespace Permission {
     | "@master/gsm"
     | "@master/title"
     | "@master/block"
+    | "@master/sub-depot"
+    | "@master/depot"
+    | "@master/book-paper-requirement"
     // HRMS
     | "@hrms/employee-details"
     // Distribution

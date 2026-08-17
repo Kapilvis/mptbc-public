@@ -1,14 +1,6 @@
-export interface PrinterItem {
-  printerId: number;
-  printerName: string;
-  depotName: string;
-  classId: number;
-  districtId: number;
-  depotId: number;
-  isActive: boolean;
-}
+export type PrinterItem = Printer.PrinterItem;
 
-export const initialPrinterData: PrinterItem[] = [
+export const initialPrinterData: Printer.PrinterItem[] = [
   {
     printerId: 181,
     printerName: "Aadarsh pravite limited",

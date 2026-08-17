@@ -9,6 +9,8 @@ import NumberBox from "./NumberBox";
 import PasswordBox from "./PasswordBox";
 import TextBox from "./TextBox";
 import ToggleSwitch from "./ToggleSwitch";
+import FileUpload from "./FileUpload";
+import TextArea from "./TextArea";
 
 export {
   Captcha,
@@ -22,4 +24,6 @@ export {
   PasswordBox,
   TextBox,
   ToggleSwitch,
+  FileUpload,
+  TextArea,
 };
