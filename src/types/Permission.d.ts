@@ -53,7 +53,13 @@ declare namespace Permission {
     | "@master/block"
     | "@master/sub-depot"
     | "@master/depot"
+    | "@master/transporter-registration"
+    | "@master/vehicle-master"
     | "@master/book-paper-requirement"
+    | "@transport/commercial-bid"
+    | "@transport/technical-evaluation"
+    | "@transport/l1-selection"
+    | "@transport/work-order"
     // HRMS
     | "@hrms/employee-details"
     // Distribution
@@ -63,7 +69,10 @@ declare namespace Permission {
     | "@distribution/title-received"
     | "@distribution/title-approval"
     // Paper Section
-    | "@paper/gsm-demand-report";
+    | "@paper/gsm-demand-report"
+    | "@paper/paper-tender-raise"
+    | "@paper/paper-vendor-profile"
+    | "@paper/paper-order-allocation";
   // Actions mapped to backend policies
   type Action = "read" | "write";
 }

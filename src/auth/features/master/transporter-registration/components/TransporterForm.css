@@ -1,0 +1,265 @@
+.stepper-header {
+  background: var(--surface-0, #f8fafc);
+  border-bottom: 1px solid var(--surface-border, #e2e8f0);
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.stepper-track {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.stepper-step {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.stepper-step:last-child {
+  flex-grow: 0;
+}
+
+.stepper-step-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  cursor: pointer;
+}
+
+.stepper-circle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  border: 2px solid;
+  transition: all 0.3s ease;
+}
+
+.stepper-circle.active {
+  background: #eef2ff;
+  border-color: #4f46e5;
+  color: #4f46e5;
+  box-shadow: 0 0 0 4px #eef2ff;
+}
+
+.stepper-circle.completed {
+  background: #10b981;
+  border-color: #10b981;
+  color: #ffffff;
+}
+
+.stepper-circle.pending {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #94a3b8;
+}
+
+.stepper-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition: all 0.3s ease;
+}
+
+.stepper-label.active {
+  color: #4f46e5;
+}
+
+.stepper-label.completed {
+  color: #334155;
+}
+
+.stepper-label.pending {
+  color: #94a3b8;
+}
+
+.stepper-connector {
+  flex-grow: 1;
+  height: 2px;
+  background: #e2e8f0;
+  margin: 0 1rem;
+  margin-top: -1.25rem;
+}
+
+.stepper-connector-fill {
+  height: 100%;
+  background: #10b981;
+  transition: width 0.5s ease;
+}
+
+.stepper-footer {
+  position: sticky;
+  bottom: 0;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.stepper-footer-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input-panel-full-width {
+  grid-column: 1 / -1;
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  font-size: 0.75rem;
+}
+
+.review-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.review-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.review-label {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.review-value {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.dark .stepper-header {
+  background: #1e1b2e;
+  border-bottom-color: rgba(167, 139, 250, 0.12);
+}
+
+.dark .stepper-footer {
+  background: #1e1b2e;
+  border-top-color: rgba(167, 139, 250, 0.12);
+}
+
+/* Layout structures */
+.step-container,
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.loading-container {
+  text-align: center;
+  padding: 1.5rem;
+  color: #64748b;
+  font-weight: 700;
+}
+
+/* Eligibility Alert Banner */
+.eligibility-container {
+  margin-top: 1rem;
+}
+
+.eligibility-panel {
+  padding: 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eligibility-panel.qualified {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #065f46;
+}
+
+.eligibility-panel.not-qualified {
+  background: #fff5f5;
+  border-color: #feb2b2;
+  color: #9b2c2c;
+}
+
+.eligibility-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.eligibility-icon {
+  font-size: 1.25rem;
+}
+
+.eligibility-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.eligibility-title {
+  font-weight: 700;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.eligibility-subtitle {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.eligibility-status {
+  text-align: right;
+}
+
+.eligibility-badge {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 9999px;
+}
+
+.eligibility-badge.qualified {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.eligibility-badge.not-qualified {
+  background: #fed7d7;
+  color: #9b2c2c;
+}
+
+/* Turnover review items grid */
+.turnover-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.turnover-item {
+  background: #f8fafc;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  color: #475569;
+  font-weight: 600;
+}

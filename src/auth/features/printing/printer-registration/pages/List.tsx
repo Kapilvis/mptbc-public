@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastService } from "services";
 import { Card, GridPanel } from "shared/components/panels";
@@ -41,11 +41,11 @@ function ActionsMenu({
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    function handleClickOutside(event: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
-    };
+    }
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
@@ -55,7 +55,7 @@ function ActionsMenu({
   }, [isOpen]);
 
   return (
-    <div ref={menuRef} className="relative inline-block text-left">
+    <div className="relative inline-block text-left" ref={menuRef}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -73,7 +73,7 @@ function ActionsMenu({
               setIsOpen(false);
               onView(item);
             }}
-            className="w-full text-left px-3 py-1.5 hover:bg-indigo-50/50 text-slate-700 flex items-center gap-2 transition-colors"
+            className="w-full text-left px-3 py-1.5 hover:bg-indigo-50 text-slate-700 flex items-center gap-2 transition-colors"
           >
             <i className="pi pi-eye text-slate-400 text-[10px]" />
             <span>View Details</span>
@@ -84,7 +84,7 @@ function ActionsMenu({
               setIsOpen(false);
               onEdit(item);
             }}
-            className="w-full text-left px-3 py-1.5 hover:bg-indigo-50/50 text-slate-700 flex items-center gap-2 transition-colors"
+            className="w-full text-left px-3 py-1.5 hover:bg-indigo-50 text-slate-700 flex items-center gap-2 transition-colors"
           >
             <i className="pi pi-pencil text-slate-400 text-[10px]" />
             <span>Edit</span>
@@ -95,7 +95,7 @@ function ActionsMenu({
               setIsOpen(false);
               onVerify(item);
             }}
-            className="w-full text-left px-3 py-1.5 hover:bg-blue-50/50 text-blue-600 flex items-center gap-2 transition-colors"
+            className="w-full text-left px-3 py-1.5 hover:bg-blue-50 text-blue-600 flex items-center gap-2 transition-colors"
           >
             <i className="pi pi-shield text-blue-400 text-[10px]" />
             <span>Verify</span>
@@ -106,7 +106,7 @@ function ActionsMenu({
               setIsOpen(false);
               onApprove(item);
             }}
-            className="w-full text-left px-3 py-1.5 hover:bg-emerald-50/50 text-emerald-600 flex items-center gap-2 transition-colors"
+            className="w-full text-left px-3 py-1.5 hover:bg-emerald-50 text-emerald-600 flex items-center gap-2 transition-colors"
           >
             <i className="pi pi-check-circle text-emerald-400 text-[10px]" />
             <span>Approve</span>
@@ -117,7 +117,7 @@ function ActionsMenu({
               setIsOpen(false);
               onReject(item);
             }}
-            className="w-full text-left px-3 py-1.5 hover:bg-rose-50/50 text-rose-600 flex items-center gap-2 transition-colors"
+            className="w-full text-left px-3 py-1.5 hover:bg-rose-50 text-rose-600 flex items-center gap-2 transition-colors"
           >
             <i className="pi pi-times-circle text-rose-400 text-[10px]" />
             <span>Reject</span>
@@ -129,7 +129,7 @@ function ActionsMenu({
               setIsOpen(false);
               onDelete(item);
             }}
-            className="w-full text-left px-3 py-1.5 hover:bg-rose-50 text-rose-700 flex items-center gap-2 transition-colors font-semibold"
+            className="w-full text-left px-3 py-1.5 hover:bg-rose-100 text-rose-700 flex items-center gap-2 transition-colors font-semibold"
           >
             <i className="pi pi-trash text-rose-500 text-[10px]" />
             <span>Delete</span>

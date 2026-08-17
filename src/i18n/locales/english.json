@@ -131,7 +131,20 @@
         "network-connectivity": "Network Connectivity",
         "building-status": "Building Status",
         "area-type": "Area Type",
-        "anganwadi-structure-type": "Anganwadi Structure Type"
+        "anganwadi-structure-type": "Anganwadi Structure Type",
+        "transporter-registration": "Transporter Registration",
+        "transportation": "Transportation",
+        "vehicle-master": "Vehicle Master",
+        "commercial-bid": "Commercial Bid Submission",
+        "technical-evaluation": "Technical Bid Evaluation",
+        "l1-selection": "L1 Bidder Selection",
+        "work-order": "Work Order & Allocation",
+        "dispatch-terminal": "Dispatch & Loading Terminal",
+        "delivery-tracking": "Live Delivery Tracking",
+        "pod-submission": "Proof of Delivery (POD)",
+        "billing-settlement": "Billing & Settlement Engine",
+        "payment-disbursement": "Payment Disbursements",
+        "reports-analytics": "Analytics & Reports Dashboard"
       },
       "directory": {
         "anganwadi": {
