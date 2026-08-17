@@ -139,7 +139,20 @@
         "network-connectivity": "नेटवर्क कनेक्टिविटी",
         "building-status": "भवन की स्थिति",
         "area-type": "क्षेत्र प्रकार",
-        "anganwadi-structure-type": "आंगनवाड़ी संरचना प्रकार"
+        "anganwadi-structure-type": "आंगनवाड़ी संरचना प्रकार",
+        "transporter-registration": "परिवहनकर्ता पंजीकरण",
+        "transportation": "परिवहन",
+        "vehicle-master": "वाहन मास्टर",
+        "commercial-bid": "वाणिज्यिक बोली जमा करना",
+        "technical-evaluation": "तकनीकी बोली मूल्यांकन",
+        "l1-selection": "L1 बोलीदाता चयन",
+        "work-order": "कार्य आदेश और आवंटन",
+        "dispatch-terminal": "प्रेषण एवं लोडिंग टर्मिनल",
+        "delivery-tracking": "लाइव डिलीवरी ट्रैकिंग",
+        "pod-submission": "वितरण का प्रमाण (POD)",
+        "billing-settlement": "बिलिंग एवं निपटान इंजन",
+        "payment-disbursement": "भुगतान संवितरण",
+        "reports-analytics": "एनालिटिक्स और रिपोर्ट डैशबोर्ड"
       },
 
       "directory": {

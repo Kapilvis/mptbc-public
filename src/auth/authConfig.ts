@@ -21,6 +21,12 @@ export const staticCredentials: StaticCredential[] = [
     password: "DPI@1234",
   },
   {
+    role: USER_ROLES.CENTRAL_DEPOT,
+    roleName: "Central Depot",
+    userId: "CENTRAL DEPOT ADMIN",
+    password: "DPI@1234",
+  },
+  {
     role: USER_ROLES.PRINTER,
     roleName: "Printer",
     userId: "PRINTER ADMIN",
@@ -43,6 +49,7 @@ export const staticCredentials: StaticCredential[] = [
 export const ROLE_OPTIONS = [
   { value: USER_ROLES.TBC_HEAD_OFFICE, text: "TBC Department (Head Office)" },
   { value: USER_ROLES.DISTRICT_DEPOT, text: "District Depot" },
+  { value: USER_ROLES.CENTRAL_DEPOT, text: "Central Depot" },
   { value: USER_ROLES.PRINTER, text: "Printer" },
   { value: USER_ROLES.PAPER_VENDOR, text: "Paper Vendor" },
   { value: USER_ROLES.DISTRIBUTION_SECTION, text: "Distribution Section" },

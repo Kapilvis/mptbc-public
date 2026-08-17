@@ -24,6 +24,8 @@ import TitleMaster from "./title";
 import BlockMaster from "./block";
 import Depot from "./depot";
 import SubDepot from "./sub-depot";
+import TransporterRegistration from "./transporter-registration";
+import VehicleMaster from "./vehicle-master";
 
 export default function Master() {
   return (
@@ -63,6 +65,13 @@ export default function Master() {
       <Route path="medium/*" element={<Medium />} />
       <Route path="gsm/*" element={<GsmMaster />} />
       <Route path="title/*" element={<TitleMaster />} />
+
+      {/* Transportation Masters */}
+      <Route
+        path="transporter-registration/*"
+        element={<TransporterRegistration />}
+      />
+      <Route path="vehicle-master/*" element={<VehicleMaster />} />
     </Routes>
   );
 }

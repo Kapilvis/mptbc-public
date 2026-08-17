@@ -23,6 +23,8 @@ import { titleUrls } from "./title/urls";
 import { blockUrls } from "./block/urls";
 import { depotUrls } from "./depot/urls";
 import { subDepotUrls } from "./sub-depot/urls";
+import { transporterRegistrationUrls } from "./transporter-registration/urls";
+import { vehicleMasterUrls } from "./vehicle-master/urls";
 
 const baseUrl = "/master";
 
@@ -52,4 +54,6 @@ export const masterUrls = {
   block: blockUrls,
   depot: depotUrls,
   subDepot: subDepotUrls,
+  transporterRegistration: transporterRegistrationUrls(baseUrl),
+  vehicleMaster: vehicleMasterUrls(baseUrl),
 };

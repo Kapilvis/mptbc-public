@@ -4,6 +4,8 @@ import DemandApproval from "./demand-approval";
 import DepartmentDemand from "./department-demand";
 import TitleReceivedList from "./title-received/pages/TitleReceivedList";
 import TitleApprovalList from "./title-approval/pages/TitleApprovalList";
+import PaperDistributionList from "./paper-distribution/pages/PaperDistributionList";
+import DistributionHistoryList from "./paper-distribution/pages/DistributionHistoryList";
 
 export default function Distribution() {
   return (
@@ -13,6 +15,8 @@ export default function Distribution() {
       <Route path="demand-approval/*" element={<DemandApproval />} />
       <Route path="title-received" element={<TitleReceivedList />} />
       <Route path="title-approval" element={<TitleApprovalList />} />
+      <Route path="new" element={<PaperDistributionList />} />
+      <Route path="history" element={<DistributionHistoryList />} />
     </Routes>
   );
 }

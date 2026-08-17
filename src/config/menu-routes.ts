@@ -17,6 +17,12 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     permissionKey: "dashboard",
   },
   {
+    label: "Dashboard",
+    icon: "pi pi-th-large",
+    path: "",
+    permissionKey: "dashboard",
+  },
+  {
     label: "Profile",
     icon: "pi pi-user",
     path: "/profile",
@@ -26,7 +32,6 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     label: "Master",
     icon: "pi pi-database",
     section: "Configuration",
-    permissionKey: "master",
     children: [
       {
         label: t("routes.master.office.office"),
@@ -36,18 +41,21 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
             path: masterUrls.officeLevel.root,
             feature: "@master/office-level",
             action: "write",
+            permissionKey: "master/office-level",
           },
           {
             label: t("routes.master.office.office-type"),
             path: masterUrls.officeType.root,
             feature: "@master/office-type",
             action: "write",
+            permissionKey: "master/office-type",
           },
           {
             label: t("routes.master.office.office-registration"),
             path: masterUrls.office.root,
             feature: "@master/office",
             action: "write",
+            permissionKey: "master/office",
           },
         ],
       },
@@ -59,36 +67,42 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
             path: masterUrls.state.root,
             feature: "@master/state",
             action: "write",
+            permissionKey: "master/state",
           },
           {
             label: t("routes.master.location.division"),
             path: masterUrls.division.root,
             feature: "@master/division",
             action: "write",
+            permissionKey: "master/division",
           },
           {
             label: t("routes.master.location.district"),
             path: masterUrls.district.root,
             feature: "@master/district",
             action: "write",
+            permissionKey: "master/district",
           },
           {
             label: t("routes.master.location.block"),
             path: masterUrls.block.root,
             feature: "@master/block",
             action: "write",
+            permissionKey: "master/block",
           },
           {
             label: t("routes.master.location.depot"),
             path: masterUrls.depot.root,
             feature: "@master/depot",
             action: "write",
+            permissionKey: "master/depot",
           },
           {
             label: t("routes.master.location.sub-depot"),
             path: masterUrls.subDepot.root,
             feature: "@master/sub-depot",
             action: "write",
+            permissionKey: "master/sub-depot",
           },
         ],
       },
@@ -100,54 +114,63 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
             path: masterUrls.caste.root,
             feature: "@master/caste",
             action: "write",
+            permissionKey: "master/caste",
           },
           {
             label: t("routes.master.hrManagement.religion"),
             path: masterUrls.religion.root,
             feature: "@master/religion",
             action: "write",
+            permissionKey: "master/religion",
           },
           {
             label: t("routes.master.hrManagement.blood-group"),
             path: masterUrls.bloodGroup.root,
             feature: "@master/blood-group",
             action: "write",
+            permissionKey: "master/blood-group",
           },
           {
             label: t("routes.master.hrManagement.nationality"),
             path: masterUrls.nationality.root,
             feature: "@master/nationality",
             action: "write",
+            permissionKey: "master/nationality",
           },
           {
             label: t("routes.master.hrManagement.designation"),
             path: masterUrls.designation.root,
             feature: "@master/designation",
             action: "write",
+            permissionKey: "master/designation",
           },
           {
             label: t("routes.master.hrManagement.designation-type"),
             path: masterUrls.designationType.root,
             feature: "@master/designation-type",
             action: "write",
+            permissionKey: "master/designation-type",
           },
           {
             label: t("routes.master.hrManagement.qualification"),
             path: masterUrls.qualification.root,
             feature: "@master/qualification",
             action: "write",
+            permissionKey: "master/qualification",
           },
           {
             label: t("routes.master.hrManagement.qualification-type"),
             path: masterUrls.qualificationType.root,
             feature: "@master/qualification-type",
             action: "write",
+            permissionKey: "master/qualification-type",
           },
           {
             label: t("routes.master.hrManagement.qualification-subject"),
             path: masterUrls.qualificationSubject.root,
             feature: "@master/qualification-subject",
             action: "write",
+            permissionKey: "master/qualification-subject",
           },
         ],
       },
@@ -159,18 +182,21 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
             path: masterUrls.class.root,
             feature: "@master/class",
             action: "write",
+            permissionKey: "master/class",
           },
           {
             label: t("routes.master.curriculum.book-type"),
             path: masterUrls.bookType.root,
             feature: "@master/book-type",
             action: "write",
+            permissionKey: "master/book-type",
           },
           {
             label: t("routes.master.curriculum.medium"),
             path: masterUrls.medium.root,
             feature: "@master/medium",
             action: "write",
+            permissionKey: "master/medium",
           },
         ],
       },
@@ -182,6 +208,24 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
             path: masterUrls.gsm.root,
             feature: "@master/gsm",
             action: "write",
+            permissionKey: "master/gsm",
+          },
+        ],
+      },
+      {
+        label: t("routes.master.transportation"),
+        children: [
+          {
+            label: t("routes.master.transporter-registration"),
+            path: masterUrls.transporterRegistration.root,
+            feature: "@master/transporter-registration",
+            action: "write",
+          },
+          {
+            label: t("routes.master.vehicle-master"),
+            path: masterUrls.vehicleMaster.root,
+            feature: "@master/vehicle-master",
+            action: "write",
           },
         ],
       },
@@ -190,44 +234,47 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: t("routes.master.userManagement.user-management"),
     icon: "pi pi-users",
-    permissionKey: "user-management",
     children: [
       {
         label: t("routes.master.userManagement.user-registration"),
         path: userManagementUrls.user.root,
         feature: "@user-management/users",
         action: "write",
+        permissionKey: "user-management/user",
       },
       {
         label: t("routes.master.userManagement.role-management"),
         path: userManagementUrls.userRole.root,
         feature: "@user-management/roles",
         action: "write",
+        permissionKey: "user-management/role",
       },
       {
         label: t("routes.master.userManagement.user-assignment"),
         path: userManagementUrls.userAssignment.root,
         feature: "@user-management/user-assignment",
         action: "write",
+        permissionKey: "user-management/user-assignment",
       },
       {
         label: t("routes.master.userManagement.role-permissions"),
         path: userManagementUrls.rolePermissions.root,
         feature: "@user-management/role-permissions",
         action: "write",
+        permissionKey: "user-management/role-permissions",
       },
     ],
   },
   {
     label: t("routes.master.hrms.hrms"),
     icon: "pi pi-id-card",
-    permissionKey: "hrms",
     children: [
       {
         label: t("routes.master.hrms.employee-details"),
         path: hrmsUrls.employeeDetails.root,
         feature: "@hrms/employee-details",
         action: "write",
+        permissionKey: "hrms/employee-details",
       },
     ],
   },
@@ -240,18 +287,21 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         path: "/distribution/title-received",
         feature: "@distribution/title-received",
         action: "read",
+        permissionKey: "title-section/title-received",
       },
       {
         label: "Title Approval",
         path: "/distribution/title-approval",
         feature: "@distribution/title-approval",
         action: "read",
+        permissionKey: "title-section/title-approval",
       },
       {
         label: "Title Master",
         path: masterUrls.title.root,
         feature: "@master/title",
         action: "read",
+        permissionKey: "title-section/title-master",
       },
     ],
   },
@@ -259,44 +309,51 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     label: "Printer Section",
     // label: t("routes.printing.printing"),
     icon: "pi pi-print",
-    permissionKey: "printer-section",
     children: [
       {
         label: t("routes.printing.printer-registration"),
         path: "/printing/printer-registration",
+        permissionKey: "printer-section/printer-registration",
+      },
+      {
+        label: "Printer Orders",
+        path: "/printing/orders/list",
+        permissionKey: "printer-orders",
+      },
+      {
+        label: "Pending Orders",
+        path: "/printing/orders/pending",
+        permissionKey: "pending-printer-orders",
       },
     ],
   },
   {
     label: "Depot Section",
     icon: "pi pi-home",
-    permissionKey: "depot-section",
     children: [
       {
         label: "Depot Registration",
         path: "/mptbc/depot-registration",
+        permissionKey: "depot-section/depot-registration",
       },
     ],
   },
   {
     label: "District Depot",
     icon: "pi pi-building",
-    permissionKey: "district-depot-section",
     children: [
-      {
-        label: "Dashboard",
-        path: "/district-depot/dashboard",
-      },
       {
         label: "Printer Section",
         children: [
           {
             label: "Printer Assigned Demand",
             path: "/district-depot/printer/assigned-demand",
+            permissionKey: "district-depot/printer-assigned-demand",
           },
           {
             label: "Challan Received",
             path: "/district-depot/printer/challan-received",
+            permissionKey: "district-depot/challan-received",
           },
         ],
       },
@@ -306,74 +363,125 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
           {
             label: "Challan to Block",
             path: "/district-depot/dispatch/challan-to-block",
+            permissionKey: "district-depot/challan-to-block",
           },
           {
             label: "Dispatch History",
             path: "/district-depot/dispatch/history",
+            permissionKey: "district-depot/dispatch-history",
           },
         ],
       },
     ],
   },
+
   {
     label: "Depot Transport Section",
     icon: "pi pi-car",
-    permissionKey: "depot-transport",
     children: [
       {
         label: "Transport Orders",
         path: "/district-depot/transport/orders",
+        permissionKey: "depot-transport/transport-orders",
       },
       {
         label: "Vehicle Management",
         path: "/district-depot/transport/vehicles",
+        permissionKey: "depot-transport/vehicle-management",
       },
       {
         label: "Fuel Log",
         path: "/district-depot/transport/fuel-log",
+        permissionKey: "depot-transport/fuel-log",
       },
     ],
   },
   {
     label: "Distribution Section",
     icon: "pi pi-truck",
-    permissionKey: "distribution-section",
     children: [
       {
         label: t("routes.distribution.department-demand"),
         path: "/distribution/department-demand",
         feature: "@distribution/department-demand",
         action: "read",
+        permissionKey: "distribution-section/department-demand",
       },
       {
         label: t("routes.distribution.dashboard"),
         path: "/distribution/dashboard",
         feature: "@distribution/dashboard",
         action: "read",
+        permissionKey: "distribution-section/dashboard",
       },
       {
         label: t("routes.distribution.demand-approval"),
         path: "/distribution/demand-approval",
         feature: "@distribution/demand-approval",
         action: "read",
+        permissionKey: "distribution-section/demand-approval",
+      },
+      {
+        label: "Paper Distribution",
+        path: "/distribution/new",
+        permissionKey: "paper-distribution",
+      },
+      {
+        label: "Distribution History",
+        path: "/distribution/history",
+        permissionKey: "distribution-history",
       },
     ],
   },
   {
     label: t("routes.paper-section"),
     icon: "pi pi-copy",
-    permissionKey: "paper-section",
     children: [
       {
         label: t("routes.book-paper-requirement"),
         path: bookPaperRequirementUrls.root,
         feature: "@master/book-paper-requirement",
         action: "write",
+        permissionKey: "paper-section/book-paper-requirement",
       },
       {
         label: "GSM Wise Paper Demand Report",
         path: "/paper/gsm-demand-report",
         feature: "@paper/gsm-demand-report",
+        action: "read",
+        permissionKey: "paper-section/gsm-demand-report",
+      },
+      {
+        label: "Paper Tender",
+        path: "/paper/paper-tender-raise",
+        feature: "@paper/paper-tender-raise",
+        action: "read",
+      },
+      {
+        label: "Paper Vendor Profile",
+        path: "/paper/paper-vendor-profile",
+        feature: "@paper/paper-vendor-profile",
+        action: "read",
+      },
+      {
+        label: "Paper Stock",
+        path: "/paper/stock/main",
+        permissionKey: "paper-stock",
+      },
+      {
+        label: "Stock Transactions",
+        path: "/paper/stock/transactions",
+        permissionKey: "stock-transactions",
+      },
+      {
+        label: "Stock Ledger",
+        path: "/paper/stock/ledger",
+        permissionKey: "stock-ledger",
+      },
+      {
+        label: "Paper Order & Allocation",
+        path: "/paper/paper-order-allocation",
+        feature: "@paper/paper-order-allocation",
         action: "read",
       },
     ],
@@ -381,15 +489,36 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: t("routes.reports.reports"),
     icon: "pi pi-chart-bar",
-    permissionKey: "reports",
     children: [
       {
         label: t("routes.reports.depot-wise-district-textbook-supply-status"),
         path: "/reports/depot-wise-district-textbook-supply-status",
+        permissionKey: "reports/depot-supply-status",
       },
       {
         label: t("routes.reports.agency-wise-demand"),
         path: "/reports/agency-wise-demand",
+        permissionKey: "reports/agency-demand",
+      },
+      {
+        label: "GSM-wise Stock Report",
+        path: "/reports/gsm-stock",
+        permissionKey: "gsm-stock-report",
+      },
+      {
+        label: "Printer-wise Order Report",
+        path: "/reports/printer-orders",
+        permissionKey: "printer-order-report",
+      },
+      {
+        label: "Printer-wise Supply Report",
+        path: "/reports/printer-supply",
+        permissionKey: "printer-supply-report",
+      },
+      {
+        label: "Paper Distribution Report",
+        path: "/reports/distributions",
+        permissionKey: "paper-distribution-report",
       },
     ],
   },
@@ -404,8 +533,75 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: "Transport",
     icon: "pi pi-car",
-    path: "/transport",
     permissionKey: "transport",
+    children: [
+      {
+        label: "Tender Management",
+        path: "/transport/tender-management",
+        feature: "@transport/commercial-bid",
+        action: "write",
+      },
+      {
+        label: t("routes.master.commercial-bid"),
+        path: "/transport/commercial-bid",
+        feature: "@transport/commercial-bid",
+        action: "write",
+      },
+      {
+        label: t("routes.master.technical-evaluation"),
+        path: "/transport/technical-evaluation",
+        feature: "@transport/technical-evaluation",
+        action: "write",
+      },
+      {
+        label: t("routes.master.l1-selection"),
+        path: "/transport/l1-selection",
+        feature: "@transport/l1-selection",
+        action: "write",
+      },
+      {
+        label: t("routes.master.work-order"),
+        path: "/transport/work-order",
+        feature: "@transport/work-order",
+        action: "write",
+      },
+      {
+        label: t("routes.master.dispatch-terminal"),
+        path: "/transport/dispatch",
+        feature: "@transport/work-order",
+        action: "write",
+      },
+      {
+        label: t("routes.master.delivery-tracking"),
+        path: "/transport/tracking",
+        feature: "@transport/work-order",
+        action: "write",
+      },
+      {
+        label: t("routes.master.pod-submission"),
+        path: "/transport/pod",
+        feature: "@transport/work-order",
+        action: "write",
+      },
+      {
+        label: t("routes.master.billing-settlement"),
+        path: "/transport/billing",
+        feature: "@transport/work-order",
+        action: "write",
+      },
+      {
+        label: t("routes.master.payment-disbursement"),
+        path: "/transport/disbursement",
+        feature: "@transport/work-order",
+        action: "write",
+      },
+      {
+        label: t("routes.master.reports-analytics"),
+        path: "/transport/reports",
+        feature: "@transport/work-order",
+        action: "write",
+      },
+    ],
   },
 
   /* ─── PRINTER specific mock menus ─── */
@@ -420,6 +616,12 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     icon: "pi pi-download",
     path: "/paper-receiving",
     permissionKey: "paper-receiving",
+  },
+  {
+    label: "Paper Receiving",
+    icon: "pi pi-download",
+    path: "/paper/stock/receiving",
+    permissionKey: "central-paper-receiving",
   },
   {
     label: "Title Master",
@@ -536,6 +738,40 @@ export function useMenu() {
     };
 
     const menuConfig = getMenuConfig(t);
-    return filterMenu(menuConfig);
+    const filtered = filterMenu(menuConfig);
+
+    const mapped = filtered
+      .map((item) => {
+        if (item.label === "Dashboard") {
+          let dashboardPath = "";
+          if (role === "CENTRAL_DEPOT") {
+            dashboardPath = "/inventory/dashboard";
+          } else if (role === "DISTRICT_DEPOT") {
+            dashboardPath = "/district-depot/dashboard";
+          }
+          return { ...item, path: dashboardPath };
+        }
+        return item;
+      })
+      .filter((item) => {
+        if (item.label === "Dashboard" && !item.path) {
+          return false;
+        }
+        return true;
+      });
+
+    let hasSectionAssigned = false;
+    return mapped.map((item) => {
+      if (
+        !hasSectionAssigned &&
+        item.label !== "Home" &&
+        item.label !== "Dashboard" &&
+        item.label !== "Profile"
+      ) {
+        hasSectionAssigned = true;
+        return { ...item, section: "Configuration" };
+      }
+      return item;
+    });
   }, [authenticated, user, permissions, t]);
 }
