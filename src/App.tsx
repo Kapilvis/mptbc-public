@@ -15,7 +15,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <>
         <AuthProvider>
-          <BrowserRouter>
+          <BrowserRouter basename={import.meta.env.BASE_URL}>
             <Routes>
               {/* Public Routes */}
               <Route index element={<Login />} />
