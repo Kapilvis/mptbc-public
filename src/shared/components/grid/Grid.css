@@ -306,4 +306,20 @@
       bg-gray-300
       dark:bg-gray-700;
   }
+
+  /* =========================
+     Grid Footer
+  ========================== */
+
+  .p-datatable .p-datatable-tfoot > tr > td {
+    @apply border-t border-b border-gray-200
+      bg-gray-50/50
+      px-3.5 py-3.5
+      text-body-sm font-semibold
+      text-gray-700
+      dark:border-gray-800
+      dark:bg-gray-950/50
+      dark:text-gray-300;
+  }
 }
+

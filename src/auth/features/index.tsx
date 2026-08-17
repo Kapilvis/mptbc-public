@@ -13,6 +13,7 @@ import HRMS from "./hrms";
 import Reports from "./reports";
 import Distribution from "./distribution";
 import BookPaperRequirement from "auth/features/book-paper-requirement";
+import DistrictDepot from "./district-depot";
 
 export default function Features() {
   return (
@@ -39,6 +40,7 @@ export default function Features() {
           path="book-paper-requirement/*"
           element={<BookPaperRequirement />}
         />
+        <Route path="district-depot/*" element={<DistrictDepot />} />
         <Route path="profile" element={<Profile />} />
       </Route>
     </Routes>

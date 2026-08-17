@@ -6,6 +6,8 @@ declare namespace Distribution {
     | "Rejected"
     | "Hold";
 
+  type ReceiptStatus = "Pending" | "Received" | "Need Info";
+
   interface DepartmentDemandItem {
     id: number;
     agency: string;
@@ -56,6 +58,67 @@ declare namespace Distribution {
     agency?: string;
     bookType?: string;
     classGroup?: string;
+    search?: string;
+  }
+
+  // Title Received (RSK / CPI Receiving Desk) Types
+  interface TitleReceivedItem {
+    id: number;
+    titleCode: string;
+    titleName: string;
+    localTitleName?: string;
+    department: "RSK" | "CPI";
+    className: string;
+    medium: string;
+    bookType: string;
+    totalPages: number;
+    innerGsm: string;
+    coverGsm: string;
+    weight: number;
+    paperArea: number;
+    submissionDate: string;
+    receiptStatus: ReceiptStatus;
+    matterDocumentUrl?: string;
+    receivedBy?: string;
+    receiptDate?: string;
+    remarks?: string;
+    academicYear?: string;
+  }
+
+  interface TitleReceivedFilter {
+    academicYear?: string;
+    department?: string;
+    receiptStatus?: string;
+    search?: string;
+  }
+
+  // Title Approval Types
+  interface TitleApprovalItem {
+    id: number;
+    titleCode: string;
+    titleName: string;
+    localTitleName?: string;
+    department: "RSK" | "CPI";
+    className: string;
+    medium: string;
+    bookType: string;
+    totalPages: number;
+    innerGsm: string;
+    coverGsm: string;
+    weight: number;
+    paperArea: number;
+    receivedDate: string;
+    status: "Approved" | "Pending" | "Rejected" | "Hold";
+    matterDocumentUrl?: string;
+    approvedBy?: string;
+    approvalDate?: string;
+    academicYear?: string;
+  }
+
+  interface TitleApprovalFilter {
+    academicYear?: string;
+    department?: string;
+    status?: string;
     search?: string;
   }
 }

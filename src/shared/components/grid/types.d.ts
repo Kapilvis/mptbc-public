@@ -26,5 +26,6 @@ declare namespace Controls {
     width?: number | string;
     align?: "left" | "center" | "right";
     filter?: boolean;
+    footer?: React.ReactNode;
   }
 }

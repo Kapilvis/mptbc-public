@@ -5,6 +5,7 @@
     background-color: var(--color-gray-950);
     border-color: rgba(255, 255, 255, 0.1);
   }
+
   /* Main Wrapper */
 
   .wcd-user-dropdown {
@@ -14,15 +15,7 @@
   /* Toggle Button */
 
   .user-dropdown-toggle {
-    @apply flex cursor-pointer items-center gap-3
-      rounded-full border border-transparent
-      bg-transparent p-1
-      transition-all duration-300
-      hover:bg-gray-100
-      focus-visible:outline-none
-      focus-visible:ring-2
-      dark:hover:border-white/10
-      dark:hover:bg-white/5;
+    @apply flex cursor-pointer items-center gap-3 rounded-full border border-transparent bg-transparent p-1 transition-all duration-300 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 dark:hover:border-white/10 dark:hover:bg-white/5;
   }
 
   .user-dropdown-toggle:focus-visible {
@@ -36,9 +29,7 @@
   }
 
   .user-dropdown-avatar {
-    @apply h-8 w-8 overflow-hidden
-      rounded-full border-2
-      transition-colors;
+    @apply h-8 w-8 overflow-hidden rounded-full border-2 transition-colors;
 
     border-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
   }
@@ -52,10 +43,7 @@
   }
 
   .user-dropdown-online-status {
-    @apply absolute block h-2.5 w-2.5
-      rounded-full ring-2
-      ring-white shadow-sm
-      dark:ring-gray-900;
+    @apply absolute block h-2.5 w-2.5 rounded-full ring-2 ring-white shadow-sm dark:ring-gray-900;
 
     right: -1px;
     bottom: -1px;
@@ -70,10 +58,8 @@
   }
 
   .user-dropdown-user-name {
-    @apply block text-sm font-bold
-      leading-tight text-gray-800
-      transition-colors
-      dark:text-white;
+    @apply block text-sm font-bold leading-tight transition-colors dark:text-white;
+    color: var(--primary-color);
   }
 
   .user-dropdown-toggle:hover .user-dropdown-user-name {
@@ -85,17 +71,11 @@
   }
 
   .user-dropdown-user-role {
-    @apply block text-[10px] font-medium
-      uppercase tracking-wider
-      text-gray-400
-      dark:text-gray-500;
+    @apply block text-[10px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500;
   }
 
   .user-dropdown-arrow {
-    @apply text-sm text-gray-400
-      transition-all duration-300
-      ease-in-out
-      dark:text-gray-500;
+    @apply text-sm text-gray-400 transition-all duration-300 ease-in-out dark:text-gray-500;
   }
 
   .user-dropdown-toggle:hover .user-dropdown-arrow {
@@ -105,10 +85,7 @@
   /* Dropdown Menu */
 
   .user-dropdown-menu {
-    @apply absolute right-0 mt-3
-      flex flex-col overflow-hidden
-      rounded-2xl border
-      shadow-2xl;
+    @apply absolute right-0 mt-3 flex flex-col overflow-hidden rounded-2xl border shadow-2xl;
 
     width: 17.5rem;
     z-index: 50;
@@ -121,9 +98,7 @@
   }
 
   .user-dropdown-heading {
-    @apply px-3 py-2
-      text-[10px] font-black
-      uppercase text-gray-400;
+    @apply px-3 py-2 text-[10px] font-black uppercase text-gray-400;
 
     letter-spacing: 1.5px;
   }
@@ -135,13 +110,7 @@
   /* Common Menu Item */
 
   .user-dropdown-item {
-    @apply flex w-full cursor-pointer
-      items-center gap-3
-      rounded-xl border-none
-      bg-transparent px-3 py-2.5
-      text-left
-      transition-all
-      hover:bg-white/5;
+    @apply flex w-full cursor-pointer items-center gap-3 rounded-xl border-none bg-transparent px-3 py-2.5 text-left transition-all hover:bg-white/5;
   }
 
   .user-dropdown-item:hover {
@@ -153,12 +122,7 @@
   }
 
   .user-dropdown-item-icon {
-    @apply flex items-center justify-center
-      rounded-lg bg-gray-50 p-2.5
-      text-sm text-gray-500
-      transition-all
-      dark:bg-white/5
-      dark:text-gray-400;
+    @apply flex items-center justify-center rounded-lg bg-gray-50 p-2.5 text-sm text-gray-500 transition-all dark:bg-white/5 dark:text-gray-400;
   }
 
   .user-dropdown-item:hover .user-dropdown-item-icon {
@@ -171,10 +135,7 @@
   }
 
   .user-dropdown-item-title {
-    @apply text-sm font-bold
-      text-gray-700
-      transition-colors
-      dark:text-gray-300;
+    @apply text-sm font-bold text-gray-700 transition-colors dark:text-gray-300;
   }
 
   .user-dropdown-item:hover .user-dropdown-item-title {
@@ -204,49 +165,34 @@
   /* Logout */
 
   .user-dropdown-logout {
-    @apply flex w-full cursor-pointer
-      items-center gap-3
-      rounded-xl border-none
-      bg-transparent px-3 py-3
-      text-left
-      transition-all;
+    @apply flex w-full cursor-pointer items-center gap-3 rounded-xl border-none bg-transparent px-3 py-3 text-left transition-all;
   }
 
   .user-dropdown-logout:hover {
-    background-color: color-mix(
-      in srgb,
-      var(--color-error-500) 8%,
-      transparent
-    );
+    background-color: color-mix(in srgb,
+        var(--color-error-500) 8%,
+        transparent);
   }
 
   .dark .user-dropdown-logout:hover {
-    background-color: color-mix(
-      in srgb,
-      var(--color-error-500) 10%,
-      transparent
-    );
+    background-color: color-mix(in srgb,
+        var(--color-error-500) 10%,
+        transparent);
   }
 
   .user-dropdown-logout-icon {
-    @apply flex items-center justify-center
-      rounded-lg p-2.5 text-sm
-      transition-all;
+    @apply flex items-center justify-center rounded-lg p-2.5 text-sm transition-all;
 
     color: var(--color-error-500);
-    background-color: color-mix(
-      in srgb,
-      var(--color-error-500) 8%,
-      transparent
-    );
+    background-color: color-mix(in srgb,
+        var(--color-error-500) 8%,
+        transparent);
   }
 
   .dark .user-dropdown-logout-icon {
-    background-color: color-mix(
-      in srgb,
-      var(--color-error-500) 10%,
-      transparent
-    );
+    background-color: color-mix(in srgb,
+        var(--color-error-500) 10%,
+        transparent);
   }
 
   .user-dropdown-logout:hover .user-dropdown-logout-icon {
@@ -255,8 +201,7 @@
   }
 
   .user-dropdown-logout-title {
-    @apply text-sm font-bold
-      transition-colors;
+    @apply text-sm font-bold transition-colors;
 
     color: var(--color-error-600);
   }
@@ -271,4 +216,3 @@
     color: color-mix(in srgb, var(--color-error-500) 60%, transparent);
   }
 }
-

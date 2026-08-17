@@ -7,7 +7,6 @@ import Page from "shared/components/panels/Page";
 import { Card } from "shared/components/panels";
 import { Button } from "shared/components/buttons";
 import BookPaperRequirementForm from "../components/BookPaperRequirementForm";
-import PaperCalculationPreview from "../components/PaperCalculationPreview";
 import {
   getGsmOptions,
   createBookPaperRequirement,
@@ -104,11 +103,6 @@ export default function Create() {
           onSubmit={handleSubmit}
           onReset={handleReset}
           isSaving={createMutation.isPending}
-        />
-
-        <PaperCalculationPreview
-          innerPaperMt={liveCalculations.innerPaperMt}
-          coverPaperMt={liveCalculations.coverPaperMt}
         />
       </Card>
     </Page>

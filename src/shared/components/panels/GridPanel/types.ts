@@ -20,4 +20,5 @@ export interface GridPanelProps<T> extends Controls.GridProps<T> {
   }>;
   showExport?: boolean;
   exportFilename?: string;
+  renderMosaicFooter?: () => React.ReactNode;
 }

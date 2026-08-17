@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { ToastService } from "services";
@@ -31,6 +32,47 @@ export default function List() {
     },
   });
 
+  const totals = useMemo(() => {
+    return requirements.reduce(
+      (acc, curr) => {
+        acc.inner += curr.innerPaperMt;
+        acc.cover += curr.coverPaperMt;
+        return acc;
+      },
+      { inner: 0, cover: 0 },
+    );
+  }, [requirements]);
+
+  const gsmGroups = useMemo(() => {
+    const groups: {
+      [key: string]: {
+        pagesGsmName: string;
+        coverGsmName: string;
+        totalInnerPaperMt: number;
+        totalCoverPaperMt: number;
+        count: number;
+      };
+    } = {};
+
+    requirements.forEach((req) => {
+      const key = `${req.pagesGsmName}-${req.coverGsmName}`;
+      if (!groups[key]) {
+        groups[key] = {
+          pagesGsmName: req.pagesGsmName,
+          coverGsmName: req.coverGsmName,
+          totalInnerPaperMt: 0,
+          totalCoverPaperMt: 0,
+          count: 0,
+        };
+      }
+      groups[key].totalInnerPaperMt += req.innerPaperMt;
+      groups[key].totalCoverPaperMt += req.coverPaperMt;
+      groups[key].count += 1;
+    });
+
+    return Object.values(groups);
+  }, [requirements]);
+
   const handleEdit = (item: BookPaperRequirement.Item) => {
     navigate(`edit/${item.bookPaperRequirementId}`);
   };
@@ -57,6 +99,11 @@ export default function List() {
       field: "title",
       header: "Title",
       sortable: true,
+      footer: (
+        <span className="font-bold text-slate-700 uppercase tracking-wide">
+          GSM Summary Totals
+        </span>
+      ),
     },
     {
       field: "numberOfBooks",
@@ -91,6 +138,11 @@ export default function List() {
           {row.innerPaperMt.toFixed(3)}
         </span>
       ),
+      footer: (
+        <span className="font-mono font-bold text-blue-600 text-base">
+          {totals.inner.toFixed(3)}
+        </span>
+      ),
     },
     {
       field: "coverPaperMt",
@@ -99,6 +151,11 @@ export default function List() {
       cell: (row: BookPaperRequirement.Item) => (
         <span className="font-mono font-semibold text-emerald-600">
           {row.coverPaperMt.toFixed(3)}
+        </span>
+      ),
+      footer: (
+        <span className="font-mono font-bold text-emerald-600 text-base">
+          {totals.cover.toFixed(3)}
         </span>
       ),
     },
@@ -135,6 +192,57 @@ export default function List() {
             onDelete={handleDelete}
             emptyMessage="No book paper requirements found."
             exportFilename="Book_Paper_Requirements.xls"
+            renderMosaicFooter={() =>
+              gsmGroups.length > 0 ? (
+                <div className="border-t border-slate-100 p-5 bg-slate-50/30 rounded-b-xl">
+                  <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider mb-4">
+                    GSM Summary Totals
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {gsmGroups.map((group) => (
+                      <div
+                        key={`${group.pagesGsmName}-${group.coverGsmName}`}
+                        className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between"
+                      >
+                        <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+                          <div className="flex items-center gap-1.5">
+                            <span className="px-2.5 py-1 text-xs font-bold rounded bg-blue-50 text-blue-700">
+                              {group.pagesGsmName}
+                            </span>
+                            <span className="text-slate-400 text-xs">/</span>
+                            <span className="px-2.5 py-1 text-xs font-bold rounded bg-emerald-50 text-emerald-700">
+                              {group.coverGsmName}
+                            </span>
+                          </div>
+                          <span className="text-xs text-slate-500 font-medium bg-slate-100 px-2 py-0.5 rounded-full">
+                            {group.count}
+                            {group.count === 1 ? " Record" : " Records"}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="flex flex-col">
+                            <span className="text-[10px] uppercase font-bold text-slate-400">
+                              Total Inner (MT)
+                            </span>
+                            <span className="text-xl font-extrabold text-blue-600 font-mono mt-1">
+                              {group.totalInnerPaperMt.toFixed(3)}
+                            </span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-[10px] uppercase font-bold text-slate-400">
+                              Total Cover (MT)
+                            </span>
+                            <span className="text-xl font-extrabold text-emerald-600 font-mono mt-1">
+                              {group.totalCoverPaperMt.toFixed(3)}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null
+            }
           />
         </Card>
       </div>

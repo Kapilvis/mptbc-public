@@ -180,12 +180,6 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
             feature: "@master/medium",
             action: "write",
           },
-          {
-            label: t("routes.master.curriculum.title"),
-            path: masterUrls.title.root,
-            feature: "@master/title",
-            action: "write",
-          },
         ],
       },
       {
@@ -245,6 +239,30 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     ],
   },
   {
+    label: "Title Section",
+    icon: "pi pi-book",
+    children: [
+      {
+        label: "Title Master",
+        path: masterUrls.title.root,
+        feature: "@master/title",
+        action: "read",
+      },
+      {
+        label: "Title Received (RSK / CPI)",
+        path: "/distribution/title-received",
+        feature: "@distribution/title-received",
+        action: "read",
+      },
+      {
+        label: "Title Approval",
+        path: "/distribution/title-approval",
+        feature: "@distribution/title-approval",
+        action: "read",
+      },
+    ],
+  },
+  {
     label: t("routes.printing.printing"),
     icon: "pi pi-print",
     children: [
@@ -261,6 +279,60 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
       {
         label: "Depot Registration",
         path: "/mptbc/depot-registration",
+      },
+    ],
+  },
+  {
+    label: "District Depot",
+    icon: "pi pi-building",
+    children: [
+      {
+        label: "Dashboard",
+        path: "/district-depot/dashboard",
+      },
+      {
+        label: "Printer Section",
+        children: [
+          {
+            label: "Printer Assigned Demand",
+            path: "/district-depot/printer/assigned-demand",
+          },
+          {
+            label: "Challan Received",
+            path: "/district-depot/printer/challan-received",
+          },
+        ],
+      },
+      {
+        label: "Distribution till Block",
+        children: [
+          {
+            label: "Challan to Block",
+            path: "/district-depot/dispatch/challan-to-block",
+          },
+          {
+            label: "Dispatch History",
+            path: "/district-depot/dispatch/history",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Depot Transport Section",
+    icon: "pi pi-car",
+    children: [
+      {
+        label: "Transport Orders",
+        path: "/district-depot/transport/orders",
+      },
+      {
+        label: "Vehicle Management",
+        path: "/district-depot/transport/vehicles",
+      },
+      {
+        label: "Fuel Log",
+        path: "/district-depot/transport/fuel-log",
       },
     ],
   },
@@ -285,10 +357,6 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         path: "/distribution/demand-approval",
         feature: "@distribution/demand-approval",
         action: "read",
-      },
-      {
-        label: t("routes.distribution.title-approval"),
-        path: "/distribution/title-approval",
       },
     ],
   },
