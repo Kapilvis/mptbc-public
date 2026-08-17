@@ -14,6 +14,7 @@ interface NumberBoxProps<TForm extends FieldValues>
   onChange?: (value?: number | null) => void;
   min?: number;
   max?: number;
+  maxFractionDigits?: number;
 }
 
 function InnerNumberBox({

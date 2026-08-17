@@ -117,7 +117,7 @@ export default function GridPanel<T>({
             {...gridProps}
             first={first}
             onPage={setFirst}
-            onEdit={openEdit}
+            onEdit={EditForm || gridProps.onEdit ? openEdit : undefined}
           />
         </div>
       )}
@@ -131,7 +131,7 @@ export default function GridPanel<T>({
             loading={gridProps.loading}
             first={first}
             onPage={setFirst}
-            onEdit={openEdit}
+            onEdit={EditForm || gridProps.onEdit ? openEdit : undefined}
             onView={gridProps.onView}
             renderContent={renderContent}
             renderFooterActions={renderFooterActions}

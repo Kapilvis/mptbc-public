@@ -1,6 +1,7 @@
 import { masterUrls } from "auth/features/master/urls";
 import { userManagementUrls } from "auth/features/user-management/urls";
 import { hrmsUrls } from "auth/features/hrms/urls";
+import { bookPaperRequirementUrls } from "auth/features/book-paper-requirement/urls";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthProvider";
@@ -71,6 +72,18 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
             label: t("routes.master.location.block"),
             path: masterUrls.block.root,
             feature: "@master/block",
+            action: "write",
+          },
+          {
+            label: t("routes.master.location.depot"),
+            path: masterUrls.depot.root,
+            feature: "@master/depot",
+            action: "write",
+          },
+          {
+            label: t("routes.master.location.sub-depot"),
+            path: masterUrls.subDepot.root,
+            feature: "@master/sub-depot",
             action: "write",
           },
           // {
@@ -168,15 +181,20 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
             action: "write",
           },
           {
-            label: t("routes.master.curriculum.gsm"),
-            path: masterUrls.gsm.root,
-            feature: "@master/gsm",
-            action: "write",
-          },
-          {
             label: t("routes.master.curriculum.title"),
             path: masterUrls.title.root,
             feature: "@master/title",
+            action: "write",
+          },
+        ],
+      },
+      {
+        label: t("routes.master.paper.paper"),
+        children: [
+          {
+            label: t("routes.master.paper.gsm"),
+            path: masterUrls.gsm.root,
+            feature: "@master/gsm",
             action: "write",
           },
         ],
@@ -213,6 +231,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
       },
     ],
   },
+
   {
     label: t("routes.master.hrms.hrms"),
     icon: "pi pi-id-card",
@@ -232,6 +251,16 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
       {
         label: t("routes.printing.printer-registration"),
         path: "/printing/printer-registration",
+      },
+    ],
+  },
+  {
+    label: "Depot Section",
+    icon: "pi pi-home",
+    children: [
+      {
+        label: "Depot Registration",
+        path: "/mptbc/depot-registration",
       },
     ],
   },
@@ -257,6 +286,22 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         feature: "@distribution/demand-approval",
         action: "read",
       },
+      {
+        label: t("routes.distribution.title-approval"),
+        path: "/distribution/title-approval",
+      },
+    ],
+  },
+  {
+    label: t("routes.paper-section"),
+    icon: "pi pi-copy",
+    children: [
+      {
+        label: t("routes.book-paper-requirement"),
+        path: bookPaperRequirementUrls.root,
+        feature: "@master/book-paper-requirement",
+        action: "write",
+      },
     ],
   },
   {
@@ -266,6 +311,10 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
       {
         label: t("routes.reports.depot-wise-district-textbook-supply-status"),
         path: "/reports/depot-wise-district-textbook-supply-status",
+      },
+      {
+        label: t("routes.reports.agency-wise-demand"),
+        path: "/reports/agency-wise-demand",
       },
     ],
   },

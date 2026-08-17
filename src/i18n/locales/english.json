@@ -55,6 +55,8 @@
       "WarningUnsavedChanges": "You have unsaved changes."
     },
     "routes": {
+      "paper-section": "Paper Section",
+      "book-paper-requirement": "Book Paper Requirement",
       "master": {
         "office": {
           "office": "Office",
@@ -69,7 +71,9 @@
           "district": "District",
           "project": "Project",
           "sector": "Sector",
-          "block": "Block"
+          "block": "Block",
+          "depot": "Depot",
+          "sub-depot": "Sub Depot"
         },
         "hrManagement": {
           "hr-management": "HR Management",
@@ -90,6 +94,10 @@
           "medium": "Medium",
           "gsm": "GSM / Paper Specification",
           "title": "Title Master"
+        },
+        "paper": {
+          "paper": "Paper",
+          "gsm": "GSM"
         },
         "socialCategory": {
           "social-category": "Social Category",
@@ -143,7 +151,8 @@
         "distribution": "Distribution Section",
         "department-demand": "Demand Received (RSK / CPI)",
         "dashboard": "Consolidated Distribution Dashboard",
-        "demand-approval": "Agency Demand Approval"
+        "demand-approval": "Agency Demand Approval",
+        "title-approval": "Title Approval"
       },
       "printing": {
         "printing": "Printer Section",
@@ -151,7 +160,8 @@
       },
       "reports": {
         "reports": "Reports",
-        "depot-wise-district-textbook-supply-status": "Depot Wise District Textbook Supply Status"
+        "depot-wise-district-textbook-supply-status": "Depot Wise District Textbook Supply Status",
+        "agency-wise-demand": "Agency Wise Demand Report"
       }
     },
     "printing": {

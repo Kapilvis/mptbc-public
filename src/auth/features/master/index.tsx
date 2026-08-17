@@ -22,6 +22,8 @@ import Medium from "./medium";
 import GsmMaster from "./gsm";
 import TitleMaster from "./title";
 import BlockMaster from "./block";
+import Depot from "./depot";
+import SubDepot from "./sub-depot";
 
 export default function Master() {
   return (
@@ -38,6 +40,8 @@ export default function Master() {
       <Route path="project/*" element={<Project />} />
       <Route path="sector/*" element={<Sector />} />
       <Route path="block/*" element={<BlockMaster />} />
+      <Route path="location/depot/*" element={<Depot />} />
+      <Route path="location/sub-depot/*" element={<SubDepot />} />
 
       {/* HR Management */}
       <Route path="caste/*" element={<Caste />} />

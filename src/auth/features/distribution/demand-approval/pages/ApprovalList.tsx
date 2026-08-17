@@ -209,7 +209,7 @@ export default function ApprovalList() {
             },
             {
               field: "agencyName",
-              header: "Agency Name",
+              header: "Department",
               align: "center",
               width: "100px",
             },

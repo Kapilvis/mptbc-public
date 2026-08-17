@@ -5,7 +5,7 @@ import {
   SelectMedium,
 } from "auth/features/components";
 import { Button, ButtonPanel } from "shared/components/buttons";
-import { NumberBox, TextBox } from "shared/components/forms";
+import { FileUpload, NumberBox, TextBox } from "shared/components/forms";
 import { FormDivider } from "shared/components/forms";
 import { InputPanel } from "shared/components/panels";
 import { useTitleForm } from "./form.hook";
@@ -141,6 +141,19 @@ export default function TitleForm(props: Props) {
           disabled
           {...register("paperArea")}
         />
+      </InputPanel>
+
+      <FormDivider title="Title Matter & Soft Copy Document" />
+
+      <InputPanel orientation="horizontal">
+        <div className="w-full">
+          <FileUpload
+            name="matterDocumentUrl"
+            control={control}
+            label="Upload Book Soft Copy / Matter PDF"
+            accept=".pdf,.doc,.docx"
+          />
+        </div>
       </InputPanel>
 
       <ButtonPanel>

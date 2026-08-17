@@ -1,36 +1,79 @@
 import { useFormServerError } from "auth/hooks/useFormServerError";
-import { errors } from "config/errors";
 import { useAppForm } from "shared/hooks/form";
 import validation from "shared/utils/validation";
-import { expressions } from "shared/utils/validation/config";
 
 const schema = validation.create<Master.GsmForm>((o) => ({
-  name: o
+  gsm: o
+    .number()
+    .required()
+    .integer()
+    .min(1)
+    .messages({
+      "any.required": "GSM is required",
+      "number.base": "GSM is required",
+      "number.min": "GSM must be greater than 0",
+    })
+    .label("GSM"),
+  reelWidth: o
+    .number()
+    .required()
+    .greater(0)
+    .messages({
+      "any.required": "Reel Width is required",
+      "number.base": "Reel Width is required",
+      "number.greater": "Reel Width must be greater than 0",
+    })
+    .label("Reel Width"),
+  cutoff: o
+    .number()
+    .required()
+    .integer()
+    .min(1)
+    .messages({
+      "any.required": "Cutoff is required",
+      "number.base": "Cutoff is required",
+      "number.min": "Cutoff must be greater than 0",
+    })
+    .label("Cutoff"),
+  sheetSize: o
     .string()
     .required()
-    .pattern(expressions.englishOnly)
+    .max(30)
     .messages({
-      "string.pattern.base": errors.englishOnly,
+      "any.required": "Sheet Size is required",
+      "string.empty": "Sheet Size is required",
     })
-    .label("Paper Type Name")
-    .max(50),
-
-  localName: o
-    .string()
-    .optional()
-    .allow("", null)
-    .pattern(expressions.hindiOnly)
+    .label("Sheet Size"),
+  area: o
+    .number()
+    .required()
+    .greater(0)
     .messages({
-      "string.pattern.base": errors.hindiOnly,
+      "any.required": "Area is required",
+      "number.base": "Area is required",
+      "number.greater": "Area must be greater than 0",
     })
-    .label("Paper Type Name (Hindi)")
-    .max(60),
-
-  gsmValue: o.number().required().min(1).max(1000).label("GSM Value"),
-
-  usage: o.string().required().label("Usage").max(50),
-
-  code: o.string().required().label("Specification Code").max(30),
+    .label("Area"),
+  sheetWeightInGM: o
+    .number()
+    .required()
+    .greater(0)
+    .messages({
+      "any.required": "Sheet Weight in GM is required",
+      "number.base": "Sheet Weight in GM is required",
+      "number.greater": "Sheet Weight in GM must be greater than 0",
+    })
+    .label("Sheet Weight in GM"),
+  reamWeightInKG: o
+    .number()
+    .required()
+    .greater(0)
+    .messages({
+      "any.required": "Ream Weight in KG is required",
+      "number.base": "Ream Weight in KG is required",
+      "number.greater": "Ream Weight in KG must be greater than 0",
+    })
+    .label("Ream Weight in KG"),
 }));
 
 export function useGsmForm(
@@ -44,11 +87,15 @@ export function useGsmForm(
 
   useFormServerError(form);
 
-  const { register, handleSubmit, reset } = form;
-
+  const { register, handleSubmit, reset, control, setError, setValue, watch } =
+    form;
   return {
     register,
     handleSubmit: handleSubmit(submitCallback),
     reset,
+    control,
+    setError,
+    setValue,
+    watch,
   };
 }

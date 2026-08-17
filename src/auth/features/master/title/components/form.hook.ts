@@ -40,8 +40,13 @@ const schema = validation.create<Master.TitleForm>((o) => ({
   coverPages: o.number().required().min(0).label("Cover Pages"),
   coverGsmId: o.number().required().label("Cover GSM"),
 
-  specialPages: o.number().optional().allow(null).min(0).label("Special Pages"),
-  specialGsmId: o.number().optional().allow(null).label("Special GSM"),
+  specialPages: o
+    .number()
+    .optional()
+    .allow(null, "")
+    .min(0)
+    .label("Special Pages"),
+  specialGsmId: o.number().optional().allow(null, "").label("Special GSM"),
 
   totalPages: o.number().required().min(1).label("Total Pages"),
 
@@ -49,6 +54,11 @@ const schema = validation.create<Master.TitleForm>((o) => ({
   length: o.number().required().min(1).label("Length"),
   width: o.number().required().min(1).label("Width"),
   paperArea: o.number().required().label("Paper Area"),
+  matterDocumentUrl: o
+    .string()
+    .optional()
+    .allow("", null)
+    .label("Matter Soft Copy Document"),
 }));
 
 export function useTitleForm(
@@ -63,6 +73,12 @@ export function useTitleForm(
   useFormServerError(form);
 
   const { register, handleSubmit, reset, control, setValue } = form;
+
+  useEffect(() => {
+    if (defaultValues) {
+      reset(defaultValues as Master.TitleForm);
+    }
+  }, [defaultValues, reset]);
 
   const innerPages = useWatch({ control, name: "innerPages" }) || 0;
   const coverPages = useWatch({ control, name: "coverPages" }) || 0;

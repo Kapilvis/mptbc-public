@@ -2,30 +2,37 @@ import { mockGsms } from "./data";
 
 const gsms = [...mockGsms];
 
+const mapGsmItem = (item: Master.GsmItem): Master.GsmItem => ({
+  ...item,
+  name: `${item.gsm} GSM (Reel: ${item.reelWidth}, Cutoff: ${item.cutoff})`,
+});
+
 export async function getGsmById(gsmId: number): Promise<Master.GsmForm> {
   const item = gsms.find((g) => g.gsmId === Number(gsmId));
   if (!item) throw new Error("GSM specification not found");
   return {
-    name: item.name,
-    localName: item.localName,
-    gsmValue: item.gsmValue,
-    usage: item.usage,
-    code: item.code,
+    gsm: item.gsm,
+    reelWidth: item.reelWidth,
+    cutoff: item.cutoff,
+    sheetSize: item.sheetSize,
+    area: item.area,
+    sheetWeightInGM: item.sheetWeightInGM,
+    reamWeightInKG: item.reamWeightInKG,
   };
 }
 
 export async function getGsms(): Promise<Master.GsmItem[]> {
-  return [...gsms];
+  return gsms.map(mapGsmItem);
 }
 
 export async function createGsm(data: Master.GsmForm) {
-  const newItem: Master.GsmItem = {
+  const newItem = {
     gsmId: Date.now(),
     ...data,
     isActive: true,
   };
   gsms.push(newItem);
-  return newItem;
+  return mapGsmItem(newItem);
 }
 
 export async function updateGsm(

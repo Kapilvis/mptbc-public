@@ -1,4 +1,3 @@
-import { Button } from "shared/components/buttons";
 import Page from "shared/components/panels/Page";
 import { DemandApprovalPipelineWidget } from "../components/DemandApprovalPipelineWidget";
 import { DemandSupplyBarChart } from "../components/DemandSupplyBarChart";
@@ -18,14 +17,6 @@ export default function DashboardPage() {
       subHeader="Consolidated distribution metrics, fulfillment tracking, and district/block supply status."
       showHeaderActions
     >
-      <div className="flex justify-end mb-4">
-        <Button
-          label="Export PDF / Excel"
-          icon="pi pi-file-export"
-          size="small"
-        />
-      </div>
-
       {/* Top 4 KPI Cards */}
       <KpiCards metrics={metrics} />
 
