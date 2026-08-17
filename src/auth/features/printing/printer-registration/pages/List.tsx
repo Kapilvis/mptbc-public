@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastService } from "services";
 import { Card, GridPanel } from "shared/components/panels";
@@ -38,16 +38,24 @@ function ActionsMenu({
   onReject,
 }: ActionsMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseLeave = () => {
-    setIsOpen(false);
-  };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
-    <div
-      className="relative inline-block text-left"
-      onMouseLeave={handleMouseLeave}
-    >
+    <div ref={menuRef} className="relative inline-block text-left">
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}

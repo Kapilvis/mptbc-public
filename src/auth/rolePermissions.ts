@@ -34,8 +34,6 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "printer-section",
     "tender",
     "paper-receiving",
-    "title-master",
-    "gsm-master",
     "supply-section",
     "depot-section",
     "payment",
