@@ -6,7 +6,6 @@ import mkcert from "vite-plugin-mkcert";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/mptbc-public/",
   plugins: [
     tailwindcss(),
     react(),
@@ -24,7 +23,7 @@ export default defineConfig({
   },
   server: {
     // https: true,
-    port: 5377,
+    port: 5200,
     strictPort: true,
   },
 });
