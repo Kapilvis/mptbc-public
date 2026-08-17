@@ -12,8 +12,16 @@ import {
   Users,
 } from "lucide-react";
 import React from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../auth/AuthProvider";
+import { ROLE_OPTIONS } from "../../auth/authConfig";
 import { Button } from "../../shared/components/buttons";
-import { Captcha, PasswordBox, TextBox } from "../../shared/components/forms";
+import {
+  DropDownList,
+  Captcha,
+  PasswordBox,
+  TextBox,
+} from "../../shared/components/forms";
 import "./Login.css";
 import { useLoginForm } from "./login.hook";
 
@@ -188,8 +196,11 @@ const BottomFeatureBar: React.FC = () => (
 /* ─── Centered Login Card ─── */
 interface LoginCardProps {
   onSubmit: (e: React.FormEvent) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  register: (name: any) => any;
+  register: (name: keyof User.LoginForm) => {
+    control: import("react-hook-form").Control<User.LoginForm>;
+    name: keyof User.LoginForm;
+    setValue: import("react-hook-form").UseFormSetValue<User.LoginForm>;
+  };
   captchaCode: string;
   onRegenerateCaptcha: () => void;
   isLoading: boolean;
@@ -211,7 +222,7 @@ const LoginCard: React.FC<LoginCardProps> = ({
           <User className="mptbc-avatar-icon" />
         </div>
         <div className="mptbc-welcome-text-group">
-          <h2 className="mptbc-welcome-heading">Welcome Back!</h2>
+          <h2 className="mptbc-welcome-heading">Welcome</h2>
           <p className="mptbc-welcome-subtext">
             Sign in to access your authorized MPTBC workspace.
           </p>
@@ -219,24 +230,39 @@ const LoginCard: React.FC<LoginCardProps> = ({
       </div>
 
       <form onSubmit={onSubmit} className="mptbc-form-body" noValidate>
+        <DropDownList
+          label="Login User"
+          placeholder="Select Department"
+          data={ROLE_OPTIONS}
+          filter={false}
+          required
+          optionValue="value"
+          {...register("loginRole")}
+        />
+
         <TextBox
+          label="User ID"
           placeholder="User ID / Employee ID"
           icon="user"
+          required
           {...register("userName")}
         />
 
         <PasswordBox
+          label="Password"
           placeholder="Password"
           icon="lock"
+          required
           {...register("password")}
         />
 
         <div className="captcha-field-wrapper">
           <Captcha
-            label=""
-            placeholder="CAPTCHA"
+            label="CAPTCHA"
+            placeholder="Enter CAPTCHA"
             captchaCode={captchaCode}
             onRegenerate={onRegenerateCaptcha}
+            required
             {...register("captcha")}
           />
         </div>
@@ -256,13 +282,15 @@ const LoginCard: React.FC<LoginCardProps> = ({
           </a>
         </div>
 
-        <Button
-          type="submit"
-          label={isLoading ? "Signing In..." : "Sign In Securely"}
-          icon={isLoading ? undefined : "shield"}
-          isLoading={isLoading}
-          className="mptbc-btn-submit"
-        />
+        <div className="mptbc-buttons-row">
+          <Button
+            type="submit"
+            label={isLoading ? "Signing In..." : "Sign In Securely"}
+            icon={isLoading ? undefined : "shield"}
+            isLoading={isLoading}
+            className="mptbc-btn-submit"
+          />
+        </div>
       </form>
     </div>
   );
@@ -270,6 +298,7 @@ const LoginCard: React.FC<LoginCardProps> = ({
 
 /* ─── Main Login Page Component ─── */
 export default function LoginPage() {
+  const { authenticated } = useAuth();
   const {
     register,
     handleSubmit,
@@ -280,6 +309,10 @@ export default function LoginPage() {
     isHiding,
     handleCloseError,
   } = useLoginForm();
+
+  if (authenticated) {
+    return <Navigate to="/home" replace />;
+  }
 
   return (
     <div className="mptbc-login-viewport">

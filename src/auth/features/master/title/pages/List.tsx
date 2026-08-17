@@ -129,24 +129,24 @@ export default function List() {
       >
         {selectedTitleDoc && (
           <div className="space-y-4 p-1">
-            {/* Header info box */}
-            <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800">
-              <div className="flex items-center justify-between gap-2 mb-1">
+            {/* Title Header Card */}
+            <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800 flex items-center justify-between">
+              <div>
                 <span className="text-[11px] font-extrabold tracking-wider uppercase text-emerald-800 dark:text-emerald-300">
                   {selectedTitleDoc.code}
                 </span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-extrabold bg-emerald-600 text-white">
-                  Title Master Record
-                </span>
+                <h3 className="font-extrabold text-base text-gray-900 dark:text-white mt-0.5">
+                  {selectedTitleDoc.name}
+                </h3>
+                {selectedTitleDoc.localName && (
+                  <p className="text-xs text-gray-600 dark:text-gray-300">
+                    {selectedTitleDoc.localName}
+                  </p>
+                )}
               </div>
-              <h3 className="font-extrabold text-base text-gray-900 dark:text-white">
-                {selectedTitleDoc.name}
-              </h3>
-              {selectedTitleDoc.localName && (
-                <p className="text-xs text-gray-600 dark:text-gray-300 mt-0.5">
-                  {selectedTitleDoc.localName}
-                </p>
-              )}
+              <span className="text-xs px-3 py-1 rounded-full font-extrabold bg-emerald-600 text-white shadow-sm">
+                Title Master
+              </span>
             </div>
 
             {/* Specification Grid */}

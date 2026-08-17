@@ -1,13 +1,11 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthProvider";
-import type { WcdUserProfile } from "../../types/Auth";
 import "./Profile.css";
 
 const Profile = () => {
   const { authenticated: auth, user, logout: handleLogout } = useAuth();
 
-  const profile =
-    (user?.profile as unknown as WcdUserProfile | undefined) ?? null;
+  const profile = user?.profile ?? null;
 
   const lastLogin = profile?.iat
     ? new Date(profile.iat * 1000).toLocaleString()

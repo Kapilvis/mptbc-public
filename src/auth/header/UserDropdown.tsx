@@ -8,8 +8,7 @@ export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const userName =
-    user?.profile?.name || user?.profile?.preferred_username || "User";
+  const userName = user?.profile?.name || "User";
 
   function toggleDropdown() {
     setIsOpen((previousState) => !previousState);
@@ -76,7 +75,9 @@ export default function UserDropdown() {
         <div className="user-dropdown-user-details">
           <span className="user-dropdown-user-name">{userName}</span>
 
-          <span className="user-dropdown-user-role">Main Administrator</span>
+          <span className="user-dropdown-user-role">
+            {user?.profile?.role?.[0] || "User"}
+          </span>
         </div>
 
         <i

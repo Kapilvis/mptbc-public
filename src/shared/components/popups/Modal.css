@@ -25,12 +25,16 @@
   @apply rounded-none border-none m-auto p-0 bg-[var(--primary-color)];
 }
 
+.ReactModal__Content.modal-content.small {
+  @apply max-w-[520px] w-full;
+}
+
 .ReactModal__Content.modal-content.medium {
-  @apply max-w-[80vw] w-[1500px];
+  @apply max-w-[700px] w-full;
 }
 
 .ReactModal__Content.modal-content.large {
-  @apply min-w-[70vw] max-w-[50%];
+  @apply max-w-[950px] w-full;
 }
 
 .ReactModal__Content.modal-content.x-large {

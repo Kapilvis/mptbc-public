@@ -34,5 +34,6 @@ declare namespace User {
     captcha?: string;
     captchaId?: string;
     requestId?: string;
+    loginRole?: string;
   }
 }

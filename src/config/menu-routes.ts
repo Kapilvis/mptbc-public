@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../auth/AuthProvider";
 import { hasPermission } from "../shared/utils/permissionCheck";
+import { ROLE_PERMISSIONS } from "../auth/rolePermissions";
 
 // export const menuConfig: Menu.MenuItem[] = [
 export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
@@ -13,16 +14,19 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     label: "Home",
     icon: "pi pi-home",
     path: "/home",
+    permissionKey: "dashboard",
   },
   {
     label: "Profile",
     icon: "pi pi-user",
     path: "/profile",
+    permissionKey: "profile",
   },
   {
     label: "Master",
     icon: "pi pi-database",
     section: "Configuration",
+    permissionKey: "master",
     children: [
       {
         label: t("routes.master.office.office"),
@@ -86,18 +90,6 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
             feature: "@master/sub-depot",
             action: "write",
           },
-          // {
-          //   label: t("routes.master.location.project"),
-          //   path: masterUrls.project.root,
-          //   feature: "@master/project",
-          //   action: "write",
-          // },
-          // {
-          //   label: t("routes.master.location.sector"),
-          //   path: masterUrls.sector.root,
-          //   feature: "@master/sector",
-          //   action: "write",
-          // },
         ],
       },
       {
@@ -198,6 +190,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: t("routes.master.userManagement.user-management"),
     icon: "pi pi-users",
+    permissionKey: "user-management",
     children: [
       {
         label: t("routes.master.userManagement.user-registration"),
@@ -225,10 +218,10 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
       },
     ],
   },
-
   {
     label: t("routes.master.hrms.hrms"),
     icon: "pi pi-id-card",
+    permissionKey: "hrms",
     children: [
       {
         label: t("routes.master.hrms.employee-details"),
@@ -243,12 +236,6 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     icon: "pi pi-book",
     children: [
       {
-        label: "Title Master",
-        path: masterUrls.title.root,
-        feature: "@master/title",
-        action: "read",
-      },
-      {
         label: "Title Received (RSK / CPI)",
         path: "/distribution/title-received",
         feature: "@distribution/title-received",
@@ -260,11 +247,19 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         feature: "@distribution/title-approval",
         action: "read",
       },
+      {
+        label: "Title Master",
+        path: masterUrls.title.root,
+        feature: "@master/title",
+        action: "read",
+      },
     ],
   },
   {
-    label: t("routes.printing.printing"),
+    label: "Printer Section",
+    // label: t("routes.printing.printing"),
     icon: "pi pi-print",
+    permissionKey: "printer-section",
     children: [
       {
         label: t("routes.printing.printer-registration"),
@@ -275,6 +270,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: "Depot Section",
     icon: "pi pi-home",
+    permissionKey: "depot-section",
     children: [
       {
         label: "Depot Registration",
@@ -285,6 +281,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: "District Depot",
     icon: "pi pi-building",
+    permissionKey: "district-depot-section",
     children: [
       {
         label: "Dashboard",
@@ -321,6 +318,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: "Depot Transport Section",
     icon: "pi pi-car",
+    permissionKey: "depot-transport",
     children: [
       {
         label: "Transport Orders",
@@ -339,6 +337,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: "Distribution Section",
     icon: "pi pi-truck",
+    permissionKey: "distribution-section",
     children: [
       {
         label: t("routes.distribution.department-demand"),
@@ -363,6 +362,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: t("routes.paper-section"),
     icon: "pi pi-copy",
+    permissionKey: "paper-section",
     children: [
       {
         label: t("routes.book-paper-requirement"),
@@ -370,11 +370,18 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         feature: "@master/book-paper-requirement",
         action: "write",
       },
+      {
+        label: "GSM Wise Paper Demand Report",
+        path: "/paper/gsm-demand-report",
+        feature: "@paper/gsm-demand-report",
+        action: "read",
+      },
     ],
   },
   {
     label: t("routes.reports.reports"),
     icon: "pi pi-chart-bar",
+    permissionKey: "reports",
     children: [
       {
         label: t("routes.reports.depot-wise-district-textbook-supply-status"),
@@ -386,20 +393,126 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
       },
     ],
   },
+
+  /* ─── DISTRICT DEPOT specific mock menus ─── */
+  {
+    label: "Assigned Demand",
+    icon: "pi pi-file-edit",
+    path: "/assigned-demand",
+    permissionKey: "assigned-demand",
+  },
+  {
+    label: "Transport",
+    icon: "pi pi-car",
+    path: "/transport",
+    permissionKey: "transport",
+  },
+
+  /* ─── PRINTER specific mock menus ─── */
+  {
+    label: "Tender",
+    icon: "pi pi-file",
+    path: "/tender",
+    permissionKey: "tender",
+  },
+  {
+    label: "Paper Receiving",
+    icon: "pi pi-download",
+    path: "/paper-receiving",
+    permissionKey: "paper-receiving",
+  },
+  {
+    label: "Title Master",
+    icon: "pi pi-bookmark",
+    path: "/title-master",
+    permissionKey: "title-master",
+  },
+  {
+    label: "GSM Master",
+    icon: "pi pi-sliders-h",
+    path: "/gsm-master",
+    permissionKey: "gsm-master",
+  },
+  {
+    label: "Supply Section",
+    icon: "pi pi-send",
+    path: "/supply-section",
+    permissionKey: "supply-section",
+  },
+  {
+    label: "Payment",
+    icon: "pi pi-wallet",
+    path: "/payment",
+    permissionKey: "payment",
+  },
+
+  /* ─── PAPER VENDOR specific mock menus ─── */
+  {
+    label: "Paper Supply",
+    icon: "pi pi-upload",
+    path: "/paper-supply",
+    permissionKey: "paper-supply",
+  },
+  {
+    label: "Paper Orders",
+    icon: "pi pi-shopping-cart",
+    path: "/paper-orders",
+    permissionKey: "paper-orders",
+  },
+
+  /* ─── DISTRIBUTION SECTION specific mock menus ─── */
+  {
+    label: "Demand",
+    icon: "pi pi-envelope",
+    path: "/demand",
+    permissionKey: "demand",
+  },
+  {
+    label: "Allocation",
+    icon: "pi pi-share-alt",
+    path: "/allocation",
+    permissionKey: "allocation",
+  },
+  {
+    label: "Distribution",
+    icon: "pi pi-map-marker",
+    path: "/distribution-page",
+    permissionKey: "distribution",
+  },
+  {
+    label: "Dispatch",
+    icon: "pi pi-directions",
+    path: "/dispatch",
+    permissionKey: "dispatch",
+  },
+  {
+    label: "Distribution Tracking",
+    icon: "pi pi-map",
+    path: "/distribution-tracking",
+    permissionKey: "distribution-tracking",
+  },
 ];
 
 export function useMenu() {
-  const { authenticated, permissions } = useAuth();
+  const { authenticated, user, permissions } = useAuth();
   const { t } = useTranslation();
 
   return useMemo(() => {
     if (!authenticated) return [];
 
+    const role = user?.role || "";
+    const allowedPermissions = ROLE_PERMISSIONS[role] || [];
+
     const filterMenu = (items: Menu.MenuItem[]): Menu.MenuItem[] => {
       return (
         items
           .filter((item) => {
-            // If the item requires a permission, check it
+            // First check dynamic role-wise permissionKey
+            if (item.permissionKey) {
+              const isAllowed = allowedPermissions.includes(item.permissionKey);
+              if (!isAllowed) return false;
+            }
+            // If the item requires a specific action/feature permission (existing OIDC checks)
             if (item.feature && item.action) {
               return hasPermission(permissions, item.feature, item.action);
             }
@@ -422,9 +535,7 @@ export function useMenu() {
       );
     };
 
-    //   return filterMenu(menuConfig);
-    // }, [authenticated, permissions]);
     const menuConfig = getMenuConfig(t);
     return filterMenu(menuConfig);
-  }, [authenticated, permissions, t]);
+  }, [authenticated, user, permissions, t]);
 }
