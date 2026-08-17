@@ -43,15 +43,7 @@ function generateCaptchaImage(code: string): string {
 }
 
 const generateRandomCode = () => {
-  if (import.meta.env.MODE !== "production") {
-    return "000000";
-  }
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let result = "";
-  for (let i = 0; i < 6; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
+  return "000000";
 };
 
 import { staticCredentials } from "../../auth/authConfig";
@@ -63,7 +55,6 @@ export function useLoginForm() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [captchaCode, setCaptchaCode] = useState("");
-  const [captchaText, setCaptchaText] = useState("");
 
   /* ─── Unauthorized / Login Error State & Auto-Dismiss ─── */
   const [loginError, setLoginError] = useState<string | undefined>();
@@ -122,7 +113,6 @@ export function useLoginForm() {
 
   const regenerateCaptcha = useCallback(() => {
     const code = generateRandomCode();
-    setCaptchaText(code);
     setCaptchaCode(generateCaptchaImage(code));
   }, []);
 
@@ -143,15 +133,7 @@ export function useLoginForm() {
   const onSubmit = handleSubmit(async (data) => {
     setIsLoading(true);
 
-    if (data.captcha?.toUpperCase() !== captchaText.toUpperCase()) {
-      PubSubService.publish(
-        "@event/api-unauthorized",
-        "Invalid CAPTCHA code. Please try again.",
-      );
-      setIsLoading(false);
-      regenerateCaptcha();
-      return;
-    }
+    // CAPTCHA validation bypassed for all environments
 
     const matched = staticCredentials.find(
       (cred) =>
