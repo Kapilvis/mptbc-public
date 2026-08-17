@@ -396,7 +396,7 @@ export default function TitleReceivedList() {
         visible={!!selectedDocTitle}
         onHide={() => setSelectedDocTitle(null)}
         header={`Title Soft Copy & Specifications - ${selectedDocTitle?.titleCode || ""}`}
-        size="small"
+        size="medium"
       >
         {selectedDocTitle && (
           <div className="space-y-4 p-1">

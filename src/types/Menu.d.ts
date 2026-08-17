@@ -9,5 +9,6 @@ declare namespace Menu {
     section?: string;
     feature?: Permission.Feature;
     action?: Permission.Action;
+    permissionKey?: string;
   }
 }

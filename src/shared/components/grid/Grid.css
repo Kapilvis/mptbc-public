@@ -258,7 +258,7 @@
 
   .p-paginator .p-paginator-page.p-highlight {
     @apply border-primary-500
-      bg-gradient-to-br
+      bg-linear-to-br
       from-primary-600 to-primary-500
       font-semibold text-white
       shadow-sm
@@ -322,4 +322,3 @@
       dark:text-gray-300;
   }
 }
-

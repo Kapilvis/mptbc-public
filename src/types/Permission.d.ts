@@ -61,7 +61,9 @@ declare namespace Permission {
     | "@distribution/dashboard"
     | "@distribution/demand-approval"
     | "@distribution/title-received"
-    | "@distribution/title-approval";
+    | "@distribution/title-approval"
+    // Paper Section
+    | "@paper/gsm-demand-report";
   // Actions mapped to backend policies
   type Action = "read" | "write";
 }

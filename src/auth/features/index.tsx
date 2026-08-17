@@ -12,8 +12,12 @@ import UserManagement from "./user-management";
 import HRMS from "./hrms";
 import Reports from "./reports";
 import Distribution from "./distribution";
+import PaperModule from "./paper";
 import BookPaperRequirement from "auth/features/book-paper-requirement";
 import DistrictDepot from "./district-depot";
+
+import MockModulePage from "../components/MockModulePage";
+import UnauthorizedPage from "../components/UnauthorizedPage";
 
 export default function Features() {
   return (
@@ -36,12 +40,33 @@ export default function Features() {
         <Route path="hrms/*" element={<HRMS />} />
         <Route path="reports/*" element={<Reports />} />
         <Route path="distribution/*" element={<Distribution />} />
+        <Route path="paper/*" element={<PaperModule />} />
         <Route
           path="book-paper-requirement/*"
           element={<BookPaperRequirement />}
         />
         <Route path="district-depot/*" element={<DistrictDepot />} />
         <Route path="profile" element={<Profile />} />
+
+        {/* Mock Module Routes */}
+        <Route path="assigned-demand" element={<MockModulePage />} />
+        <Route path="transport" element={<MockModulePage />} />
+        <Route path="tender" element={<MockModulePage />} />
+        <Route path="paper-receiving" element={<MockModulePage />} />
+        <Route path="title-master" element={<MockModulePage />} />
+        <Route path="gsm-master" element={<MockModulePage />} />
+        <Route path="supply-section" element={<MockModulePage />} />
+        <Route path="payment" element={<MockModulePage />} />
+        <Route path="paper-supply" element={<MockModulePage />} />
+        <Route path="paper-orders" element={<MockModulePage />} />
+        <Route path="demand" element={<MockModulePage />} />
+        <Route path="allocation" element={<MockModulePage />} />
+        <Route path="distribution-page" element={<MockModulePage />} />
+        <Route path="dispatch" element={<MockModulePage />} />
+        <Route path="distribution-tracking" element={<MockModulePage />} />
+
+        {/* Access Denied Route */}
+        <Route path="unauthorized" element={<UnauthorizedPage />} />
       </Route>
     </Routes>
   );

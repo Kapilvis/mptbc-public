@@ -174,21 +174,21 @@
   left: 50%;
   transform: translate(-50%, -41%);
   z-index: 30;
-  width: 460px;
+  width: 390px;
   max-width: calc(100vw - 32px);
   background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.85);
-  border-radius: 26px;
+  border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 4px 20px rgba(0, 0, 0, 0.06);
-  padding: 24px 28px;
+  padding: 16px 20px;
   box-sizing: border-box;
 }
 
 /* ─── Operational Workspaces Header Bar ─── */
 .mptbc-workspaces-wrapper {
-  margin-bottom: 18px;
+  margin-bottom: 12px;
 }
 
 .mptbc-workspaces-header {
@@ -262,18 +262,18 @@
 .mptbc-welcome-banner {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   background: transparent;
   border: none;
   padding: 0 4px;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
 }
 
 .mptbc-avatar-circle {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  min-height: 44px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
   border-radius: 50%;
   background: rgba(0, 138, 69, 0.12);
   border: 1px solid rgba(0, 138, 69, 0.25);
@@ -285,8 +285,8 @@
 }
 
 .mptbc-avatar-icon {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
 }
 
 .mptbc-welcome-text-group {
@@ -295,7 +295,7 @@
 }
 
 .mptbc-welcome-heading {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--mptbc-green-dark);
   margin: 0 0 2px 0;
@@ -303,7 +303,7 @@
 }
 
 .mptbc-welcome-subtext {
-  font-size: 12px;
+  font-size: 11px;
   color: #475569;
   margin: 0;
   line-height: 1.35;
@@ -313,23 +313,29 @@
 .mptbc-form-body {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
+}
+
+/* Form Labels style override to make card more compact */
+.mptbc-form-body label {
+  font-size: 12px !important;
+  margin-bottom: 2px !important;
 }
 
 /* TDP Shared Form Overrides (Translucent Glass Input Fields) */
 .mptbc-form-body .p-inputtext {
-  height: 52px !important;
-  border-radius: 12px !important;
+  height: 42px !important;
+  border-radius: 8px !important;
   border: 1px solid rgba(203, 213, 225, 0.8) !important;
   background: rgba(255, 255, 255, 0.75) !important;
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
-  font-size: 14.5px !important;
+  font-size: 13px !important;
   font-weight: 500 !important;
   color: #1e293b !important;
   box-shadow: none !important;
   width: 100% !important;
-  padding-left: 48px !important;
+  padding-left: 40px !important;
   transition: all 0.2s ease !important;
 }
 
@@ -347,10 +353,10 @@
 
 .mptbc-form-body .p-password .p-password-input,
 .mptbc-form-body .p-password input {
-  padding-left: 48px !important;
-  padding-right: 48px !important;
-  height: 52px !important;
-  border-radius: 12px !important;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  height: 42px !important;
+  border-radius: 8px !important;
   background: rgba(255, 255, 255, 0.75) !important;
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
@@ -372,7 +378,7 @@
 .mptbc-form-body i {
   color: #1e293b !important;
   opacity: 1 !important;
-  font-size: 1.15rem !important;
+  font-size: 1.1rem !important;
 }
 
 .mptbc-form-body .p-inputtext::placeholder {
@@ -403,7 +409,7 @@
 .mptbc-form-body input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
   -webkit-text-fill-color: #1e293b !important;
-  border-radius: 12px !important;
+  border-radius: 8px !important;
 }
 
 /* Captcha input override */
@@ -416,18 +422,18 @@
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
   border: 1px solid rgba(203, 213, 225, 0.8) !important;
-  border-radius: 12px !important;
-  padding-left: 14px !important;
+  border-radius: 8px !important;
+  padding-left: 12px !important;
 }
 
 /* Primary Submit Button (Matching Green Color in Welcome Banner) */
 .mptbc-btn-submit {
-  height: 52px !important;
+  height: 42px !important;
   width: 100% !important;
-  border-radius: 12px !important;
+  border-radius: 8px !important;
   background: #008a45 !important;
   color: #ffffff !important;
-  font-size: 16px !important;
+  font-size: 14.5px !important;
   font-weight: 700 !important;
   border: none !important;
   box-shadow: 0 4px 14px rgba(0, 138, 69, 0.3) !important;
@@ -443,13 +449,69 @@
 .mptbc-btn-submit i,
 .mptbc-btn-submit svg {
   color: #ffffff !important;
-  font-size: 1.15rem !important;
+  font-size: 1.1rem !important;
 }
 
 .mptbc-btn-submit:hover:not(:disabled) {
   background: #00753a !important;
   box-shadow: 0 6px 18px rgba(0, 138, 69, 0.4) !important;
   transform: translateY(-1px);
+}
+
+.mptbc-buttons-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.mptbc-buttons-row > button {
+  flex: 1;
+  margin-top: 0 !important;
+}
+
+.mptbc-btn-clear {
+  height: 52px !important;
+  width: 100% !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+  color: #475569 !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  border: 1px solid #cbd5e1 !important;
+  transition: all 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.mptbc-btn-clear .pi,
+.mptbc-btn-clear .p-button-icon,
+.mptbc-btn-clear i,
+.mptbc-btn-clear svg {
+  color: #475569 !important;
+  font-size: 1.15rem !important;
+}
+
+.mptbc-btn-clear:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.05) !important;
+  transform: translateY(-1px);
+}
+
+.dark .mptbc-btn-clear {
+  color: #cbd5e1 !important;
+  border-color: #475569 !important;
+}
+
+.dark .mptbc-btn-clear .pi,
+.dark .mptbc-btn-clear .p-button-icon,
+.dark .mptbc-btn-clear i,
+.dark .mptbc-btn-clear svg {
+  color: #cbd5e1 !important;
+}
+
+.dark .mptbc-btn-clear:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05) !important;
 }
 
 /* Options Row */
@@ -656,3 +718,41 @@
     font-size: 10px;
   }
 }
+
+@media (max-height: 850px) {
+  .mptbc-login-viewport {
+    position: relative;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 30px 16px 80px 16px;
+    height: auto;
+    min-height: 100vh;
+  }
+  .mptbc-branding-container {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    margin-bottom: 24px;
+  }
+  .mptbc-login-card-container {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    margin-bottom: 32px;
+  }
+  .mptbc-bottom-bar-container {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    margin-top: auto;
+    width: 100%;
+    max-width: 1120px;
+  }
+}
+

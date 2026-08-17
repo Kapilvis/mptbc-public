@@ -54,6 +54,8 @@ const generateRandomCode = () => {
   return result;
 };
 
+import { staticCredentials } from "../../auth/authConfig";
+
 export function useLoginForm() {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -90,14 +92,33 @@ export function useLoginForm() {
     setTimeout(() => setLoginError(undefined), 300);
   }, []);
 
-  const { register, handleSubmit } = useAppForm<User.LoginForm>({
-    resolver: validation.resolver(schema),
-    defaultValues: {
-      captcha: "",
-      userName: "",
-      password: "",
-    },
-  });
+  const { register, handleSubmit, reset, watch, setValue } =
+    useAppForm<User.LoginForm>({
+      resolver: validation.resolver(schema),
+      defaultValues: {
+        loginRole: "",
+        captcha: "",
+        userName: "",
+        password: "",
+      },
+    });
+
+  const selectedRole = watch("loginRole");
+
+  useEffect(() => {
+    if (selectedRole) {
+      const matched = staticCredentials.find(
+        (cred) => cred.role === selectedRole,
+      );
+      if (matched) {
+        setValue("userName", matched.userId);
+        setValue("password", matched.password);
+      }
+    } else {
+      setValue("userName", "");
+      setValue("password", "");
+    }
+  }, [selectedRole, setValue]);
 
   const regenerateCaptcha = useCallback(() => {
     const code = generateRandomCode();
@@ -108,6 +129,16 @@ export function useLoginForm() {
   useEffect(() => {
     regenerateCaptcha();
   }, [regenerateCaptcha]);
+
+  const resetForm = useCallback(() => {
+    reset({
+      loginRole: "",
+      userName: "",
+      password: "",
+      captcha: "",
+    });
+    regenerateCaptcha();
+  }, [reset, regenerateCaptcha]);
 
   const onSubmit = handleSubmit(async (data) => {
     setIsLoading(true);
@@ -122,14 +153,29 @@ export function useLoginForm() {
       return;
     }
 
-    const activeUser = data.userName.trim() || "cpi_admin";
+    const matched = staticCredentials.find(
+      (cred) =>
+        cred.role === data.loginRole &&
+        cred.userId?.trim() === data.userName?.trim() &&
+        cred.password === data.password,
+    );
+
+    if (!matched) {
+      PubSubService.publish(
+        "@event/api-unauthorized",
+        "Invalid User ID or Password.",
+      );
+      setIsLoading(false);
+      regenerateCaptcha();
+      return;
+    }
 
     setTimeout(() => {
-      login();
+      login(matched.userId, matched.role, matched.roleName);
       changeStateToSignedIn({
-        userName: activeUser,
-        fullName: activeUser,
-        roles: ["Admin"],
+        userName: matched.userId,
+        fullName: matched.userId,
+        roles: [matched.roleName],
       });
       setIsLoading(false);
       navigate("/home");
@@ -145,11 +191,25 @@ export function useLoginForm() {
     loginError,
     isHiding,
     handleCloseError,
+    resetForm,
   };
 }
 
 const schema = validation.create<User.LoginForm>((o) => ({
-  userName: o.string().required(),
-  password: o.string().required(),
-  captcha: o.string().required().max(6),
+  loginRole: o.string().required().messages({
+    "string.empty": "Please select Login User.",
+    "any.required": "Please select Login User.",
+  }),
+  userName: o.string().required().messages({
+    "string.empty": "Please enter User ID.",
+    "any.required": "Please enter User ID.",
+  }),
+  password: o.string().required().messages({
+    "string.empty": "Please enter Password.",
+    "any.required": "Please enter Password.",
+  }),
+  captcha: o.string().required().max(6).messages({
+    "string.empty": "Please enter CAPTCHA.",
+    "any.required": "Please enter CAPTCHA.",
+  }),
 }));
