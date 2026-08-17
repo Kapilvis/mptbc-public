@@ -4,7 +4,6 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
   [USER_ROLES.TBC_HEAD_OFFICE]: [
     "dashboard",
     "profile",
-<<<<<<< HEAD
     "master",
     "user-management",
     "hrms",
@@ -14,7 +13,6 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "paper-section",
     "reports",
     "transport",
-=======
     // Master Config
     "master/office-level",
     "master/office-type",
@@ -78,7 +76,6 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "paper-distribution-report",
     // Dashboard (TBC Head Office specific)
     "central-dashboard",
->>>>>>> c9a9facc745c407afc00e66458be47eb7c5bee12
   ],
 
   [USER_ROLES.DISTRICT_DEPOT]: [

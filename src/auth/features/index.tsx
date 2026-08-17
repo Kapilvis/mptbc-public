@@ -15,11 +15,8 @@ import Distribution from "./distribution";
 import PaperModule from "./paper";
 import BookPaperRequirement from "auth/features/book-paper-requirement";
 import DistrictDepot from "./district-depot";
-<<<<<<< HEAD
 import Transportation from "./transportation";
-=======
 import CentralDepot from "./inventory";
->>>>>>> c9a9facc745c407afc00e66458be47eb7c5bee12
 
 import MockModulePage from "../components/MockModulePage";
 import UnauthorizedPage from "../components/UnauthorizedPage";
