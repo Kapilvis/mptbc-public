@@ -99,12 +99,11 @@
 }
 
 .page-heading-text p {
-  @apply mt-1 mb-0 text-sm leading-5 text-gray-500;
+  @apply mt-1 mb-0 text-base leading-6 font-medium text-slate-800 dark:text-slate-200;
 }
 
 .page-heading-with-visual .page-heading-text p {
-  @apply mt-2 text-body-sm;
-  color: var(--color-gray-600);
+  @apply mt-2 text-base font-medium text-slate-800 dark:text-slate-200;
 }
 
 .page-heading-actions {

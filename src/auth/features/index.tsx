@@ -15,7 +15,7 @@ import BookPaperRequirement from "auth/features/book-paper-requirement";
 import DistrictDepot from "./district-depot";
 import Transportation from "./transportation";
 import CentralDepot from "./inventory";
-
+import AdminModule from "./admin";
 import MockModulePage from "../components/MockModulePage";
 import UnauthorizedPage from "../components/UnauthorizedPage";
 
@@ -25,6 +25,7 @@ export default function Features() {
       <Route element={<RouteGuard />}>
         <Route index element={<Home />} />
         <Route path="home" element={<Home />} />
+        <Route path="admin/*" element={<AdminModule />} />
         <Route path="user-management/*" element={<UserManagement />} />
         <Route path="master/*" element={<Master />} />
         <Route path="masters/*" element={<Master />} />
