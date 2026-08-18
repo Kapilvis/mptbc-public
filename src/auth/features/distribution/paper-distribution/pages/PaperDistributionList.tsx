@@ -110,7 +110,7 @@ export default function PaperDistributionPage() {
               align: "right",
               cell: (row: PaperDistribution) => (
                 <span className="text-xs text-emerald-600 font-bold">
-                  {row.issueQuantity.toLocaleString()} KG
+                  {row.issueQuantity.toLocaleString()} MT
                 </span>
               ),
             },

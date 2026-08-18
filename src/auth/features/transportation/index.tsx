@@ -1,8 +1,5 @@
-import { Route, Routes } from "react-router-dom";
-import TenderManagementModule from "./tender-management";
-import CommercialBid from "./commercial-bid";
-import TechnicalEvaluation from "./technical-evaluation";
-import L1Selection from "./l1-selection";
+import { Route, Routes, Navigate } from "react-router-dom";
+import TenderDetailsPage from "./tender-details/pages/TenderDetailsPage";
 import WorkOrderModule from "./work-order";
 import DispatchPage from "./dispatch/pages/DispatchPage";
 import TrackingPage from "./tracking/pages/TrackingPage";
@@ -14,10 +11,7 @@ import ReportsPage from "./reports/pages/ReportsPage";
 export default function Transportation() {
   return (
     <Routes>
-      <Route path="tender-management/*" element={<TenderManagementModule />} />
-      <Route path="commercial-bid/*" element={<CommercialBid />} />
-      <Route path="technical-evaluation/*" element={<TechnicalEvaluation />} />
-      <Route path="l1-selection/*" element={<L1Selection />} />
+      <Route path="tender-details/*" element={<TenderDetailsPage />} />
       <Route path="work-order/*" element={<WorkOrderModule />} />
       <Route path="dispatch/*" element={<DispatchPage />} />
       <Route path="tracking/*" element={<TrackingPage />} />
@@ -25,6 +19,7 @@ export default function Transportation() {
       <Route path="billing/*" element={<BillingEnginePage />} />
       <Route path="disbursement/*" element={<DisbursementPage />} />
       <Route path="reports/*" element={<ReportsPage />} />
+      <Route path="*" element={<Navigate to="tender-details" replace />} />
     </Routes>
   );
 }

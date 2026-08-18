@@ -10,7 +10,7 @@ export interface PaperStock {
   receivedQuantity: number;
   issuedQuantity: number;
   availableQuantity: number;
-  unit: "KG";
+  unit: "MT";
   minimumStockLevel: number;
   maximumStockLevel: number;
   stockStatus: "In Stock" | "Low Stock" | "Out of Stock";
@@ -26,8 +26,8 @@ export interface PaperReceipt {
   reelWidth: number;
   cutoff: number;
   quantity: number;
-  unit: "KG";
-  weightInKg: number;
+  unit: "MT";
+  weightInMt: number;
   vehicleNo: string;
   challanNo: string;
   invoiceNo: string;

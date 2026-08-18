@@ -104,7 +104,7 @@ export default function CreateReceiving({ onSave }: { onSave: () => void }) {
       dataManager.addReceipt(newReceipt);
 
       ToastService.success(
-        `Paper stock of ${qtyNum} KG added for ${matchedGsm.gsm} GSM successfully!`,
+        `Paper stock of ${qtyNum} MT added for ${matchedGsm.gsm} GSM successfully!`,
       );
 
       // Call onSave which closes the overlay
@@ -149,7 +149,7 @@ export default function CreateReceiving({ onSave }: { onSave: () => void }) {
         />
 
         <NumberBox
-          label="Received Quantity (KG)"
+          label="Received Quantity (MT)"
           required
           value={quantity ? parseFloat(quantity) : undefined}
           onChange={(val) =>

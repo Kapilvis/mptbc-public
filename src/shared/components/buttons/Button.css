@@ -45,6 +45,11 @@
   @apply bg-[var(--primary-color)] border border-[var(--primary-color)] text-[var(--white)];
 }
 
+.button-variant-primary:not(.button-disabled):hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
 .button-variant-success {
   @apply bg-transparent border border-[var(--success-color)] text-[var(--success-color)];
 }
@@ -67,6 +72,12 @@
 
 .button-variant-outlined {
   @apply bg-transparent border border-[var(--light-border-color)] text-[var(--primary-color)] w-auto whitespace-nowrap;
+}
+
+.button-variant-outlined:not(.button-disabled):hover {
+  background-color: var(--primary-light-bg) !important;
+  color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
 }
 
 .button-width-auto {

@@ -129,7 +129,7 @@ export default function TrackingPage() {
   return (
     <Page
       header="Live Delivery Tracking Monitor"
-      subHeader="वास्तविक-समय वितरण ट्रैकिंग — Monitor in-transit shipments, audit SLA delivery clocks, and log default exceptions."
+      subHeader="Monitor in-transit shipments, audit SLA delivery clocks, and log default exceptions."
     >
       {/* Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -142,7 +142,10 @@ export default function TrackingPage() {
               In Transit
             </span>
             <span className="text-xl font-bold text-slate-800">
-              {dispatchesList.filter((d) => d.status === "In Transit").length}{" "}
+              {
+                dispatchesList.filter((d) => d.displayStatus === "In Transit")
+                  .length
+              }{" "}
               Shipments
             </span>
           </div>
@@ -182,8 +185,8 @@ export default function TrackingPage() {
         </Card>
       </div>
 
-      {/* Main Table */}
-      <Card className="p-5">
+      {/* Main Table - Clean Separate Columns without Sub-Headings */}
+      <Card>
         <GridPanel
           data={dispatchesList}
           searchFields={[
@@ -195,81 +198,81 @@ export default function TrackingPage() {
           ]}
           columns={[
             {
-              header: "LR / Dispatch Ref",
+              cell: (_, option) => (
+                <span className="text-slate-600 font-medium">
+                  {option.rowIndex + 1}
+                </span>
+              ),
+              width: "60px",
+              align: "center",
+              header: "S.No.",
+            },
+            {
+              header: "Lorry Receipt Number",
               field: "lrNumber",
+              sortable: true,
+              width: "180px",
+            },
+            {
+              header: "District",
+              field: "district",
+              sortable: true,
+            },
+            {
+              header: "Block / Destination",
+              field: "block",
+              sortable: true,
+            },
+            {
+              header: "Transporter",
+              field: "transporterName",
+              sortable: true,
+            },
+            {
+              header: "Vehicle Number",
+              field: "truckNo",
+              sortable: true,
               width: "140px",
-              cell: (row: FlatTrackingDispatch) => (
-                <div className="flex flex-col">
-                  <span className="font-bold text-slate-800 text-xs">
-                    {row.lrNumber}
-                  </span>
-                  <span className="text-[9px] text-slate-400 font-medium">
-                    {row.dispatchId}
-                  </span>
-                </div>
-              ),
             },
             {
-              header: "Destination HQ",
-              cell: (row: FlatTrackingDispatch) => (
-                <div className="flex flex-col">
-                  <span className="font-semibold text-slate-800">
-                    {row.block}
-                  </span>
-                  <span className="text-[10px] text-slate-400">
-                    District: {row.district}
-                  </span>
-                </div>
-              ),
-            },
-            {
-              header: "Transporter & Fleet",
-              cell: (row: FlatTrackingDispatch) => (
-                <div className="flex flex-col">
-                  <span className="font-semibold text-slate-700 text-xs">
-                    {row.transporterName}
-                  </span>
-                  <span className="text-[10px] text-indigo-600 font-mono mt-0.5">
-                    {row.truckNo}
-                  </span>
-                </div>
-              ),
-            },
-            {
-              header: "Dispatched Load",
-              cell: (row: FlatTrackingDispatch) => (
-                <div className="flex flex-col text-right">
-                  <span className="font-bold text-slate-800">
-                    {row.bundlesLoaded} Bundles
-                  </span>
-                  <span className="text-[10px] text-slate-400">
-                    Weight: {(row.bundlesLoaded * 0.04).toFixed(2)} T
-                  </span>
-                </div>
-              ),
-              align: "right",
+              header: "Loaded Bundles",
+              field: "bundlesLoaded",
+              sortable: true,
+              align: "center",
               width: "130px",
+            },
+            {
+              header: "Weight (Metric Ton)",
+              cell: (row: FlatTrackingDispatch) => (
+                <span className="font-semibold text-slate-700">
+                  {(row.bundlesLoaded * 0.04).toFixed(2)} MT
+                </span>
+              ),
+              align: "center",
+              width: "140px",
             },
             {
               header: "Dispatch Date",
               field: "dispatchDate",
+              sortable: true,
               width: "120px",
             },
             {
               header: "SLA Due Date",
               field: "slaDueDate",
+              sortable: true,
               width: "120px",
             },
             {
               header: "SLA Countdown",
               align: "center",
-              width: "140px",
+              width: "160px",
               cell: (row: FlatTrackingDispatch) => {
                 const days = row.daysRemaining;
                 const isDelivered = row.status === "Delivered";
                 return (
                   <span
-                    className={`px-3 py-1 rounded-full text-[10px] font-bold border ${getSlaBadgeClass(days, row.status)}`}
+                    className={`px-3 py-1 rounded-full text-[10px] font-bold border whitespace-nowrap inline-block ${getSlaBadgeClass(days, row.status)}`}
                   >
                     {isDelivered
                       ? "On Time Delivery"
@@ -285,11 +288,11 @@ export default function TrackingPage() {
             {
               header: "Status",
               field: "displayStatus",
-              width: "130px",
+              width: "140px",
               align: "center",
               cell: (row: FlatTrackingDispatch) => (
                 <span
-                  className={`px-2.5 py-1 rounded-full text-[10px] font-bold border uppercase tracking-wider ${getStatusBadgeClass(row.displayStatus)}`}
+                  className={`px-3 py-1 rounded-full text-[10px] font-bold border uppercase tracking-wider whitespace-nowrap inline-block ${getStatusBadgeClass(row.displayStatus)}`}
                 >
                   {row.displayStatus}
                 </span>
@@ -297,17 +300,17 @@ export default function TrackingPage() {
             },
             {
               header: "Actions",
-              width: "120px",
+              width: "140px",
               align: "center",
               cell: (row: FlatTrackingDispatch) => {
                 const isBreached = row.displayStatus === "SLA Breached";
                 return (
                   <Button
-                    icon="pi pi-shield"
+                    icon="shield"
                     label="Mark Default"
                     variant="danger"
                     size="small"
-                    className="!text-xs"
+                    className="!text-xs whitespace-nowrap"
                     onClick={() => handleMarkDefault(row)}
                     disabled={row.status === "Delivered" || !isBreached}
                   />

@@ -1,18 +1,214 @@
 export const vehicleCategories = [
-  { text: "Category 1 (1 - 4.5 Ton)", id: 1, value: "Cat-1" },
-  { text: "Category 2 (4.5 - 9 Ton)", id: 2, value: "Cat-2" },
-  { text: "Category 3 (>= 9 Ton)", id: 3, value: "Cat-3" },
+  { text: "Category 1 (1 - 4.5 Metric Ton)", id: 1, value: "Cat-1" },
+  { text: "Category 2 (4.5 - 9 Metric Ton)", id: 2, value: "Cat-2" },
+  { text: "Category 3 (>= 9 Metric Ton)", id: 3, value: "Cat-3" },
+];
+
+export const commercialVehicleCategories = [
+  { text: "Small Commercial (SCV)", id: "SCV", value: "SCV" },
+  { text: "Light Commercial (LCV)", id: "LCV", value: "LCV" },
+  { text: "Medium Commercial (MCV)", id: "MCV", value: "MCV" },
+  { text: "Heavy Commercial (HCV)", id: "HCV", value: "HCV" },
+];
+
+export const vehicleSubTypes = [
+  // SCV
+  {
+    text: "Tata Ace (Chota Hathi)",
+    id: "Tata Ace",
+    category: "SCV",
+    manufacturer: "Tata Motors",
+    defaultCapacity: 1.0,
+    models: ["Tata Ace Gold", "Tata Ace EV", "Tata Ace HT Plus"],
+  },
+  {
+    text: "Mahindra Bolero Maxi Truck",
+    id: "Bolero Maxi Truck",
+    category: "SCV",
+    manufacturer: "Mahindra & Mahindra",
+    defaultCapacity: 1.5,
+    models: ["Bolero Maxi Truck Plus", "Bolero Camper", "Bolero Pik-Up"],
+  },
+  {
+    text: "Ashok Leyland Dost",
+    id: "Dost",
+    category: "SCV",
+    manufacturer: "Ashok Leyland",
+    defaultCapacity: 1.5,
+    models: ["Dost Strong", "Dost+", "Bada Dost i3"],
+  },
+  {
+    text: "Maruti Super Carry",
+    id: "Super Carry",
+    category: "SCV",
+    manufacturer: "Maruti Suzuki",
+    defaultCapacity: 1.0,
+    models: ["Super Carry Petrol", "Super Carry CNG"],
+  },
+  {
+    text: "Mahindra Supro Profit Truck",
+    id: "Supro",
+    category: "SCV",
+    manufacturer: "Mahindra & Mahindra",
+    defaultCapacity: 1.0,
+    models: ["Supro Profit Truck Mini", "Supro Maxi"],
+  },
+
+  // LCV
+  {
+    text: "Tata 407",
+    id: "Tata 407",
+    category: "LCV",
+    manufacturer: "Tata Motors",
+    defaultCapacity: 3.5,
+    models: ["Tata 407 Gold SFC", "Tata 407 LPT", "Tata 407 Pick-up"],
+  },
+  {
+    text: "Eicher Pro 2049",
+    id: "Eicher Pro 2049",
+    category: "LCV",
+    manufacturer: "Eicher Motors",
+    defaultCapacity: 4.5,
+    models: [
+      "Eicher Pro 2049",
+      "Eicher Pro 2049 CNG",
+      "Eicher Pro 2049 Dumper",
+    ],
+  },
+  {
+    text: "Tata 709 / 710",
+    id: "Tata 709",
+    category: "LCV",
+    manufacturer: "Tata Motors",
+    defaultCapacity: 4.5,
+    models: ["Tata 709g LPT", "Tata 710 LPT"],
+  },
+  {
+    text: "Ashok Leyland Partner",
+    id: "Partner",
+    category: "LCV",
+    manufacturer: "Ashok Leyland",
+    defaultCapacity: 4.0,
+    models: ["Partner 4 Tyre", "Partner 6 Tyre"],
+  },
+  {
+    text: "Mahindra Furio 7",
+    id: "Furio 7",
+    category: "LCV",
+    manufacturer: "Mahindra & Mahindra",
+    defaultCapacity: 4.5,
+    models: ["Furio 7 HD Cargo", "Furio 7 Tipper"],
+  },
+  {
+    text: "Eicher Pro 2059",
+    id: "Eicher Pro 2059",
+    category: "LCV",
+    manufacturer: "Eicher Motors",
+    defaultCapacity: 4.5,
+    models: ["Eicher Pro 2059XP", "Eicher Pro 2059"],
+  },
+
+  // MCV
+  {
+    text: "Tata 1109 / 1512",
+    id: "Tata 1109",
+    category: "MCV",
+    manufacturer: "Tata Motors",
+    defaultCapacity: 8.5,
+    models: ["Tata 1109 LPT", "Tata 1512 LPT", "Tata Ultra T.11"],
+  },
+  {
+    text: "Eicher Pro 3019",
+    id: "Eicher Pro 3019",
+    category: "MCV",
+    manufacturer: "Eicher Motors",
+    defaultCapacity: 9.0,
+    models: ["Eicher Pro 3019", "Eicher Pro 3015"],
+  },
+  {
+    text: "Ashok Leyland 1615 HE",
+    id: "AL 1615",
+    category: "MCV",
+    manufacturer: "Ashok Leyland",
+    defaultCapacity: 9.0,
+    models: ["Ecomet 1615 HE", "Boss 1415 HB"],
+  },
+  {
+    text: "BharatBenz 1217C",
+    id: "BharatBenz 1217C",
+    category: "MCV",
+    manufacturer: "BharatBenz",
+    defaultCapacity: 8.5,
+    models: ["BharatBenz 1217C", "BharatBenz 1415RE"],
+  },
+
+  // HCV
+  {
+    text: "Tata Prima 2825",
+    id: "Tata Prima 2825",
+    category: "HCV",
+    manufacturer: "Tata Motors",
+    defaultCapacity: 16.0,
+    models: ["Tata Prima 2825.K", "Tata Signa 2823.K", "Tata Prima 3530.K"],
+  },
+  {
+    text: "Eicher Pro 6028",
+    id: "Eicher Pro 6028",
+    category: "HCV",
+    manufacturer: "Eicher Motors",
+    defaultCapacity: 18.0,
+    models: ["Eicher Pro 6028", "Eicher Pro 6035", "Eicher Pro 8028"],
+  },
+  {
+    text: "Ashok Leyland 2820",
+    id: "AL 2820",
+    category: "HCV",
+    manufacturer: "Ashok Leyland",
+    defaultCapacity: 18.5,
+    models: ["AVTR 2820", "AVTR 3520", "Tusker 2516"],
+  },
+  {
+    text: "BharatBenz 2823R",
+    id: "BharatBenz 2823R",
+    category: "HCV",
+    manufacturer: "BharatBenz",
+    defaultCapacity: 18.0,
+    models: ["BharatBenz 2823R", "BharatBenz 3528R"],
+  },
+];
+
+export const manufacturersList = [
+  { text: "Tata Motors", id: "Tata Motors" },
+  { text: "Eicher Motors", id: "Eicher Motors" },
+  { text: "Ashok Leyland", id: "Ashok Leyland" },
+  { text: "Mahindra & Mahindra", id: "Mahindra & Mahindra" },
+  { text: "BharatBenz", id: "BharatBenz" },
+  { text: "Maruti Suzuki", id: "Maruti Suzuki" },
+  { text: "Force Motors", id: "Force Motors" },
 ];
 
 export const fuelTypes = [
   { text: "Diesel", id: 1 },
   { text: "CNG", id: 2 },
   { text: "Petrol", id: 3 },
+  { text: "Electric", id: 4 },
 ];
 
 export const ownershipStatuses = [
   { text: "Self-Owned", id: 1, value: "Self-Owned" },
   { text: "Leased", id: 2, value: "Leased" },
+];
+
+export const gpsProvidersList = [
+  { text: "Tata Fleet Edge (Inbuilt)", id: "Tata Fleet Edge" },
+  { text: "Eicher Live Telematics (Inbuilt)", id: "Eicher Live" },
+  { text: "Mahindra iMAXX (Inbuilt)", id: "Mahindra iMAXX" },
+  { text: "Ashok Leyland i-Alert (Inbuilt)", id: "Ashok Leyland i-Alert" },
+  { text: "BharatBenz Truckonnect (Inbuilt)", id: "BharatBenz Truckonnect" },
+  { text: "MapmyIndia / Mappls IoT", id: "MapmyIndia" },
+  { text: "LocoNav Telematics", id: "LocoNav" },
+  { text: "BlackBuck GPS", id: "BlackBuck GPS" },
+  { text: "Other / Third-Party Device", id: "Other" },
 ];
 
 export const mockVehicles: Transportation.Vehicle[] = [

@@ -30,22 +30,22 @@
 }
 
 .loader-ring-outer {
-  @apply absolute inset-0 rounded-full border-2 border-transparent border-t-[#008a45] border-b-[#DBE8D8] shadow-[0_0_15px_rgba(0,138,69,0.2)];
+  @apply absolute inset-0 rounded-full border-2 border-transparent border-t-[var(--primary-color)] border-b-[var(--primary-light-bg)] shadow-[0_0_15px_rgba(0,0,0,0.1)];
   animation: spin-slow 1.6s linear infinite;
 }
 
 .loader-ring-inner {
-  @apply absolute inset-[3px] rounded-full border-2 border-transparent border-r-[#008a45] border-l-[#D6E9D5];
+  @apply absolute inset-[3px] rounded-full border-2 border-transparent border-r-[var(--primary-color)] border-l-[var(--primary-light-bg)];
   animation: spin-reverse 1s linear infinite;
 }
 
 .loader-core {
-  @apply absolute inset-[7px] rounded-full bg-gradient-to-br from-[#008a45] to-[#DBE8D8] shadow-[0_0_12px_rgba(0,138,69,0.5)];
+  @apply absolute inset-[7px] rounded-full bg-gradient-to-br from-[var(--primary-color)] to-[var(--primary-light-bg)] shadow-[0_0_12px_rgba(0,0,0,0.2)];
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
 .loader-text {
-  @apply text-[11px] font-bold tracking-[0.25em] text-[#043e2e] dark:text-slate-400 uppercase mt-2 animate-pulse;
+  @apply text-[11px] font-bold tracking-[0.25em] text-[var(--sidebar-title-color)] dark:text-slate-400 uppercase mt-2 animate-pulse;
 }
 
 .fade-in {

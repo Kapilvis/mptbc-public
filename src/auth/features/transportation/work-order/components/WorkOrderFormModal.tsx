@@ -1,20 +1,21 @@
-import { useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "shared/components/popups/Modal";
 import { Button } from "shared/components/buttons";
 import {
-  NumberBox,
   DropDownList as SelectBox,
   DatePicker as DateBox,
 } from "shared/components/forms";
+import InputBlock from "shared/components/forms/InputBlock";
+import { MultiSelect } from "primereact/multiselect";
 import { ToastService } from "services";
 import { useCreateWorkOrderMutation } from "../queries";
-import { mockTenders } from "../../commercial-bid/data";
+import { useTendersQuery } from "../../tender-details/queries";
 import {
   districts,
   tehsils,
 } from "../../../master/transporter-registration/data";
-import { AlertTriangle, Calendar } from "lucide-react";
+import { Calendar } from "lucide-react";
 
 interface WorkOrderFormModalProps {
   visible: boolean;
@@ -23,12 +24,11 @@ interface WorkOrderFormModalProps {
 }
 
 interface FormValues {
+  tenderId: string;
+  transporterId: number;
   district: string;
-  block: string;
-  totalBundles: number;
+  selectedBlocks: string[];
   instructionDate: string;
-  nineTonTrucksRequired: number;
-  fourPointFiveTonTrucksRequired: number;
 }
 
 export default function WorkOrderFormModal({
@@ -37,55 +37,91 @@ export default function WorkOrderFormModal({
   transporters,
 }: WorkOrderFormModalProps) {
   const createMutation = useCreateWorkOrderMutation();
+  const { data: tenders = [] } = useTendersQuery();
 
   const todayStr = new Date().toISOString().split("T")[0];
+  const firstTender = tenders[0];
+
+  const [blockCapacities, setBlockCapacities] = useState<
+    Record<string, number>
+  >({
+    INDORE: 20,
+  });
 
   const { control, handleSubmit, watch, setValue } = useForm<FormValues>({
     defaultValues: {
-      district: "",
-      block: "",
-      totalBundles: 0,
+      tenderId: firstTender ? firstTender.tenderId : "",
+      transporterId: transporters[0] ? transporters[0].transporterId : 1,
+      district: "Indore",
+      selectedBlocks: ["INDORE"],
       instructionDate: todayStr,
-      nineTonTrucksRequired: 0,
-      fourPointFiveTonTrucksRequired: 0,
     },
   });
 
+  const watchTenderId = watch("tenderId");
   const watchDistrict = watch("district");
   const watchInstructionDate = watch("instructionDate");
+  const watchSelectedBlocks = watch("selectedBlocks") || [];
 
-  // Get active tender for the selected district
+  // Initialize capacities for newly selected blocks
+  useEffect(() => {
+    setBlockCapacities((prev) => {
+      const next = { ...prev };
+      watchSelectedBlocks.forEach((block) => {
+        if (next[block] === undefined) {
+          next[block] = 20; // default 20 Metric Ton
+        }
+      });
+      return next;
+    });
+  }, [watchSelectedBlocks]);
+
+  // Selected tender object
   const selectedTender = useMemo(() => {
-    if (!watchDistrict) return null;
-    return mockTenders.find((t) => t.district === watchDistrict);
-  }, [watchDistrict]);
-
-  const allocatedTransporter = useMemo(() => {
-    const transporterId = selectedTender?.allocatedTransporterId;
-    // Fallback: if no L1 allocated, use first available transporter for demo
     return (
-      transporters.find((t) => t.transporterId === transporterId) ??
-      transporters[0] ??
-      null
+      tenders.find((t) => t.tenderId === watchTenderId) || tenders[0] || null
     );
+  }, [watchTenderId, tenders]);
+
+  // Transporters mapped to the selected tender
+  const mappedTransporters = useMemo(() => {
+    if (!selectedTender || !selectedTender.allocations?.length) {
+      return transporters;
+    }
+    const mappedIds = selectedTender.allocations.map((a) => a.transporterId);
+    const filtered = transporters.filter((t) =>
+      mappedIds.includes(t.transporterId),
+    );
+    return filtered.length > 0 ? filtered : transporters;
   }, [selectedTender, transporters]);
 
+  // Update selected transporter if mapped list changes
+  useEffect(() => {
+    if (mappedTransporters.length > 0) {
+      setValue("transporterId", mappedTransporters[0].transporterId);
+    }
+  }, [mappedTransporters, setValue]);
+
   // Filter tehsils (blocks) based on selected district
-  const filteredBlocks = useMemo(() => {
+  const districtBlocks = useMemo(() => {
     if (!watchDistrict) return [];
     const distObj = districts.find((d) => d.text === watchDistrict);
     if (!distObj) return [];
     return tehsils
       .filter((t) => t.districtId === distObj.id)
-      .map((t) => ({ text: t.text, id: t.id }));
+      .map((t) => ({ label: t.text, value: t.text }));
   }, [watchDistrict]);
 
-  // Reset block value if district changes
+  // Reset selected blocks when district changes
   useEffect(() => {
-    setValue("block", "");
-  }, [watchDistrict, setValue]);
+    if (districtBlocks.length > 0) {
+      setValue("selectedBlocks", [districtBlocks[0].value]);
+    } else {
+      setValue("selectedBlocks", []);
+    }
+  }, [districtBlocks, setValue]);
 
-  // Calculate SLA due date
+  // Calculate SLA due date (3 days delivery SLA)
   const slaDueDate = useMemo(() => {
     if (!watchInstructionDate) return "-";
     try {
@@ -98,27 +134,54 @@ export default function WorkOrderFormModal({
     }
   }, [watchInstructionDate]);
 
+  // Total metric tons and total bundles across all selected blocks
+  const totalMetricTons = useMemo(() => {
+    return watchSelectedBlocks.reduce(
+      (sum, block) => sum + (Number(blockCapacities[block]) || 0),
+      0,
+    );
+  }, [watchSelectedBlocks, blockCapacities]);
+
+  const totalBundles = Math.round(totalMetricTons * 25);
+
   const onSubmit = async (data: FormValues) => {
-    // Pick the resolved transporter ID (L1 or demo fallback)
-    const resolvedTransporterId =
-      selectedTender?.allocatedTransporterId ??
-      allocatedTransporter?.transporterId ??
-      1;
+    const blocks = data.selectedBlocks || [];
+    if (blocks.length === 0) {
+      ToastService.error("Please select at least one block.");
+      return;
+    }
+
+    if (totalMetricTons <= 0) {
+      ToastService.error(
+        "Please enter a valid capacity in Metric Ton for each block.",
+      );
+      return;
+    }
 
     try {
-      await createMutation.mutateAsync({
-        district: data.district,
-        block: data.block,
-        totalBundles: Number(data.totalBundles),
-        instructionDate: data.instructionDate,
-        nineTonTrucksRequired: Number(data.nineTonTrucksRequired),
-        fourPointFiveTonTrucksRequired: Number(
-          data.fourPointFiveTonTrucksRequired,
-        ),
-        allocatedTransporterId: resolvedTransporterId,
-      });
+      for (let i = 0; i < blocks.length; i++) {
+        const blockName = blocks[i];
+        const blockMT = Number(blockCapacities[blockName]) || 0;
+        const bundles = Math.round(blockMT * 25);
+        const nineT = Math.floor(blockMT / 9);
+        const rem = blockMT % 9;
+        const four5T = rem > 0 ? Math.ceil(rem / 4.5) : 0;
 
-      ToastService.success("Work Order generated successfully!");
+        await createMutation.mutateAsync({
+          tenderId: data.tenderId,
+          district: data.district,
+          block: blockName,
+          totalBundles: bundles,
+          instructionDate: data.instructionDate,
+          nineTonTrucksRequired: nineT,
+          fourPointFiveTonTrucksRequired: four5T,
+          allocatedTransporterId: Number(data.transporterId) || 1,
+        });
+      }
+
+      ToastService.success(
+        `Work Order for ${blocks.length} block(s) generated successfully! Total Weight: ${totalMetricTons.toFixed(1)} Metric Ton (${totalBundles} Bundles)`,
+      );
       onHide();
     } catch (err: unknown) {
       const errMsg =
@@ -127,126 +190,152 @@ export default function WorkOrderFormModal({
     }
   };
 
+  const tenderOptions = useMemo(() => {
+    return tenders.map((t) => ({
+      text: `${t.tenderRefNo} (${t.financialYear})`,
+      id: t.tenderId,
+    }));
+  }, [tenders]);
+
   const districtOptions = useMemo(() => {
-    return districts.map((d) => ({ text: d.text, id: d.text }));
+    return districts.map((d) => ({
+      text: d.text,
+      id: d.text,
+    }));
   }, []);
+
+  const transporterOptions = useMemo(() => {
+    return mappedTransporters.map((t) => ({
+      text: t.transporterName,
+      id: t.transporterId,
+    }));
+  }, [mappedTransporters]);
 
   return (
     <Modal
       visible={visible}
       onHide={onHide}
       size="medium"
-      header="Create District Work Order & Allocation"
+      header="Create Work Order"
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-        {/* District HQ */}
-        <SelectBox
-          label="District Headquarters"
-          name="district"
-          required
-          control={control}
-          data={districtOptions}
-          optionValue="text"
-          textField="text"
-        />
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        {/* Row 1: Tender and Transporter */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <SelectBox
+            label="Select Tender"
+            name="tenderId"
+            required
+            control={control}
+            data={tenderOptions}
+            optionValue="id"
+            textField="text"
+          />
+          <SelectBox
+            label="Select Transporter"
+            name="transporterId"
+            required
+            control={control}
+            data={transporterOptions}
+            optionValue="id"
+            textField="text"
+          />
+        </div>
 
-        {/* Transporter Allocation Details Panel */}
-        {watchDistrict && (
-          <div className="rounded-xl overflow-hidden border p-4 bg-slate-50 border-slate-200">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-              Authorized Transporter Allocation
-            </span>
-            {allocatedTransporter ? (
-              <div className="flex flex-col gap-0.5">
-                <span className="font-bold text-slate-800 text-sm">
-                  {allocatedTransporter.transporterName}
-                </span>
-                <span className="text-xs text-slate-500 font-medium">
-                  Type: {allocatedTransporter.transporterType} | Registration:{" "}
-                  {allocatedTransporter.registrationNo}
-                </span>
-              </div>
-            ) : (
-              <div className="flex items-start gap-2.5 mt-1 text-rose-600">
-                <AlertTriangle size={18} className="shrink-0 mt-0.5" />
-                <div className="flex flex-col">
-                  <span className="text-xs font-bold uppercase">
-                    Authorization Missing
+        {/* Row 2: District and Multi-Block Selection */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <SelectBox
+            label="District"
+            name="district"
+            required
+            control={control}
+            data={districtOptions}
+            optionValue="id"
+            textField="text"
+          />
+
+          <InputBlock label="Select Block / Tehsil (Multiple)" required>
+            <MultiSelect
+              value={watchSelectedBlocks}
+              options={districtBlocks}
+              onChange={(e) => setValue("selectedBlocks", e.value || [])}
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select Block(s)"
+              filter
+              display="comma"
+              className="w-full form-dropdown-input"
+              panelClassName="form-dropdown-panel"
+              appendTo={document.body}
+            />
+          </InputBlock>
+        </div>
+
+        {/* Row 3: Dynamic Block-Wise Capacity Inputs in 2-column grid (Above Dates) */}
+        {watchSelectedBlocks.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {watchSelectedBlocks.map((blockName) => (
+              <div key={blockName}>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-bold text-slate-700">
+                    {blockName} Capacity{" "}
+                    <span className="text-red-500 font-bold">*</span>
+                  </label>
+                  <span className="text-xs text-slate-500 font-semibold">
+                    {Math.round((Number(blockCapacities[blockName]) || 0) * 25)}{" "}
+                    Bundles
                   </span>
-                  <span className="text-[11px] text-rose-500 leading-relaxed mt-0.5">
-                    No Prime Bidder has been authorized for {watchDistrict} yet.
-                    Please complete L1 selection first.
+                </div>
+                <div className="relative flex items-center">
+                  <input
+                    type="number"
+                    min="0.1"
+                    step="0.1"
+                    value={blockCapacities[blockName] ?? 20}
+                    onChange={(e) => {
+                      const val = parseFloat(e.target.value) || 0;
+                      setBlockCapacities((prev) => ({
+                        ...prev,
+                        [blockName]: val,
+                      }));
+                    }}
+                    className="w-full h-[38px] pl-3 pr-24 text-sm font-semibold bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-500"
+                    placeholder="Enter capacity"
+                  />
+                  <span className="absolute right-3 text-xs font-bold text-slate-600 pointer-events-none">
+                    Metric Ton
                   </span>
                 </div>
               </div>
-            )}
+            ))}
           </div>
         )}
 
-        {/* Block HQ */}
-        <SelectBox
-          label="Block Headquarters"
-          name="block"
-          required
-          control={control}
-          data={filteredBlocks}
-          optionValue="text"
-          textField="text"
-          disabled={!watchDistrict}
-        />
-
-        {/* Total Bundle Count */}
-        <NumberBox
-          label="Total Bundle Count (40KG standard)"
-          name="totalBundles"
-          required
-          control={control}
-          placeholder="Enter bundle count"
-        />
-
-        {/* Date and SLA Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Row 4: Dispatch Instruction Date and SLA Delivery Due Date */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <DateBox
             label="Dispatch Instruction Date"
             name="instructionDate"
             required
             control={control}
           />
-
-          <div className="flex flex-col justify-end">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">
+          <div>
+            <span className="text-[11px] font-bold text-slate-700 block mb-1">
               SLA Delivery Due Date
             </span>
-            <div className="border border-slate-200 bg-emerald-50/50 rounded-xl p-3 flex items-center gap-2">
-              <Calendar className="text-emerald-600 shrink-0" size={16} />
-              <span className="text-sm font-bold text-slate-800">
+            <div className="border border-slate-200 bg-emerald-50/60 rounded-lg h-[38px] px-3 flex items-center justify-between text-xs text-slate-700">
+              <span className="flex items-center gap-1.5 font-bold text-slate-800">
+                <Calendar size={14} className="text-emerald-600" />
                 {slaDueDate}
               </span>
-              <span className="text-[10px] font-bold text-emerald-600 uppercase ml-auto tracking-wider">
-                (+3 Days)
+              <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded">
+                (+3 DAYS)
               </span>
             </div>
           </div>
         </div>
 
-        {/* Estimates / Truck counts */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <NumberBox
-            label="Est. Heavy Trucks (9-Ton) req."
-            name="nineTonTrucksRequired"
-            control={control}
-            placeholder="0"
-          />
-          <NumberBox
-            label="Est. Small Trucks (4.5-Ton) req."
-            name="fourPointFiveTonTrucksRequired"
-            control={control}
-            placeholder="0"
-          />
-        </div>
-
-        {/* Dialog Action Buttons */}
-        <div className="flex justify-end gap-3 border-t border-slate-100 pt-4 mt-3">
+        {/* Action Buttons */}
+        <div className="flex justify-end gap-3 border-t border-slate-100 pt-4 mt-2">
           <Button
             type="button"
             label="Cancel"
@@ -256,8 +345,8 @@ export default function WorkOrderFormModal({
           <Button
             type="submit"
             label="Generate Work Order"
-            icon="file"
-            disabled={!allocatedTransporter || createMutation.isPending}
+            icon="check"
+            disabled={createMutation.isPending}
           />
         </div>
       </form>

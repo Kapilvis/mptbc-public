@@ -1,0 +1,21 @@
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #printable-inspection-report,
+  #printable-inspection-report * {
+    visibility: visible !important;
+  }
+  #printable-inspection-report {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+    color: #000;
+    background: #fff;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

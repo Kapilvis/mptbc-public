@@ -389,27 +389,29 @@ const AppSidebar: React.FC = () => {
         isMobileOpen ? "app-sidebar-mobile-open" : "app-sidebar-mobile-closed"
       }`}
     >
-      <div className="sidebar-logo-section">
-        <div className="sidebar-logo-content">
+      <div className="sidebar-logo-section h-18.5 min-h-18.5 max-h-18.5">
+        <div className="sidebar-logo-content flex flex-col justify-center items-start">
           {isSidebarVisible ? (
-            <div className="sidebar-logo-expanded">
-              <img
-                src={`${import.meta.env.BASE_URL}images/login/MP_LOGO.png`}
-                alt="Madhya Pradesh Textbook Corporation"
-                className="sidebar-logo-image-expanded"
-                onError={(event) => {
-                  event.currentTarget.classList.add("hidden");
-                }}
-              />
+            <>
+              <div className="sidebar-logo-expanded">
+                <img
+                  src="/MP_LOGO.svg"
+                  alt="Madhya Pradesh Textbook Corporation"
+                  className="sidebar-logo-image-expanded"
+                  onError={(event) => {
+                    event.currentTarget.classList.add("hidden");
+                  }}
+                />
 
-              <span className="sidebar-logo-title">
-                Madhya Pradesh Textbook Corporation
-              </span>
-            </div>
+                <span className="sidebar-logo-title">
+                  Madhya Pradesh Textbook Corporation
+                </span>
+              </div>
+            </>
           ) : (
             <div className="sidebar-logo-collapsed">
               <img
-                src={`${import.meta.env.BASE_URL}images/login/MP_LOGO.png`}
+                src="/MP_LOGO.svg"
                 alt="Madhya Pradesh Textbook Corporation"
                 className="sidebar-logo-image-collapsed"
                 onError={(event) => {
@@ -441,7 +443,7 @@ const AppSidebar: React.FC = () => {
         </Scrollbar>
       </div>
 
-      <div className="sidebar-decoration">
+      {/* <div className="sidebar-decoration">
         <img
           src={`${import.meta.env.BASE_URL}sidebar-wbg.png`}
           alt=""
@@ -450,7 +452,7 @@ const AppSidebar: React.FC = () => {
             event.currentTarget.classList.add("hidden");
           }}
         />
-      </div>
+      </div> */}
     </aside>
   );
 };

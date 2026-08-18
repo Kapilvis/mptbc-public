@@ -1,6 +1,6 @@
 import { Toast } from "primereact/toast";
 import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { ToastService } from "services";
 import { useAuth } from "./AuthProvider";
 import ValidationErrorModal from "./components/ValidationErrorModal";
@@ -11,7 +11,6 @@ import AppLayout from "./layout";
 export default function AuthorizedApp() {
   const toast = useRef<Toast>(null);
   const { authenticated } = useAuth();
-  const navigate = useNavigate();
 
   useEventSubscriber();
 
@@ -24,8 +23,7 @@ export default function AuthorizedApp() {
 
   // Token not found or expired, send the user back to login
   if (authenticated === false) {
-    navigate("/");
-    return null;
+    return <Navigate to="/" replace />;
   }
 
   return (

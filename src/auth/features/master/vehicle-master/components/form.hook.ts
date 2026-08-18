@@ -14,6 +14,12 @@ const schema = validation.create<Transportation.VehicleForm>((o) => ({
     .label("Vehicle Reg. Number"),
 
   category: o.string().required().label("Vehicle Category"),
+  vehicleCategory: o
+    .string()
+    .optional()
+    .allow("", null)
+    .label("Commercial Category"),
+  subType: o.string().optional().allow("", null).label("Vehicle Sub Type"),
   capacity: o.number().min(0.1).required().label("Capacity (Tons)"),
   model: o.string().required().label("Vehicle Model"),
   manufacturer: o.string().required().label("Manufacturer"),
@@ -62,6 +68,21 @@ const schema = validation.create<Transportation.VehicleForm>((o) => ({
   fitnessDoc: o.string().optional().allow("", null).label("Fitness Document"),
   permitDoc: o.string().optional().allow("", null).label("Permit Document"),
   pucDoc: o.string().optional().allow("", null).label("PUC Document"),
+
+  // Optional GPS Telematics validation
+  hasGps: o.boolean().optional().allow(null).label("GPS Enabled"),
+  gpsProvider: o.string().optional().allow("", null).label("GPS Provider"),
+  gpsDeviceId: o
+    .string()
+    .optional()
+    .allow("", null)
+    .label("GPS Device ID / IMEI"),
+  gpsSimNumber: o.string().optional().allow("", null).label("GPS SIM Number"),
+  gpsTrackingUrl: o
+    .string()
+    .optional()
+    .allow("", null)
+    .label("GPS Tracking / Telematics URL"),
 
   transporterId: o.number().required().label("Transporter"),
 }));

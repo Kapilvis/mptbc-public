@@ -396,7 +396,7 @@ export default function BillingEnginePage() {
                         header: "Load Weight",
                         cell: (row: BillingDispatch) => (
                           <span className="font-bold text-slate-800">
-                            {(row.bundlesLoaded * 0.04).toFixed(2)} Tons
+                            {(row.bundlesLoaded * 0.04).toFixed(2)} Metric Ton
                           </span>
                         ),
                         align: "right",
@@ -467,7 +467,7 @@ export default function BillingEnginePage() {
                             </span>
                             <span className="font-bold text-slate-800">
                               {selectedRow.bundlesLoaded} Bundles ({calc.weight}{" "}
-                              Tons)
+                              Metric Ton)
                             </span>
                           </div>
 
@@ -485,7 +485,7 @@ export default function BillingEnginePage() {
                               Bid Rate Quote:
                             </span>
                             <span className="font-bold text-indigo-600">
-                              Rs. {calc.applicableRate} / Ton
+                              Rs. {calc.applicableRate} / Metric Ton
                             </span>
                           </div>
 
@@ -649,10 +649,10 @@ export default function BillingEnginePage() {
                         ),
                       },
                       {
-                        header: "Weight (Tons)",
+                        header: "Weight (Metric Ton)",
                         cell: (row: BillingDispatch) => (
                           <span className="font-bold text-slate-700">
-                            {(row.bundlesLoaded * 0.04).toFixed(2)} T
+                            {(row.bundlesLoaded * 0.04).toFixed(2)} MT
                           </span>
                         ),
                       },

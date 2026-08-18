@@ -537,7 +537,7 @@ declare namespace Master {
     sheetSize: string;
     area: number;
     sheetWeightInGM: number;
-    reamWeightInKG: number;
+    reamWeightInMT: number;
   }
   interface GsmItem extends GsmBase {
     gsmId: number;

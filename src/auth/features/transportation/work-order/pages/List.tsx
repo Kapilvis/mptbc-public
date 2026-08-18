@@ -3,56 +3,16 @@ import Page from "shared/components/panels/Page";
 import { Card, GridPanel } from "shared/components/panels";
 import { Loader } from "shared/components/progress";
 import { Button } from "shared/components/buttons";
-import { ConfirmDialog, useConfirmDialog } from "shared/components/popups";
-import { ToastService } from "services";
-import {
-  useWorkOrdersQuery,
-  useTransportersL1Query,
-  useImportAppendixMutation,
-} from "../queries";
+import { useWorkOrdersQuery, useTransportersL1Query } from "../queries";
 import WorkOrderFormModal from "../components/WorkOrderFormModal";
 
 export default function List() {
   const [modalVisible, setModalVisible] = useState(false);
-  const { confirmAction } = useConfirmDialog();
 
   const { data: workOrders = [], isLoading: loadingWorkOrders } =
     useWorkOrdersQuery();
   const { data: transporters = [], isLoading: loadingTransporters } =
     useTransportersL1Query();
-
-  const importMutation = useImportAppendixMutation();
-
-  const handleImportAppendix = () => {
-    confirmAction({
-      header: "Import Appendix-1 Data",
-      message:
-        "Are you sure you want to import sample Appendix-1 targets for Indore district? This will auto-generate Indore, Mhow, and Sanwer block allocations assigned to the L1 Prime Bidder (Verma Logistics).",
-      icon: "file-import",
-      acceptLabel: "Import Data",
-      rejectLabel: "Cancel",
-      onAccept: async () => {
-        try {
-          const res = await importMutation.mutateAsync("Indore");
-          if (res && res.length > 0) {
-            ToastService.success(
-              `Successfully imported ${res.length} block allocations from Appendix-1!`,
-            );
-          } else {
-            ToastService.success(
-              "Appendix-1 data already imported or no new blocks found.",
-            );
-          }
-        } catch (err: unknown) {
-          const errMsg =
-            err instanceof Error
-              ? err.message
-              : "Import failed. Please check if Indore Prime Bidder is authorized.";
-          ToastService.error(errMsg);
-        }
-      },
-    });
-  };
 
   const getStatusClass = (status: string) => {
     switch (status) {
@@ -74,101 +34,89 @@ export default function List() {
   return (
     <Page
       header="Work Order & Allocation"
-      subHeader="Generate distribution work orders, configure block-level supply targets, and calculate delivery SLA timelines."
+      subHeader="Generate distribution work orders, configure block-level supply targets, and track delivery SLA timelines."
+      showHeaderActions
     >
       <Card>
-        <div className="flex justify-end gap-3 mb-4">
-          <Button
-            label="Import Appendix-1"
-            icon="file-excel"
-            onClick={handleImportAppendix}
-            variant="outlined"
-          />
-          <Button
-            label="Create Work Order"
-            icon="plus"
-            onClick={() => setModalVisible(true)}
-          />
-        </div>
         <GridPanel
           toolbarPlacement="page"
           data={workOrders}
           searchFields={["workOrderId", "district", "block", "transporterName"]}
+          toolbar={
+            <Button
+              label="Add"
+              icon="plus"
+              onClick={() => setModalVisible(true)}
+              variant="primary"
+              className="shadow-sm font-bold text-xs"
+            />
+          }
           columns={[
             {
-              cell: (item: Transportation.WorkOrder) => (
-                <span className="font-bold text-slate-800 tracking-wide text-xs">
-                  {item.workOrderId}
+              cell: (_, option) => (
+                <span className="text-slate-600 font-medium">
+                  {option.rowIndex + 1}
                 </span>
               ),
+              width: "60px",
+              align: "center",
+              header: "S.No.",
+            },
+            {
+              field: "workOrderId",
               header: "Work Order ID",
-              width: "120px",
-            },
-            {
-              cell: (item: Transportation.WorkOrder) => (
-                <div className="flex flex-col gap-0.5">
-                  <span className="font-semibold text-slate-800">
-                    {item.block}
-                  </span>
-                  <span className="text-[10px] text-slate-400 font-medium">
-                    District: {item.district}
-                  </span>
-                </div>
-              ),
-              header: "Destination HQ (Block/Dist)",
-            },
-            {
-              cell: (item: Transportation.WorkOrder) => (
-                <span className="font-semibold text-slate-700">
-                  {item.transporterName}
-                </span>
-              ),
-              header: "Allocated Transporter",
-            },
-            {
-              cell: (item: Transportation.WorkOrder) => (
-                <span className="font-bold text-slate-800 text-xs">
-                  {item.totalBundles}
-                </span>
-              ),
-              header: "Target Bundles",
-              width: "120px",
-              align: "right",
-            },
-            {
-              cell: (item: Transportation.WorkOrder) => (
-                <div className="flex flex-col gap-0.5 text-[11px] text-slate-500 font-medium">
-                  <span>
-                    9T Trucks:{" "}
-                    <strong>{item.nineTonTrucksRequired || 0}</strong>
-                  </span>
-                  <span>
-                    4.5T Trucks:{" "}
-                    <strong>{item.fourPointFiveTonTrucksRequired || 0}</strong>
-                  </span>
-                </div>
-              ),
-              header: "Truck Estimates",
+              sortable: true,
               width: "130px",
             },
             {
+              field: "district",
+              header: "District",
+              sortable: true,
+            },
+            {
+              field: "block",
+              header: "Block / Destination",
+              sortable: true,
+            },
+            {
+              field: "transporterName",
+              header: "Allocated Transporter",
+              sortable: true,
+            },
+            {
+              field: "totalBundles",
+              header: "Target Bundles",
+              sortable: true,
+              align: "center",
+              width: "120px",
+            },
+            {
+              header: "Trucks (9T / 4.5T)",
               cell: (item: Transportation.WorkOrder) => (
-                <div className="flex flex-col gap-0.5 text-[11px]">
-                  <span className="text-slate-500">
-                    Issued: {item.instructionDate}
-                  </span>
-                  <span className="text-rose-600 font-semibold">
-                    Due: {item.dueDate}
-                  </span>
-                </div>
+                <span className="font-semibold text-slate-700">
+                  {item.nineTonTrucksRequired || 0} /{" "}
+                  {item.fourPointFiveTonTrucksRequired || 0}
+                </span>
               ),
-              header: "Timeline & SLA",
-              width: "150px",
+              align: "center",
+              width: "130px",
+            },
+            {
+              field: "instructionDate",
+              header: "Issue Date",
+              sortable: true,
+              width: "110px",
+            },
+            {
+              field: "dueDate",
+              header: "Due Date",
+              sortable: true,
+              width: "110px",
             },
             {
               cell: (item: Transportation.WorkOrder) => (
                 <span
-                  className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${getStatusClass(
+                  className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${getStatusClass(
                     item.status,
                   )}`}
                 >
@@ -176,7 +124,7 @@ export default function List() {
                 </span>
               ),
               header: "Status",
-              width: "140px",
+              width: "130px",
               align: "center",
             },
           ]}
@@ -190,8 +138,6 @@ export default function List() {
           transporters={transporters}
         />
       )}
-
-      <ConfirmDialog />
     </Page>
   );
 }

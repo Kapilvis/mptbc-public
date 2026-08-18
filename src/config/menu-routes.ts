@@ -325,6 +325,11 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         path: "/printing/orders/pending",
         permissionKey: "pending-printer-orders",
       },
+      {
+        label: "Quality Inspection",
+        path: "/printing/quality-inspection",
+        permissionKey: "printer-section/quality-inspection",
+      },
     ],
   },
   {
@@ -378,6 +383,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: "Depot Transport Section",
     icon: "pi pi-car",
+    permissionKey: "depot-transport",
     children: [
       {
         label: "Transport Orders",
@@ -399,6 +405,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: "Distribution Section",
     icon: "pi pi-truck",
+    permissionKey: "distribution-section",
     children: [
       {
         label: t("routes.distribution.department-demand"),
@@ -464,11 +471,19 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         path: "/paper/paper-tender-raise",
         feature: "@paper/paper-tender-raise",
         action: "read",
+        permissionKey: "paper-section/paper-tender",
       },
       {
         label: "Paper Vendor Profile",
         path: "/paper/paper-vendor-profile",
         feature: "@paper/paper-vendor-profile",
+        action: "read",
+        permissionKey: "paper-section/paper-vendor-profile",
+      },
+      {
+        label: "Paper Vendor Order Details",
+        path: "/paper/paper-order-allocation",
+        feature: "@paper/paper-order-allocation",
         action: "read",
       },
       {
@@ -486,23 +501,20 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         path: "/paper/stock/ledger",
         permissionKey: "stock-ledger",
       },
-      {
-        label: "Paper Vendor Order Details",
-        path: "/paper/paper-order-allocation",
-        feature: "@paper/paper-order-allocation",
-        action: "read",
-      },
+
       {
         label: "Paper Supply & Dispatch",
         path: "/paper/paper-supply-dispatch",
         feature: "@paper/paper-supply-dispatch",
         action: "read",
+        permissionKey: "paper-section/paper-order-allocation",
       },
     ],
   },
   {
     label: t("routes.reports.reports"),
     icon: "pi pi-chart-bar",
+    permissionKey: "reports",
     children: [
       {
         label: "Depot Wise Textbook Supply Report",
@@ -545,79 +557,6 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     icon: "pi pi-file-edit",
     path: "/assigned-demand",
     permissionKey: "assigned-demand",
-  },
-  {
-    label: "Transport",
-    icon: "pi pi-car",
-    permissionKey: "transport",
-    children: [
-      {
-        label: "Tender Management",
-        path: "/transport/tender-management",
-        feature: "@transport/commercial-bid",
-        action: "write",
-      },
-      {
-        label: t("routes.master.commercial-bid"),
-        path: "/transport/commercial-bid",
-        feature: "@transport/commercial-bid",
-        action: "write",
-      },
-      {
-        label: t("routes.master.technical-evaluation"),
-        path: "/transport/technical-evaluation",
-        feature: "@transport/technical-evaluation",
-        action: "write",
-      },
-      {
-        label: t("routes.master.l1-selection"),
-        path: "/transport/l1-selection",
-        feature: "@transport/l1-selection",
-        action: "write",
-      },
-      {
-        label: t("routes.master.work-order"),
-        path: "/transport/work-order",
-        feature: "@transport/work-order",
-        action: "write",
-      },
-      {
-        label: t("routes.master.dispatch-terminal"),
-        path: "/transport/dispatch",
-        feature: "@transport/work-order",
-        action: "write",
-      },
-      {
-        label: t("routes.master.delivery-tracking"),
-        path: "/transport/tracking",
-        feature: "@transport/work-order",
-        action: "write",
-      },
-      {
-        label: t("routes.master.pod-submission"),
-        path: "/transport/pod",
-        feature: "@transport/work-order",
-        action: "write",
-      },
-      {
-        label: t("routes.master.billing-settlement"),
-        path: "/transport/billing",
-        feature: "@transport/work-order",
-        action: "write",
-      },
-      {
-        label: t("routes.master.payment-disbursement"),
-        path: "/transport/disbursement",
-        feature: "@transport/work-order",
-        action: "write",
-      },
-      {
-        label: t("routes.master.reports-analytics"),
-        path: "/transport/reports",
-        feature: "@transport/work-order",
-        action: "write",
-      },
-    ],
   },
 
   /* ─── PRINTER specific mock menus ─── */
@@ -704,6 +643,57 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     path: "/distribution-tracking",
     permissionKey: "distribution-tracking",
   },
+
+  /* ─── TRANSPORTATION SECTION ─── */
+  {
+    label: "Transportation",
+    icon: "pi pi-truck",
+    permissionKey: "transportation",
+    children: [
+      {
+        label: "Tender Details",
+        path: "/transport/tender-details",
+        permissionKey: "transport/tender-details",
+      },
+      {
+        label: "Work Order & Allocation",
+        path: "/transport/work-order",
+        permissionKey: "transport/work-order",
+      },
+      {
+        label: "Loading & Dispatch",
+        path: "/transport/dispatch",
+        permissionKey: "transport/dispatch",
+      },
+      {
+        label: "Live Delivery Tracking",
+        path: "/transport/tracking",
+        permissionKey: "transport/tracking",
+      },
+      {
+        label: "POD Submission",
+        path: "/transport/pod",
+        permissionKey: "transport/pod",
+      },
+      /*
+      {
+        label: "Billing Engine",
+        path: "/transport/billing",
+        permissionKey: "transport/billing",
+      },
+      {
+        label: "Payment Disbursement",
+        path: "/transport/disbursement",
+        permissionKey: "transport/disbursement",
+      },
+      */
+      {
+        label: "Transportation Analytics",
+        path: "/transport/reports",
+        permissionKey: "transport/reports",
+      },
+    ],
+  },
 ];
 
 export function useMenu() {
@@ -713,7 +703,18 @@ export function useMenu() {
   return useMemo(() => {
     if (!authenticated) return [];
 
-    const role = user?.role || "";
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const getNormalizedRole = (u: any): string => {
+      if (!u) return "";
+      const r =
+        u.role ||
+        (Array.isArray(u.profile?.role)
+          ? u.profile.role[0]
+          : u.profile?.role) ||
+        "";
+      return r.toUpperCase();
+    };
+    const role = getNormalizedRole(user);
     const allowedPermissions = ROLE_PERMISSIONS[role] || [];
 
     const filterMenu = (items: Menu.MenuItem[]): Menu.MenuItem[] => {
@@ -759,6 +760,8 @@ export function useMenu() {
             dashboardPath = "/inventory/dashboard";
           } else if (role === "DISTRICT_DEPOT") {
             dashboardPath = "/district-depot/dashboard";
+          } else if (role === "PRINTER") {
+            dashboardPath = "/printing/dashboard";
           }
           return { ...item, path: dashboardPath };
         }

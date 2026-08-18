@@ -5,26 +5,46 @@ export const transporterTypes = [
   { text: "Agency", id: 4 },
 ];
 
-export const states = [
-  { text: "Madhya Pradesh", id: 1 },
-  { text: "Uttar Pradesh", id: 2 },
-];
+export const states = [{ text: "Madhya Pradesh", id: 1 }];
 
 export const districts = [
   { text: "Bhopal", id: 10, stateId: 1 },
   { text: "Indore", id: 11, stateId: 1 },
-  { text: "Lucknow", id: 20, stateId: 2 },
-  { text: "Kanpur", id: 21, stateId: 2 },
+  { text: "Ujjain", id: 12, stateId: 1 },
+  { text: "Gwalior", id: 13, stateId: 1 },
+  { text: "Jabalpur", id: 14, stateId: 1 },
 ];
 
 export const tehsils = [
-  { text: "Bhopal City", id: 100, districtId: 10 },
-  { text: "Kolar", id: 101, districtId: 10 },
-  { text: "Indore City", id: 110, districtId: 11 },
-  { text: "Mhow", id: 111, districtId: 11 },
-  { text: "Sanwer", id: 112, districtId: 11 },
-  { text: "Lucknow City", id: 200, districtId: 20 },
-  { text: "Kanpur City", id: 210, districtId: 21 },
+  // Bhopal Blocks
+  { text: "PHANDA", id: 100, districtId: 10 },
+  { text: "BERASIA", id: 101, districtId: 10 },
+
+  // Indore Blocks
+  { text: "INDORE", id: 110, districtId: 11 },
+  { text: "Dr. Ambedkar Nagar (MHOW)", id: 111, districtId: 11 },
+  { text: "SANWER", id: 112, districtId: 11 },
+  { text: "DEPALPUR", id: 113, districtId: 11 },
+
+  // Ujjain Blocks
+  { text: "Ujjain City", id: 120, districtId: 12 },
+  { text: "Nagda", id: 121, districtId: 12 },
+  { text: "Mahidpur", id: 122, districtId: 12 },
+  { text: "Tarana", id: 123, districtId: 12 },
+  { text: "Khachrod", id: 124, districtId: 12 },
+  { text: "Badnagar", id: 125, districtId: 12 },
+
+  // Gwalior Blocks
+  { text: "Gwalior City", id: 130, districtId: 13 },
+  { text: "Dabra", id: 131, districtId: 13 },
+  { text: "Morar", id: 132, districtId: 13 },
+  { text: "Bhitarwar", id: 133, districtId: 13 },
+
+  // Jabalpur Blocks
+  { text: "Jabalpur City", id: 140, districtId: 14 },
+  { text: "Sihora", id: 141, districtId: 14 },
+  { text: "Patan", id: 142, districtId: 14 },
+  { text: "Panagar", id: 143, districtId: 14 },
 ];
 
 export const mockTransporters: Transportation.TransporterRegistration[] = [

@@ -78,7 +78,7 @@ export default function Dashboard() {
   return (
     <Page
       header="Central Depot Dashboard"
-      subHeader="केंद्रीय डिपो डैशबोर्ड — Centralized inventory management, printer orders distribution, and stock tracking."
+      subHeader="Centralized inventory management, printer orders distribution, and stock tracking."
       showHeaderActions
     >
       {/* KPI Section */}
@@ -94,7 +94,7 @@ export default function Dashboard() {
                 Total Stock
               </span>
               <span className="text-xl font-extrabold text-blue-950 dark:text-white">
-                {totalStock.toLocaleString()} KG
+                {totalStock.toLocaleString()} MT
               </span>
             </div>
           </div>
@@ -145,7 +145,7 @@ export default function Dashboard() {
                 Today Issued
               </span>
               <span className="text-xl font-extrabold text-indigo-950 dark:text-white">
-                {todayDistribution.toLocaleString()} KG
+                {todayDistribution.toLocaleString()} MT
               </span>
             </div>
           </div>
@@ -229,7 +229,7 @@ export default function Dashboard() {
                   align: "right",
                   cell: (row: PaperStock) => (
                     <span className="text-xs">
-                      {row.openingStock.toLocaleString()} KG
+                      {row.openingStock.toLocaleString()} MT
                     </span>
                   ),
                 },
@@ -239,7 +239,7 @@ export default function Dashboard() {
                   align: "right",
                   cell: (row: PaperStock) => (
                     <span className="text-xs text-emerald-600 font-medium">
-                      +{row.receivedQuantity.toLocaleString()} KG
+                      +{row.receivedQuantity.toLocaleString()} MT
                     </span>
                   ),
                 },
@@ -249,7 +249,7 @@ export default function Dashboard() {
                   align: "right",
                   cell: (row: PaperStock) => (
                     <span className="text-xs text-rose-600 font-medium">
-                      -{row.issuedQuantity.toLocaleString()} KG
+                      -{row.issuedQuantity.toLocaleString()} MT
                     </span>
                   ),
                 },
@@ -259,7 +259,7 @@ export default function Dashboard() {
                   align: "right",
                   cell: (row: PaperStock) => (
                     <span className="text-xs font-extrabold text-blue-700 dark:text-blue-400">
-                      {row.availableQuantity.toLocaleString()} KG
+                      {row.availableQuantity.toLocaleString()} MT
                     </span>
                   ),
                 },
@@ -300,11 +300,11 @@ export default function Dashboard() {
                         </span>
                         <span className="text-[10px] text-rose-600 font-medium">
                           Min Level: {item.minimumStockLevel.toLocaleString()}{" "}
-                          KG
+                          MT
                         </span>
                       </div>
                       <span className="font-extrabold text-rose-600">
-                        {item.availableQuantity.toLocaleString()} KG
+                        {item.availableQuantity.toLocaleString()} MT
                       </span>
                     </div>
                   ))
@@ -334,7 +334,7 @@ export default function Dashboard() {
                         />
                         {/* Tooltip */}
                         <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[9px] font-bold px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap shadow-md pointer-events-none z-10">
-                          {data.qty.toLocaleString()} KG
+                          {data.qty.toLocaleString()} MT
                         </div>
                       </div>
                       <span className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">
@@ -403,7 +403,7 @@ export default function Dashboard() {
               align: "right",
               cell: (row: PaperDistribution) => (
                 <span className="text-xs text-emerald-600 font-extrabold">
-                  {row.issueQuantity.toLocaleString()} KG
+                  {row.issueQuantity.toLocaleString()} MT
                 </span>
               ),
             },

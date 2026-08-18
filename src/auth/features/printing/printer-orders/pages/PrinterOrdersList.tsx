@@ -257,7 +257,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               align: "right",
               cell: (row: PrinterOrder) => (
                 <span className="text-xs">
-                  {row.requiredQty.toLocaleString()} KG
+                  {row.requiredQty.toLocaleString()} MT
                 </span>
               ),
             },
@@ -267,7 +267,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               align: "right",
               cell: (row: PrinterOrder) => (
                 <span className="text-xs text-blue-700 dark:text-blue-400 font-semibold">
-                  {row.approvedQty.toLocaleString()} KG
+                  {row.approvedQty.toLocaleString()} MT
                 </span>
               ),
             },
@@ -277,7 +277,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               align: "right",
               cell: (row: PrinterOrder) => (
                 <span className="text-xs text-emerald-600 font-semibold">
-                  {row.suppliedQty.toLocaleString()} KG
+                  {row.suppliedQty.toLocaleString()} MT
                 </span>
               ),
             },
@@ -287,7 +287,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               align: "right",
               cell: (row: PrinterOrder) => (
                 <span className="text-xs text-rose-600 font-bold">
-                  {row.pendingQty.toLocaleString()} KG
+                  {row.pendingQty.toLocaleString()} MT
                 </span>
               ),
             },

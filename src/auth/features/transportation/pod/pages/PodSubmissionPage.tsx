@@ -9,8 +9,9 @@ import {
   DropDownList as SelectBox,
   DatePicker as DateBox,
 } from "shared/components/forms";
+import InputBlock from "shared/components/forms/InputBlock";
 import { ToastService } from "services";
-import { FileText, AlertTriangle, ShieldAlert } from "lucide-react";
+import { FileText, AlertTriangle } from "lucide-react";
 import {
   useWorkOrdersQuery,
   useSubmitPodMutation,
@@ -125,18 +126,10 @@ export default function PodSubmissionPage() {
   // Dropdown options
   const dispatchOptions = useMemo(() => {
     return activeDispatches.map((d) => ({
-      text: `${d.lrNumber} - ${d.transporterName} (Truck: ${d.truckNo})`,
+      text: `${d.lrNumber} - ${d.transporterName} (${d.district} - ${d.block})`,
       id: `${d.workOrderId}|${d.dispatchId}`,
     }));
   }, [activeDispatches]);
-
-  // SLA due date for selected dispatch
-  const slaDueDateStr = useMemo(() => {
-    if (!selectedDispatch) return "";
-    const date = new Date(selectedDispatch.dispatchDate);
-    date.setDate(date.getDate() + 3);
-    return date.toISOString().split("T")[0];
-  }, [selectedDispatch]);
 
   const onSubmit = async (data: PodFormValues) => {
     if (!selectedDispatch) {
@@ -204,107 +197,32 @@ export default function PodSubmissionPage() {
   return (
     <Page
       header="Proof of Delivery (POD) Submission"
-      subHeader="वितरण का प्रमाण — Record textbook receiving logs, audit stock counts, and upload signed delivery challans."
+      subHeader="Record textbook receiving logs, audit stock counts, and upload signed delivery challans."
     >
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Form Panel */}
-        <div className="lg:col-span-2">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Card className="flex flex-col gap-5 p-5">
-              <span className="text-base font-bold text-slate-800 flex items-center gap-2 border-b pb-3">
-                <FileText className="text-emerald-600" size={20} />
+      <div className="flex flex-col gap-6">
+        {/* Full-width Form Card with Generous Spacing */}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Card className="p-6 flex flex-col gap-6">
+            <div className="border-b border-slate-200 pb-3">
+              <span className="text-base font-bold text-slate-800 tracking-tight">
                 POD Submission Details
               </span>
+            </div>
 
-              {/* Select Active Dispatch Dropdown */}
-              <SelectBox
-                label="Select Active Shipment / Dispatch"
-                name="dispatchRef"
-                required
-                control={control}
-                data={dispatchOptions}
-                optionValue="id"
-                textField="text"
-              />
-
-              {/* Dynamic Dispatch Info Card */}
-              {selectedDispatch && (
-                <div className="bg-slate-50 border rounded-xl p-4 flex flex-col gap-3">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-b pb-3 border-slate-200">
-                    <div>
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                        Work Order & Route
-                      </span>
-                      <span className="font-bold text-slate-800 text-xs block">
-                        {selectedDispatch.workOrderDetails}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                        Transporter & Truck No
-                      </span>
-                      <span className="font-bold text-slate-800 text-xs block">
-                        {selectedDispatch.transporterName} (
-                        {selectedDispatch.truckNo})
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                    <div>
-                      <span className="text-slate-400 font-medium">
-                        Dispatched Qty:
-                      </span>
-                      <strong className="text-slate-700 block text-sm">
-                        {selectedDispatch.bundlesLoaded} Bundles
-                      </strong>
-                      <span className="text-[10px] text-slate-400">
-                        Weight:{" "}
-                        {(selectedDispatch.bundlesLoaded * 0.04).toFixed(2)}{" "}
-                        Tons
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 font-medium">
-                        Dispatch Date:
-                      </span>
-                      <strong className="text-slate-700 block text-sm">
-                        {selectedDispatch.dispatchDate}
-                      </strong>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 font-medium">
-                        SLA Due Date:
-                      </span>
-                      <strong className="text-rose-600 block text-sm font-semibold">
-                        {slaDueDateStr}
-                      </strong>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Mark as LOST Checkbox */}
-              <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl p-3">
-                <input
-                  type="checkbox"
-                  id="lostCheckbox"
-                  checked={isLost}
-                  onChange={handleLostToggle}
-                  className="w-4 h-4 text-rose-600 border-slate-300 rounded focus:ring-rose-500 cursor-pointer"
-                  disabled={!selectedDispatch}
+            {/* Form Fields Container with clean vertical and horizontal gaps */}
+            <div className="flex flex-col gap-6">
+              {/* Row 1: 3 Items (Dispatch, Good Bundles, Damaged/Missing) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <SelectBox
+                  label="Select Active Shipment / Dispatch"
+                  name="dispatchRef"
+                  required
+                  control={control}
+                  data={dispatchOptions}
+                  optionValue="id"
+                  textField="text"
                 />
-                <label
-                  htmlFor="lostCheckbox"
-                  className="text-xs font-bold text-slate-700 cursor-pointer select-none"
-                >
-                  Shipment declared LOST (All books damaged, hijacked, or
-                  missing in transit)
-                </label>
-              </div>
 
-              {/* Quantity Audits */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <NumberBox
                   label="Good Bundles Received"
                   name="goodBundles"
@@ -314,62 +232,43 @@ export default function PodSubmissionPage() {
                   disabled={!selectedDispatch || isLost}
                 />
 
-                <div>
-                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-                    Damaged / Missing Bundles
-                  </span>
+                <InputBlock label="Damaged / Missing Bundles">
                   <div
-                    className={`border rounded-xl p-3 flex items-center justify-between ${
+                    className={`border rounded-lg h-[38px] px-3 flex items-center justify-between transition-colors ${
                       damagedBundles > 0
-                        ? "bg-rose-50 border-rose-200 text-rose-700"
-                        : "bg-emerald-50/50 border-emerald-100 text-emerald-800"
+                        ? "bg-rose-50 border-rose-300 text-rose-800"
+                        : "bg-emerald-50/60 border-slate-200 text-slate-800"
                     }`}
                   >
-                    <span className="text-sm font-bold">
+                    <span className="text-xs font-bold">
                       {damagedBundles} Bundles
                     </span>
                     {damagedBundles > 0 ? (
-                      <span className="text-[10px] font-bold uppercase tracking-wider bg-rose-100 text-rose-800 px-2 py-0.5 rounded">
-                        {isLost ? "Declared Lost" : "Shortage/Damage"}
+                      <span className="text-[10px] font-bold uppercase bg-rose-200 text-rose-900 px-1.5 py-0.5 rounded">
+                        {isLost ? "Declared Lost" : "Shortage"}
                       </span>
                     ) : (
                       selectedDispatch && (
-                        <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">
-                          Perfect Delivery
+                        <span className="text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">
+                          Full Delivery
                         </span>
                       )
                     )}
                   </div>
-                </div>
+                </InputBlock>
               </div>
 
-              {/* Loss Warning */}
-              {damagedBundles > 0 && (
-                <div className="bg-rose-50 border border-rose-200 rounded-xl p-3 flex items-start gap-2 text-rose-800">
-                  <AlertTriangle size={18} className="shrink-0 mt-0.5" />
-                  <div className="flex flex-col text-xs">
-                    <span className="font-bold">
-                      Deduction Recovery Warning
-                    </span>
-                    <span className="leading-relaxed mt-0.5">
-                      {isLost
-                        ? "Lost shipment: 1.5x of total book value will be recovered from the transporter's final bill."
-                        : `${damagedBundles} missing/damaged bundles will be recovered at unit book price from transporter freight.`}
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {/* Officer details */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Row 2: 3 Items (Officer Name, Designation, Delivery Date) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <TextBox
                   label="Receiving Officer Name"
                   name="receiverName"
                   required
                   control={control}
-                  placeholder="e.g. Block Resource Coordinator (BRC)"
+                  placeholder="e.g. Block Resource Coordinator"
                   disabled={!selectedDispatch}
                 />
+
                 <TextBox
                   label="Officer Designation"
                   name="receiverDesignation"
@@ -378,197 +277,178 @@ export default function PodSubmissionPage() {
                   placeholder="e.g. BRC, Sanwer Block"
                   disabled={!selectedDispatch}
                 />
-              </div>
 
-              {/* Delivery Date */}
-              <DateBox
-                label="Actual Date of Delivery"
-                name="deliveryDate"
-                required
-                control={control}
-                disabled={!selectedDispatch}
-              />
-
-              {/* Mock Uploads */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">
-                    Upload Signed Delivery Challan (PDF/JPG){" "}
-                    <span className="text-rose-500">*</span>
-                  </label>
-                  <input
-                    type="file"
-                    className="border border-slate-200 rounded-xl p-2 text-xs w-full focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer bg-white"
-                    disabled={!selectedDispatch}
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">
-                    Upload Receiver Signature Stamp (JPG){" "}
-                    <span className="text-rose-500">*</span>
-                  </label>
-                  <input
-                    type="file"
-                    className="border border-slate-200 rounded-xl p-2 text-xs w-full focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer bg-white"
-                    disabled={!selectedDispatch}
-                    required
-                  />
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex justify-end gap-3 border-t border-slate-100 pt-4 mt-3">
-                <Button
-                  type="submit"
-                  label="Confirm Delivery"
-                  icon="check"
-                  disabled={!watchDispatchRef || submitPodMutation.isPending}
+                <DateBox
+                  label="Actual Date of Delivery"
+                  name="deliveryDate"
+                  required
+                  control={control}
+                  disabled={!selectedDispatch}
                 />
               </div>
-            </Card>
-          </form>
-        </div>
 
-        {/* Right Info Panel */}
-        <div className="lg:col-span-1">
-          <Card className="p-4 flex flex-col gap-4">
-            <span className="text-sm font-bold text-slate-800 border-b pb-2 flex items-center gap-1.5 font-sans">
-              <ShieldAlert size={16} className="text-rose-600" />
-              POD Submission Policy
-            </span>
-            <div className="text-xs text-slate-600 flex flex-col gap-3 leading-relaxed">
-              <div>
-                <strong className="text-slate-800">
-                  1. Quantity Reconciliation:
-                </strong>
-                <p className="mt-0.5 text-slate-500">
-                  Total Dispatched Quantity must equal Good Received Qty +
-                  Damaged/Missing Qty. Discrepancies block form submission.
-                </p>
-              </div>
-              <div>
-                <strong className="text-slate-800">
-                  2. Financial Recoveries:
-                </strong>
-                <p className="mt-0.5 text-slate-500">
-                  Any missing/damaged count triggers automatic billing
-                  recoveries during step 4 of payment settlement:
-                  <ul className="list-disc pl-4 mt-1 text-[11px]">
-                    <li>Lost Shipment: 150% of Book Cost recovered.</li>
-                    <li>Damaged books: 100% of Book Cost recovered.</li>
-                  </ul>
-                </p>
-              </div>
-              <div>
-                <strong className="text-slate-800">
-                  3. Delay Calculations:
-                </strong>
-                <p className="mt-0.5 text-slate-500">
-                  Comparing Dispatch Date and Delivery Date yields delay days.
-                  Delay penalties slab rate:
-                  <ul className="list-disc pl-4 mt-1 text-[11px]">
-                    <li>Days 1-4: 5% of freight per day.</li>
-                    <li>Days 5-9: 10% of freight per day.</li>
-                  </ul>
-                </p>
+              {/* Row 3: 3 Items (Upload Challan, Upload Signature, Lost Checkbox) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <InputBlock label="Upload Delivery Challan (PDF/JPG)" required>
+                  <input
+                    type="file"
+                    className="w-full h-[38px] px-2.5 py-1.5 border border-gray-200 rounded-lg bg-white text-xs font-medium text-gray-700 cursor-pointer focus:border-emerald-500 focus:outline-none"
+                    disabled={!selectedDispatch}
+                    required
+                  />
+                </InputBlock>
+
+                <InputBlock label="Upload Signature Stamp (JPG)" required>
+                  <input
+                    type="file"
+                    className="w-full h-[38px] px-2.5 py-1.5 border border-gray-200 rounded-lg bg-white text-xs font-medium text-gray-700 cursor-pointer focus:border-emerald-500 focus:outline-none"
+                    disabled={!selectedDispatch}
+                    required
+                  />
+                </InputBlock>
+
+                <InputBlock label="Shipment Status">
+                  <div className="flex items-center gap-2 border border-gray-200 rounded-lg h-[38px] px-3 bg-gray-50">
+                    <input
+                      type="checkbox"
+                      id="lostCheckbox"
+                      checked={isLost}
+                      onChange={handleLostToggle}
+                      className="w-4 h-4 text-rose-600 border-gray-300 rounded focus:ring-rose-500 cursor-pointer"
+                      disabled={!selectedDispatch}
+                    />
+                    <label
+                      htmlFor="lostCheckbox"
+                      className="text-xs font-semibold text-gray-700 cursor-pointer select-none"
+                    >
+                      Declare Shipment as LOST
+                    </label>
+                  </div>
+                </InputBlock>
               </div>
             </div>
-          </Card>
-        </div>
-      </div>
 
-      {/* Proof of Delivery History Grid */}
-      <div className="mt-8">
-        <Card className="p-5">
-          <span className="text-base font-bold text-slate-800 flex items-center gap-2 border-b pb-3 mb-4">
-            <FileText className="text-emerald-600" size={20} />
-            Delivered Shipments & POD Log
-          </span>
+            {/* Deduction Warning if Damaged */}
+            {damagedBundles > 0 && (
+              <div className="bg-rose-50 border border-rose-200 rounded-xl p-3 flex items-start gap-2 text-rose-800">
+                <AlertTriangle size={18} className="shrink-0 mt-0.5" />
+                <div className="flex flex-col text-xs">
+                  <span className="font-bold">Deduction Recovery Notice</span>
+                  <span className="leading-relaxed mt-0.5">
+                    {isLost
+                      ? "Lost shipment: 1.5x of book value will be recovered from the transporter's final bill."
+                      : `${damagedBundles} missing/damaged bundles will be recovered at unit book price from freight.`}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <div className="flex justify-end gap-3 border-t border-slate-200 pt-4 mt-2">
+              <Button
+                type="submit"
+                label="Confirm Delivery"
+                icon="check"
+                disabled={!watchDispatchRef || submitPodMutation.isPending}
+              />
+            </div>
+          </Card>
+        </form>
+
+        {/* History Grid - Standard Card and Size matching other master pages */}
+        <Card>
           <GridPanel
+            title="Recent Verified POD Records"
             data={deliveredDispatches}
             searchFields={[
               "lrNumber",
               "truckNo",
-              "transporterName",
               "district",
               "block",
+              "transporterName",
             ]}
             columns={[
               {
-                header: "LR Number",
-                field: "lrNumber",
-                width: "120px",
-                cell: (row: FlatPodDispatch) => (
-                  <span className="font-bold text-slate-800 text-xs">
-                    {row.lrNumber}
+                cell: (_, option) => (
+                  <span className="text-slate-600 font-medium">
+                    {option.rowIndex + 1}
                   </span>
                 ),
+                width: "60px",
+                align: "center",
+                header: "S.No.",
+              },
+              {
+                header: "Lorry Receipt Number",
+                field: "lrNumber",
+                sortable: true,
+                width: "180px",
               },
               {
                 header: "Work Order",
                 field: "workOrderId",
+                sortable: true,
                 width: "120px",
               },
               {
-                header: "Destination Block",
-                cell: (row: FlatPodDispatch) => (
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-slate-800">
-                      {row.block}
-                    </span>
-                    <span className="text-[10px] text-slate-400">
-                      District: {row.district}
-                    </span>
-                  </div>
-                ),
+                header: "District",
+                field: "district",
+                sortable: true,
               },
               {
-                header: "Transporter & Truck",
-                cell: (row: FlatPodDispatch) => (
-                  <div className="flex flex-col text-xs text-slate-600">
-                    <span>{row.transporterName}</span>
-                    <span className="text-[10px] text-slate-400 font-mono">
-                      {row.truckNo}
-                    </span>
-                  </div>
-                ),
+                header: "Block / Destination",
+                field: "block",
+                sortable: true,
               },
               {
-                header: "Delivered Load",
+                header: "Transporter",
+                field: "transporterName",
+                sortable: true,
+              },
+              {
+                header: "Vehicle Number",
+                field: "truckNo",
+                sortable: true,
+                width: "140px",
+              },
+              {
+                header: "Delivered Bundles",
+                field: "bundlesLoaded",
+                sortable: true,
+                align: "center",
+                width: "140px",
+              },
+              {
+                header: "Delivered Weight",
                 cell: (row: FlatPodDispatch) => (
-                  <div className="flex flex-col text-right">
-                    <span className="font-bold text-slate-800">
-                      {row.bundlesLoaded} Bundles
-                    </span>
-                    <span className="text-[10px] text-slate-400">
-                      Weight: {(row.bundlesLoaded * 0.04).toFixed(2)} Tons
-                    </span>
-                  </div>
+                  <span className="font-semibold text-slate-700">
+                    {(row.bundlesLoaded * 0.04).toFixed(2)} T
+                  </span>
                 ),
-                align: "right",
+                align: "center",
                 width: "130px",
               },
               {
-                header: "Delivery Timeline",
-                cell: (row: FlatPodDispatch) => (
-                  <div className="flex flex-col text-xs">
-                    <span>Delivered: {row.actualDeliveryDate}</span>
-                    <span className="text-[10px] text-slate-400">
-                      Dispatched: {row.dispatchDate}
-                    </span>
-                  </div>
-                ),
+                header: "Dispatch Date",
+                field: "dispatchDate",
+                sortable: true,
+                width: "120px",
+              },
+              {
+                header: "Delivery Date",
+                field: "actualDeliveryDate",
+                sortable: true,
+                width: "120px",
               },
               {
                 header: "SLA Delay Status",
                 align: "center",
-                width: "140px",
+                width: "150px",
                 cell: (row: FlatPodDispatch) => {
                   const delay = row.deliveryDelayDays || 0;
                   return (
                     <span
-                      className={`px-3 py-1 rounded-full text-[10px] font-bold border ${
+                      className={`px-3 py-1 rounded-full text-[10px] font-bold border whitespace-nowrap inline-block ${
                         delay > 0
                           ? "bg-rose-50 text-rose-700 border-rose-200"
                           : "bg-emerald-50 text-emerald-700 border-emerald-200"
@@ -581,7 +461,7 @@ export default function PodSubmissionPage() {
               },
               {
                 header: "Signed Challan",
-                width: "130px",
+                width: "140px",
                 align: "center",
                 cell: (row: FlatPodDispatch) => (
                   <a
@@ -592,7 +472,7 @@ export default function PodSubmissionPage() {
                         `Downloading signed challan for LR ${row.lrNumber}`,
                       );
                     }}
-                    className="text-emerald-600 hover:text-emerald-800 text-xs font-bold flex items-center gap-1 justify-center"
+                    className="text-emerald-600 hover:text-emerald-800 text-xs font-bold flex items-center gap-1 justify-center whitespace-nowrap"
                   >
                     <FileText size={14} />
                     View Receipt

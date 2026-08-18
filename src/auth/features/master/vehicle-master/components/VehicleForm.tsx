@@ -62,10 +62,8 @@ export default function VehicleForm({
     await onSubmit(mappedVehicle);
   };
 
-  const { handleSubmit, watch, control, reset } = useVehicleRegistrationForm(
-    handleFormSubmit,
-    defaultVals,
-  );
+  const { handleSubmit, watch, control, reset, setValue } =
+    useVehicleRegistrationForm(handleFormSubmit, defaultVals);
 
   // Sync default values once they load
   useEffect(() => {
@@ -156,7 +154,9 @@ export default function VehicleForm({
       </div>
 
       <form onSubmit={handleSubmit} className="form-container">
-        {currentStep === 1 && <Step1 control={control} />}
+        {currentStep === 1 && (
+          <Step1 control={control} watch={watch} setValue={setValue} />
+        )}
 
         {currentStep === 2 && <Step2 control={control} watch={watch} />}
 

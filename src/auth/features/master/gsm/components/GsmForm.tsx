@@ -87,11 +87,11 @@ export default function GsmForm(props: Props) {
           placeholder="Enter Sheet Weight in GM (e.g., 38.8416)"
         />
         <NumberBox
-          label="Ream Weight in KG"
+          label="Ream Weight in MT"
           required
           maxFractionDigits={4}
-          {...register("reamWeightInKG")}
-          placeholder="Enter Ream Weight in KG (e.g., 19.4208)"
+          {...register("reamWeightInMT")}
+          placeholder="Enter Ream Weight in MT (e.g., 19.4208)"
         />
       </InputPanel>
 

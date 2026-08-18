@@ -34,12 +34,7 @@ export const shiftTypes = [
   { text: "Triple Shift (24 Hours)", id: "Triple" },
 ];
 
-export const states = [
-  { text: "Madhya Pradesh", id: 1 },
-  { text: "Uttar Pradesh", id: 2 },
-  { text: "Maharashtra", id: 3 },
-  { text: "Rajasthan", id: 4 },
-];
+export const states = [{ text: "Madhya Pradesh", id: 1 }];
 
 export const districts = [
   { text: "Bhopal", id: 10, stateId: 1 },
@@ -101,6 +96,19 @@ export const filterStatuses = [
 ];
 
 export const initialPrinterRegistrationListData: Printer.ListItem[] = [
+  {
+    printerCode: "PRN-001",
+    printerName: "ABC Printing Press",
+    firmRegistrationNo: "REG-2026-0001",
+    category: "Category A",
+    district: "Bhopal",
+    authorizedPerson: "PRINTER ADMIN",
+    mobile: "9876543210",
+    approvedCapacity: 1000000,
+    totalMachines: 5,
+    status: "Approved",
+    createdDate: "2026-08-01",
+  },
   {
     printerCode: "PRN-000124",
     printerName: "Shree Offset Press",

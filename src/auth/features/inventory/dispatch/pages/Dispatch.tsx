@@ -72,7 +72,7 @@ export default function DispatchPage() {
               align: "right",
               cell: (row: PaperDistribution) => (
                 <span className="text-xs text-emerald-600 font-extrabold">
-                  {row.issueQuantity.toLocaleString()} KG
+                  {row.issueQuantity.toLocaleString()} MT
                 </span>
               ),
             },

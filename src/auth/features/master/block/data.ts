@@ -34,8 +34,8 @@ export const initialBlockList: Master.BlockItem[] = [
   },
   {
     blockId: 4,
-    name: "HUZUR",
-    localName: "हुजूर",
+    name: "PHANDA",
+    localName: "फंदा",
     code: "BLK-2350-01",
     districtId: 2,
     districtName: "Bhopal",

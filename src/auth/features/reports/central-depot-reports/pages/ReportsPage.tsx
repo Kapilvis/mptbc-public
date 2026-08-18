@@ -221,7 +221,7 @@ export default function ReportsPage({
                 align: "right",
                 cell: (row) => (
                   <span className="text-xs">
-                    {row.opening.toLocaleString()} KG
+                    {row.opening.toLocaleString()} MT
                   </span>
                 ),
               },
@@ -231,7 +231,7 @@ export default function ReportsPage({
                 align: "right",
                 cell: (row) => (
                   <span className="text-xs text-emerald-650">
-                    +{row.received.toLocaleString()} KG
+                    +{row.received.toLocaleString()} MT
                   </span>
                 ),
               },
@@ -241,7 +241,7 @@ export default function ReportsPage({
                 align: "right",
                 cell: (row) => (
                   <span className="text-xs text-rose-650">
-                    -{row.issued.toLocaleString()} KG
+                    -{row.issued.toLocaleString()} MT
                   </span>
                 ),
               },
@@ -251,7 +251,7 @@ export default function ReportsPage({
                 align: "right",
                 cell: (row) => (
                   <span className="text-xs font-bold text-blue-750">
-                    {row.closing.toLocaleString()} KG
+                    {row.closing.toLocaleString()} MT
                   </span>
                 ),
               },
@@ -261,7 +261,7 @@ export default function ReportsPage({
                 align: "right",
                 cell: (row) => (
                   <span className="text-xs">
-                    {row.minimum.toLocaleString()} KG
+                    {row.minimum.toLocaleString()} MT
                   </span>
                 ),
               },
@@ -320,7 +320,7 @@ export default function ReportsPage({
                 align: "right",
                 cell: (row) => (
                   <span className="text-xs">
-                    {row.approved.toLocaleString()} KG
+                    {row.approved.toLocaleString()} MT
                   </span>
                 ),
               },
@@ -330,7 +330,7 @@ export default function ReportsPage({
                 align: "right",
                 cell: (row) => (
                   <span className="text-xs text-emerald-600 font-semibold">
-                    {row.supplied.toLocaleString()} KG
+                    {row.supplied.toLocaleString()} MT
                   </span>
                 ),
               },
@@ -340,7 +340,7 @@ export default function ReportsPage({
                 align: "right",
                 cell: (row) => (
                   <span className="text-xs text-rose-600 font-extrabold">
-                    {row.pending.toLocaleString()} KG
+                    {row.pending.toLocaleString()} MT
                   </span>
                 ),
               },
@@ -391,7 +391,7 @@ export default function ReportsPage({
                 align: "right",
                 cell: (row) => (
                   <span className="text-xs">
-                    {row.approved.toLocaleString()} KG
+                    {row.approved.toLocaleString()} MT
                   </span>
                 ),
               },
@@ -401,7 +401,7 @@ export default function ReportsPage({
                 align: "right",
                 cell: (row) => (
                   <span className="text-xs text-emerald-600 font-semibold">
-                    {row.supplied.toLocaleString()} KG
+                    {row.supplied.toLocaleString()} MT
                   </span>
                 ),
               },
@@ -411,7 +411,7 @@ export default function ReportsPage({
                 align: "right",
                 cell: (row) => (
                   <span className="text-xs text-rose-600 font-extrabold">
-                    {row.pending.toLocaleString()} KG
+                    {row.pending.toLocaleString()} MT
                   </span>
                 ),
               },
@@ -476,7 +476,7 @@ export default function ReportsPage({
                 align: "right",
                 cell: (row) => (
                   <span className="text-xs font-extrabold text-emerald-600">
-                    {row.quantity.toLocaleString()} KG
+                    {row.quantity.toLocaleString()} MT
                   </span>
                 ),
               },

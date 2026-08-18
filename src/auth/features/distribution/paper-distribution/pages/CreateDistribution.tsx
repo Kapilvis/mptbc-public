@@ -36,7 +36,7 @@ export default function CreateDistribution({ onSave }: { onSave: () => void }) {
   const orderOptions = useMemo(() => {
     return pendingOrders.map((o) => ({
       value: o.orderNo,
-      text: `${o.orderNo} — ${o.printer} (${o.gsm} GSM, ${o.pendingQty} KG Pending)`,
+      text: `${o.orderNo} — ${o.printer} (${o.gsm} GSM, ${o.pendingQty} MT Pending)`,
     }));
   }, [pendingOrders]);
 
@@ -141,7 +141,7 @@ export default function CreateDistribution({ onSave }: { onSave: () => void }) {
       dataManager.addDistribution(newDistribution);
 
       ToastService.success(
-        `Paper stock of ${qtyToIssue} KG dispatched to ${selectedOrder.printer} successfully!`,
+        `Paper stock of ${qtyToIssue} MT dispatched to ${selectedOrder.printer} successfully!`,
       );
 
       // Call onSave which closes the overlay panel
@@ -171,7 +171,7 @@ export default function CreateDistribution({ onSave }: { onSave: () => void }) {
         />
 
         <NumberBox
-          label="Issue Quantity (KG)"
+          label="Issue Quantity (MT)"
           required
           value={issueQty ? parseFloat(issueQty) : undefined}
           onChange={(val) =>
@@ -243,7 +243,7 @@ export default function CreateDistribution({ onSave }: { onSave: () => void }) {
                 Approved Order Qty
               </span>
               <span className="font-bold text-gray-700 dark:text-gray-200">
-                {selectedOrder.approvedQty.toLocaleString()} KG
+                {selectedOrder.approvedQty.toLocaleString()} MT
               </span>
             </div>
             <div>
@@ -251,7 +251,7 @@ export default function CreateDistribution({ onSave }: { onSave: () => void }) {
                 Previously Supplied
               </span>
               <span className="font-bold text-emerald-600">
-                {selectedOrder.suppliedQty.toLocaleString()} KG
+                {selectedOrder.suppliedQty.toLocaleString()} MT
               </span>
             </div>
           </div>
@@ -262,7 +262,7 @@ export default function CreateDistribution({ onSave }: { onSave: () => void }) {
                 Pending Qty to Supply
               </span>
               <span className="font-extrabold text-rose-600">
-                {selectedOrder.pendingQty.toLocaleString()} KG
+                {selectedOrder.pendingQty.toLocaleString()} MT
               </span>
             </div>
             <div>
@@ -272,7 +272,7 @@ export default function CreateDistribution({ onSave }: { onSave: () => void }) {
               <span
                 className={`font-extrabold ${availableStock <= 0 ? "text-rose-600" : "text-emerald-600"}`}
               >
-                {availableStock.toLocaleString()} KG
+                {availableStock.toLocaleString()} MT
               </span>
             </div>
           </div>

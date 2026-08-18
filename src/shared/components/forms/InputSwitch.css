@@ -42,7 +42,7 @@
 /* Track — unchecked */
 .input-switch-container .p-inputswitch .p-inputswitch-slider {
   @apply rounded-[30px] transition-colors duration-200;
-  background-color: #DBE8D8 !important;
+  background-color: var(--primary-light-bg) !important;
 }
 
 /* Track — checked */
@@ -50,7 +50,7 @@
   .p-inputswitch.p-inputswitch-checked
   .p-inputswitch-slider,
 .input-switch-container.is-checked .p-inputswitch .p-inputswitch-slider {
-  @apply !bg-[#008a45];
+  @apply !bg-[var(--primary-color)];
 }
 
 /* Knob base */

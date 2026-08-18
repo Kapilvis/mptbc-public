@@ -5,8 +5,35 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root {
+:root,
+[data-theme="emerald"],
+.theme-emerald {
   --primary-color: #008a45;
+  --primary-hover: #00753a;
+  --primary-active: #006130;
+  --primary-light-bg: #f0fdf4;
+  --primary-border: #c2d8be;
+
+  --sidebar-gradient:
+    radial-gradient(
+      circle at 82% 6%,
+      rgba(214, 233, 213, 0.8),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 8% 96%,
+      rgba(219, 232, 216, 0.9),
+      transparent 35%
+    ),
+    linear-gradient(180deg, #eaf3e9 0%, #dbe8d8 50%, #d6e9d5 100%);
+  --sidebar-border: #c2d8be;
+  --sidebar-title-color: #043e2e;
+  --sidebar-text-color: #1b4332;
+  --sidebar-active-gradient: linear-gradient(90deg, #008a45 0%, #00753a 100%);
+  --sidebar-active-border: #005a2d;
+  --sidebar-hover-bg: #c6dec1;
+  --sidebar-decoration-filter: hue-rotate(130deg) saturate(1.2) brightness(0.85);
+
   --black-text: #333333;
   --text-color: #101828;
   --gray-text: #666666;
@@ -30,6 +57,211 @@
   --warning-color: #f59e0b;
   --info-color: #3b82f6;
 }
+
+[data-theme="navy"],
+.theme-navy {
+  --primary-color: #1e3a8a;
+  --primary-hover: #172554;
+  --primary-active: #0f172a;
+  --primary-light-bg: #eff6ff;
+  --primary-border: #a9c7f5;
+
+  --sidebar-gradient:
+    radial-gradient(
+      circle at 82% 6%,
+      rgba(219, 234, 254, 0.8),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 8% 96%,
+      rgba(191, 219, 254, 0.9),
+      transparent 35%
+    ),
+    linear-gradient(180deg, #edf4ff 0%, #dbeafe 50%, #c7d9f8 100%);
+  --sidebar-border: #a9c7f5;
+  --sidebar-title-color: #0f2942;
+  --sidebar-text-color: #16355c;
+  --sidebar-active-gradient: linear-gradient(90deg, #1e3a8a 0%, #172554 100%);
+  --sidebar-active-border: #0f172a;
+  --sidebar-hover-bg: #bcd5fc;
+  --sidebar-decoration-filter: hue-rotate(210deg) saturate(1.3) brightness(0.9);
+
+  --text-purple: #1e3a8a;
+  --purple-100: #dbeafe;
+  --table-header-bg: #1e3a8a;
+  --side-bar-bg: #1e3a8a;
+}
+
+[data-theme="teal"],
+.theme-teal {
+  --primary-color: #045e74;
+  --primary-hover: #034859;
+  --primary-active: #023440;
+  --primary-light-bg: #eaf6fa;
+  --primary-border: #a0d3e2;
+
+  --sidebar-gradient:
+    radial-gradient(
+      circle at 82% 6%,
+      rgba(212, 235, 242, 0.8),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 8% 96%,
+      rgba(192, 225, 235, 0.9),
+      transparent 35%
+    ),
+    linear-gradient(180deg, #eaf6fa 0%, #d5ebf2 50%, #c4e3ed 100%);
+  --sidebar-border: #a0d3e2;
+  --sidebar-title-color: #023340;
+  --sidebar-text-color: #054859;
+  --sidebar-active-gradient: linear-gradient(90deg, #045e74 0%, #034859 100%);
+  --sidebar-active-border: #023440;
+  --sidebar-hover-bg: #c4e3ed;
+  --sidebar-decoration-filter: hue-rotate(185deg) saturate(1.3) brightness(0.85);
+
+  --text-purple: #045e74;
+  --purple-100: #d5ebf2;
+  --table-header-bg: #045e74;
+  --side-bar-bg: #045e74;
+}
+
+[data-theme="violet"],
+.theme-violet {
+  --primary-color: #4d4391;
+  --primary-hover: #3b3373;
+  --primary-active: #2b2555;
+  --primary-light-bg: #f4f3fa;
+  --primary-border: #b9b3e3;
+
+  --sidebar-gradient:
+    radial-gradient(
+      circle at 82% 6%,
+      rgba(228, 225, 244, 0.8),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 8% 96%,
+      rgba(213, 208, 237, 0.9),
+      transparent 35%
+    ),
+    linear-gradient(180deg, #f4f3fa 0%, #e5e2f4 50%, #d6d1ed 100%);
+  --sidebar-border: #b9b3e3;
+  --sidebar-title-color: #221c47;
+  --sidebar-text-color: #362e67;
+  --sidebar-active-gradient: linear-gradient(90deg, #4d4391 0%, #3a3270 100%);
+  --sidebar-active-border: #221c47;
+  --sidebar-hover-bg: #d6d1ed;
+  --sidebar-decoration-filter: hue-rotate(255deg) saturate(1.1) brightness(0.85);
+
+  --text-purple: #4d4391;
+  --purple-100: #e5e2f4;
+  --table-header-bg: #4d4391;
+  --side-bar-bg: #4d4391;
+}
+
+[data-theme="slate"],
+.theme-slate {
+  --primary-color: #334155;
+  --primary-hover: #1e293b;
+  --primary-active: #0f172a;
+  --primary-light-bg: #f8fafc;
+  --primary-border: #cbd5e1;
+
+  --sidebar-gradient:
+    radial-gradient(
+      circle at 82% 6%,
+      rgba(241, 245, 249, 0.8),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 8% 96%,
+      rgba(226, 232, 240, 0.9),
+      transparent 35%
+    ),
+    linear-gradient(180deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+  --sidebar-border: #cbd5e1;
+  --sidebar-title-color: #0f172a;
+  --sidebar-text-color: #334155;
+  --sidebar-active-gradient: linear-gradient(90deg, #334155 0%, #1e293b 100%);
+  --sidebar-active-border: #0f172a;
+  --sidebar-hover-bg: #cbd5e1;
+  --sidebar-decoration-filter: hue-rotate(200deg) grayscale(0.6) brightness(0.8);
+
+  --text-purple: #334155;
+  --purple-100: #e2e8f0;
+  --table-header-bg: #334155;
+  --side-bar-bg: #334155;
+}
+
+[data-theme="burgundy"],
+.theme-burgundy {
+  --primary-color: #881337;
+  --primary-hover: #701a28;
+  --primary-active: #4c0519;
+  --primary-light-bg: #fff1f2;
+  --primary-border: #fda4af;
+
+  --sidebar-gradient:
+    radial-gradient(
+      circle at 82% 6%,
+      rgba(254, 226, 226, 0.8),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 8% 96%,
+      rgba(254, 205, 211, 0.9),
+      transparent 35%
+    ),
+    linear-gradient(180deg, #fff5f5 0%, #ffe4e6 50%, #fecdd3 100%);
+  --sidebar-border: #fda4af;
+  --sidebar-title-color: #4c0519;
+  --sidebar-text-color: #881337;
+  --sidebar-active-gradient: linear-gradient(90deg, #881337 0%, #4c0519 100%);
+  --sidebar-active-border: #300310;
+  --sidebar-hover-bg: #fecdd3;
+  --sidebar-decoration-filter: hue-rotate(330deg) saturate(1.4) brightness(0.85);
+
+  --text-purple: #881337;
+  --purple-100: #ffe4e6;
+  --table-header-bg: #881337;
+  --side-bar-bg: #881337;
+}
+
+[data-theme="rust"],
+.theme-rust {
+  --primary-color: #854d0e;
+  --primary-hover: #6c3b06;
+  --primary-active: #4a2305;
+  --primary-light-bg: #fbf3ed;
+  --primary-border: #d4b29a;
+
+  --sidebar-gradient:
+    radial-gradient(
+      circle at 82% 6%,
+      rgba(235, 212, 195, 0.85),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 8% 96%,
+      rgba(225, 198, 178, 0.9),
+      transparent 35%
+    ),
+    linear-gradient(180deg, #f7ece2 0%, #ebcfbc 50%, #dfbfa8 100%);
+  --sidebar-border: #c8a48b;
+  --sidebar-title-color: #4a2305;
+  --sidebar-text-color: #5f3009;
+  --sidebar-active-gradient: linear-gradient(90deg, #854d0e 0%, #6c3b06 100%);
+  --sidebar-active-border: #4a2305;
+  --sidebar-hover-bg: #d7b39a;
+  --sidebar-decoration-filter: hue-rotate(18deg) saturate(1.2) brightness(0.85);
+
+  --text-purple: #854d0e;
+  --purple-100: #ebcfbc;
+  --table-header-bg: #854d0e;
+  --side-bar-bg: #854d0e;
+}
+
 html {
   @apply scroll-smooth;
 }
@@ -696,4 +928,51 @@ html.dark #root {
 /* Hide custom scrollbar in sidebar */
 .glass-sidebar .scrollbar-thumb {
   @apply !hidden;
+}
+
+/* ReactModal Global Modal Popup Styles */
+.modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background-color: rgba(15, 23, 42, 0.6) !important;
+  backdrop-filter: blur(4px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10000 !important;
+  padding: 1.5rem !important;
+}
+
+.modal-content {
+  position: relative !important;
+  outline: none !important;
+  width: 100% !important;
+  max-height: 90vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: auto !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 1.25rem !important;
+}
+
+.modal-content.small {
+  max-width: 480px !important;
+}
+
+.modal-content.medium {
+  max-width: 720px !important;
+}
+
+.modal-content.large {
+  max-width: 1000px !important;
+}
+
+.modal-card {
+  width: 100% !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  border-radius: 1.25rem !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35) !important;
 }

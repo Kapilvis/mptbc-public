@@ -59,6 +59,8 @@ declare namespace Transportation {
     vehicleId: number;
     registrationNo: string;
     category: string; // Cat-1 | Cat-2 | Cat-3
+    vehicleCategory?: string; // Small Commercial (SCV) | Light Commercial (LCV) | Medium Commercial (MCV) | Heavy Commercial (HCV)
+    subType?: string; // e.g. Tata Ace (Chota Hathi) | Tata 407 | Eicher Pro 2049
     capacity: number; // in Tons
     model: string;
     manufacturer: string;
@@ -83,6 +85,12 @@ declare namespace Transportation {
     fitnessDoc?: string;
     permitDoc?: string;
     pucDoc?: string;
+    // Optional Inbuilt / Aftermarket GPS Telematics
+    hasGps?: boolean;
+    gpsProvider?: string;
+    gpsDeviceId?: string;
+    gpsSimNumber?: string;
+    gpsTrackingUrl?: string;
     transporterId: number; // linked transporter
   }
 
@@ -90,6 +98,8 @@ declare namespace Transportation {
     vehicleId?: number;
     registrationNo: string;
     category: string;
+    vehicleCategory?: string;
+    subType?: string;
     capacity: number;
     model: string;
     manufacturer: string;
@@ -114,6 +124,12 @@ declare namespace Transportation {
     fitnessDoc?: string;
     permitDoc?: string;
     pucDoc?: string;
+    // Optional GPS Telematics
+    hasGps?: boolean;
+    gpsProvider?: string;
+    gpsDeviceId?: string;
+    gpsSimNumber?: string;
+    gpsTrackingUrl?: string;
     transporterId: number;
   }
 }

@@ -15,6 +15,8 @@ interface NumberBoxProps<TForm extends FieldValues>
   min?: number;
   max?: number;
   maxFractionDigits?: number;
+  className?: string;
+  inputClassName?: string;
 }
 
 function InnerNumberBox({

@@ -169,7 +169,7 @@ export default function PaperStockPage() {
               align: "right",
               cell: (row: PaperStock) => (
                 <span className="text-xs">
-                  {row.openingStock.toLocaleString()} KG
+                  {row.openingStock.toLocaleString()} MT
                 </span>
               ),
             },
@@ -179,7 +179,7 @@ export default function PaperStockPage() {
               align: "right",
               cell: (row: PaperStock) => (
                 <span className="text-xs text-emerald-600 font-medium">
-                  +{row.receivedQuantity.toLocaleString()} KG
+                  +{row.receivedQuantity.toLocaleString()} MT
                 </span>
               ),
             },
@@ -189,7 +189,7 @@ export default function PaperStockPage() {
               align: "right",
               cell: (row: PaperStock) => (
                 <span className="text-xs text-rose-600 font-medium">
-                  -{row.issuedQuantity.toLocaleString()} KG
+                  -{row.issuedQuantity.toLocaleString()} MT
                 </span>
               ),
             },
@@ -199,7 +199,7 @@ export default function PaperStockPage() {
               align: "right",
               cell: (row: PaperStock) => (
                 <span className="text-xs font-bold text-blue-700 dark:text-blue-400">
-                  {row.availableQuantity.toLocaleString()} KG
+                  {row.availableQuantity.toLocaleString()} MT
                 </span>
               ),
             },

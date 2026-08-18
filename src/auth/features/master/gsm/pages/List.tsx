@@ -84,10 +84,10 @@ export default function List() {
               cell: (row: Master.GsmItem) => <span>{row.sheetWeightInGM}</span>,
             },
             {
-              field: "reamWeightInKG",
-              header: "Ream Weight in KG",
+              field: "reamWeightInMT",
+              header: "Ream Weight in MT",
               align: "right",
-              cell: (row: Master.GsmItem) => <span>{row.reamWeightInKG}</span>,
+              cell: (row: Master.GsmItem) => <span>{row.reamWeightInMT}</span>,
             },
             {
               field: "isActive",
@@ -109,7 +109,7 @@ export default function List() {
                 `Cutoff: ${item.cutoff}`,
                 `Area: ${item.area}`,
                 `Sheet Wt: ${item.sheetWeightInGM}g`,
-                `Ream Wt: ${item.reamWeightInKG}kg`,
+                `Ream Wt: ${item.reamWeightInMT} MT`,
               ].filter(Boolean)}
               isActive={item.isActive}
               onStatusToggle={() => handleToggleStatus(item)}
