@@ -295,7 +295,7 @@ export default function TitleReceivedList() {
                   return (
                     <div className="flex items-center gap-1.5 justify-center">
                       <Button
-                        label="Mark Received"
+                        label="Forward for Approval"
                         icon="pi pi-check-circle"
                         size="small"
                         variant="outlined"

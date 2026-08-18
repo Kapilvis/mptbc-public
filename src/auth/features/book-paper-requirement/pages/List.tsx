@@ -101,13 +101,13 @@ export default function List() {
       sortable: true,
       footer: (
         <span className="font-bold text-slate-700 uppercase tracking-wide">
-          GSM Summary Totals
+          Total Paper Requirement (MT)
         </span>
       ),
     },
     {
       field: "numberOfBooks",
-      header: "Number of Books",
+      header: "Number of Titles",
       align: "right",
       cell: (row: BookPaperRequirement.Item) => (
         <span>{row.numberOfBooks.toLocaleString()}</span>
@@ -123,15 +123,15 @@ export default function List() {
     },
     {
       field: "pagesGsmName",
-      header: "Pages GSM",
+      header: "GSM (Pages)",
     },
     {
       field: "coverGsmName",
-      header: "Cover GSM",
+      header: "GSM (Cover)",
     },
     {
       field: "innerPaperMt",
-      header: "Inner Paper (MT)",
+      header: "Pages (MT)",
       align: "right",
       cell: (row: BookPaperRequirement.Item) => (
         <span className="font-mono font-semibold text-blue-600">
@@ -146,7 +146,7 @@ export default function List() {
     },
     {
       field: "coverPaperMt",
-      header: "Cover Paper (MT)",
+      header: "Cover (MT)",
       align: "right",
       cell: (row: BookPaperRequirement.Item) => (
         <span className="font-mono font-semibold text-emerald-600">
@@ -196,7 +196,7 @@ export default function List() {
               gsmGroups.length > 0 ? (
                 <div className="border-t border-slate-100 p-5 bg-slate-50/30 rounded-b-xl">
                   <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider mb-4">
-                    GSM Summary Totals
+                    Total Paper Requirement (MT)
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {gsmGroups.map((group) => (

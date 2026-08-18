@@ -32,7 +32,7 @@ const Home: React.FC = () => {
           <h1>
             {t(
               "home.welcome_portal",
-              "Welcome to Madhya Pradesh Textbook Corporation Portal",
+              "Welcome to Madhya Pradesh Textbook Corporation",
             )}
           </h1>
           <p>

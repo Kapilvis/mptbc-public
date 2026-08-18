@@ -7,23 +7,25 @@ import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { Modal } from "shared/components/popups";
 import {
-  usePaperOrderActiveStatusMutation,
-  usePaperOrdersQuery,
+  usePaperDispatchActiveStatusMutation,
+  usePaperDispatchesQuery,
 } from "../queries";
 
 export default function List() {
-  const { data = [], isLoading } = usePaperOrdersQuery();
-  const { mutateAsync: toggleStatus } = usePaperOrderActiveStatusMutation();
+  const { data = [], isLoading } = usePaperDispatchesQuery();
+  const { mutateAsync: toggleStatus } = usePaperDispatchActiveStatusMutation();
   const [selectedDocUrl, setSelectedDocUrl] = useState<string | null>(null);
 
-  const handleToggleStatus = async (item: PaperOrder.PaperSupplyOrderItem) => {
+  const handleToggleStatus = async (
+    item: PaperSupplyDispatch.PaperDispatchItem,
+  ) => {
     try {
       const result = await toggleStatus({
-        orderId: item.orderId,
+        dispatchId: item.dispatchId,
         isActive: !item.isActive,
       });
       if (result) {
-        ToastService.success("Paper Order status updated successfully");
+        ToastService.success("Paper Dispatch status updated successfully");
       }
     } catch {
       ToastService.error("Failed to update status");
@@ -39,20 +41,22 @@ export default function List() {
 
   return (
     <Page
-      header="Paper Vendor Order Details"
-      subHeader="Issue binding purchase work orders to paper mills, manage order quantities, rates, and track depot allocations."
+      header="Paper Supply & Central Depot Dispatch"
+      subHeader="Manage paper reel dispatches, vehicle challans, and shipments sent to Central Depot and Printers."
       showHeaderActions
     >
       <Card>
-        <GridPanel<PaperOrder.PaperSupplyOrderItem>
+        <GridPanel<PaperSupplyDispatch.PaperDispatchItem>
           toolbarPlacement="page"
           data={data}
           loading={isLoading}
           searchFields={[
+            "challanNo",
             "orderNo",
             "paperMillName",
-            "vendorName",
             "paperType",
+            "consigneeName",
+            "truckNo",
             "status",
           ]}
           CreateForm={CreateRedirect}
@@ -64,47 +68,47 @@ export default function List() {
               align: "center",
             },
             {
-              field: "orderNo",
-              header: "ORDER NO",
+              field: "challanNo",
+              header: "CHALLAN NO",
             },
             {
-              field: "orderDate",
-              header: "ORDER DATE",
+              field: "challanDate",
+              header: "DATE",
               align: "center",
-              cell: (row) => <span>{formatDateDisplay(row.orderDate)}</span>,
+              cell: (row) => <span>{formatDateDisplay(row.challanDate)}</span>,
             },
             {
-              field: "paperMillName",
-              header: "PAPER MILL / VENDOR",
+              field: "consigneeName",
+              header: "PRINTER / CONSIGNEE",
             },
             {
               field: "paperType",
               header: "PAPER TYPE",
             },
             {
-              field: "orderedQtyMT",
-              header: "QTY (MT)",
+              field: "reelCount",
+              header: "REELS",
               align: "right",
-              cell: (row) => <span>{row.orderedQtyMT.toFixed(3)} MT</span>,
+              cell: (row) => <span>{row.reelCount.toLocaleString()}</span>,
             },
             {
-              field: "ratePerMT",
-              header: "RATE PER MT",
+              field: "totalWeightTon",
+              header: "WEIGHT (TON)",
               align: "right",
-              cell: (row) => <span>₹ {row.ratePerMT.toLocaleString()}</span>,
+              cell: (row) => <span>{row.totalWeightTon.toFixed(3)} MT</span>,
             },
             {
-              header: "BILL COPY",
+              header: "CHALLAN",
               align: "center",
               cell: (row) => (
                 <Button
                   icon="pi pi-file-pdf"
-                  label="View Bill"
+                  label="View Challan"
                   size="small"
                   variant="outlined"
                   onClick={() =>
                     setSelectedDocUrl(
-                      row.billCopyPath ||
+                      row.challanCopyPath ||
                         "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
                     )
                   }
@@ -125,12 +129,12 @@ export default function List() {
           ]}
           renderContent={(item) => (
             <Mosaic.Card
-              title={item.orderNo}
+              title={item.challanNo}
               subTitle={[
-                item.paperMillName || "",
+                item.consigneeName || "",
                 item.paperType || "",
-                `Qty: ${item.orderedQtyMT} MT`,
-                `Total: ₹ ${(item.totalAmount / 100000).toFixed(2)} Lakhs`,
+                `Reels: ${item.reelCount}`,
+                `Weight: ${item.totalWeightTon} MT`,
               ].filter(Boolean)}
               isActive={item.isActive}
               onStatusToggle={() => handleToggleStatus(item)}
@@ -139,30 +143,30 @@ export default function List() {
         />
       </Card>
 
-      {/* Bill Document View Modal */}
+      {/* Delivery Challan Document View Modal */}
       <Modal
         visible={!!selectedDocUrl}
         onHide={() => setSelectedDocUrl(null)}
-        header="Paper Mill Despatch Invoice / Bill Document"
+        header="Paper Mill Official Delivery Challan Document"
         size="medium"
       >
         <div className="space-y-4 p-2">
           <div className="border border-gray-200 dark:border-gray-700 rounded-xl p-4 bg-gray-50 dark:bg-gray-800 text-center">
             <i className="pi pi-file-pdf text-red-600 text-4xl mb-2 block" />
             <h3 className="font-bold text-sm text-gray-900 dark:text-white">
-              Official Vendor Bill / Invoice Soft Copy
+              Official Paper Mill Delivery Challan
             </h3>
             <p className="text-xs text-gray-500 mt-1">
-              File: vendor_invoice_mill_copy.pdf
+              File: delivery_challan_mill_copy.pdf
             </p>
           </div>
           <div className="flex items-center justify-end gap-2">
             <Button
-              label="Download Invoice"
+              label="Download Challan"
               icon="pi pi-download"
               size="small"
               onClick={() =>
-                ToastService.success("Downloading vendor invoice PDF file...")
+                ToastService.success("Downloading delivery challan PDF file...")
               }
             />
             <Button
@@ -181,18 +185,18 @@ export default function List() {
 const CreateRedirect: React.FC<{ onSave: () => void }> = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    navigate("/paper/paper-order-allocation/create");
+    navigate("/paper/paper-supply-dispatch/create");
   }, [navigate]);
   return null;
 };
 
 const EditRedirect: React.FC<{
-  data: PaperOrder.PaperSupplyOrderItem;
+  data: PaperSupplyDispatch.PaperDispatchItem;
   onSave: () => void;
 }> = ({ data }) => {
   const navigate = useNavigate();
   useEffect(() => {
-    navigate(`/paper/paper-order-allocation/edit/${data.orderId}`);
+    navigate(`/paper/paper-supply-dispatch/edit/${data.dispatchId}`);
   }, [navigate, data]);
   return null;
 };
