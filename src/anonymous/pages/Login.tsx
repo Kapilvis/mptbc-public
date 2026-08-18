@@ -1,13 +1,7 @@
 import {
-  BookOpen,
-  Building2,
   ClipboardCheck,
-  GraduationCap,
   Headphones,
-  Layers,
-  Printer,
   ShieldCheck,
-  Truck,
   User,
   Users,
 } from "lucide-react";
@@ -103,47 +97,6 @@ const PortalBranding: React.FC = () => (
   </div>
 );
 
-/* ─── Operational Workspaces Header Bar ─── */
-const WORKSPACE_MODULES = [
-  { id: "schools", label: "Schools", icon: GraduationCap, color: "#008a45" },
-  { id: "paper", label: "Paper", icon: BookOpen, color: "#ea580c" },
-  { id: "depot", label: "Depot", icon: Building2, color: "#2563eb" },
-  { id: "printing", label: "Printing", icon: Printer, color: "#9333ea" },
-  { id: "dispatch", label: "Dispatch", icon: Truck, color: "#4f46e5" },
-];
-
-const OperationalWorkspaces: React.FC = () => (
-  <div className="mptbc-workspaces-wrapper">
-    <div className="mptbc-workspaces-header">
-      <div className="mptbc-workspaces-title-wrap">
-        <Layers className="mptbc-workspaces-title-icon" />
-        <span className="mptbc-workspaces-title">OPERATIONAL WORKSPACES</span>
-      </div>
-    </div>
-
-    <div className="mptbc-workspaces-nav">
-      {WORKSPACE_MODULES.map((mod) => {
-        const Icon = mod.icon;
-        return (
-          <div
-            key={mod.id}
-            className="mptbc-workspace-tab"
-            style={
-              {
-                "--mod-color": mod.color,
-              } as React.CSSProperties
-            }
-          >
-            <Icon className="mptbc-tab-icon" />
-            <span className="mptbc-tab-label">{mod.label}</span>
-          </div>
-        );
-      })}
-    </div>
-  </div>
-);
-
-/* ─── Bottom Information Bar ─── */
 const bottomFeatures = [
   {
     icon: ShieldCheck,
@@ -215,8 +168,6 @@ const LoginCard: React.FC<LoginCardProps> = ({
 }) => {
   return (
     <div className="mptbc-login-card-container">
-      <OperationalWorkspaces />
-
       <div className="mptbc-welcome-banner">
         <div className="mptbc-avatar-circle">
           <User className="mptbc-avatar-icon" />
@@ -232,7 +183,7 @@ const LoginCard: React.FC<LoginCardProps> = ({
       <form onSubmit={onSubmit} className="mptbc-form-body" noValidate>
         <DropDownList
           label="Login User"
-          placeholder="Select Department"
+          placeholder="Select Section"
           data={ROLE_OPTIONS}
           filter={false}
           required
