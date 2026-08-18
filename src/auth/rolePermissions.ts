@@ -105,6 +105,18 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     // Distribution Section Specific
     "demand",
     "allocation",
+    // Paper Section - additional pages
+    "paper-section/paper-tender",
+    "paper-section/paper-vendor-profile",
+    "paper-section/paper-order-allocation",
+    // District Depot Transport (parent key)
+    "depot-transport",
+    // Standalone pages
+    "distribution",
+    "dispatch",
+    "distribution-tracking",
+    "title-master",
+    "gsm-master",
   ],
 
   [USER_ROLES.TRANSPORTER]: [

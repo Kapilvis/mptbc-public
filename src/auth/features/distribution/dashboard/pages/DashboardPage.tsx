@@ -13,7 +13,7 @@ export default function DashboardPage() {
 
   return (
     <Page
-      header="Consolidated Distribution Dashboard"
+      header="Distribution Dashboard"
       subHeader="Consolidated distribution metrics, fulfillment tracking, and district/block supply status."
       showHeaderActions
     >

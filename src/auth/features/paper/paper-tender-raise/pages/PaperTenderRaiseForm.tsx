@@ -398,37 +398,7 @@ export default function PaperTenderRaiseForm() {
         </Card>
 
         {/* CARD 3: Imported Locked Demand & BOQ Specification (Using GridPanel Component) */}
-        <Card title="3. Imported Locked Demand & BOQ Specification">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-emerald-50 dark:bg-emerald-950/30 p-3.5 rounded-xl border border-emerald-200 dark:border-emerald-800/60 mb-4 text-xs">
-            <div>
-              <span className="font-bold text-emerald-950 dark:text-emerald-300 block">
-                Auto-Imported Locked GSM Specifications
-              </span>
-              <span className="text-[11px] text-emerald-800 dark:text-emerald-400">
-                Specifications locked from GSM Wise Paper Demand Report for
-                e-Procurement NIT.
-              </span>
-            </div>
-            <div className="flex items-center gap-4 shrink-0 font-mono font-bold">
-              <div className="bg-white dark:bg-gray-800 px-3 py-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800 shadow-2xs">
-                <span className="text-[10px] text-gray-500 block">
-                  TOTAL GROSS
-                </span>
-                <span className="text-emerald-700 dark:text-emerald-400 font-extrabold text-sm">
-                  {totalGrossMt.toFixed(3)} MT
-                </span>
-              </div>
-              <div className="bg-white dark:bg-gray-800 px-3 py-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800 shadow-2xs">
-                <span className="text-[10px] text-gray-500 block">
-                  EST. BUDGET
-                </span>
-                <span className="text-emerald-700 dark:text-emerald-400 font-extrabold text-sm">
-                  ₹ {totalBudgetCrores} Cr
-                </span>
-              </div>
-            </div>
-          </div>
-
+        <Card title="3. Locked Demand Specification">
           <GridPanel<PaperTender.TenderLotItem>
             data={lots}
             columns={[
@@ -535,11 +505,10 @@ export default function PaperTenderRaiseForm() {
             {checklist.map((item, idx) => (
               <label
                 key={item.id}
-                className={`flex items-start gap-3 p-3.5 rounded-xl border transition-all cursor-pointer ${
-                  item.checked
-                    ? "bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-700 shadow-2xs"
-                    : "bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 opacity-70"
-                }`}
+                className={`flex items-start gap-3 p-3.5 rounded-xl border transition-all cursor-pointer ${item.checked
+                  ? "bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-700 shadow-2xs"
+                  : "bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 opacity-70"
+                  }`}
               >
                 <div className="pt-0.5">
                   <Checkbox
@@ -574,11 +543,10 @@ export default function PaperTenderRaiseForm() {
               Tender Status:
             </span>
             <span
-              className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${
-                tenderForm.status === "Published"
-                  ? "bg-emerald-100 text-emerald-800"
-                  : "bg-amber-100 text-amber-800"
-              }`}
+              className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${tenderForm.status === "Published"
+                ? "bg-emerald-100 text-emerald-800"
+                : "bg-amber-100 text-amber-800"
+                }`}
             >
               {tenderForm.status}
             </span>

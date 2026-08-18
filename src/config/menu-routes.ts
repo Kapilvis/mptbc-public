@@ -552,20 +552,20 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   },
 
   /* ─── DISTRICT DEPOT specific mock menus ─── */
-  {
-    label: "Assigned Demand",
-    icon: "pi pi-file-edit",
-    path: "/assigned-demand",
-    permissionKey: "assigned-demand",
-  },
+  // {
+  //   label: "Assigned Demand",
+  //   icon: "pi pi-file-edit",
+  //   path: "/assigned-demand",
+  //   permissionKey: "assigned-demand",
+  // },
 
   /* ─── PRINTER specific mock menus ─── */
-  {
-    label: "Tender",
-    icon: "pi pi-file",
-    path: "/tender",
-    permissionKey: "tender",
-  },
+  // {
+  //   label: "Tender",
+  //   icon: "pi pi-file",
+  //   path: "/tender",
+  //   permissionKey: "tender",
+  // },
 
   {
     label: "Paper Receiving",
@@ -585,46 +585,46 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     path: "/gsm-master",
     permissionKey: "gsm-master",
   },
-  {
-    label: "Supply Section",
-    icon: "pi pi-send",
-    path: "/supply-section",
-    permissionKey: "supply-section",
-  },
-  {
-    label: "Payment",
-    icon: "pi pi-wallet",
-    path: "/payment",
-    permissionKey: "payment",
-  },
+  // {
+  //   label: "Supply Section",
+  //   icon: "pi pi-send",
+  //   path: "/supply-section",
+  //   permissionKey: "supply-section",
+  // },
+  // {
+  //   label: "Payment",
+  //   icon: "pi pi-wallet",
+  //   path: "/payment",
+  //   permissionKey: "payment",
+  // },
 
   /* ─── PAPER VENDOR specific mock menus ─── */
-  {
-    label: "Paper Supply",
-    icon: "pi pi-upload",
-    path: "/paper-supply",
-    permissionKey: "paper-supply",
-  },
-  {
-    label: "Paper Orders",
-    icon: "pi pi-shopping-cart",
-    path: "/paper-orders",
-    permissionKey: "paper-orders",
-  },
+  // {
+  //   label: "Paper Supply",
+  //   icon: "pi pi-upload",
+  //   path: "/paper-supply",
+  //   permissionKey: "paper-supply",
+  // },
+  // {
+  //   label: "Paper Orders",
+  //   icon: "pi pi-shopping-cart",
+  //   path: "/paper-orders",
+  //   permissionKey: "paper-orders",
+  // },
 
   /* ─── DISTRIBUTION SECTION specific mock menus ─── */
-  {
-    label: "Demand",
-    icon: "pi pi-envelope",
-    path: "/demand",
-    permissionKey: "demand",
-  },
-  {
-    label: "Allocation",
-    icon: "pi pi-share-alt",
-    path: "/allocation",
-    permissionKey: "allocation",
-  },
+  // {
+  //   label: "Demand",
+  //   icon: "pi pi-envelope",
+  //   path: "/demand",
+  //   permissionKey: "demand",
+  // },
+  // {
+  //   label: "Allocation",
+  //   icon: "pi pi-share-alt",
+  //   path: "/allocation",
+  //   permissionKey: "allocation",
+  // },
   {
     label: "Distribution",
     icon: "pi pi-map-marker",
@@ -762,9 +762,45 @@ export function useMenu() {
             dashboardPath = "/district-depot/dashboard";
           } else if (role === "PRINTER") {
             dashboardPath = "/printing/dashboard";
+          } else if (role === "DISTRIBUTION_SECTION") {
+            dashboardPath = "/distribution/dashboard";
+          } else if (role === "PAPER_VENDOR") {
+            dashboardPath = "/paper/dashboard";
+          } else if (role === "TBC_HEAD_OFFICE" || !role) {
+            dashboardPath = "/admin/dashboard";
           }
           return { ...item, path: dashboardPath };
         }
+
+        // For DISTRIBUTION_SECTION role, remove the duplicate child item under "Distribution Section" group so it doesn't double open
+        if (
+          role === "DISTRIBUTION_SECTION" &&
+          item.label === "Distribution Section" &&
+          item.children
+        ) {
+          return {
+            ...item,
+            children: item.children.filter(
+              (child) => child.path !== "/distribution/dashboard",
+            ),
+          };
+        }
+
+        // For PAPER_VENDOR role, remove the duplicate child item under "Paper Section" group so it doesn't double open
+        if (
+          role === "PAPER_VENDOR" &&
+          (item.label === "Paper Section" ||
+            item.label === t("routes.paper-section")) &&
+          item.children
+        ) {
+          return {
+            ...item,
+            children: item.children.filter(
+              (child) => child.path !== "/paper/dashboard",
+            ),
+          };
+        }
+
         return item;
       })
       .filter((item) => {
