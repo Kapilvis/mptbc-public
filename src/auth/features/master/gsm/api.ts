@@ -17,7 +17,7 @@ export async function getGsmById(gsmId: number): Promise<Master.GsmForm> {
     sheetSize: item.sheetSize,
     area: item.area,
     sheetWeightInGM: item.sheetWeightInGM,
-    reamWeightInKG: item.reamWeightInKG,
+    reamWeightInMT: item.reamWeightInMT,
   };
 }
 

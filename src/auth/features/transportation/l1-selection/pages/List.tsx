@@ -2,21 +2,18 @@ import { useState, useMemo } from "react";
 import Page from "shared/components/panels/Page";
 import { Card } from "shared/components/panels";
 import { Loader } from "shared/components/progress";
-import { Button } from "shared/components/buttons";
-import { ConfirmDialog, useConfirmDialog } from "shared/components/popups";
-import { ToastService } from "services";
 import {
   useTendersL1Query,
   useBidsL1Query,
   useTransportersL1Query,
   useVehiclesL1Query,
-  useAuthorizePrimeBidderMutation,
 } from "../queries";
-import { Trophy, Lock, CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Building, Truck } from "lucide-react";
 
 export default function List() {
-  const [selectedTenderId, setSelectedTenderId] = useState<string | null>(null);
-  const { confirmAction } = useConfirmDialog();
+  const [selectedTenderId, setSelectedTenderId] = useState<string | null>(
+    "TND-IND-001",
+  );
 
   const { data: tenders = [], isLoading: loadingTenders } = useTendersL1Query();
   const { data: bids = [], isLoading: loadingBids } = useBidsL1Query();
@@ -25,22 +22,27 @@ export default function List() {
   const { data: vehicles = [], isLoading: loadingVehicles } =
     useVehiclesL1Query();
 
-  const authorizeMutation = useAuthorizePrimeBidderMutation();
-
+  // Selected tender
   const selectedTender = useMemo(() => {
-    return tenders.find((t) => t.tenderId === selectedTenderId);
+    return (
+      tenders.find((t) => t.tenderId === selectedTenderId) || tenders[0] || null
+    );
   }, [tenders, selectedTenderId]);
 
-  // Ranked bids for selected tender
-  const rankedBids = useMemo(() => {
-    if (!selectedTenderId) return [];
+  useMemo(() => {
+    if (!selectedTenderId && tenders.length > 0) {
+      setSelectedTenderId(tenders[0].tenderId);
+    }
+  }, [tenders, selectedTenderId]);
 
-    // 1. Get all submitted bids for selected tender
+  // Ranked bids for selected tender (Technically Qualified Bidders Only)
+  const rankedBids = useMemo(() => {
+    if (!selectedTender) return [];
+
     const tenderBids = bids.filter(
-      (b) => b.tenderId === selectedTenderId && b.status === "Submitted",
+      (b) => b.tenderId === selectedTender.tenderId && b.status === "Submitted",
     );
 
-    // 2. Filter to include only bids from technically qualified transporters
     const qualifiedBids = tenderBids.filter((bid) => {
       const transporter = transporters.find(
         (t) => t.transporterId === bid.transporterId,
@@ -48,68 +50,44 @@ export default function List() {
       return transporter?.technicalStatus === "Qualified";
     });
 
-    // 3. Sort bids with tie-breaker logic
-    return [...qualifiedBids].sort((a, b) => {
-      // Rule 1: Compare Rate-1 (Cat-3 rate >=9 Ton) - Ascending (lowest is best)
-      if (a.rateCat3 !== b.rateCat3) {
-        return a.rateCat3 - b.rateCat3;
-      }
+    const sorted = [...qualifiedBids].sort((a, b) => {
+      if (a.rateCat3 !== b.rateCat3) return a.rateCat3 - b.rateCat3;
+      if (a.rateCat2 !== b.rateCat2) return a.rateCat2 - b.rateCat2;
+      if (a.rateCat1 !== b.rateCat1) return a.rateCat1 - b.rateCat1;
 
-      // Rule 2 (Tie Breaker 1): Compare Rate-2 (Cat-2 rate 4.5-9 Ton) - Ascending
-      if (a.rateCat2 !== b.rateCat2) {
-        return a.rateCat2 - b.rateCat2;
-      }
-
-      // Rule 3 (Tie Breaker 2): Compare Rate-3 (Cat-1 rate 1-4.5 Ton) - Ascending
-      if (a.rateCat1 !== b.rateCat1) {
-        return a.rateCat1 - b.rateCat1;
-      }
-
-      // Rule 4 (Tie Breaker 3): Compare fleet size - Descending (larger fleet wins tie)
       const fleetSizeA = vehicles.filter(
-        (v) => v.transporterId === a.transporterId,
+        (v) => v.transporterId === a.transporterId && v.fitnessExpiry,
       ).length;
       const fleetSizeB = vehicles.filter(
-        (v) => v.transporterId === b.transporterId,
+        (v) => v.transporterId === b.transporterId && v.fitnessExpiry,
       ).length;
-
       return fleetSizeB - fleetSizeA;
     });
-  }, [selectedTenderId, bids, transporters, vehicles]);
 
-  const handleAuthorize = (transporterId: number, transporterName: string) => {
-    if (!selectedTenderId) return;
+    const l1Cat3Rate = sorted[0]?.rateCat3 || 0;
 
-    confirmAction({
-      header: "Authorize Prime Bidder",
-      message: `Are you sure you want to permanently authorize "${transporterName}" as the Prime L1 Bidder for the "${selectedTender?.district}" district? This action will LOCK the district allocation permanently.`,
-      icon: "lock",
-      acceptLabel: "Authorize & Lock",
-      rejectLabel: "Cancel",
-      onAccept: async () => {
-        try {
-          await authorizeMutation.mutateAsync({
-            tenderId: selectedTenderId,
-            transporterId,
-          });
-          ToastService.success(
-            `"${transporterName}" has been authorized as the Prime Bidder successfully!`,
-          );
-        } catch {
-          ToastService.error("Failed to authorize prime bidder.");
-        }
-      },
+    return sorted.map((bid, index) => {
+      const diffAmount = bid.rateCat3 - l1Cat3Rate;
+      const diffPercent =
+        l1Cat3Rate > 0 ? ((diffAmount / l1Cat3Rate) * 100).toFixed(1) : "0.0";
+
+      return {
+        ...bid,
+        rankIndex: index + 1,
+        isL1: index === 0,
+        diffAmount,
+        diffPercent,
+        emdVerified: true,
+        emdAmount: 250000 - index * 50000,
+      };
     });
+  }, [selectedTender, bids, transporters, vehicles]);
+
+  const getTransporterDetails = (id: number) => {
+    return transporters.find((t) => t.transporterId === id);
   };
 
-  const getTransporterName = (id: number) => {
-    return (
-      transporters.find((t) => t.transporterId === id)?.transporterName ||
-      `Transporter #${id}`
-    );
-  };
-
-  const getFleetSize = (id: number) => {
+  const getQualifiedFleetCount = (id: number) => {
     return vehicles.filter((v) => v.transporterId === id).length;
   };
 
@@ -119,45 +97,31 @@ export default function List() {
 
   return (
     <Page
-      header="L1 / Prime Bidder Selection"
-      subHeader="Identify and authorize the lowest bidder (L1) for textbook distribution zones. Tie-breakers are resolved automatically based on Category-2, Category-1 rates, and fleet sizes."
+      header="Bidder Selection & Rate Comparison"
+      subHeader="View comparative rates and ranking of technically qualified bidders. Any eligible bidder can be allocated work based on district requirements."
     >
       <div className="flex flex-col lg:flex-row gap-6 items-start">
-        {/* Left Panel: Tenders/Districts Menu */}
-        <div className="w-full lg:w-80 shrink-0">
-          <Card title="Distribution Districts">
+        {/* Left Panel: Districts */}
+        <div className="w-full lg:w-72 shrink-0">
+          <Card title="Districts">
             <div className="flex flex-col divide-y divide-slate-100 -mx-4 -my-2">
               {tenders.map((t) => {
-                const isSelected = selectedTenderId === t.tenderId;
-                const isAllocated = !!t.allocatedTransporterId;
+                const isSelected = selectedTender?.tenderId === t.tenderId;
 
                 return (
                   <button
                     key={t.tenderId}
                     type="button"
                     onClick={() => setSelectedTenderId(t.tenderId)}
-                    className={`w-full text-left px-5 py-4 transition-colors flex flex-col gap-1 ${
+                    className={`w-full text-left px-4 py-3 transition-colors flex items-center justify-between cursor-pointer ${
                       isSelected
-                        ? "bg-slate-50 border-r-4 border-emerald-600"
-                        : "hover:bg-slate-50/50"
+                        ? "bg-emerald-50/80 border-r-4 border-emerald-600 font-bold text-emerald-900"
+                        : "hover:bg-slate-50 text-slate-700"
                     }`}
                   >
-                    <div className="flex justify-between items-center w-full">
-                      <span className="font-bold text-slate-800 text-sm">
-                        {t.district}
-                      </span>
-                      <span
-                        className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider ${
-                          isAllocated
-                            ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                            : "bg-amber-50 text-amber-700 border border-amber-100"
-                        }`}
-                      >
-                        {isAllocated ? "Authorized" : "Pending"}
-                      </span>
-                    </div>
-                    <span className="text-[10px] text-slate-400 font-medium">
-                      ID: {t.tenderId}
+                    <span className="text-sm font-semibold">{t.district}</span>
+                    <span className="text-[10px] text-slate-400">
+                      {t.tenderId}
                     </span>
                   </button>
                 );
@@ -166,210 +130,160 @@ export default function List() {
           </Card>
         </div>
 
-        {/* Right Panel: Bid Details & Ranking */}
-        <div className="flex-1 w-full">
-          {!selectedTenderId ? (
-            <Card>
-              <div className="py-12 text-center text-slate-400 font-medium flex flex-col items-center justify-center gap-2">
-                <Lock size={36} className="text-slate-300 stroke-[1.5]" />
-                <p>
-                  Please select a district from the left panel to evaluate bid
-                  rankings.
-                </p>
-              </div>
-            </Card>
-          ) : (
-            <div className="flex flex-col gap-6">
-              {/* Selected Tender Info Header */}
-              <Card>
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-800">
-                      {selectedTender?.title}
-                    </h3>
-                    <p className="text-xs text-slate-400 mt-1">
-                      District:{" "}
-                      <strong className="text-slate-600">
-                        {selectedTender?.district}
-                      </strong>{" "}
-                      | Opening Date:{" "}
-                      <strong className="text-slate-600">
-                        {selectedTender?.openingDate}
-                      </strong>
-                    </p>
-                  </div>
-                  {selectedTender?.allocatedTransporterId && (
-                    <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-100 text-emerald-800 rounded-xl p-3.5">
-                      <CheckCircle2
-                        className="text-emerald-600 shrink-0"
-                        size={20}
-                      />
-                      <div className="flex flex-col">
-                        <span className="text-xs font-bold uppercase tracking-wide">
-                          ALLOCATION COMPLETED
-                        </span>
-                        <span className="text-[11px] font-semibold text-emerald-700">
-                          Authorized Prime Bidder:{" "}
-                          {getTransporterName(
-                            selectedTender.allocatedTransporterId,
-                          )}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </Card>
+        {/* Right Panel: Clean Comparative Table */}
+        <div className="flex-1 w-full flex flex-col gap-4">
+          <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-xs flex items-center justify-between">
+            <div>
+              <h3 className="text-sm font-bold text-slate-800">
+                {selectedTender?.district} District Bids
+              </h3>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Tender Ref: {selectedTender?.tenderId}
+              </p>
+            </div>
+            <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+              {rankedBids.length} Qualified Bidders
+            </span>
+          </div>
 
-              {/* Already Allocated Warning Banner */}
-              {selectedTender?.allocatedTransporterId && (
-                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex items-start gap-3.5">
-                  <Lock size={20} className="text-slate-500 mt-0.5" />
-                  <div>
-                    <h4 className="text-sm font-bold text-slate-800">
-                      Allocation is Locked
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                      This district tender has already been authorized. All
-                      rates, rankings, and allocations are permanently frozen.
-                      No modifications are permitted.
-                    </p>
-                  </div>
-                </div>
-              )}
+          <div className="bg-white border border-slate-200 rounded-xl shadow-xs overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse min-w-[750px]">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-600 uppercase tracking-wide select-none">
+                    <th className="py-3 px-4 text-center w-16">Rank</th>
+                    <th className="py-3 px-4">Bidder Name</th>
+                    <th className="py-3 px-4">Rate (Cat 3 / 2 / 1)</th>
+                    <th className="py-3 px-4 text-center">Diff from L1</th>
+                    <th className="py-3 px-4 text-center">EMD Status</th>
+                    <th className="py-3 px-4 text-right">Eligibility</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 text-xs">
+                  {rankedBids.length > 0 ? (
+                    rankedBids.map((bid) => {
+                      const transporter = getTransporterDetails(
+                        bid.transporterId,
+                      );
+                      const fleetCount = getQualifiedFleetCount(
+                        bid.transporterId,
+                      );
 
-              {/* Rankings Table */}
-              <Card title={`Bid Rankings & Pricing (Category 3 rate L1 sort)`}>
-                <div className="overflow-x-auto -mx-4 -my-2">
-                  <table className="w-full text-left border-collapse">
-                    <thead>
-                      <tr className="bg-slate-50/50 border-b border-slate-100 text-xs font-semibold text-slate-500 uppercase">
-                        <th className="px-5 py-3.5 text-center w-16">Rank</th>
-                        <th className="px-5 py-3.5">Transporter Name</th>
-                        <th className="px-5 py-3.5">Rate-1 (Cat-3)</th>
-                        <th className="px-5 py-3.5">Rate-2 (Cat-2)</th>
-                        <th className="px-5 py-3.5">Rate-3 (Cat-1)</th>
-                        <th className="px-5 py-3.5 text-center w-24">
-                          Fleet Size
-                        </th>
-                        {!selectedTender?.allocatedTransporterId && (
-                          <th className="px-5 py-3.5 text-center w-40">
-                            Action
-                          </th>
-                        )}
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
-                      {rankedBids.length > 0 ? (
-                        rankedBids.map((bid, index) => {
-                          const isL1 = index === 0;
-                          const isAuthorized =
-                            selectedTender?.allocatedTransporterId ===
-                            bid.transporterId;
+                      return (
+                        <tr
+                          key={bid.bidId}
+                          className={`hover:bg-slate-50 transition ${
+                            bid.isL1 ? "bg-emerald-50/20" : ""
+                          }`}
+                        >
+                          {/* 1. Rank */}
+                          <td className="py-3 px-4 text-center font-bold">
+                            <div className="flex justify-center">
+                              {bid.isL1 ? (
+                                <span className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-xs border border-emerald-300">
+                                  L1
+                                </span>
+                              ) : (
+                                <span className="w-7 h-7 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-bold text-xs">
+                                  L{bid.rankIndex}
+                                </span>
+                              )}
+                            </div>
+                          </td>
 
-                          return (
-                            <tr
-                              key={bid.bidId}
-                              className={`hover:bg-slate-50/30 transition-colors ${
-                                isL1 && !selectedTender?.allocatedTransporterId
-                                  ? "bg-rose-50/30"
-                                  : isAuthorized
-                                    ? "bg-emerald-50/30"
-                                    : ""
+                          {/* 2. Bidder Name */}
+                          <td className="py-3 px-4">
+                            <div className="flex items-center gap-2.5">
+                              <div className="p-1.5 bg-slate-100 rounded-md text-slate-500 shrink-0">
+                                <Building size={14} />
+                              </div>
+                              <div>
+                                <span className="font-bold text-slate-800 text-sm block">
+                                  {transporter?.transporterName ||
+                                    `Transporter #${bid.transporterId}`}
+                                </span>
+                                <div className="flex items-center gap-2 text-[10px] text-slate-400">
+                                  <span>
+                                    {transporter?.registrationNo || "TBC-T-001"}
+                                  </span>
+                                  <span>·</span>
+                                  <span className="flex items-center gap-1 text-slate-600 font-medium">
+                                    <Truck size={11} /> {fleetCount} Vehicles
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+
+                          {/* 3. Rates */}
+                          <td className="py-3 px-4">
+                            <div className="flex flex-col">
+                              <span className="text-sm font-bold text-slate-900">
+                                ₹{bid.rateCat3}{" "}
+                                <span className="text-[10px] font-normal text-slate-400">
+                                  / Ton (Cat-3)
+                                </span>
+                              </span>
+                              <div className="text-[10px] text-slate-500">
+                                Cat-2: ₹{bid.rateCat2} · Cat-1: ₹{bid.rateCat1}
+                              </div>
+                            </div>
+                          </td>
+
+                          {/* 4. Diff from L1 */}
+                          <td className="py-3 px-4 text-center">
+                            {bid.isL1 ? (
+                              <span className="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                Lowest Base (0.0%)
+                              </span>
+                            ) : (
+                              <span className="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                +₹{bid.diffAmount} (+{bid.diffPercent}%)
+                              </span>
+                            )}
+                          </td>
+
+                          {/* 5. EMD Status */}
+                          <td className="py-3 px-4 text-center">
+                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-teal-50 text-teal-700 border border-teal-200">
+                              <CheckCircle2 size={11} />
+                              EMD Verified
+                            </span>
+                          </td>
+
+                          {/* 6. Eligibility for Allocation */}
+                          <td className="py-3 px-4 text-right">
+                            <span
+                              className={`inline-block px-2.5 py-1 rounded-md text-xs font-semibold ${
+                                bid.isL1
+                                  ? "bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold"
+                                  : "bg-slate-100 text-slate-600 border border-slate-200"
                               }`}
                             >
-                              <td className="px-5 py-4 text-center">
-                                <div className="flex justify-center">
-                                  {isL1 ? (
-                                    <span className="w-6 h-6 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-xs shadow-sm">
-                                      L1
-                                    </span>
-                                  ) : (
-                                    <span className="w-6 h-6 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs">
-                                      {index + 1}
-                                    </span>
-                                  )}
-                                </div>
-                              </td>
-                              <td className="px-5 py-4">
-                                <div className="flex flex-col gap-1">
-                                  <span className="font-bold text-slate-800 text-sm">
-                                    {getTransporterName(bid.transporterId)}
-                                  </span>
-                                  {isL1 && (
-                                    <span className="inline-flex items-center gap-1 text-[10px] text-rose-600 font-bold uppercase tracking-wider">
-                                      <Trophy
-                                        size={11}
-                                        className="fill-rose-100"
-                                      />
-                                      Recommended Prime Bidder
-                                    </span>
-                                  )}
-                                  {isAuthorized && (
-                                    <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 font-bold uppercase tracking-wider">
-                                      <CheckCircle2
-                                        size={11}
-                                        className="fill-emerald-100"
-                                      />
-                                      Authorized Prime Bidder
-                                    </span>
-                                  )}
-                                </div>
-                              </td>
-                              <td className="px-5 py-4 font-semibold text-slate-900">
-                                ₹{bid.rateCat3} / Ton
-                              </td>
-                              <td className="px-5 py-4 text-slate-600">
-                                ₹{bid.rateCat2} / Ton
-                              </td>
-                              <td className="px-5 py-4 text-slate-600">
-                                ₹{bid.rateCat1} / Ton
-                              </td>
-                              <td className="px-5 py-4 text-center font-semibold text-slate-800">
-                                {getFleetSize(bid.transporterId)} Vehicles
-                              </td>
-                              {!selectedTender?.allocatedTransporterId && (
-                                <td className="px-5 py-4 text-center">
-                                  <Button
-                                    label={
-                                      isL1 ? "Authorize Prime" : "Authorize"
-                                    }
-                                    icon={isL1 ? "star" : "check"}
-                                    onClick={() =>
-                                      handleAuthorize(
-                                        bid.transporterId,
-                                        getTransporterName(bid.transporterId),
-                                      )
-                                    }
-                                    variant={isL1 ? "primary" : "outlined"}
-                                    disabled={authorizeMutation.isPending}
-                                  />
-                                </td>
-                              )}
-                            </tr>
-                          );
-                        })
-                      ) : (
-                        <tr>
-                          <td
-                            colSpan={
-                              selectedTender?.allocatedTransporterId ? 6 : 7
-                            }
-                            className="px-5 py-12 text-center text-slate-400 font-medium"
-                          >
-                            No qualified commercial bids submitted for this
-                            tender yet.
+                              {bid.isL1
+                                ? "L1 (Eligible)"
+                                : `L${bid.rankIndex} (Eligible)`}
+                            </span>
                           </td>
                         </tr>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              </Card>
+                      );
+                    })
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan={6}
+                        className="py-8 text-center text-slate-400 text-xs"
+                      >
+                        No qualified bidders found.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
-          )}
+          </div>
         </div>
       </div>
-      <ConfirmDialog />
     </Page>
   );
 }

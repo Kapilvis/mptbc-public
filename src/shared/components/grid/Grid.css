@@ -27,17 +27,12 @@
   .p-datatable .p-datatable-thead > tr > th {
     @apply border-b-0 border-r
       border-r-white/10
-      bg-gradient-to-br
-      from-primary-700 to-primary-600
       px-3.5 py-2
       text-label font-semibold
       uppercase tracking-[0.05em]
       text-white
-      transition-colors duration-200
-      dark:border-r-white/5
-      dark:from-gray-950
-      dark:to-primary-900
-      dark:text-gray-100;
+      transition-colors duration-200;
+    background: var(--table-header-bg, var(--primary-color)) !important;
   }
 
   .p-datatable .p-datatable-thead > tr > th:last-child {
@@ -45,17 +40,13 @@
   }
 
   .p-datatable .p-datatable-thead > tr > th.p-sortable-column:hover {
-    @apply from-primary-800 to-primary-700
-      text-white
-      dark:from-primary-900
-      dark:to-primary-800;
+    background: var(--primary-hover, var(--primary-color)) !important;
+    color: #ffffff !important;
   }
 
   .p-datatable .p-datatable-thead > tr > th.p-sortable-column.p-highlight {
-    @apply from-primary-800 to-primary-700
-      text-white
-      dark:from-primary-900
-      dark:to-primary-800;
+    background: var(--primary-hover, var(--primary-color)) !important;
+    color: #ffffff !important;
   }
 
   /* =========================
@@ -80,18 +71,17 @@
   }
 
   .p-datatable .p-datatable-tbody > tr:hover {
-    @apply bg-primary-50
-      shadow-[inset_3px_0_0_var(--primary-color)]
-      dark:bg-primary-900/20
-      dark:shadow-[inset_3px_0_0_var(--color-primary-400)];
+    background-color: var(--primary-light-bg) !important;
+    box-shadow: inset 3px 0 0 var(--primary-color) !important;
   }
 
   .p-datatable .p-datatable-tbody > tr > td {
     @apply border-b border-gray-100
       border-r-0
-      px-3.5 py-2
-      text-body-sm
-      text-gray-600
+      px-4 py-3
+      text-sm font-normal
+      text-gray-700
+      whitespace-nowrap
       dark:border-gray-800
       dark:text-gray-300;
   }
@@ -257,14 +247,11 @@
   }
 
   .p-paginator .p-paginator-page.p-highlight {
-    @apply border-primary-500
-      bg-linear-to-br
-      from-primary-600 to-primary-500
-      font-semibold text-white
-      shadow-sm
-      dark:border-primary-400
-      dark:from-primary-600
-      dark:to-primary-500;
+    background: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   }
 
   .p-paginator .p-dropdown {

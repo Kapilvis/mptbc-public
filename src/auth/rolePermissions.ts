@@ -13,6 +13,15 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "paper-section",
     "reports",
     "transport",
+    "transportation",
+    "transport/tender-details",
+    "transport/work-order",
+    "transport/dispatch",
+    "transport/tracking",
+    "transport/pod",
+    "transport/billing",
+    "transport/disbursement",
+    "transport/reports",
     // Master Config
     "master/office-level",
     "master/office-type",
@@ -49,6 +58,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "title-section/title-master",
     // Printer Section
     "printer-section/printer-registration",
+    "printer-section/quality-inspection",
     "printer-orders",
     "pending-printer-orders",
     "printer-supply",
@@ -76,6 +86,40 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "paper-distribution-report",
     // Dashboard (TBC Head Office specific)
     "central-dashboard",
+    // District Depot / Transport Section
+    "assigned-demand",
+    "district-depot/printer-assigned-demand",
+    "district-depot/challan-received",
+    "district-depot/challan-to-block",
+    "district-depot/dispatch-history",
+    "depot-transport/transport-orders",
+    "depot-transport/vehicle-management",
+    "depot-transport/fuel-log",
+    // Printer / Paper Vendor Specific
+    "tender",
+    "paper-receiving",
+    "supply-section",
+    "payment",
+    "paper-supply",
+    "paper-orders",
+    // Distribution Section Specific
+    "demand",
+    "allocation",
+  ],
+
+  [USER_ROLES.TRANSPORTER]: [
+    "dashboard",
+    "profile",
+    "transport",
+    "transportation",
+    "transport/tender-details",
+    "transport/work-order",
+    "transport/dispatch",
+    "transport/tracking",
+    "transport/pod",
+    "transport/billing",
+    "transport/disbursement",
+    "transport/reports",
   ],
 
   [USER_ROLES.DISTRICT_DEPOT]: [
@@ -106,6 +150,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "master/gsm",
     // Printer Section
     "printer-section/printer-registration",
+    "printer-section/quality-inspection",
     "printer-orders",
     "pending-printer-orders",
     "assigned-demand",
@@ -124,6 +169,15 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "district-depot/dispatch-history",
     // Transport / Depot Transport
     "transport",
+    "transportation",
+    "transport/tender-details",
+    "transport/work-order",
+    "transport/dispatch",
+    "transport/tracking",
+    "transport/pod",
+    "transport/billing",
+    "transport/disbursement",
+    "transport/reports",
     "depot-transport/transport-orders",
     "depot-transport/vehicle-management",
     "depot-transport/fuel-log",
@@ -133,6 +187,17 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "dashboard",
     "profile",
     "central-dashboard",
+    // Transportation
+    "transport",
+    "transportation",
+    "transport/tender-details",
+    "transport/work-order",
+    "transport/dispatch",
+    "transport/tracking",
+    "transport/pod",
+    "transport/billing",
+    "transport/disbursement",
+    "transport/reports",
     // Printer Section
     "printer-orders",
     "pending-printer-orders",
@@ -188,6 +253,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "master/gsm",
     // Printer Section
     "printer-section/printer-registration",
+    "printer-section/quality-inspection",
     "printer-orders",
     "pending-printer-orders",
     // Printer Specific
@@ -202,6 +268,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
   [USER_ROLES.PAPER_VENDOR]: [
     "dashboard",
     "profile",
+    "paper-section",
     // Master Config
     "master/office-level",
     "master/office-type",

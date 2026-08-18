@@ -32,12 +32,27 @@ export function RouteGuard() {
   const flatFullMenu = flattenMenu(fullMenu);
 
   // Find the most specific menu item matching the current path
-  const matchingItem = [...flatFullMenu]
+  const matchingItem = flatFullMenu
+    .filter((item) => item.path && item.path !== "/" && item.path !== "")
     .sort((a, b) => (b.path?.length || 0) - (a.path?.length || 0))
-    .find((item) => item.path && location.pathname.startsWith(item.path));
+    .find((item) => {
+      const p = item.path!;
+      return location.pathname === p || location.pathname.startsWith(p + "/");
+    });
 
   if (matchingItem && matchingItem.permissionKey) {
-    const role = user?.role || "";
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const getNormalizedRole = (u: any): string => {
+      if (!u) return "";
+      const r =
+        u.role ||
+        (Array.isArray(u.profile?.role)
+          ? u.profile.role[0]
+          : u.profile?.role) ||
+        "";
+      return r.toUpperCase();
+    };
+    const role = getNormalizedRole(user);
     const allowedPermissions = ROLE_PERMISSIONS[role] || [];
     const isAllowed = allowedPermissions.includes(matchingItem.permissionKey);
 

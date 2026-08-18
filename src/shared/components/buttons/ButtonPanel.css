@@ -8,12 +8,22 @@
   @apply !bg-[var(--primary-color)] !text-[var(--white)] !border !border-[var(--primary-color)];
 }
 
+.custom-submit:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
 .dark-theme .custom-submit {
   @apply !bg-[var(--primary-color)] !text-[var(--white)] !border !border-[var(--white)];
 }
 
 .custom-reset {
   @apply !bg-transparent !text-[var(--primary-color)] !border-2 !border-[var(--primary-color)];
+}
+
+.custom-reset:hover {
+  background-color: var(--primary-light-bg) !important;
+  color: var(--primary-hover) !important;
 }
 
 .button-panel > button:last-child {

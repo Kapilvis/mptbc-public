@@ -56,8 +56,7 @@ declare namespace Permission {
     | "@master/transporter-registration"
     | "@master/vehicle-master"
     | "@master/book-paper-requirement"
-    | "@transport/commercial-bid"
-    | "@transport/technical-evaluation"
+    | "@transport/tender-details"
     | "@transport/l1-selection"
     | "@transport/work-order"
     // HRMS

@@ -1,6 +1,11 @@
 import type { Control, UseFormWatch } from "react-hook-form";
 import { InputPanel, Card } from "shared/components/panels";
-import { TextBox, DatePicker as DateBox } from "shared/components/forms";
+import {
+  TextBox,
+  DatePicker as DateBox,
+  DropDownList as SelectBox,
+} from "shared/components/forms";
+import { gpsProvidersList } from "../data";
 import { useTransportersQuery } from "../../transporter-registration/queries";
 
 interface Step3Props {
@@ -33,6 +38,9 @@ export default function Step3({
   const fitExp = watch("fitnessExpiry");
   const perExp = watch("permitExpiry");
   const pucExp = watch("pucExpiry");
+  const gpsProviderVal = watch("gpsProvider");
+  const gpsDeviceVal = watch("gpsDeviceId");
+  const gpsUrlVal = watch("gpsTrackingUrl");
 
   const isExpired = (dateStr?: string) => {
     if (!dateStr) return false;
@@ -154,6 +162,43 @@ export default function Step3({
         )}
       </InputPanel>
 
+      {/* GPS & Real-Time Tracking Facility */}
+      <InputPanel
+        title="GPS & Real-Time Telematics"
+        description="Configure inbuilt OEM or aftermarket GPS tracking device, IMEI credentials, and live telemetry URL for real-time transit monitoring."
+        icon="map-marker"
+        orientation="horizontal"
+        className="grid-4"
+      >
+        <SelectBox
+          label="GPS Provider / Telematics"
+          name="gpsProvider"
+          control={control}
+          data={gpsProvidersList}
+          optionValue="text"
+          textField="text"
+          placeholder="Select GPS Provider"
+        />
+        <TextBox
+          label="GPS Device IMEI / Tracking ID"
+          name="gpsDeviceId"
+          control={control}
+          placeholder="e.g. IMEI-864920194812345"
+        />
+        <TextBox
+          label="GPS SIM / Mobile Number"
+          name="gpsSimNumber"
+          control={control}
+          placeholder="e.g. 9876543210"
+        />
+        <TextBox
+          label="GPS Live Tracking / API URL"
+          name="gpsTrackingUrl"
+          control={control}
+          placeholder="e.g. https://tracking.provider.com/live/..."
+        />
+      </InputPanel>
+
       {/* Review Card */}
       <Card title="Review Vehicle Configuration Details">
         <div className="review-grid">
@@ -168,12 +213,27 @@ export default function Step3({
           <div className="review-field">
             <span className="review-label">Registered Capacity</span>
             <span className="review-value">
-              {capacityText ? `${capacityText} Tons` : "-"}
+              {capacityText ? `${capacityText} Metric Ton` : "-"}
             </span>
           </div>
           <div className="review-field">
             <span className="review-label">Ownership Status</span>
             <span className="review-value">{ownershipText || "-"}</span>
+          </div>
+          <div className="review-field">
+            <span className="review-label">GPS Tracking Status</span>
+            <span className="review-value">
+              {gpsProviderVal || gpsDeviceVal || gpsUrlVal ? (
+                <span className="text-emerald-600 font-bold">
+                  ✓ {gpsProviderVal || "Enabled"} (
+                  {gpsDeviceVal ||
+                    (gpsUrlVal ? "URL Configured" : "Device Active")}
+                  )
+                </span>
+              ) : (
+                <span className="text-slate-400">Not Configured</span>
+              )}
+            </span>
           </div>
           <div className="review-field full-width">
             <span className="review-label">Assigned Transporter</span>

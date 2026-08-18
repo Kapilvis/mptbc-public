@@ -59,12 +59,14 @@
 
 /* Add Button styling */
 .grid-panel-toolbar .add-button {
-  background-color: var(--primary-color);
-  color: var(--white);
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--white) !important;
 }
 
 .grid-panel-toolbar .add-button:hover {
-  background-color: var(--color-primary-700);
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
 }
 
 /* Responsive Design */

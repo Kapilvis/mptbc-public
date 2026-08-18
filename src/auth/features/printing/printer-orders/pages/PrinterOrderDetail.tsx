@@ -221,7 +221,8 @@ export default function PrinterOrderDetailsPage() {
 
           <div className="border-t border-gray-100 dark:border-gray-800 pt-4 flex items-center justify-between text-xs text-gray-500">
             <span>
-              Allocated and calculated values are measured in Kilograms (KG).
+              Allocated and calculated values are measured in Metric Tonnes
+              (MT).
             </span>
             <span>
               Priority:{" "}
@@ -264,16 +265,16 @@ export default function PrinterOrderDetailsPage() {
                 </td>
                 <td className="px-4 py-3 font-semibold">{order.paperType}</td>
                 <td className="px-4 py-3 text-right font-medium">
-                  {order.requiredQty.toLocaleString()} KG
+                  {order.requiredQty.toLocaleString()} MT
                 </td>
                 <td className="px-4 py-3 text-right font-bold text-blue-700 dark:text-blue-400">
-                  {order.approvedQty.toLocaleString()} KG
+                  {order.approvedQty.toLocaleString()} MT
                 </td>
                 <td className="px-4 py-3 text-right font-bold text-emerald-600">
-                  {order.suppliedQty.toLocaleString()} KG
+                  {order.suppliedQty.toLocaleString()} MT
                 </td>
                 <td className="px-4 py-3 text-right font-extrabold text-rose-600">
-                  {order.pendingQty.toLocaleString()} KG
+                  {order.pendingQty.toLocaleString()} MT
                 </td>
               </tr>
             </tbody>
@@ -321,7 +322,7 @@ export default function PrinterOrderDetailsPage() {
                     {dist.gsm} GSM
                   </td>
                   <td className="px-4 py-3 text-right font-bold text-emerald-600">
-                    {dist.issueQuantity.toLocaleString()} KG
+                    {dist.issueQuantity.toLocaleString()} MT
                   </td>
                   <td className="px-4 py-3 font-semibold">{dist.vehicleNo}</td>
                   <td className="px-4 py-3">{dist.driverName || "-"}</td>

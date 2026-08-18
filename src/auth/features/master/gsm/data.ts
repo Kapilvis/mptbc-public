@@ -7,7 +7,7 @@ export const mockGsms: Master.GsmItem[] = [
     sheetSize: "57.8 × 84",
     area: 0.48552,
     sheetWeightInGM: 28.16,
-    reamWeightInKG: 14.08,
+    reamWeightInMT: 14.08,
     isActive: true,
   },
   {
@@ -18,7 +18,7 @@ export const mockGsms: Master.GsmItem[] = [
     sheetSize: "57.8 × 84",
     area: 0.48552,
     sheetWeightInGM: 29.13,
-    reamWeightInKG: 14.56,
+    reamWeightInMT: 14.56,
     isActive: true,
   },
   {
@@ -29,7 +29,7 @@ export const mockGsms: Master.GsmItem[] = [
     sheetSize: "57.8 × 84",
     area: 0.48552,
     sheetWeightInGM: 33.9864,
-    reamWeightInKG: 16.9932,
+    reamWeightInMT: 16.9932,
     isActive: true,
   },
   {
@@ -40,7 +40,7 @@ export const mockGsms: Master.GsmItem[] = [
     sheetSize: "56 × 84",
     area: 0.4704,
     sheetWeightInGM: 37.632,
-    reamWeightInKG: 18.816,
+    reamWeightInMT: 18.816,
     isActive: true,
   },
 ];

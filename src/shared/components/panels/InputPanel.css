@@ -59,13 +59,13 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 1px solid #c2d8be;
-  box-shadow: 0 4px 10px rgba(0, 138, 69, 0.08);
+  border: 1px solid var(--primary-border, #c2d8be);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .input-panel-icon-wrapper i {
   font-size: 1.25rem;
-  color: #008a45;
+  color: var(--primary-color, #008a45);
 }
 
 .input-panel-header-text {

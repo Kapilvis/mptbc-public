@@ -1,19 +1,4 @@
 declare namespace Transportation {
-  interface WorkOrder {
-    workOrderId: string;
-    district: string;
-    block: string;
-    totalBundles: number;
-    allocatedTransporterId: number;
-    transporterName: string;
-    instructionDate: string; // YYYY-MM-DD
-    dueDate: string; // YYYY-MM-DD (instructionDate + 3 days)
-    status: "Draft" | "Pending Dispatch" | "In Transit" | "Delivered";
-    nineTonTrucksRequired: number;
-    fourPointFiveTonTrucksRequired: number;
-    dispatches?: Dispatch[];
-  }
-
   interface Dispatch {
     dispatchId: string;
     workOrderId: string;
@@ -23,21 +8,45 @@ declare namespace Transportation {
     capacity: number; // in Tons
     bundlesLoaded: number;
     dispatchDate: string;
-    status: "In Transit" | "Delivered";
-    lrNumber: string;
-    podUploaded?: boolean;
-    podFilePath?: string;
-    podSubmittedAt?: string;
     actualDeliveryDate?: string;
     deliveryDelayDays?: number;
-    freightAmount?: number;
-    penaltyAmount?: number;
-    finalFreightPaid?: number;
+    lrNumber: string;
+    gatePassNo?: string;
+    gpsDeviceId?: string;
+    status: "In Transit" | "Delivered" | "Pending Dispatch";
+    podFilePath?: string;
+    podUploaded?: boolean;
+    podSubmittedAt?: string;
     billingStatus?:
       | "Pending"
+      | "Verified"
+      | "Approved"
+      | "Paid"
+      | "Disbursed"
+      | "Rejected"
       | "Advance Claimed"
-      | "Advance Paid"
       | "Final Settlement Claimed"
-      | "Settled";
+      | "Advance Paid"
+      | "Settled"
+      | string;
+  }
+
+  interface WorkOrder {
+    workOrderId: string;
+    tenderId?: string;
+    allocatedTransporterId: number;
+    transporterName: string;
+    district: string;
+    block: string;
+    totalBundles: number;
+    nineTonTrucksRequired?: number;
+    fourPointFiveTonTrucksRequired?: number;
+    trucks9T?: number;
+    trucks45T?: number;
+    instructionDate?: string;
+    issueDate?: string;
+    dueDate: string;
+    status: "Pending Dispatch" | "In Transit" | "Delivered" | "Delayed";
+    dispatches?: Dispatch[];
   }
 }

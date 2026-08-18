@@ -64,16 +64,16 @@ const schema = validation.create<Master.GsmForm>((o) => ({
       "number.greater": "Sheet Weight in GM must be greater than 0",
     })
     .label("Sheet Weight in GM"),
-  reamWeightInKG: o
+  reamWeightInMT: o
     .number()
     .required()
     .greater(0)
     .messages({
-      "any.required": "Ream Weight in KG is required",
-      "number.base": "Ream Weight in KG is required",
-      "number.greater": "Ream Weight in KG must be greater than 0",
+      "any.required": "Ream Weight in MT is required",
+      "number.base": "Ream Weight in MT is required",
+      "number.greater": "Ream Weight in MT must be greater than 0",
     })
-    .label("Ream Weight in KG"),
+    .label("Ream Weight in MT"),
 }));
 
 export function useGsmForm(

@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useMenu } from "../../config/menu-routes";
 import { FullScreenToggleButton } from "../../shared/components/buttons/FullScreenToggleButton";
 import { ThemeToggleButton } from "../../shared/components/buttons/ThemeToggleButton";
+import { ThemeCustomizationDrawer } from "../../shared/components/drawers/ThemeCustomizationDrawer";
 import { LanguageDropdown } from "../components/index";
 import { useSidebar } from "../context/SidebarContext";
 import UserDropdown from "../header/UserDropdown";
@@ -90,51 +91,54 @@ const AppHeader: React.FC = () => {
   }, [location.pathname, menuItems, t]);
 
   return (
-    <header className="app-header">
-      <div className="app-header-container">
-        <div className="app-header-left">
-          <button
-            type="button"
-            className="sidebar-toggle-btn"
-            onClick={handleToggle}
-            aria-label="Toggle Sidebar"
-          >
-            <span className="animated-hamburger" aria-hidden="true">
-              <span className="hamburger-line hamburger-line-top" />
-              <span className="hamburger-line hamburger-line-middle" />
-              <span className="hamburger-line hamburger-line-bottom" />
-            </span>
-          </button>
+    <>
+      <header className="app-header">
+        <div className="app-header-container">
+          <div className="app-header-left">
+            <button
+              type="button"
+              className="sidebar-toggle-btn"
+              onClick={handleToggle}
+              aria-label="Toggle Sidebar"
+            >
+              <span className="animated-hamburger" aria-hidden="true">
+                <span className="hamburger-line hamburger-line-top" />
+                <span className="hamburger-line hamburger-line-middle" />
+                <span className="hamburger-line hamburger-line-bottom" />
+              </span>
+            </button>
 
-          <div className="app-header-page-info">
-            <h1 className="app-header-mobile-title">{pageTitle}</h1>
+            <div className="app-header-page-info">
+              <h1 className="app-header-mobile-title">{pageTitle}</h1>
 
-            <div className="app-header-breadcrumbs">
-              <Breadcrumbs />
+              <div className="app-header-breadcrumbs">
+                <Breadcrumbs />
+              </div>
+            </div>
+          </div>
+
+          <div className="app-header-right">
+            <div className="app-header-actions">
+              <FullScreenToggleButton />
+              <ThemeToggleButton />
+              <LanguageDropdown />
+            </div>
+
+            <div className="app-header-divider" />
+
+            <div
+              className="app-header-user"
+              onMouseDownCapture={() => {
+                window.dispatchEvent(new Event("close-grid-overlay"));
+              }}
+            >
+              <UserDropdown />
             </div>
           </div>
         </div>
-
-        <div className="app-header-right">
-          <div className="app-header-actions">
-            <FullScreenToggleButton />
-            <ThemeToggleButton />
-            <LanguageDropdown />
-          </div>
-
-          <div className="app-header-divider" />
-
-          <div
-            className="app-header-user"
-            onMouseDownCapture={() => {
-              window.dispatchEvent(new Event("close-grid-overlay"));
-            }}
-          >
-            <UserDropdown />
-          </div>
-        </div>
-      </div>
-    </header>
+      </header>
+      <ThemeCustomizationDrawer />
+    </>
   );
 };
 

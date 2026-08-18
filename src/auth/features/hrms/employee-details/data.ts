@@ -164,10 +164,7 @@ export const employmentStatuses = [
 ];
 
 // Dependent Dropdowns lookups
-export const states = [
-  { text: "Madhya Pradesh", id: 1 },
-  { text: "Uttar Pradesh", id: 2 },
-];
+export const states = [{ text: "Madhya Pradesh", id: 1 }];
 
 export const districts = [
   { text: "Bhopal", id: 10, stateId: 1 },

@@ -1,5 +1,5 @@
 import { mockWorkOrders, appendixDataIndore } from "./data";
-import { mockTenders } from "../commercial-bid/data";
+import { getActiveDistrictTransporters } from "../tender-details/api";
 import { getTransporters } from "../../master/transporter-registration/api";
 
 const workOrders = [...mockWorkOrders];
@@ -14,20 +14,26 @@ export async function createWorkOrder(
     "workOrderId" | "dueDate" | "status" | "transporterName" | "dispatches"
   >,
 ): Promise<Transportation.WorkOrder> {
-  const tender = mockTenders.find((t) => t.district === data.district);
-  if (!tender || !tender.allocatedTransporterId) {
-    throw new Error(
-      `No authorized Prime Bidder found for district "${data.district}". Please run L1 Selection first.`,
-    );
-  }
+  const districtAllocations = getActiveDistrictTransporters(data.district);
+  const selectedAlloc =
+    districtAllocations.find(
+      (a) => a.transporterId === data.allocatedTransporterId,
+    ) || districtAllocations[0];
+
+  const resolvedTransporterId =
+    data.allocatedTransporterId || selectedAlloc?.transporterId || 3;
 
   const transporters = await getTransporters();
   const transporterName =
-    transporters.find((t) => t.transporterId === tender.allocatedTransporterId)
-      ?.transporterName || `Transporter #${tender.allocatedTransporterId}`;
+    selectedAlloc?.transporterName ||
+    transporters.find((t) => t.transporterId === resolvedTransporterId)
+      ?.transporterName ||
+    `Transporter #${resolvedTransporterId}`;
 
   // Calculate SLA due date (instruction date + 3 days)
-  const insDate = new Date(data.instructionDate);
+  const insDate = new Date(
+    data.instructionDate || data.issueDate || new Date().toISOString(),
+  );
   insDate.setDate(insDate.getDate() + 3);
   const dueDateStr = insDate.toISOString().split("T")[0];
 
@@ -40,7 +46,7 @@ export async function createWorkOrder(
     workOrderId,
     dueDate: dueDateStr,
     status: "Pending Dispatch",
-    allocatedTransporterId: tender.allocatedTransporterId,
+    allocatedTransporterId: resolvedTransporterId,
     transporterName,
     dispatches: [],
   };
@@ -52,17 +58,16 @@ export async function createWorkOrder(
 export async function importAppendixData(
   district: string,
 ): Promise<Transportation.WorkOrder[]> {
-  const tender = mockTenders.find((t) => t.district === district);
-  if (!tender || !tender.allocatedTransporterId) {
-    throw new Error(
-      `No authorized Prime Bidder found for district "${district}". Please run L1 Selection first.`,
-    );
-  }
+  const districtAllocations = getActiveDistrictTransporters(district);
+  const selectedAlloc = districtAllocations[0];
+  const resolvedTransporterId = selectedAlloc?.transporterId || 3;
 
   const transporters = await getTransporters();
   const transporterName =
-    transporters.find((t) => t.transporterId === tender.allocatedTransporterId)
-      ?.transporterName || `Transporter #${tender.allocatedTransporterId}`;
+    selectedAlloc?.transporterName ||
+    transporters.find((t) => t.transporterId === resolvedTransporterId)
+      ?.transporterName ||
+    `Transporter #${resolvedTransporterId}`;
 
   const todayStr = new Date().toISOString().split("T")[0];
   const insDate = new Date();
@@ -89,7 +94,7 @@ export async function importAppendixData(
       district,
       block: item.block,
       totalBundles: item.bundles,
-      allocatedTransporterId: tender.allocatedTransporterId,
+      allocatedTransporterId: resolvedTransporterId,
       transporterName,
       instructionDate: todayStr,
       dueDate: dueDateStr,
@@ -151,7 +156,9 @@ export async function submitPodForDispatch(
   const dispatch = wo.dispatches?.find((d) => d.dispatchId === dispatchId);
   if (!dispatch) throw new Error("Dispatch not found");
 
-  const insDate = new Date(wo.instructionDate);
+  const insDate = new Date(
+    wo.instructionDate || wo.issueDate || dispatch.dispatchDate,
+  );
   const actualDate = new Date(actualDeliveryDate);
   const diffTime = actualDate.getTime() - insDate.getTime();
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));

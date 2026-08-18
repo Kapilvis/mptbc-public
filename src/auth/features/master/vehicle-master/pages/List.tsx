@@ -126,7 +126,7 @@ export default function List() {
             { field: "category", header: "Category", sortable: true },
             {
               cell: (item: Transportation.Vehicle) => (
-                <span>{`${item.capacity} Tons`}</span>
+                <span>{`${item.capacity} Metric Ton`}</span>
               ),
               header: "Capacity",
               sortable: true,
@@ -138,6 +138,22 @@ export default function List() {
                 <span>{getTransporterName(item.transporterId)}</span>
               ),
               header: "Transporter Owner",
+            },
+            {
+              cell: (item: Transportation.Vehicle) => {
+                const hasGps = Boolean(
+                  item.hasGps || item.gpsProvider || item.gpsDeviceId,
+                );
+                return hasGps ? (
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <i className="pi pi-map-marker text-[9px]" />{" "}
+                    {item.gpsProvider || "GPS Active"}
+                  </span>
+                ) : (
+                  <span className="text-slate-400 text-xs">No GPS</span>
+                );
+              },
+              header: "GPS Tracking",
             },
             {
               cell: (item: Transportation.Vehicle) => {
@@ -162,7 +178,7 @@ export default function List() {
                 subTitle={[
                   `Model: ${item.model}`,
                   `Category: ${item.category}`,
-                  `Capacity: ${item.capacity} Tons`,
+                  `Capacity: ${item.capacity} Metric Ton`,
                   `Ownership: ${item.ownershipStatus}`,
                   `Owner: ${getTransporterName(item.transporterId)}`,
                 ]}

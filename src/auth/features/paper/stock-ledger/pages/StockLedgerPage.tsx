@@ -277,7 +277,7 @@ export default function StockLedgerPage() {
                 const isIn = row.quantity > 0 && row.type !== "Opening";
                 return (
                   <span className="text-xs font-bold text-emerald-600">
-                    {isIn ? `${row.quantity.toLocaleString()} KG` : ""}
+                    {isIn ? `${row.quantity.toLocaleString()} MT` : ""}
                   </span>
                 );
               },
@@ -290,7 +290,7 @@ export default function StockLedgerPage() {
                 return (
                   <span className="text-xs font-bold text-rose-600">
                     {isOut
-                      ? `${Math.abs(row.quantity).toLocaleString()} KG`
+                      ? `${Math.abs(row.quantity).toLocaleString()} MT`
                       : ""}
                   </span>
                 );
@@ -302,7 +302,7 @@ export default function StockLedgerPage() {
               align: "right",
               cell: (row: StockTransaction) => (
                 <span className="text-xs font-bold text-indigo-700 dark:text-indigo-400">
-                  {row.balance.toLocaleString()} KG
+                  {row.balance.toLocaleString()} MT
                 </span>
               ),
             },

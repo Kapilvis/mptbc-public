@@ -83,7 +83,7 @@ export default function PaperReceivingPage() {
               align: "right",
               cell: (row: PaperReceipt) => (
                 <span className="text-xs font-bold text-emerald-600">
-                  {row.quantity.toLocaleString()} KG
+                  {row.quantity.toLocaleString()} MT
                 </span>
               ),
             },

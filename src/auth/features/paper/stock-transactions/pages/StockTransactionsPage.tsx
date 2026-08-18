@@ -96,7 +96,7 @@ export default function StockTransactionsPage() {
             },
             {
               field: "quantity",
-              header: "Quantity (KG)",
+              header: "Quantity (MT)",
               align: "right",
               cell: (row: StockTransaction) => {
                 const isPositive = row.quantity > 0;
@@ -105,7 +105,7 @@ export default function StockTransactionsPage() {
                     className={`text-xs font-bold ${row.type === "Opening" ? "text-gray-700 dark:text-gray-300" : isPositive ? "text-emerald-600" : "text-rose-600"}`}
                   >
                     {isPositive && row.type !== "Opening" ? "+" : ""}
-                    {row.quantity.toLocaleString()} KG
+                    {row.quantity.toLocaleString()} MT
                   </span>
                 );
               },
@@ -116,7 +116,7 @@ export default function StockTransactionsPage() {
               align: "right",
               cell: (row: StockTransaction) => (
                 <span className="text-xs font-bold text-blue-700 dark:text-blue-400">
-                  {row.balance.toLocaleString()} KG
+                  {row.balance.toLocaleString()} MT
                 </span>
               ),
             },
