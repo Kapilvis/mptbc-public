@@ -234,6 +234,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: t("routes.master.userManagement.user-management"),
     icon: "pi pi-users",
+    section: "Configuration",
     children: [
       {
         label: t("routes.master.userManagement.user-registration"),
@@ -268,6 +269,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: t("routes.master.hrms.hrms"),
     icon: "pi pi-id-card",
+    section: "Configuration",
     children: [
       {
         label: t("routes.master.hrms.employee-details"),
@@ -278,133 +280,11 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
       },
     ],
   },
-  {
-    label: "Content Management",
-    icon: "pi pi-book",
-    children: [
-      {
-        label: "Title Received (RSK / CPI)",
-        path: "/distribution/title-received",
-        feature: "@distribution/title-received",
-        action: "read",
-        permissionKey: "title-section/title-received",
-      },
-      {
-        label: "Title Approval",
-        path: "/distribution/title-approval",
-        feature: "@distribution/title-approval",
-        action: "read",
-        permissionKey: "title-section/title-approval",
-      },
-      {
-        label: "Approved Title List",
-        path: masterUrls.title.root,
-        feature: "@master/title",
-        action: "read",
-        permissionKey: "title-section/title-master",
-      },
-    ],
-  },
-  {
-    label: "Printer Section",
-    // label: t("routes.printing.printing"),
-    icon: "pi pi-print",
-    children: [
-      {
-        label: t("routes.printing.printer-registration"),
-        path: "/printing/printer-registration",
-        permissionKey: "printer-section/printer-registration",
-      },
-      {
-        label: "Printer Orders",
-        path: "/printing/orders/list",
-        permissionKey: "printer-orders",
-      },
-      {
-        label: "Pending Orders",
-        path: "/printing/orders/pending",
-        permissionKey: "pending-printer-orders",
-      },
-      {
-        label: "Quality Inspection",
-        path: "/printing/quality-inspection",
-        permissionKey: "printer-section/quality-inspection",
-      },
-    ],
-  },
-  {
-    label: "Depot Section",
-    icon: "pi pi-home",
-    children: [
-      {
-        label: "Depot Registration",
-        path: "/mptbc/depot-registration",
-        permissionKey: "depot-section/depot-registration",
-      },
-    ],
-  },
-  {
-    label: "District Depot",
-    icon: "pi pi-building",
-    children: [
-      {
-        label: "Printer Section",
-        children: [
-          {
-            label: "Printer Assigned Demand",
-            path: "/district-depot/printer/assigned-demand",
-            permissionKey: "district-depot/printer-assigned-demand",
-          },
-          {
-            label: "Challan Received",
-            path: "/district-depot/printer/challan-received",
-            permissionKey: "district-depot/challan-received",
-          },
-        ],
-      },
-      {
-        label: "Distribution till Block",
-        children: [
-          {
-            label: "Challan to Block",
-            path: "/district-depot/dispatch/challan-to-block",
-            permissionKey: "district-depot/challan-to-block",
-          },
-          {
-            label: "Dispatch History",
-            path: "/district-depot/dispatch/history",
-            permissionKey: "district-depot/dispatch-history",
-          },
-        ],
-      },
-    ],
-  },
-
-  {
-    label: "Depot Transport Section",
-    icon: "pi pi-car",
-    permissionKey: "depot-transport",
-    children: [
-      {
-        label: "Transport Orders",
-        path: "/district-depot/transport/orders",
-        permissionKey: "depot-transport/transport-orders",
-      },
-      {
-        label: "Vehicle Management",
-        path: "/district-depot/transport/vehicles",
-        permissionKey: "depot-transport/vehicle-management",
-      },
-      {
-        label: "Fuel Log",
-        path: "/district-depot/transport/fuel-log",
-        permissionKey: "depot-transport/fuel-log",
-      },
-    ],
-  },
+  /* ─── 1. DISTRIBUTION SECTION ─── */
   {
     label: "Distribution Section",
     icon: "pi pi-truck",
+    section: "Modules",
     permissionKey: "distribution-section",
     children: [
       {
@@ -440,6 +320,37 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
       },
     ],
   },
+
+  /* ─── 2. CONTENT MANAGEMENT ─── */
+  {
+    label: "Content Management",
+    icon: "pi pi-book",
+    children: [
+      {
+        label: "Title Received (RSK / CPI)",
+        path: "/distribution/title-received",
+        feature: "@distribution/title-received",
+        action: "read",
+        permissionKey: "title-section/title-received",
+      },
+      {
+        label: "Title Approval",
+        path: "/distribution/title-approval",
+        feature: "@distribution/title-approval",
+        action: "read",
+        permissionKey: "title-section/title-approval",
+      },
+      {
+        label: "Approved Title List",
+        path: masterUrls.title.root,
+        feature: "@master/title",
+        action: "read",
+        permissionKey: "title-section/title-master",
+      },
+    ],
+  },
+
+  /* ─── 3. PAPER SECTION ─── */
   {
     label: t("routes.paper-section"),
     icon: "pi pi-copy",
@@ -501,7 +412,6 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         path: "/paper/stock/ledger",
         permissionKey: "stock-ledger",
       },
-
       {
         label: "Paper Supply & Dispatch",
         path: "/paper/paper-supply-dispatch",
@@ -511,140 +421,103 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
       },
     ],
   },
+
+  /* ─── 4. PRINTER SECTION ─── */
   {
-    label: t("routes.reports.reports"),
-    icon: "pi pi-chart-bar",
-    permissionKey: "reports",
+    label: "Printer Section",
+    // label: t("routes.printing.printing"),
+    icon: "pi pi-print",
     children: [
       {
-        label: "Depot Wise Textbook Supply Report",
-        // label: t("routes.reports.depot-wise-district-textbook-supply-status"),
-        path: "/reports/depot-wise-district-textbook-supply-status",
-        permissionKey: "reports/depot-supply-status",
+        label: t("routes.printing.printer-registration"),
+        path: "/printing/printer-registration",
+        permissionKey: "printer-section/printer-registration",
       },
       {
-        // label: "Department Wise Demand Report",
-        label: t("routes.reports.agency-wise-demand"),
-        path: "/reports/agency-wise-demand",
-        permissionKey: "reports/agency-demand",
+        label: "Printer Orders",
+        path: "/printing/orders/list",
+        permissionKey: "printer-orders",
       },
       {
-        label: "GSM-wise Stock Report",
-        path: "/reports/gsm-stock",
-        permissionKey: "gsm-stock-report",
+        label: "Pending Orders",
+        path: "/printing/orders/pending",
+        permissionKey: "pending-printer-orders",
       },
       {
-        label: "Printer-wise Order Report",
-        path: "/reports/printer-orders",
-        permissionKey: "printer-order-report",
-      },
-      {
-        label: "Printer-wise Supply Report",
-        path: "/reports/printer-supply",
-        permissionKey: "printer-supply-report",
-      },
-      {
-        label: "Paper Distribution Report",
-        path: "/reports/distributions",
-        permissionKey: "paper-distribution-report",
+        label: "Quality Inspection",
+        path: "/printing/quality-inspection",
+        permissionKey: "printer-section/quality-inspection",
       },
     ],
   },
 
-  /* ─── DISTRICT DEPOT specific mock menus ─── */
+  /* ─── 5. DEPOT ─── */
+  {
+    label: "Depot Section",
+    icon: "pi pi-home",
+    children: [
+      {
+        label: "Depot Registration",
+        path: "/mptbc/depot-registration",
+        permissionKey: "depot-section/depot-registration",
+      },
+      {
+        label: "Printer Section",
+        children: [
+          {
+            label: "Printer Assigned Demand",
+            path: "/district-depot/printer/assigned-demand",
+            permissionKey: "district-depot/printer-assigned-demand",
+          },
+          {
+            label: "Challan Received",
+            path: "/district-depot/printer/challan-received",
+            permissionKey: "district-depot/challan-received",
+          },
+        ],
+      },
+      {
+        label: "Distribution till Block",
+        children: [
+          {
+            label: "Challan to Block",
+            path: "/district-depot/dispatch/challan-to-block",
+            permissionKey: "district-depot/challan-to-block",
+          },
+          {
+            label: "Dispatch History",
+            path: "/district-depot/dispatch/history",
+            permissionKey: "district-depot/dispatch-history",
+          },
+        ],
+      },
+    ],
+  },
+  /* ─── DEPOT TRANSPORT SECTION ─── */
   // {
-  //   label: "Assigned Demand",
-  //   icon: "pi pi-file-edit",
-  //   path: "/assigned-demand",
-  //   permissionKey: "assigned-demand",
+  //   label: "Depot Transport Section",
+  //   icon: "pi pi-car",
+  //   permissionKey: "depot-transport",
+  //   children: [
+  //     {
+  //       label: "Transport Orders",
+  //       path: "/district-depot/transport/orders",
+  //       permissionKey: "depot-transport/transport-orders",
+  //     },
+  //     {
+  //       label: "Vehicle Management",
+  //       path: "/district-depot/transport/vehicles",
+  //       permissionKey: "depot-transport/vehicle-management",
+  //     },
+  //     {
+  //       label: "Fuel Log",
+  //       path: "/district-depot/transport/fuel-log",
+  //       permissionKey: "depot-transport/fuel-log",
+  //     },
+  //   ],
   // },
 
-  /* ─── PRINTER specific mock menus ─── */
-  // {
-  //   label: "Tender",
-  //   icon: "pi pi-file",
-  //   path: "/tender",
-  //   permissionKey: "tender",
-  // },
-
-  {
-    label: "Paper Receiving",
-    icon: "pi pi-download",
-    path: "/paper/stock/receiving",
-    permissionKey: "central-paper-receiving",
-  },
-  {
-    label: "Title Master",
-    icon: "pi pi-bookmark",
-    path: "/title-master",
-    permissionKey: "title-master",
-  },
-  {
-    label: "GSM Master",
-    icon: "pi pi-sliders-h",
-    path: "/gsm-master",
-    permissionKey: "gsm-master",
-  },
-  // {
-  //   label: "Supply Section",
-  //   icon: "pi pi-send",
-  //   path: "/supply-section",
-  //   permissionKey: "supply-section",
-  // },
-  // {
-  //   label: "Payment",
-  //   icon: "pi pi-wallet",
-  //   path: "/payment",
-  //   permissionKey: "payment",
-  // },
-
-  /* ─── PAPER VENDOR specific mock menus ─── */
-  // {
-  //   label: "Paper Supply",
-  //   icon: "pi pi-upload",
-  //   path: "/paper-supply",
-  //   permissionKey: "paper-supply",
-  // },
-  // {
-  //   label: "Paper Orders",
-  //   icon: "pi pi-shopping-cart",
-  //   path: "/paper-orders",
-  //   permissionKey: "paper-orders",
-  // },
-
-  /* ─── DISTRIBUTION SECTION specific mock menus ─── */
-  // {
-  //   label: "Demand",
-  //   icon: "pi pi-envelope",
-  //   path: "/demand",
-  //   permissionKey: "demand",
-  // },
-  // {
-  //   label: "Allocation",
-  //   icon: "pi pi-share-alt",
-  //   path: "/allocation",
-  //   permissionKey: "allocation",
-  // },
-  {
-    label: "Distribution",
-    icon: "pi pi-map-marker",
-    path: "/distribution-page",
-    permissionKey: "distribution",
-  },
-  {
-    label: "Dispatch",
-    icon: "pi pi-directions",
-    path: "/dispatch",
-    permissionKey: "dispatch",
-  },
-  {
-    label: "Distribution Tracking",
-    icon: "pi pi-map",
-    path: "/distribution-tracking",
-    permissionKey: "distribution-tracking",
-  },
-
-  /* ─── TRANSPORTATION SECTION ─── */
+  /* ─── 6. TRANSPORTATION ─── */
   {
     label: "Transportation",
     icon: "pi pi-truck",
@@ -694,6 +567,85 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
       },
     ],
   },
+
+  /* ─── 7. REPORTS ─── */
+  {
+    label: t("routes.reports.reports"),
+    icon: "pi pi-chart-bar",
+    permissionKey: "reports",
+    children: [
+      {
+        label: "Depot Wise Textbook Supply Report",
+        // label: t("routes.reports.depot-wise-district-textbook-supply-status"),
+        path: "/reports/depot-wise-district-textbook-supply-status",
+        permissionKey: "reports/depot-supply-status",
+      },
+      {
+        // label: "Department Wise Demand Report",
+        label: t("routes.reports.agency-wise-demand"),
+        path: "/reports/agency-wise-demand",
+        permissionKey: "reports/agency-demand",
+      },
+      {
+        label: "GSM-wise Stock Report",
+        path: "/reports/gsm-stock",
+        permissionKey: "gsm-stock-report",
+      },
+      {
+        label: "Printer-wise Order Report",
+        path: "/reports/printer-orders",
+        permissionKey: "printer-order-report",
+      },
+      {
+        label: "Printer-wise Supply Report",
+        path: "/reports/printer-supply",
+        permissionKey: "printer-supply-report",
+      },
+      {
+        label: "Paper Distribution Report",
+        path: "/reports/distributions",
+        permissionKey: "paper-distribution-report",
+      },
+    ],
+  },
+
+  /* ─── MISC / STANDALONE ─── */
+  {
+    label: "Paper Receiving",
+    icon: "pi pi-download",
+    path: "/paper/stock/receiving",
+    permissionKey: "central-paper-receiving",
+  },
+  // {
+  //   label: "Title Master",
+  //   icon: "pi pi-bookmark",
+  //   path: "/title-master",
+  //   permissionKey: "title-master",
+  // },
+  // {
+  //   label: "GSM Master",
+  //   icon: "pi pi-sliders-h",
+  //   path: "/gsm-master",
+  //   permissionKey: "gsm-master",
+  // },
+  // {
+  //   label: "Distribution",
+  //   icon: "pi pi-map-marker",
+  //   path: "/distribution-page",
+  //   permissionKey: "distribution",
+  // },
+  // {
+  //   label: "Dispatch",
+  //   icon: "pi pi-directions",
+  //   path: "/dispatch",
+  //   permissionKey: "dispatch",
+  // },
+  // {
+  //   label: "Distribution Tracking",
+  //   icon: "pi pi-map",
+  //   path: "/distribution-tracking",
+  //   permissionKey: "distribution-tracking",
+  // },
 ];
 
 export function useMenu() {
@@ -810,18 +762,6 @@ export function useMenu() {
         return true;
       });
 
-    let hasSectionAssigned = false;
-    return mapped.map((item) => {
-      if (
-        !hasSectionAssigned &&
-        item.label !== "Home" &&
-        item.label !== "Dashboard" &&
-        item.label !== "Profile"
-      ) {
-        hasSectionAssigned = true;
-        return { ...item, section: "Configuration" };
-      }
-      return item;
-    });
+    return mapped;
   }, [authenticated, user, permissions, t]);
 }
