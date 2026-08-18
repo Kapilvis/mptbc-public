@@ -153,11 +153,6 @@ export default function PaperTenderRaiseForm() {
     );
   }
 
-  const totalGrossMt = lots.reduce((acc, l) => acc + l.quantityMt, 0);
-  const totalBudgetCrores = (
-    lots.reduce((acc, l) => acc + l.estimatedCostLakhs, 0) / 100
-  ).toFixed(2);
-
   return (
     <Page
       header="Paper Tender - Notice Inviting Tender (NIT)"
@@ -505,10 +500,11 @@ export default function PaperTenderRaiseForm() {
             {checklist.map((item, idx) => (
               <label
                 key={item.id}
-                className={`flex items-start gap-3 p-3.5 rounded-xl border transition-all cursor-pointer ${item.checked
-                  ? "bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-700 shadow-2xs"
-                  : "bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 opacity-70"
-                  }`}
+                className={`flex items-start gap-3 p-3.5 rounded-xl border transition-all cursor-pointer ${
+                  item.checked
+                    ? "bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-700 shadow-2xs"
+                    : "bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 opacity-70"
+                }`}
               >
                 <div className="pt-0.5">
                   <Checkbox
@@ -543,10 +539,11 @@ export default function PaperTenderRaiseForm() {
               Tender Status:
             </span>
             <span
-              className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${tenderForm.status === "Published"
-                ? "bg-emerald-100 text-emerald-800"
-                : "bg-amber-100 text-amber-800"
-                }`}
+              className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${
+                tenderForm.status === "Published"
+                  ? "bg-emerald-100 text-emerald-800"
+                  : "bg-amber-100 text-amber-800"
+              }`}
             >
               {tenderForm.status}
             </span>
