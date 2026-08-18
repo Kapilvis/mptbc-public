@@ -1,8 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Profile from "../../anonymous/pages/Profile";
-
 import { RouteGuard } from "../components/RouteGuard";
-
 import Home from "./home/Home";
 import Master from "./master";
 import Printing from "./printing";
@@ -17,7 +15,6 @@ import BookPaperRequirement from "auth/features/book-paper-requirement";
 import DistrictDepot from "./district-depot";
 import Transportation from "./transportation";
 import CentralDepot from "./inventory";
-
 import MockModulePage from "../components/MockModulePage";
 import UnauthorizedPage from "../components/UnauthorizedPage";
 

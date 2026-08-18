@@ -272,7 +272,7 @@ export default function GsmDemandReportList() {
             },
             {
               field: "gsmCode",
-              header: "GSM Code",
+              header: "GSM",
               align: "center",
               cell: (row: Paper.GsmPaperDemandItem) => (
                 <span className="font-extrabold text-blue-800 dark:text-blue-300">
@@ -294,19 +294,19 @@ export default function GsmDemandReportList() {
                 </div>
               ),
             },
-            {
-              field: "paperCategory",
-              header: "Paper Category",
-              align: "center",
-              cell: (row: Paper.GsmPaperDemandItem) => (
-                <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
-                  {row.paperCategory}
-                </span>
-              ),
-            },
+            // {
+            //   field: "paperCategory",
+            //   header: "Paper Category",
+            //   align: "center",
+            //   cell: (row: Paper.GsmPaperDemandItem) => (
+            //     <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+            //       {row.paperCategory}
+            //     </span>
+            //   ),
+            // },
             {
               field: "titlesCount",
-              header: "Titles & Books",
+              header: "No. of Titles ",
               align: "center",
               cell: (row: Paper.GsmPaperDemandItem) => (
                 <div className="text-center">
@@ -359,22 +359,22 @@ export default function GsmDemandReportList() {
                 </span>
               ),
             },
-            {
-              field: "status",
-              header: "Lock Status",
-              align: "center",
-              cell: (row: Paper.GsmPaperDemandItem) => (
-                <span
-                  className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${
-                    row.status === "Locked"
-                      ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
-                      : "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
-                  }`}
-                >
-                  {row.status === "Locked" ? "Locked / Finalized" : "Draft"}
-                </span>
-              ),
-            },
+            // {
+            //   field: "status",
+            //   header: "Lock Status",
+            //   align: "center",
+            //   cell: (row: Paper.GsmPaperDemandItem) => (
+            //     <span
+            //       className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${
+            //         row.status === "Locked"
+            //           ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
+            //           : "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
+            //       }`}
+            //     >
+            //       {row.status === "Locked" ? "Locked / Finalized" : "Draft"}
+            //     </span>
+            //   ),
+            // },
             {
               header: "Action",
               align: "center",

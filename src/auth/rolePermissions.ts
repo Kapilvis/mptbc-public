@@ -134,7 +134,6 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "profile",
     "central-dashboard",
     // Printer Section
-    "printer-section/printer-registration",
     "printer-orders",
     "pending-printer-orders",
     // Distribution Section
@@ -226,11 +225,17 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "master/book-type",
     "master/medium",
     "master/gsm",
+    // Paper Section
+    "paper-section/book-paper-requirement",
+    "paper-section/gsm-demand-report",
+    "paper-stock",
+    "central-paper-receiving",
+    "stock-transactions",
+    "stock-ledger",
     // Paper Vendor Specific
     "paper-supply",
     "paper-orders",
     "paper-receiving",
-    "payment",
     // Reports
     "reports/depot-supply-status",
     "reports/agency-demand",
@@ -270,12 +275,15 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "title-section/title-received",
     "title-section/title-approval",
     "title-section/title-master",
+    // Distribution Section
+    "distribution-section/department-demand",
+    "distribution-section/dashboard",
+    "distribution-section/demand-approval",
+    "paper-distribution",
+    "distribution-history",
     // Distribution Section Specific
-    "demand",
-    "allocation",
-    "distribution",
-    "dispatch",
-    "distribution-tracking",
+    // "demand",
+    // "allocation",
     // Reports
     "reports/depot-supply-status",
     "reports/agency-demand",

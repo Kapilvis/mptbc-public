@@ -38,7 +38,7 @@ export default function AgencyWiseDemandReportPage() {
 
   return (
     <Page
-      header="Agency Wise Demand & Supply Report"
+      header="Department Wise Demand & Supply Report"
       subHeader="Depot-wise demand vs supply tracking for RSK (Class 1-8) and CPI (Class 9-12)."
       showHeaderActions
     >
@@ -131,8 +131,18 @@ export default function AgencyWiseDemandReportPage() {
         </button>
       </div>
 
+      {/* Scoped Row Highlighting Style matching DepotWiseDistrictTextbookSupplyStatusTable */}
+      <style>{`
+        .agency-demand-report-table tr:has(.depot-total-flag) {
+          background-color: #f0fdf4 !important;
+        }
+        .dark .agency-demand-report-table tr:has(.depot-total-flag) {
+          background-color: rgba(6, 78, 59, 0.45) !important;
+        }
+      `}</style>
+
       {/* Grid Table Section */}
-      <Card>
+      <Card className="agency-demand-report-table">
         <GridPanel
           toolbarPlacement="panel"
           defaultMode="grid"
@@ -147,30 +157,52 @@ export default function AgencyWiseDemandReportPage() {
               header: "Depot S.No",
               align: "center",
               width: "90px",
-              cell: (row: Reports.AgencyDemandReportItem) => (
-                <span
-                  className={
-                    row.isDepotTotal ? "font-bold text-emerald-800" : ""
-                  }
-                >
-                  {row.depotSNo}
-                </span>
-              ),
+              cell: (
+                row: Reports.AgencyDemandReportItem,
+                options?: { rowIndex: number },
+              ) => {
+                const rowIndex = options?.rowIndex ?? data.indexOf(row);
+                const isFirstInGroup =
+                  rowIndex === 0 ||
+                  data[rowIndex - 1]?.depotName !== row.depotName;
+                if (!isFirstInGroup) return null;
+                return (
+                  <span
+                    className={
+                      row.isDepotTotal
+                        ? "font-bold text-green-900 dark:text-emerald-300"
+                        : "font-semibold text-gray-800 dark:text-gray-200"
+                    }
+                  >
+                    {row.depotSNo}
+                  </span>
+                );
+              },
             },
             {
               field: "depotName",
               header: "Depot Name",
-              cell: (row: Reports.AgencyDemandReportItem) => (
-                <span
-                  className={
-                    row.isDepotTotal
-                      ? "font-extrabold text-emerald-900 dark:text-emerald-300"
-                      : "font-bold text-gray-900 dark:text-white"
-                  }
-                >
-                  {row.depotName}
-                </span>
-              ),
+              cell: (
+                row: Reports.AgencyDemandReportItem,
+                options?: { rowIndex: number },
+              ) => {
+                const rowIndex = options?.rowIndex ?? data.indexOf(row);
+                const isFirstInGroup =
+                  rowIndex === 0 ||
+                  data[rowIndex - 1]?.depotName !== row.depotName;
+                if (!isFirstInGroup) return null;
+                return (
+                  <span
+                    className={
+                      row.isDepotTotal
+                        ? "font-extrabold text-green-900 dark:text-emerald-300"
+                        : "font-bold text-gray-900 dark:text-white"
+                    }
+                  >
+                    {row.depotName}
+                  </span>
+                );
+              },
             },
             {
               field: "districtName",
@@ -179,8 +211,8 @@ export default function AgencyWiseDemandReportPage() {
                 <span
                   className={
                     row.isDepotTotal
-                      ? "font-bold text-emerald-900 dark:text-emerald-300 uppercase tracking-wider"
-                      : "text-gray-800 dark:text-gray-200"
+                      ? "depot-total-flag font-semibold italic text-green-900 dark:text-emerald-300"
+                      : "text-gray-800 dark:text-gray-200 font-medium"
                   }
                 >
                   {row.districtName}
@@ -195,8 +227,8 @@ export default function AgencyWiseDemandReportPage() {
                 <span
                   className={
                     row.isDepotTotal
-                      ? "font-extrabold text-emerald-900 dark:text-emerald-300"
-                      : "font-bold text-gray-900 dark:text-white"
+                      ? "font-extrabold text-green-900 dark:text-emerald-300 font-mono"
+                      : "font-bold text-gray-900 dark:text-white font-mono"
                   }
                 >
                   {row.demand.toLocaleString()}
@@ -211,8 +243,8 @@ export default function AgencyWiseDemandReportPage() {
                 <span
                   className={
                     row.isDepotTotal
-                      ? "font-extrabold text-emerald-900 dark:text-emerald-300"
-                      : "font-bold text-emerald-700 dark:text-emerald-400"
+                      ? "font-extrabold text-green-900 dark:text-emerald-300 font-mono"
+                      : "font-bold text-emerald-700 dark:text-emerald-400 font-mono"
                   }
                 >
                   {row.supply.toLocaleString()}
@@ -225,15 +257,17 @@ export default function AgencyWiseDemandReportPage() {
               align: "right",
               cell: (row: Reports.AgencyDemandReportItem) => (
                 <span
-                  className={`font-bold ${
+                  className={
                     row.isDepotTotal
-                      ? "text-emerald-900 font-extrabold dark:text-emerald-300"
-                      : row.supplyPercent >= 90
-                        ? "text-emerald-600"
-                        : row.supplyPercent >= 60
-                          ? "text-amber-600"
-                          : "text-rose-600"
-                  }`}
+                      ? "font-extrabold text-green-900 dark:text-emerald-300 font-mono"
+                      : `font-bold ${
+                          row.supplyPercent >= 90
+                            ? "text-emerald-600"
+                            : row.supplyPercent >= 60
+                              ? "text-amber-600"
+                              : "text-rose-600"
+                        }`
+                  }
                 >
                   {row.supplyPercent.toFixed(2)}%
                 </span>

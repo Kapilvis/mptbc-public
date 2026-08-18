@@ -7,7 +7,7 @@
     "Directory": "Directory",
     "Madhya Pradesh Textbook Corporation": "Madhya Pradesh Textbook Corporation",
     "home": {
-      "welcome_portal": "Welcome to Madhya Pradesh Textbook Corporation Portal",
+      "welcome_portal": "Welcome to Madhya Pradesh Textbook Corporation",
       "sub_header": "Overview of key statistics and recent activities"
     },
     "commonMessages": {
@@ -56,7 +56,7 @@
     },
     "routes": {
       "paper-section": "Paper Section",
-      "book-paper-requirement": "Book Paper Requirement",
+      "book-paper-requirement": "Paper Requirement",
       "master": {
         "office": {
           "office": "Office",
@@ -174,7 +174,7 @@
       "reports": {
         "reports": "Reports",
         "depot-wise-district-textbook-supply-status": "Depot Wise District Textbook Supply Status",
-        "agency-wise-demand": "Agency Wise Demand Report"
+        "agency-wise-demand": "Department Wise Demand Report"
       }
     },
     "printing": {
@@ -248,7 +248,7 @@
     },
     "reports": {
       "supply_status": {
-        "page_header": "Depot Wise District Textbook Supply Status Report (Class 1–12)",
+        "page_header": "Depot Wise Textbook Supply Report (Class 1–12)",
         "page_sub_header": "Session 2026-27 | Madhya Pradesh Textbook Corporation | Free Textbook Scheme",
         "title": "Depot Wise District Textbook Supply Status",
         "metadata": {

@@ -130,13 +130,13 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
             action: "write",
             permissionKey: "master/blood-group",
           },
-          {
-            label: t("routes.master.hrManagement.nationality"),
-            path: masterUrls.nationality.root,
-            feature: "@master/nationality",
-            action: "write",
-            permissionKey: "master/nationality",
-          },
+          // {
+          //   label: t("routes.master.hrManagement.nationality"),
+          //   path: masterUrls.nationality.root,
+          //   feature: "@master/nationality",
+          //   action: "write",
+          //   permissionKey: "master/nationality",
+          // },
           {
             label: t("routes.master.hrManagement.designation"),
             path: masterUrls.designation.root,
@@ -158,20 +158,20 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
             action: "write",
             permissionKey: "master/qualification",
           },
-          {
-            label: t("routes.master.hrManagement.qualification-type"),
-            path: masterUrls.qualificationType.root,
-            feature: "@master/qualification-type",
-            action: "write",
-            permissionKey: "master/qualification-type",
-          },
-          {
-            label: t("routes.master.hrManagement.qualification-subject"),
-            path: masterUrls.qualificationSubject.root,
-            feature: "@master/qualification-subject",
-            action: "write",
-            permissionKey: "master/qualification-subject",
-          },
+          // {
+          //   label: t("routes.master.hrManagement.qualification-type"),
+          //   path: masterUrls.qualificationType.root,
+          //   feature: "@master/qualification-type",
+          //   action: "write",
+          //   permissionKey: "master/qualification-type",
+          // },
+          // {
+          //   label: t("routes.master.hrManagement.qualification-subject"),
+          //   path: masterUrls.qualificationSubject.root,
+          //   feature: "@master/qualification-subject",
+          //   action: "write",
+          //   permissionKey: "master/qualification-subject",
+          // },
         ],
       },
       {
@@ -279,7 +279,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     ],
   },
   {
-    label: "Title Section",
+    label: "Content Management",
     icon: "pi pi-book",
     children: [
       {
@@ -297,7 +297,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         permissionKey: "title-section/title-approval",
       },
       {
-        label: "Title Master",
+        label: "Approved Title List",
         path: masterUrls.title.root,
         feature: "@master/title",
         action: "read",
@@ -436,7 +436,15 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
     label: t("routes.paper-section"),
     icon: "pi pi-copy",
+    permissionKey: "paper-section",
     children: [
+      {
+        label: "Paper Section Dashboard",
+        path: "/paper/dashboard",
+        feature: "@paper/dashboard",
+        action: "read",
+        permissionKey: "paper-section",
+      },
       {
         label: t("routes.book-paper-requirement"),
         path: bookPaperRequirementUrls.root,
@@ -479,9 +487,15 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         permissionKey: "stock-ledger",
       },
       {
-        label: "Paper Order & Allocation",
+        label: "Paper Vendor Order Details",
         path: "/paper/paper-order-allocation",
         feature: "@paper/paper-order-allocation",
+        action: "read",
+      },
+      {
+        label: "Paper Supply & Dispatch",
+        path: "/paper/paper-supply-dispatch",
+        feature: "@paper/paper-supply-dispatch",
         action: "read",
       },
     ],
@@ -491,11 +505,13 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     icon: "pi pi-chart-bar",
     children: [
       {
-        label: t("routes.reports.depot-wise-district-textbook-supply-status"),
+        label: "Depot Wise Textbook Supply Report",
+        // label: t("routes.reports.depot-wise-district-textbook-supply-status"),
         path: "/reports/depot-wise-district-textbook-supply-status",
         permissionKey: "reports/depot-supply-status",
       },
       {
+        // label: "Department Wise Demand Report",
         label: t("routes.reports.agency-wise-demand"),
         path: "/reports/agency-wise-demand",
         permissionKey: "reports/agency-demand",
@@ -611,12 +627,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     path: "/tender",
     permissionKey: "tender",
   },
-  {
-    label: "Paper Receiving",
-    icon: "pi pi-download",
-    path: "/paper-receiving",
-    permissionKey: "paper-receiving",
-  },
+
   {
     label: "Paper Receiving",
     icon: "pi pi-download",

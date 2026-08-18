@@ -59,7 +59,7 @@
 
     "routes": {
       "paper-section": "कागज अनुभाग",
-      "book-paper-requirement": "पुस्तक कागज आवश्यकता",
+      "book-paper-requirement": "कागज आवश्यकता",
       "master": {
         "office": {
           "office": "कार्यालय",
@@ -71,7 +71,7 @@
         "location": {
           "location": "स्थान",
           "state": "राज्य",
-          "division": "प्रभाग",
+          "division": "संभाग",
           "district": "जिला",
           "project": "परियोजना",
           "sector": "सेक्टर",
@@ -183,7 +183,7 @@
       "reports": {
         "reports": "रिपोर्ट्स",
         "depot-wise-district-textbook-supply-status": "डिपोवार जिला पाठ्यपुस्तक आपूर्ति स्थिति",
-        "agency-wise-demand": "एजेंसीवार मांग रिपोर्ट"
+        "agency-wise-demand": "विभाग-वार मांग और आपूर्ति रिपोर्ट"
       }
     },
     "printing": {

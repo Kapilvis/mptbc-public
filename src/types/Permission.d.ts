@@ -69,10 +69,12 @@ declare namespace Permission {
     | "@distribution/title-received"
     | "@distribution/title-approval"
     // Paper Section
+    | "@paper/dashboard"
     | "@paper/gsm-demand-report"
     | "@paper/paper-tender-raise"
     | "@paper/paper-vendor-profile"
-    | "@paper/paper-order-allocation";
+    | "@paper/paper-order-allocation"
+    | "@paper/paper-supply-dispatch";
   // Actions mapped to backend policies
   type Action = "read" | "write";
 }
