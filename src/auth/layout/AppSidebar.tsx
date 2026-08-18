@@ -175,6 +175,8 @@ const AppSidebar: React.FC = () => {
       return null;
     }
 
+    let lastRenderedSection: string | undefined = undefined;
+
     return (
       <ul
         className={`sidebar-menu-list ${
@@ -236,10 +238,16 @@ const AppSidebar: React.FC = () => {
             .filter(Boolean)
             .join(" ");
 
-          const sectionElement =
-            item.section && isSidebarVisible ? (
-              <li className="sidebar-section-header">{t(item.section)}</li>
-            ) : null;
+          const showSection =
+            item.section &&
+            isSidebarVisible &&
+            item.section !== lastRenderedSection;
+          if (showSection) {
+            lastRenderedSection = item.section;
+          }
+          const sectionElement = showSection ? (
+            <li className="sidebar-section-header">{t(item.section!)}</li>
+          ) : null;
 
           const iconElement = item.icon ? (
             <span
