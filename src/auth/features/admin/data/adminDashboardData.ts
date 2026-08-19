@@ -54,11 +54,11 @@ export interface ActivityTrailItem {
   id: string;
   timestamp: string;
   module:
-    | "Paper Vendor"
-    | "Central Depot"
-    | "Printer Section"
-    | "District Depot"
-    | "Distribution";
+  | "Paper Vendor"
+  | "Central Depot"
+  | "Printer Section"
+  | "District Depot"
+  | "Distribution";
   event: string;
   entity: string;
   volume: string;
@@ -71,9 +71,9 @@ export const EXECUTIVE_KPIS: ExecutiveKpiItem[] = [
   {
     id: "demand",
     title: "1. State Demand",
-    primaryValue: "3,50,000",
-    secondaryValue: "Pending: 59,150 Books",
-    badgeText: "83.1% Approved",
+    primaryValue: "4,50,000",
+    secondaryValue: "Pending: 60,000 Books",
+    badgeText: "86.7% Approved",
     badgeType: "success",
     icon: "pi pi-chart-bar",
     accentColor: "#0284c7",
@@ -113,7 +113,7 @@ export const EXECUTIVE_KPIS: ExecutiveKpiItem[] = [
     title: "5. District Depots",
     primaryValue: "1,80,500",
     secondaryValue: "In Stock: 30,500 Books",
-    badgeText: "15 Depots",
+    badgeText: "8 Depots",
     badgeType: "success",
     icon: "pi pi-building",
     accentColor: "#7c3aed",
@@ -124,8 +124,8 @@ export const LIFECYCLE_STAGES: LifecycleStage[] = [
   {
     stepNumber: 1,
     title: "Stage 1: Distribution",
-    percentage: 83.1,
-    detailText: "2,90,850 / 3,50,000 Books Approved",
+    percentage: 86.7,
+    detailText: "3,90,000 / 4,50,000 Books Approved",
     status: "in-progress",
   },
   {
@@ -162,8 +162,8 @@ export const EXECUTIVE_ALERTS: ExecutiveAlert[] = [
   {
     id: "alert-1",
     module: "CENTRAL DEPOT",
-    category: "STOCK DEFICIT",
-    title: "2 Paper GSM Types Below Safety Level",
+    category: "Short",
+    title: "2 GSM Types Short",
     severity: "danger",
     actionLabel: "View",
     actionRoute: "/inventory/dashboard",
@@ -172,7 +172,7 @@ export const EXECUTIVE_ALERTS: ExecutiveAlert[] = [
     id: "alert-2",
     module: "PRINTER SECTION",
     category: "DEADLINE BREACH",
-    title: "5 Printer Orders Deadline Approaching",
+    title: "5 Printer Orders Near Deadline",
     severity: "danger",
     actionLabel: "View",
     actionRoute: "/printing/orders/list",
@@ -181,7 +181,7 @@ export const EXECUTIVE_ALERTS: ExecutiveAlert[] = [
     id: "alert-3",
     module: "DISTRIBUTION",
     category: "PENDING QUEUE",
-    title: "2 Classes Demand Pending From RSK Department",
+    title: "Classes Demand Pending – 2",
     severity: "warning",
     actionLabel: "View",
     actionRoute: "/distribution/demand-approval",
@@ -189,8 +189,8 @@ export const EXECUTIVE_ALERTS: ExecutiveAlert[] = [
   {
     id: "alert-4",
     module: "DISTRICT DEPOT",
-    category: "LOGISTICS BOTTLENECK",
-    title: "8 District Depots Pending Dispatch",
+    category: "Logistics Hurdles",
+    title: "Dispatch Pending – 4",
     severity: "info",
     actionLabel: "View",
     actionRoute: "/district-depot/dispatch/history",
@@ -216,25 +216,38 @@ export const ZONE_PROGRESS_DATA: ZoneProgressItem[] = [
 export const FULFILLMENT_DONUT_DATA = [
   {
     label: "Approved & Sent",
-    value: 83.1,
-    units: 290850,
+    value: 86.7,
+    units: 390000,
     color: "#059669",
   },
   {
     label: "In-Transit to Depots",
     value: 10.0,
-    units: 35000,
+    units: 45000,
     color: "#2563eb",
   },
   {
     label: "Pending Approval",
-    value: 6.9,
-    units: 24150,
+    value: 3.3,
+    units: 15000,
     color: "#f59e0b",
   },
 ];
 
 export const SUB_PORTAL_SUMMARIES: SubPortalSummary[] = [
+  {
+    id: "distribution",
+    title: "Distribution",
+    subtitle: "Demand ",
+    route: "/distribution/dashboard",
+    badge: "Departments",
+    accentColor: "#0284c7",
+    stats: [
+      { label: "Total Demand:", value: "4,50,000" },
+      { label: "Total Approved:", value: "3,90,000" },
+      { label: "Pending Approval:", value: "60,000", isHighlight: true },
+    ],
+  },
   {
     id: "paper-vendor",
     title: "Paper Vendor",
@@ -244,8 +257,7 @@ export const SUB_PORTAL_SUMMARIES: SubPortalSummary[] = [
     accentColor: "#059669",
     stats: [
       { label: "Work Orders:", value: "3,767 MT" },
-      { label: "Central Receipt:", value: "3,165 MT" },
-      { label: "Contract Val:", value: "₹19.34 Cr", isHighlight: true },
+      { label: "Delivered:", value: "3,165 MT", isHighlight: true },
     ],
   },
   {
@@ -279,25 +291,12 @@ export const SUB_PORTAL_SUMMARIES: SubPortalSummary[] = [
     title: "District Depot",
     subtitle: "Depots & Blocks",
     route: "/district-depot/dashboard",
-    badge: "15 Depots",
+    badge: "8 Depots",
     accentColor: "#7c3aed",
     stats: [
       { label: "Total Received:", value: "1,80,500" },
       { label: "Block Dispatch:", value: "1,50,000" },
       { label: "Stock Remaining:", value: "30,500", isHighlight: true },
-    ],
-  },
-  {
-    id: "distribution",
-    title: "Distribution",
-    subtitle: "Demand ",
-    route: "/distribution/dashboard",
-    badge: "Departments",
-    accentColor: "#0284c7",
-    stats: [
-      { label: "Total Demand:", value: "3,50,000" },
-      { label: "Total Approved:", value: "2,90,850" },
-      { label: "Pending Approval:", value: "59,150", isHighlight: true },
     ],
   },
 ];
