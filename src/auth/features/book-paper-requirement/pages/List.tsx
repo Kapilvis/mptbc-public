@@ -108,7 +108,7 @@ export default function List() {
     {
       field: "numberOfBooks",
       header: "Number of Titles",
-      align: "right",
+      align: "center",
       cell: (row: BookPaperRequirement.Item) => (
         <span>{row.numberOfBooks.toLocaleString()}</span>
       ),
@@ -116,7 +116,7 @@ export default function List() {
     {
       field: "pagesPerBook",
       header: "Pages",
-      align: "right",
+      align: "center",
       cell: (row: BookPaperRequirement.Item) => (
         <span>{row.pagesPerBook.toLocaleString()}</span>
       ),
@@ -124,15 +124,17 @@ export default function List() {
     {
       field: "pagesGsmName",
       header: "Pages (GSM)",
+      align: "center",
     },
     {
       field: "coverGsmName",
       header: "Cover (GSM)",
+      align: "center",
     },
     {
       field: "innerPaperMt",
       header: "Pages (MT)",
-      align: "right",
+      align: "center",
       cell: (row: BookPaperRequirement.Item) => (
         <span className="font-mono font-semibold text-blue-600">
           {Math.round(row.innerPaperMt).toLocaleString()} MT
@@ -147,7 +149,7 @@ export default function List() {
     {
       field: "coverPaperMt",
       header: "Cover (MT)",
-      align: "right",
+      align: "center",
       cell: (row: BookPaperRequirement.Item) => (
         <span className="font-mono font-semibold text-emerald-600">
           {Math.round(row.coverPaperMt).toLocaleString()} MT

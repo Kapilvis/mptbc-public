@@ -179,7 +179,7 @@ export default function PodSubmissionPage() {
       });
 
       ToastService.success(
-        `Proof of Delivery (POD) confirmed for LR ${selectedDispatch.lrNumber}!`,
+        `Proof of Delivery confirmed for Receipt #${selectedDispatch.lrNumber}!`,
       );
       setIsLost(false);
       reset({
@@ -195,14 +195,14 @@ export default function PodSubmissionPage() {
       const errMsg =
         err instanceof Error
           ? err.message
-          : "Failed to confirm POD submission.";
+          : "Failed to confirm Proof of Delivery.";
       ToastService.error(errMsg);
     }
   };
 
   if (isLoading) {
     return (
-      <Page header="Proof of Delivery (POD)" subHeader="Please wait...">
+      <Page header="Proof of Delivery" subHeader="Please wait...">
         <div className="flex items-center justify-center min-h-[300px] text-slate-500 font-medium">
           Loading in-transit logs and dispatch records...
         </div>
@@ -212,7 +212,7 @@ export default function PodSubmissionPage() {
 
   return (
     <Page
-      header={pageTitle || "Proof of Delivery (POD) Submission"}
+      header={pageTitle || "Proof of Delivery Submission"}
       subHeader="Record textbook receiving logs, audit stock counts, and upload signed delivery challans."
     >
       <div className="flex flex-col gap-6">
@@ -220,7 +220,7 @@ export default function PodSubmissionPage() {
           <Card className="p-6 flex flex-col gap-6">
             <div className="border-b border-slate-200 pb-3">
               <span className="text-base font-bold text-slate-800 tracking-tight">
-                Proof of Delivery (POD) Details
+                Proof of Delivery Details
               </span>
             </div>
 
@@ -370,7 +370,7 @@ export default function PodSubmissionPage() {
         {/* History Grid - Standard Card and Size matching other master pages */}
         <Card>
           <GridPanel
-            title="Recent Verified POD Records"
+            title="Recent Verified Proof of Delivery Records"
             data={deliveredDispatches}
             searchFields={[
               "lrNumber",
@@ -443,6 +443,7 @@ export default function PodSubmissionPage() {
                 ),
                 sortable: true,
                 width: "130px",
+                align: "center",
               },
               {
                 header: "Delivery Date",
@@ -453,6 +454,7 @@ export default function PodSubmissionPage() {
                 ),
                 sortable: true,
                 width: "130px",
+                align: "center",
               },
               {
                 header: "Delivery Delay Status",

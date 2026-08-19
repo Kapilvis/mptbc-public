@@ -67,15 +67,15 @@ export default function OrderStatusChart({ printerCode }: Props) {
   const activeSegment = hoveredIdx !== null ? segments[hoveredIdx] : null;
 
   return (
-    <Card className="p-5 border border-gray-200/60 dark:border-gray-700/60 shadow-xs h-full flex flex-col justify-between">
+    <Card className="p-5 border border-gray-200/60 dark:border-gray-700/60 shadow-xs h-full flex flex-col justify-between !border-t-transparent relative overflow-hidden transition-all duration-300 hover:shadow-md">
+      {/* Premium top gradient border */}
+      <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 z-20" />
+
       <div>
         <h3 className="text-sm font-bold text-gray-800 dark:text-white flex items-center gap-2">
           <i className="pi pi-chart-pie text-[#4F8F70]" />
           Order Status Overview
         </h3>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-          Fulfillment state distribution of printing purchase orders
-        </p>
       </div>
 
       <div className="flex flex-col items-center justify-center gap-4 py-4">
@@ -102,7 +102,7 @@ export default function OrderStatusChart({ printerCode }: Props) {
               cy="50"
               r="38"
               stroke="#F59E0B"
-              strokeWidth={hoveredIdx === 0 ? "13" : "9"}
+              strokeWidth={hoveredIdx === 0 ? "12" : "9"}
               strokeDasharray="59.7 238.8"
               strokeDashoffset="0"
               fill="transparent"
@@ -117,7 +117,7 @@ export default function OrderStatusChart({ printerCode }: Props) {
               cy="50"
               r="38"
               stroke="#3B82F6"
-              strokeWidth={hoveredIdx === 1 ? "13" : "9"}
+              strokeWidth={hoveredIdx === 1 ? "12" : "9"}
               strokeDasharray="99.6 238.8"
               strokeDashoffset="-59.7"
               fill="transparent"
@@ -132,7 +132,7 @@ export default function OrderStatusChart({ printerCode }: Props) {
               cy="50"
               r="38"
               stroke="#10B981"
-              strokeWidth={hoveredIdx === 2 ? "13" : "9"}
+              strokeWidth={hoveredIdx === 2 ? "12" : "9"}
               strokeDasharray="59.7 238.8"
               strokeDashoffset="-159.3"
               fill="transparent"
@@ -147,7 +147,7 @@ export default function OrderStatusChart({ printerCode }: Props) {
               cy="50"
               r="38"
               stroke="#8B5CF6"
-              strokeWidth={hoveredIdx === 3 ? "13" : "9"}
+              strokeWidth={hoveredIdx === 3 ? "12" : "9"}
               strokeDasharray="19.8 238.8"
               strokeDashoffset="-219.0"
               fill="transparent"
@@ -157,36 +157,36 @@ export default function OrderStatusChart({ printerCode }: Props) {
             />
           </svg>
 
-          {/* Dynamic Centered Text */}
-          <div className="absolute text-center pointer-events-none select-none">
-            <span className="text-2xl font-black text-gray-800 dark:text-white block font-mono">
+          {/* Dynamic Centered Text - Upgraded typography */}
+          <div className="absolute text-center pointer-events-none select-none flex flex-col items-center justify-center">
+            <span className="text-3xl font-black text-slate-900 dark:text-white block font-mono leading-none tracking-tight">
               {activeSegment ? activeSegment.count : total}
             </span>
-            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
+            <span className="text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest block mt-1.5">
               {activeSegment ? activeSegment.label : "Total Orders"}
             </span>
           </div>
         </div>
 
-        {/* Legend Grid */}
-        <div className="grid grid-cols-2 gap-2 w-full pt-3 border-t border-gray-150/40 dark:border-gray-800/40">
+        {/* Legend Grid - Upgraded text size and weights */}
+        <div className="grid grid-cols-2 gap-2.5 w-full pt-3 border-t border-gray-150/40 dark:border-gray-800/40">
           {segments.map((s, idx) => (
             <div
               key={s.label}
               onMouseEnter={() => setHoveredIdx(idx)}
               onMouseLeave={() => setHoveredIdx(null)}
-              className={`flex items-center gap-2.5 p-1.5 rounded-lg cursor-pointer transition-colors duration-150 ${
+              className={`flex items-center gap-3 p-1.5 rounded-lg cursor-pointer transition-colors duration-150 ${
                 hoveredIdx === idx ? "bg-gray-100 dark:bg-gray-800/80" : ""
               }`}
             >
               <span
-                className={`w-2.5 h-2.5 rounded-full shrink-0 ${s.colorClass}`}
+                className={`w-3.5 h-3.5 rounded-full shrink-0 border border-black/5 dark:border-white/5 ${s.colorClass}`}
               />
               <div className="min-w-0 flex-1">
-                <span className="text-[11px] font-bold text-gray-700 dark:text-gray-300 block truncate">
+                <span className="text-xs font-black text-gray-900 dark:text-white block truncate">
                   {s.label}
                 </span>
-                <span className="text-[9.5px] text-gray-400 font-bold block font-mono mt-0.5">
+                <span className="text-[11px] text-slate-700 dark:text-slate-300 font-extrabold block font-mono mt-0.5">
                   {s.count} Orders ({s.percent})
                 </span>
               </div>

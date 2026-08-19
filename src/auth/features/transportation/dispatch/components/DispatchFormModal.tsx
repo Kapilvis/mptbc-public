@@ -174,7 +174,7 @@ export default function DispatchFormModal({
       });
 
       ToastService.success(
-        `Dispatch authorized! LR #${data.lrNumber} generated with 3-day delivery SLA.`,
+        `Dispatch authorized! Receipt #${data.lrNumber} generated with 3-day delivery timeline.`,
       );
       reset();
       onHide();
@@ -201,6 +201,7 @@ export default function DispatchFormModal({
             label="Select Active Work Order"
             name="workOrderId"
             required
+            placeholder="Select Active Work Order"
             control={control}
             data={workOrderOptions}
             optionValue="id"
@@ -211,6 +212,7 @@ export default function DispatchFormModal({
             label="Select Vehicle"
             name="vehicleId"
             required
+            placeholder="Select Vehicle"
             control={control}
             data={vehicleOptions}
             optionValue="id"
@@ -355,7 +357,7 @@ export default function DispatchFormModal({
             placeholder="e.g. GP-IND-1001"
           />
           <TextBox
-            label="LR Number"
+            label="Receipt Number"
             name="lrNumber"
             control={control}
             required
@@ -378,7 +380,7 @@ export default function DispatchFormModal({
             <div className="border border-slate-200 bg-emerald-50/60 rounded-lg h-[38px] px-3 flex items-center gap-2">
               <Clock className="text-emerald-600 shrink-0" size={15} />
               <span className="text-xs font-semibold text-slate-800">
-                3-Day delivery timeline active upon dispatch
+                5-Day delivery timeline active upon dispatch
               </span>
             </div>
           </div>

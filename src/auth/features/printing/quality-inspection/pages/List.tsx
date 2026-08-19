@@ -311,7 +311,7 @@ export default function List() {
             {
               field: "percentage",
               header: "Percentage",
-              align: "right",
+              align: "center",
               width: "100px",
               cell: (item: PrinterQualityInspection) => `${item.percentage}%`,
             },

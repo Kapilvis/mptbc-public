@@ -63,7 +63,7 @@ export default function UserDropdown() {
         <div className="user-dropdown-avatar-wrapper">
           <div className="user-dropdown-avatar">
             <img
-              src="/images/user/owner.jpg"
+              src={`${import.meta.env.BASE_URL}images/user/owner.jpg`}
               alt={`${userName} profile`}
               className="user-dropdown-avatar-image"
             />

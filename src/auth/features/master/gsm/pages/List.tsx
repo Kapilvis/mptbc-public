@@ -69,6 +69,7 @@ export default function List() {
             {
               field: "sheetSize",
               header: "Sheet Size",
+              align: "center",
               cell: (row: Master.GsmItem) => <span>{row.sheetSize}</span>,
             },
             {
@@ -80,13 +81,13 @@ export default function List() {
             {
               field: "sheetWeightInGM",
               header: "Sheet Weight in GM",
-              align: "right",
+              align: "center",
               cell: (row: Master.GsmItem) => <span>{row.sheetWeightInGM}</span>,
             },
             {
               field: "reamWeightInMT",
               header: "Ream Weight in MT",
-              align: "right",
+              align: "center",
               cell: (row: Master.GsmItem) => <span>{row.reamWeightInMT}</span>,
             },
             {

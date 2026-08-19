@@ -16,19 +16,6 @@ export default function List() {
   const { data: transporters = [], isLoading: loadingTransporters } =
     useTransportersL1Query();
 
-  const getStatusClass = (status: string) => {
-    switch (status) {
-      case "Delivered":
-        return "bg-emerald-50 text-emerald-700 border border-emerald-200";
-      case "In Transit":
-        return "bg-sky-50 text-sky-700 border border-sky-200";
-      case "Pending Dispatch":
-        return "bg-amber-50 text-amber-700 border border-amber-200";
-      default:
-        return "bg-slate-50 text-slate-700 border border-slate-200";
-    }
-  };
-
   if (loadingWorkOrders || loadingTransporters) {
     return <Loader />;
   }
@@ -36,7 +23,7 @@ export default function List() {
   return (
     <Page
       header={pageTitle || "Work Order & Allocation"}
-      subHeader="Generate distribution work orders, configure block-level supply targets, and track delivery SLA timelines."
+      subHeader="Generate distribution work orders, configure block-level supply targets, and track delivery timelines."
       showHeaderActions
     >
       <Card>
@@ -92,41 +79,29 @@ export default function List() {
               align: "center",
               width: "120px",
             },
-            {
-              header: "Trucks (9T / 4.5T)",
-              cell: (item: Transportation.WorkOrder) => (
-                <span className="font-semibold text-slate-700">
-                  {item.nineTonTrucksRequired || 0} /{" "}
-                  {item.fourPointFiveTonTrucksRequired || 0}
-                </span>
-              ),
-              align: "center",
-              width: "130px",
-            },
+            // {
+            //   header: "Trucks (9 / 4.5)",
+            //   cell: (item: Transportation.WorkOrder) => (
+            //     <span className="font-semibold text-slate-700">
+            //       {item.nineTonTrucksRequired || 0} /{" "}
+            //       {item.fourPointFiveTonTrucksRequired || 0}
+            //     </span>
+            //   ),
+            //   align: "center",
+            //   width: "130px",
+            // },
             {
               field: "instructionDate",
               header: "Issue Date",
               sortable: true,
               width: "110px",
+              align: "center",
             },
             {
               field: "dueDate",
               header: "Due Date",
               sortable: true,
               width: "110px",
-            },
-            {
-              cell: (item: Transportation.WorkOrder) => (
-                <span
-                  className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${getStatusClass(
-                    item.status,
-                  )}`}
-                >
-                  {item.status}
-                </span>
-              ),
-              header: "Status",
-              width: "130px",
               align: "center",
             },
           ]}

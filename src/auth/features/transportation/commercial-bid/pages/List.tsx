@@ -116,6 +116,7 @@ export default function List({
                 field: "lastDate",
                 header: "Submission Deadline",
                 sortable: true,
+                align: "center",
               },
               {
                 cell: (item: Tender) => {
@@ -130,6 +131,7 @@ export default function List({
                 },
                 header: "Your Bid Status",
                 sortable: true,
+                align: "center",
               },
               {
                 cell: (item: Tender) => {

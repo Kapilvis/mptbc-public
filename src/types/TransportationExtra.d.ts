@@ -13,6 +13,8 @@ declare namespace Transportation {
     lrNumber: string;
     gatePassNo?: string;
     gpsDeviceId?: string;
+    lat?: number;
+    lng?: number;
     status: "In Transit" | "Delivered" | "Pending Dispatch";
     podFilePath?: string;
     podUploaded?: boolean;

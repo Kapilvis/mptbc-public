@@ -199,7 +199,7 @@ export default function DepotWiseDistrictTextbookSupplyStatusFilters({
           <button
             id="dw-export-btn"
             type="button"
-            className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-2 text-xs font-semibold text-emerald-700 transition-all hover:bg-emerald-100"
+            className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-(--primary-border) bg-(--primary-light-bg) px-4 py-2 text-xs font-semibold text-(--primary-color) transition-all hover:opacity-85"
           >
             <i className="pi pi-download text-xs" />
             Export

@@ -1,64 +1,35 @@
 import { useState, useMemo } from "react";
 import { ToastService } from "services";
 import { Button } from "shared/components/buttons";
-import { DropDownList, TextBox } from "shared/components/forms";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Modal } from "shared/components/popups";
+import AcademicYearFilterBar from "shared/components/filters/AcademicYearFilterBar";
 import { useGsmPaperDemandsQuery, useLockGsmDemandMutation } from "../queries";
 
 export default function GsmDemandReportList() {
   const pageTitle = usePageTitle();
   const [academicYear, setAcademicYear] = useState("2026-2027");
-  const [paperCategory, setPaperCategory] = useState("All");
-  const [status, setStatus] = useState("All");
-  const [search, setSearch] = useState("");
 
   const [selectedTitlesGsm, setSelectedTitlesGsm] =
     useState<Paper.GsmPaperDemandItem | null>(null);
 
   const { data = [], isLoading } = useGsmPaperDemandsQuery({
     academicYear,
-    paperCategory,
-    status,
-    search,
   });
 
   const { mutateAsync: lockSingle, isPending: isSinglePending } =
     useLockGsmDemandMutation();
-
-  const academicYearOptions = [
-    { label: "2026-2027", value: "2026-2027" },
-    { label: "2025-2026", value: "2025-2026" },
-  ];
-
-  const categoryOptions = [
-    { label: "All Paper Categories", value: "All" },
-    { label: "Reel Paper (Inner Pages)", value: "Reel Paper (Inner)" },
-    { label: "Sheet Paper (Cover Pages)", value: "Sheet Paper (Cover)" },
-  ];
-
-  const statusOptions = [
-    { label: "All Statuses", value: "All" },
-    { label: "Draft (Unlocked)", value: "Draft" },
-    { label: "Locked / Finalized", value: "Locked" },
-  ];
 
   const summaryStats = useMemo(() => {
     const totalGrossMt = data.reduce(
       (acc, curr) => acc + curr.grossDemandMt,
       0,
     );
-    const totalBudgetLakhs = data.reduce(
-      (acc, curr) => acc + curr.totalBudgetLakhs,
-      0,
-    );
     const lockedCount = data.filter((item) => item.status === "Locked").length;
     return {
-      totalGrossMt: totalGrossMt.toFixed(2),
-      totalBudgetCrores: (totalBudgetLakhs / 100).toFixed(2),
-      totalBudgetLakhs: totalBudgetLakhs.toFixed(2),
+      totalGrossMt: Math.round(totalGrossMt).toLocaleString(),
       totalSpecs: data.length,
       lockedCount,
     };
@@ -81,11 +52,17 @@ export default function GsmDemandReportList() {
   return (
     <Page
       header={pageTitle || "GSM-Wise Paper Demand Report & Lock"}
-      subHeader="Consolidate textbook printing paper requirements by GSM specification, calculate gross tonnage with wastage, estimate budgets, and lock paper demands for paper tender procurement."
+      subHeader="Consolidate textbook printing paper requirements by GSM specification, calculate gross tonnage with wastage, and lock paper demands for paper tender procurement."
       showHeaderActions
     >
+      {/* Academic Year Filter Bar */}
+      <AcademicYearFilterBar
+        academicYear={academicYear}
+        onChange={setAcademicYear}
+      />
+
       {/* Top KPI Metrics Banner */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-xs flex items-center justify-between">
           <div>
             <span className="text-[11px] font-extrabold uppercase tracking-wider text-gray-500 dark:text-gray-400">
@@ -98,21 +75,6 @@ export default function GsmDemandReportList() {
           </div>
           <div className="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950 flex items-center justify-center text-blue-600 dark:text-blue-400">
             <i className="pi pi-box text-xl" />
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-xs flex items-center justify-between">
-          <div>
-            <span className="text-[11px] font-extrabold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-              Est. Paper Budget
-            </span>
-            <div className="text-2xl font-black text-emerald-700 dark:text-emerald-400 mt-0.5">
-              ₹ {summaryStats.totalBudgetCrores}{" "}
-              <span className="text-sm font-bold">Cr</span>
-            </div>
-          </div>
-          <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-950 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
-            <i className="pi pi-indian-rupee text-xl" />
           </div>
         </div>
 
@@ -147,93 +109,23 @@ export default function GsmDemandReportList() {
         </div>
       </div>
 
-      {/* Top Filter Card */}
-      <Card className="mb-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
-          <div>
-            <DropDownList
-              label="Academic Year"
-              data={academicYearOptions}
-              value={academicYear}
-              onChange={(val) => setAcademicYear(String(val ?? "2026-2027"))}
-              textField="label"
-              optionValue="value"
-            />
-          </div>
-
-          <div>
-            <DropDownList
-              label="Paper Category"
-              data={categoryOptions}
-              value={paperCategory}
-              onChange={(val) => setPaperCategory(String(val ?? "All"))}
-              textField="label"
-              optionValue="value"
-            />
-          </div>
-
-          <div>
-            <DropDownList
-              label="Demand Lock Status"
-              data={statusOptions}
-              value={status}
-              onChange={(val) => setStatus(String(val ?? "All"))}
-              textField="label"
-              optionValue="value"
-            />
-          </div>
-
-          <div>
-            <TextBox
-              label="Search Specification"
-              value={search}
-              onChange={(val) => setSearch(String(val ?? ""))}
-              placeholder="Search code, GSM or usage..."
-              icon="search"
-              iconPosition="right"
-            />
-          </div>
-        </div>
-      </Card>
-
       {/* Grid Table Section */}
-      <Card className="relative">
+      <Card className="border border-slate-100 shadow-xs">
         <GridPanel
-          toolbarPlacement="panel"
+          toolbarPlacement="page"
           defaultMode="grid"
           data={data}
           loading={isLoading}
-          searchBox={false}
+          searchBox={true}
+          searchPlaceholder="Search code, GSM or usage..."
           showExport
           exportFilename={`GSM_Paper_Demand_Report_${academicYear}`}
           columns={[
-            /*
-            {
-              header: (
-                <div className="flex justify-center items-center">
-                  <CheckBox
-                    checked={isAllSelected}
-                    onChange={(checked) => handleSelectAll(!!checked)}
-                  />
-                </div>
-              ),
-              width: "40px",
-              align: "center",
-              cell: (row: Paper.GsmPaperDemandItem) => (
-                <div className="flex justify-center items-center">
-                  <CheckBox
-                    checked={selectedIds.includes(row.id)}
-                    onChange={(checked) => handleSelectRow(row.id, !!checked)}
-                  />
-                </div>
-              ),
-            },
-            */
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
               width: "50px",
               align: "center",
-              header: "S.No.",
+              header: "S.NO.",
             },
             {
               field: "gsmCode",
@@ -253,32 +145,22 @@ export default function GsmDemandReportList() {
                   <div className="font-bold text-gray-900 dark:text-white">
                     {row.gsmName}
                   </div>
-                  <div className="text-xs text-gray-500 font-medium">
+                  <div className="text-xs text-slate-900 dark:text-slate-100 font-semibold">
                     {row.usageType}
                   </div>
                 </div>
               ),
             },
-            // {
-            //   field: "paperCategory",
-            //   header: "Paper Category",
-            //   align: "center",
-            //   cell: (row: Paper.GsmPaperDemandItem) => (
-            //     <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
-            //       {row.paperCategory}
-            //     </span>
-            //   ),
-            // },
             {
               field: "titlesCount",
-              header: "No. of Titles ",
+              header: "No. of Titles",
               align: "center",
               cell: (row: Paper.GsmPaperDemandItem) => (
                 <div className="text-center">
                   <span className="font-bold text-gray-900 dark:text-white">
                     {row.titlesCount} Titles
                   </span>
-                  <div className="text-[11px] text-gray-500">
+                  <div className="text-[11px] text-gray-500 font-medium">
                     {(row.totalBooksCount / 100000).toFixed(2)} Lakh Books
                   </div>
                 </div>
@@ -287,10 +169,10 @@ export default function GsmDemandReportList() {
             {
               field: "netDemandMt",
               header: "Net Demand (MT)",
-              align: "right",
+              align: "center",
               cell: (row: Paper.GsmPaperDemandItem) => (
-                <span className="font-mono font-semibold text-gray-700 dark:text-gray-300">
-                  {row.netDemandMt.toFixed(3)}
+                <span className="font-mono font-bold text-slate-800 dark:text-slate-200">
+                  {Math.round(row.netDemandMt).toLocaleString()}
                 </span>
               ),
             },
@@ -307,10 +189,10 @@ export default function GsmDemandReportList() {
             {
               field: "grossDemandMt",
               header: "Gross Demand (MT)",
-              align: "right",
+              align: "center",
               cell: (row: Paper.GsmPaperDemandItem) => (
                 <span className="font-mono font-black text-blue-700 dark:text-blue-400 text-base">
-                  {row.grossDemandMt.toFixed(3)}
+                  {Math.round(row.grossDemandMt).toLocaleString()}
                 </span>
               ),
             },
@@ -394,45 +276,13 @@ export default function GsmDemandReportList() {
               subTitle={[
                 `Category: ${item.paperCategory}`,
                 `Usage: ${item.usageType}`,
-                `Gross MT: ${item.grossDemandMt.toFixed(3)} MT | Est. Budget: ₹ ${item.totalBudgetLakhs} L`,
+                `Gross MT: ${Math.round(item.grossDemandMt).toLocaleString()} MT`,
                 `Lock Status: ${item.status}`,
               ]}
               isActive={item.status === "Locked"}
             />
           )}
         />
-
-        {/* Bottom Bulk Action Footer (Disabled) */}
-        {/*
-        {selectedIds.length > 0 && (
-          <div className="flex flex-col sm:flex-row items-center justify-between p-3 mt-4 bg-emerald-50/50 border border-emerald-200 rounded-xl dark:bg-emerald-950/20 dark:border-emerald-900/60 gap-3 animate-in fade-in duration-200">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-bold text-emerald-900 dark:text-emerald-200">
-                Selected: {selectedIds.length} GSM Specification(s)
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Button
-                label={`Lock Selected Demands (${selectedIds.length})`}
-                icon="pi pi-lock"
-                size="small"
-                variant="outlined"
-                disabled={isBulkPending}
-                className="!text-emerald-700 !border-emerald-600 hover:!bg-emerald-50 dark:!text-emerald-400 dark:!border-emerald-500 font-bold"
-                onClick={() => handleBulkLockChange("Locked")}
-              />
-              <button
-                type="button"
-                onClick={() => setSelectedIds([])}
-                className="px-2.5 py-1.5 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-xs font-semibold cursor-pointer"
-              >
-                Clear
-              </button>
-            </div>
-          </div>
-        )}
-        */}
       </Card>
 
       {/* Titles Breakdown Modal */}
@@ -462,7 +312,8 @@ export default function GsmDemandReportList() {
                   Gross Paper Tonnage
                 </span>
                 <span className="text-lg font-black text-blue-700 dark:text-blue-300 font-mono">
-                  {selectedTitlesGsm.grossDemandMt.toFixed(3)} MT
+                  {Math.round(selectedTitlesGsm.grossDemandMt).toLocaleString()}{" "}
+                  MT
                 </span>
               </div>
             </div>

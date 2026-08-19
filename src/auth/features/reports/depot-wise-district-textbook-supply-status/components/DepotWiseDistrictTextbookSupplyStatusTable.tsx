@@ -86,73 +86,73 @@ export default function DepotWiseDistrictTextbookSupplyStatusTable({
             <tr className="bg-table-header text-[11px] font-bold uppercase tracking-wide text-white">
               <th
                 rowSpan={2}
-                className="bg-table-header sticky left-0 z-20 w-10 border border-green-700 px-2 py-2 text-center"
+                className="bg-table-header sticky left-0 z-20 w-10 border border-(--primary-hover) px-2 py-2 text-center"
               >
                 {t("reports.supply_status.table.headers.s_no")}
               </th>
               <th
                 rowSpan={2}
-                className="bg-table-header sticky left-10 z-20 min-w-27.5 border border-green-700 px-3 py-2 text-left"
+                className="bg-table-header sticky left-10 z-20 min-w-27.5 border border-(--primary-hover) px-3 py-2 text-left"
               >
                 {t("reports.supply_status.table.headers.depot")}
               </th>
               <th
                 rowSpan={2}
-                className="min-w-25 border border-green-700 px-3 py-2 text-right"
+                className="min-w-25 border border-(--primary-hover) px-3 py-2 text-right"
               >
                 {t("reports.supply_status.table.headers.general_sale")}
               </th>
               <th
                 rowSpan={2}
-                className="min-w-30 border border-green-700 px-3 py-2 text-left"
+                className="min-w-30 border border-(--primary-hover) px-3 py-2 text-left"
               >
                 {t("reports.supply_status.table.headers.district_name")}
               </th>
               <th
                 colSpan={3}
-                className="border border-green-700 px-3 py-1.5 text-center"
+                className="border border-(--primary-hover) px-3 py-1.5 text-center"
               >
                 {t("reports.supply_status.table.headers.scheme_1_8")}
               </th>
               <th
                 colSpan={3}
-                className="border border-green-700 px-3 py-1.5 text-center"
+                className="border border-(--primary-hover) px-3 py-1.5 text-center"
               >
                 {t("reports.supply_status.table.headers.scheme_9_12")}
               </th>
               <th
                 colSpan={3}
-                className="border border-green-700 px-3 py-1.5 text-center"
+                className="border border-(--primary-hover) px-3 py-1.5 text-center"
               >
                 {t("reports.supply_status.table.headers.total_scheme")}
               </th>
             </tr>
             <tr className="bg-table-header text-[10px] font-semibold text-white">
-              <th className="min-w-22.5 border border-green-700 px-2 py-1.5 text-right">
+              <th className="min-w-22.5 border border-(--primary-hover) px-2 py-1.5 text-right">
                 {t("reports.supply_status.table.headers.demand")}
               </th>
-              <th className="min-w-22.5 border border-green-700 px-2 py-1.5 text-right">
+              <th className="min-w-22.5 border border-(--primary-hover) px-2 py-1.5 text-right">
                 {t("reports.supply_status.table.headers.supply")}
               </th>
-              <th className="min-w-17.5 border border-green-700 px-2 py-1.5 text-center">
+              <th className="min-w-17.5 border border-(--primary-hover) px-2 py-1.5 text-center">
                 {t("reports.supply_status.table.headers.supply_percent")}
               </th>
-              <th className="min-w-22.5 border border-green-700 px-2 py-1.5 text-right">
+              <th className="min-w-22.5 border border-(--primary-hover) px-2 py-1.5 text-right">
                 {t("reports.supply_status.table.headers.demand")}
               </th>
-              <th className="min-w-22.5 border border-green-700 px-2 py-1.5 text-right">
+              <th className="min-w-22.5 border border-(--primary-hover) px-2 py-1.5 text-right">
                 {t("reports.supply_status.table.headers.supply")}
               </th>
-              <th className="min-w-17.5 border border-green-700 px-2 py-1.5 text-center">
+              <th className="min-w-17.5 border border-(--primary-hover) px-2 py-1.5 text-center">
                 {t("reports.supply_status.table.headers.supply_percent")}
               </th>
-              <th className="min-w-22.5 border border-green-700 px-2 py-1.5 text-right">
+              <th className="min-w-22.5 border border-(--primary-hover) px-2 py-1.5 text-right">
                 {t("reports.supply_status.table.headers.total_demand")}
               </th>
-              <th className="min-w-22.5 border border-green-700 px-2 py-1.5 text-right">
+              <th className="min-w-22.5 border border-(--primary-hover) px-2 py-1.5 text-right">
                 {t("reports.supply_status.table.headers.total_supply")}
               </th>
-              <th className="min-w-17.5 border border-green-700 px-2 py-1.5 text-center">
+              <th className="min-w-17.5 border border-(--primary-hover) px-2 py-1.5 text-center">
                 {t("reports.supply_status.table.headers.supply_percent")}
               </th>
             </tr>
@@ -169,28 +169,30 @@ export default function DepotWiseDistrictTextbookSupplyStatusTable({
                 const isTotal = isSubtotalRow(row);
 
                 const baseBg = isGrand
-                  ? "bg-green-800 text-white font-bold"
+                  ? "bg-[var(--primary-color)] text-white font-bold"
                   : isTotal
-                    ? "bg-green-50 text-green-900 font-semibold"
+                    ? "bg-[var(--primary-light-bg)] text-[var(--primary-color)] font-semibold"
                     : rowIdx % 2 === 0
                       ? "bg-white"
                       : "bg-gray-50/60";
 
-                const stickyBg = isGrand ? "bg-green-800" : "bg-white";
+                const stickyBg = isGrand
+                  ? "bg-[var(--primary-color)] text-white"
+                  : "bg-white dark:bg-gray-900";
 
                 const border = isGrand
-                  ? "border border-green-700"
+                  ? "border border-[var(--primary-hover)]"
                   : isTotal
-                    ? "border border-green-200"
+                    ? "border border-[var(--primary-border)]"
                     : "border border-gray-100";
 
                 const depotBorder = isGrand
-                  ? "border border-green-700"
+                  ? "border border-[var(--primary-hover)]"
                   : "border border-gray-200";
 
                 const hover = isGrand
                   ? ""
-                  : "hover:bg-emerald-50/40 transition-colors duration-100";
+                  : "hover:bg-[var(--primary-light-bg)] transition-colors duration-100";
 
                 return (
                   <tr

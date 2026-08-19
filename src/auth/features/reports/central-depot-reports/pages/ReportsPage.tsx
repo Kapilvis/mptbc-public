@@ -220,7 +220,7 @@ export default function ReportsPage({
               {
                 field: "opening",
                 header: "Opening Stock",
-                align: "right",
+                align: "center",
                 cell: (row) => (
                   <span className="text-xs">
                     {row.opening.toLocaleString()} MT
@@ -230,7 +230,7 @@ export default function ReportsPage({
               {
                 field: "received",
                 header: "Received",
-                align: "right",
+                align: "center",
                 cell: (row) => (
                   <span className="text-xs text-emerald-650">
                     +{row.received.toLocaleString()} MT
@@ -240,7 +240,7 @@ export default function ReportsPage({
               {
                 field: "issued",
                 header: "Issued",
-                align: "right",
+                align: "center",
                 cell: (row) => (
                   <span className="text-xs text-rose-650">
                     -{row.issued.toLocaleString()} MT
@@ -250,7 +250,7 @@ export default function ReportsPage({
               {
                 field: "closing",
                 header: "Closing Balance",
-                align: "right",
+                align: "center",
                 cell: (row) => (
                   <span className="text-xs font-bold text-blue-750">
                     {row.closing.toLocaleString()} MT
@@ -260,7 +260,7 @@ export default function ReportsPage({
               {
                 field: "minimum",
                 header: "Minimum Level",
-                align: "right",
+                align: "center",
                 cell: (row) => (
                   <span className="text-xs">
                     {row.minimum.toLocaleString()} MT
@@ -319,7 +319,7 @@ export default function ReportsPage({
               {
                 field: "approved",
                 header: "Approved Qty",
-                align: "right",
+                align: "center",
                 cell: (row) => (
                   <span className="text-xs">
                     {row.approved.toLocaleString()} MT
@@ -329,7 +329,7 @@ export default function ReportsPage({
               {
                 field: "supplied",
                 header: "Supplied Qty",
-                align: "right",
+                align: "center",
                 cell: (row) => (
                   <span className="text-xs text-emerald-600 font-semibold">
                     {row.supplied.toLocaleString()} MT
@@ -339,7 +339,7 @@ export default function ReportsPage({
               {
                 field: "pending",
                 header: "Pending Qty",
-                align: "right",
+                align: "center",
                 cell: (row) => (
                   <span className="text-xs text-rose-600 font-extrabold">
                     {row.pending.toLocaleString()} MT
@@ -390,7 +390,7 @@ export default function ReportsPage({
               {
                 field: "approved",
                 header: "Order Qty (Approved)",
-                align: "right",
+                align: "center",
                 cell: (row) => (
                   <span className="text-xs">
                     {row.approved.toLocaleString()} MT
@@ -400,7 +400,7 @@ export default function ReportsPage({
               {
                 field: "supplied",
                 header: "Supplied Qty",
-                align: "right",
+                align: "center",
                 cell: (row) => (
                   <span className="text-xs text-emerald-600 font-semibold">
                     {row.supplied.toLocaleString()} MT
@@ -410,7 +410,7 @@ export default function ReportsPage({
               {
                 field: "pending",
                 header: "Pending Qty",
-                align: "right",
+                align: "center",
                 cell: (row) => (
                   <span className="text-xs text-rose-600 font-extrabold">
                     {row.pending.toLocaleString()} MT
@@ -455,6 +455,7 @@ export default function ReportsPage({
               {
                 field: "date",
                 header: "Date Issued",
+                align: "center",
                 cell: (row) => <span className="text-xs">{row.date}</span>,
               },
               {
@@ -475,7 +476,7 @@ export default function ReportsPage({
               {
                 field: "quantity",
                 header: "Quantity Dispatched",
-                align: "right",
+                align: "center",
                 cell: (row) => (
                   <span className="text-xs font-extrabold text-emerald-600">
                     {row.quantity.toLocaleString()} MT

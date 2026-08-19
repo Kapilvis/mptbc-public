@@ -6,12 +6,10 @@
     "Configuration": " कॉन्फ़िगरेशन",
     "Directory": "निर्देशिका",
     "Madhya Pradesh Textbook Corporation": "महिला और बाल विकास",
-
     "home": {
       "welcome_portal": "डब्ल्यूसीडी ईआरपी पोर्टल में आपका स्वागत है",
       "sub_header": "प्रमुख आँकड़ों एवं हाल की गतिविधियों का अवलोकन"
     },
-
     "commonMessages": {
       "ErrorInvalidCredentials": "अमान्य उपयोगकर्ता नाम या पासवर्ड।",
       "ErrorAccountLocked": "आपका खाता लॉक कर दिया गया है। कृपया सहायता टीम से संपर्क करें।",
@@ -56,7 +54,6 @@
       "InfoDataRetrieved": "डेटा सफलतापूर्वक प्राप्त किया गया।",
       "WarningUnsavedChanges": "आपके कुछ परिवर्तन अभी तक सहेजे नहीं गए हैं।"
     },
-
     "routes": {
       "paper-section": "कागज अनुभाग",
       "book-paper-requirement": "कागज आवश्यकता",
@@ -67,7 +64,6 @@
           "office-type": "कार्यालय प्रकार",
           "office-registration": "कार्यालय पंजीकरण"
         },
-
         "location": {
           "location": "स्थान",
           "state": "राज्य",
@@ -79,7 +75,6 @@
           "depot": "डिपो",
           "sub-depot": "उप डिपो"
         },
-
         "hrManagement": {
           "hr-management": "कर्मचारी प्रबंधन",
           "caste": "जाति",
@@ -111,13 +106,11 @@
           "disability-type": "विकलांगता का प्रकार",
           "disability-percentage": "विकलांगता का प्रतिशत"
         },
-
         "financialManagement": {
           "financial-management": "वित्तीय प्रबंधन",
           "bank": "बैंक",
           "ifsc-code": "आईएफएससी कोड"
         },
-
         "userManagement": {
           "user-management": "उपयोगकर्ता प्रबंधन",
           "user-registration": "उपयोगकर्ता पंजीकरण",
@@ -130,7 +123,6 @@
           "employee-details": "कर्मचारी विवरण",
           "employee-registration": "कर्मचारी पंजीकरण"
         },
-
         "anganwadi-type": "आंगनवाड़ी प्रकार",
         "anganwadi-center-service": "आंगनवाड़ी-केंद्र सेवा",
         "supporting-agency": "सहायक एजेंसी",
@@ -150,12 +142,11 @@
         "work-order": "कार्य आदेश और आवंटन",
         "dispatch-terminal": "प्रेषण एवं लोडिंग टर्मिनल",
         "delivery-tracking": "लाइव डिलीवरी ट्रैकिंग",
-        "pod-submission": "वितरण का प्रमाण (POD)",
+        "pod-submission": "वितरण का प्रमाण",
         "billing-settlement": "बिलिंग एवं निपटान इंजन",
         "payment-disbursement": "भुगतान संवितरण",
         "reports-analytics": "एनालिटिक्स और रिपोर्ट डैशबोर्ड"
       },
-
       "directory": {
         "anganwadi": {
           "anganwadi-directory": "आंगनवाड़ी निर्देशिका",
@@ -175,11 +166,13 @@
         "department-demand": "प्राप्त मांग (RSK / CPI)",
         "dashboard": "समेकित वितरण डैशबोर्ड",
         "demand-approval": "विभाग मांग स्वीकृति",
+        "printer-demand-mapping": "मुद्रक कार्य आवंटन",
         "title-approval": "शीर्षक स्वीकृति"
       },
       "printing": {
         "printing": "मुद्रक अनुभाग",
-        "printer-registration": "मुद्रक पंजीकरण"
+        "printer-registration": "मुद्रक पंजीकरण",
+        "dashboard": "प्रिंटर डैशबोर्ड"
       },
       "reports": {
         "reports": "रिपोर्ट्स",
@@ -214,9 +207,12 @@
       "quality-inspection": "गुणवत्ता निरीक्षण",
       "depot-section": "डिपो अनुभाग",
       "depot-registration": "डिपो पंजीकरण",
+      "depot": {
+        "central-depot-dashboard": "केन्द्रीय डिपो डैशबोर्ड"
+      },
       "printer-assigned-demand": "मुद्रक आवंटित मांग",
       "challan-received": "चालान प्राप्त",
-      "distribution-till-block": "विकासखंड तक वितरण",
+      "distribution-till-block": "डिपो से ब्लॉक प्रेषण",
       "challan-to-block": "ब्लॉक हेतु चालान",
       "dispatch-history": "प्रेषण इतिहास",
       "transportation": "परिवहन प्रबंधन",
@@ -224,9 +220,10 @@
       "work-order-allocation": "कार्य आदेश एवं आवंटन",
       "loading-dispatch": "लोडिंग एवं प्रेषण",
       "live-delivery-tracking": "लाइव डिलीवरी ट्रैकिंग",
-      "pod-submission": "पीओडी प्रस्तुतीकरण",
-      "transportation-analytics": "परिवहन विश्लेषण",
+      "pod-submission": "वितरण का प्रमाण",
+      "transportation-analytics": "परिवहन डैशबोर्ड",
       "depot-wise-textbook-supply-report": "डिपो वार पाठ्यपुस्तक आपूर्ति रिपोर्ट",
+      "block-wise-textbook-distribution-report": "विकासखंड वार पाठ्यपुस्तक प्रेषण रिपोर्ट",
       "gsm-wise-stock-report": "जीएसएम वार स्टॉक रिपोर्ट",
       "printer-wise-order-report": "मुद्रक वार ऑर्डर रिपोर्ट",
       "printer-wise-supply-report": "मुद्रक वार आपूर्ति रिपोर्ट",

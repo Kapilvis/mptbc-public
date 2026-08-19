@@ -174,7 +174,6 @@ export default function ApprovalList() {
             {
               field: "agencyName",
               header: "Department",
-              align: "center",
               width: "100px",
             },
             {
@@ -202,39 +201,39 @@ export default function ApprovalList() {
             {
               field: "requestedDemand",
               header: "Requested Demand",
-              align: "right",
+              align: "center",
               cell: (row: Distribution.DemandApprovalItem) => (
                 <span className="font-bold text-gray-900 dark:text-white">
                   {row.requestedDemand.toLocaleString()}
                 </span>
               ),
             },
-            {
-              field: "currentStock",
-              header: "Current TBC Stock",
-              align: "right",
-              cell: (row: Distribution.DemandApprovalItem) => (
-                <span className="font-semibold text-gray-700 dark:text-gray-300">
-                  {row.currentStock}
-                </span>
-              ),
-            },
-            {
-              field: "variance",
-              header: "Variance",
-              align: "center",
-              cell: (row: Distribution.DemandApprovalItem) => (
-                <span
-                  className={
-                    row.variance.startsWith("-")
-                      ? "text-rose-600 font-bold"
-                      : "text-emerald-600 font-bold"
-                  }
-                >
-                  {row.variance}
-                </span>
-              ),
-            },
+            // {
+            //   field: "currentStock",
+            //   header: "Current TBC Stock",
+            //   align: "right",
+            //   cell: (row: Distribution.DemandApprovalItem) => (
+            //     <span className="font-semibold text-gray-700 dark:text-gray-300">
+            //       {row.currentStock}
+            //     </span>
+            //   ),
+            // },
+            // {
+            //   field: "variance",
+            //   header: "Variance",
+            //   align: "center",
+            //   cell: (row: Distribution.DemandApprovalItem) => (
+            //     <span
+            //       className={
+            //         row.variance.startsWith("-")
+            //           ? "text-rose-600 font-bold"
+            //           : "text-emerald-600 font-bold"
+            //       }
+            //     >
+            //       {row.variance}
+            //     </span>
+            //   ),
+            // },
             {
               header: "Approval Action",
               align: "center",

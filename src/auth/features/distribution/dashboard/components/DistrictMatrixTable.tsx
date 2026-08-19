@@ -100,7 +100,7 @@ export function DistrictMatrixTable({
           {
             field: "blockDemandToTbc",
             header: "Block Demand to TBC",
-            align: "right",
+            align: "center",
             cell: (row: TitleWiseDistributionItem) => (
               <span className="font-bold text-emerald-800 dark:text-emerald-300">
                 {row.blockDemandToTbc.toLocaleString()}
@@ -110,14 +110,14 @@ export function DistrictMatrixTable({
           {
             field: "tbcSentToBrc",
             header: "TBC Sent to Block",
-            align: "right",
+            align: "center",
             cell: (row: TitleWiseDistributionItem) =>
               row.tbcSentToBrc.toLocaleString(),
           },
           {
             field: "tbcSentPercent",
             header: "TBC Sent %",
-            align: "right",
+            align: "center",
             cell: (row: TitleWiseDistributionItem) => (
               <span className="font-semibold text-emerald-700 dark:text-emerald-400">
                 {row.tbcSentPercent}%
@@ -127,14 +127,14 @@ export function DistrictMatrixTable({
           {
             field: "brcReceived",
             header: "Block Received",
-            align: "right",
+            align: "center",
             cell: (row: TitleWiseDistributionItem) =>
               row.brcReceived.toLocaleString(),
           },
           {
             field: "brcReceivedSortSupply",
             header: "Block Short Supply",
-            align: "right",
+            align: "center",
             cell: (row: TitleWiseDistributionItem) => (
               <span
                 className={
@@ -150,7 +150,7 @@ export function DistrictMatrixTable({
           {
             field: "brcReceivedDamaged",
             header: "Block Damaged",
-            align: "right",
+            align: "center",
             cell: (row: TitleWiseDistributionItem) => (
               <span
                 className={
@@ -166,7 +166,7 @@ export function DistrictMatrixTable({
           {
             field: "brcReceivedPercent",
             header: "Block Received %",
-            align: "right",
+            align: "center",
             cell: (row: TitleWiseDistributionItem) => (
               <span className="font-semibold text-emerald-700 dark:text-emerald-400">
                 {row.brcReceivedPercent}%
@@ -176,14 +176,14 @@ export function DistrictMatrixTable({
           {
             field: "brcSentToSchool",
             header: "Block Sent to School",
-            align: "right",
+            align: "center",
             cell: (row: TitleWiseDistributionItem) =>
               row.brcSentToSchool.toLocaleString(),
           },
           {
             field: "brcSentToSchoolPercent",
             header: "Block Sent %",
-            align: "right",
+            align: "center",
             cell: (row: TitleWiseDistributionItem) => (
               <span className="font-semibold text-blue-700 dark:text-blue-400">
                 {row.brcSentToSchoolPercent}%
@@ -193,7 +193,7 @@ export function DistrictMatrixTable({
           {
             field: "schoolDistributeToStudent",
             header: "School Distribute to Student",
-            align: "right",
+            align: "center",
             cell: (row: TitleWiseDistributionItem) => (
               <span className="font-extrabold text-emerald-700 dark:text-emerald-400">
                 {row.schoolDistributeToStudent.toLocaleString()}

@@ -90,13 +90,13 @@ export default function List() {
             {
               field: "reelCount",
               header: "REELS",
-              align: "right",
+              align: "center",
               cell: (row) => <span>{row.reelCount.toLocaleString()}</span>,
             },
             {
               field: "totalWeightTon",
               header: "WEIGHT (TON)",
-              align: "right",
+              align: "center",
               cell: (row) => <span>{row.totalWeightTon.toFixed(3)} MT</span>,
             },
             {

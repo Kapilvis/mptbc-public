@@ -168,7 +168,7 @@ export default function PaperStockPage() {
             {
               field: "openingStock",
               header: "Opening Stock",
-              align: "right",
+              align: "center",
               cell: (row: PaperStock) => (
                 <span className="text-xs">
                   {row.openingStock.toLocaleString()} MT
@@ -178,7 +178,7 @@ export default function PaperStockPage() {
             {
               field: "receivedQuantity",
               header: "Received Qty",
-              align: "right",
+              align: "center",
               cell: (row: PaperStock) => (
                 <span className="text-xs text-emerald-600 font-medium">
                   +{row.receivedQuantity.toLocaleString()} MT
@@ -188,7 +188,7 @@ export default function PaperStockPage() {
             {
               field: "issuedQuantity",
               header: "Issued Qty",
-              align: "right",
+              align: "center",
               cell: (row: PaperStock) => (
                 <span className="text-xs text-rose-600 font-medium">
                   -{row.issuedQuantity.toLocaleString()} MT
@@ -198,7 +198,7 @@ export default function PaperStockPage() {
             {
               field: "availableQuantity",
               header: "Available Stock",
-              align: "right",
+              align: "center",
               cell: (row: PaperStock) => (
                 <span className="text-xs font-bold text-blue-700 dark:text-blue-400">
                   {row.availableQuantity.toLocaleString()} MT

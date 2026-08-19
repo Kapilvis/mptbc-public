@@ -1,30 +1,9 @@
 import { useState } from "react";
 import Page from "shared/components/panels/Page";
 import { usePageTitle } from "shared/hooks/usePageTitle";
-import { Card } from "shared/components/panels";
+import { Card, GridPanel } from "shared/components/panels";
+import AcademicYearFilterBar from "shared/components/filters/AcademicYearFilterBar";
 import { printerDemandData, type PrinterDemandItem } from "../data";
-import { depotDropdownItems, academicYears, printerList } from "../../data";
-
-function StatusBadge({ status }: { status: PrinterDemandItem["status"] }) {
-  const cls = {
-    "In Progress": "bg-blue-50 text-blue-700 border-blue-200",
-    Completed: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    Delayed: "bg-rose-50 text-rose-700 border-rose-200",
-  }[status];
-  const icon = {
-    "In Progress": "pi-spin pi-spinner",
-    Completed: "pi-check-circle",
-    Delayed: "pi-exclamation-triangle",
-  }[status];
-  return (
-    <span
-      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border uppercase tracking-wide ${cls}`}
-    >
-      <i className={`pi ${icon} text-[9px]`} />
-      {status}
-    </span>
-  );
-}
 
 function ProgressBar({ value, max }: { value: number; max: number }) {
   const pct = max === 0 ? 100 : Math.min(Math.round((value / max) * 100), 100);
@@ -47,21 +26,9 @@ function ProgressBar({ value, max }: { value: number; max: number }) {
 
 export default function PrinterAssignedDemandPage() {
   const pageTitle = usePageTitle();
-  const [year, setYear] = useState("2026-2027");
-  const [depot, setDepot] = useState("");
-  const [printer, setPrinter] = useState("");
-  const [search, setSearch] = useState("");
+  const [academicYear, setAcademicYear] = useState("2026-2027");
 
-  const filtered = printerDemandData.filter((r) => {
-    const matchSearch =
-      !search ||
-      r.printerName.toLowerCase().includes(search.toLowerCase()) ||
-      r.jobCode.toLowerCase().includes(search.toLowerCase());
-    const matchPrinter = !printer || r.printerCode === printer;
-    return matchSearch && matchPrinter;
-  });
-
-  const totals = filtered.reduce(
+  const totals = printerDemandData.reduce(
     (acc, r) => ({
       ordered: acc.ordered + r.totalOrdered,
       delivered: acc.delivered + r.deliveredToDepot,
@@ -76,186 +43,164 @@ export default function PrinterAssignedDemandPage() {
       subHeader="मुद्रक-वार कार्यादेश — Books ordered from each printer, delivered to depot, and remaining balance."
       showHeaderActions
     >
-      {/* Summary KPI Strip */}
-      <div className="grid grid-cols-3 gap-3 mb-5">
-        {[
-          {
-            label: "Total Books Ordered",
-            value: totals.ordered.toLocaleString(),
-            icon: "pi pi-file-edit",
-            color: "text-indigo-600",
-            bg: "bg-indigo-50 dark:bg-indigo-950/20 border-indigo-100",
-          },
-          {
-            label: "Delivered to Depot",
-            value: totals.delivered.toLocaleString(),
-            icon: "pi pi-inbox",
-            color: "text-blue-600",
-            bg: "bg-blue-50 dark:bg-blue-950/20 border-blue-100",
-          },
-          {
-            label: "Remaining",
-            value: totals.remaining.toLocaleString(),
-            icon: "pi pi-clock",
-            color: "text-amber-600",
-            bg: "bg-amber-50 dark:bg-amber-950/20 border-amber-100",
-          },
-        ].map((kpi) => (
-          <Card key={kpi.label} className={`border ${kpi.bg}`}>
-            <div className="flex items-center gap-3 p-1">
-              <i className={`${kpi.icon} text-xl ${kpi.color}`} />
-              <div>
-                <div className="text-lg font-extrabold text-gray-900 dark:text-white">
-                  {kpi.value}
-                </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
-                  {kpi.label}
-                </div>
+      {/* 1. Academic Session Filter Bar */}
+      <AcademicYearFilterBar
+        academicYear={academicYear}
+        onChange={setAcademicYear}
+        subtitle={`Printer-wise book allocation and depot delivery status for session ${academicYear}.`}
+      />
+
+      {/* 2. Redesigned Premium KPI Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+        {/* KPI 1: Total Books Ordered */}
+        <Card className="border-l-4 border-l-indigo-600 border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md transition-shadow">
+          <div className="p-4 flex items-center justify-between">
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1">
+                Total Books Ordered
+              </span>
+              <div className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                {totals.ordered.toLocaleString()}
+              </div>
+              <div className="mt-1 flex items-center gap-1.5 text-xs text-indigo-600 font-semibold">
+                <i className="pi pi-check-circle text-[11px]" />
+                <span>All Printer Allocation Orders</span>
               </div>
             </div>
-          </Card>
-        ))}
-      </div>
-
-      <Card>
-        {/* Toolbar */}
-        <div className="flex flex-wrap gap-3 p-4 border-b border-gray-100 dark:border-gray-800">
-          <select
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-            className="text-xs border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300"
-          >
-            {academicYears.map((y) => (
-              <option key={y.id} value={y.id}>
-                {y.text}
-              </option>
-            ))}
-          </select>
-          <select
-            value={depot}
-            onChange={(e) => setDepot(e.target.value)}
-            className="text-xs border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300"
-          >
-            <option value="">All Depots</option>
-            {depotDropdownItems.map((d) => (
-              <option key={d.id} value={d.id}>
-                {d.text}
-              </option>
-            ))}
-          </select>
-          <select
-            value={printer}
-            onChange={(e) => setPrinter(e.target.value)}
-            className="text-xs border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300"
-          >
-            <option value="">All Printers</option>
-            {printerList.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.text}
-              </option>
-            ))}
-          </select>
-          <div className="flex-1 flex justify-end">
-            <div className="relative">
-              <i className="pi pi-search absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs" />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search printer or job code..."
-                className="pl-7 pr-3 py-1.5 text-xs border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 w-60"
-              />
+            <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center border border-indigo-100 dark:border-indigo-800/50 shrink-0">
+              <i className="pi pi-book text-xl" />
             </div>
           </div>
-        </div>
+        </Card>
 
-        {/* Grid */}
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="bg-gray-50 dark:bg-gray-800/60 border-b border-gray-100 dark:border-gray-700">
-                {[
-                  "#",
-                  "Printer Name",
-                  "Group No",
-                  "Job Code",
-                  "Total Ordered",
-                  "Delivered to Depot",
-                  "Remaining",
-                  "% Complete",
-                  "Last Delivery",
-                  "Status",
-                ].map((h) => (
-                  <th
-                    key={h}
-                    className="px-3 py-2.5 text-left font-semibold text-gray-600 dark:text-gray-400 whitespace-nowrap"
-                  >
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((row) => (
-                <tr
-                  key={row.id}
-                  className="border-b border-gray-50 dark:border-gray-800 hover:bg-blue-50/30 dark:hover:bg-blue-950/10 transition-colors"
-                >
-                  <td className="px-3 py-2.5 text-gray-400">{row.id}</td>
-                  <td className="px-3 py-2.5 font-semibold text-gray-800 dark:text-gray-200 min-w-[200px]">
-                    {row.printerName}
-                  </td>
-                  <td className="px-3 py-2.5 text-gray-600 dark:text-gray-400 font-mono">
-                    {row.groupNo}
-                  </td>
-                  <td className="px-3 py-2.5 text-gray-600 dark:text-gray-400 font-mono">
-                    {row.jobCode}
-                  </td>
-                  <td className="px-3 py-2.5 text-right font-bold text-indigo-700 dark:text-indigo-400">
-                    {row.totalOrdered.toLocaleString()}
-                  </td>
-                  <td className="px-3 py-2.5 text-right font-bold text-blue-700 dark:text-blue-400">
-                    {row.deliveredToDepot.toLocaleString()}
-                  </td>
-                  <td className="px-3 py-2.5 text-right font-bold text-amber-700 dark:text-amber-400">
-                    {row.remaining.toLocaleString()}
-                  </td>
-                  <td className="px-3 py-2.5 min-w-[140px]">
-                    <ProgressBar
-                      value={row.deliveredToDepot}
-                      max={row.totalOrdered}
-                    />
-                  </td>
-                  <td className="px-3 py-2.5 text-gray-600 dark:text-gray-400 whitespace-nowrap">
-                    {row.lastDeliveryDate}
-                  </td>
-                  <td className="px-3 py-2.5">
-                    <StatusBadge status={row.status} />
-                  </td>
-                </tr>
-              ))}
-              {/* Totals Row */}
-              <tr className="bg-gray-50 dark:bg-gray-800/60 font-bold border-t-2 border-gray-200 dark:border-gray-700">
-                <td
-                  colSpan={4}
-                  className="px-3 py-2.5 text-gray-700 dark:text-gray-300"
-                >
-                  Total ({filtered.length} Printers)
-                </td>
-                <td className="px-3 py-2.5 text-right text-indigo-800 dark:text-indigo-300">
-                  {totals.ordered.toLocaleString()}
-                </td>
-                <td className="px-3 py-2.5 text-right text-blue-800 dark:text-blue-300">
-                  {totals.delivered.toLocaleString()}
-                </td>
-                <td className="px-3 py-2.5 text-right text-amber-800 dark:text-amber-300">
-                  {totals.remaining.toLocaleString()}
-                </td>
-                <td colSpan={3} />
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {/* KPI 2: Delivered to Depot */}
+        <Card className="border-l-4 border-l-emerald-600 border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md transition-shadow">
+          <div className="p-4 flex items-center justify-between">
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1">
+                Delivered to Depot
+              </span>
+              <div className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                {totals.delivered.toLocaleString()}
+              </div>
+              <div className="mt-1 flex items-center gap-1.5 text-xs text-emerald-600 font-semibold">
+                <i className="pi pi-truck text-[11px]" />
+                <span>
+                  {Math.round((totals.delivered / (totals.ordered || 1)) * 100)}
+                  % Fulfilled & Received
+                </span>
+              </div>
+            </div>
+            <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-100 dark:border-emerald-800/50 shrink-0">
+              <i className="pi pi-inbox text-xl" />
+            </div>
+          </div>
+        </Card>
+
+        {/* KPI 3: Remaining Balance */}
+        <Card className="border-l-4 border-l-amber-500 border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md transition-shadow">
+          <div className="p-4 flex items-center justify-between">
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1">
+                Remaining Balance
+              </span>
+              <div className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                {totals.remaining.toLocaleString()}
+              </div>
+              <div className="mt-1 flex items-center gap-1.5 text-xs text-amber-600 font-semibold">
+                <i className="pi pi-clock text-[11px]" />
+                <span>
+                  {Math.round((totals.remaining / (totals.ordered || 1)) * 100)}
+                  % Pending Delivery
+                </span>
+              </div>
+            </div>
+            <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 flex items-center justify-center border border-amber-100 dark:border-amber-800/50 shrink-0">
+              <i className="pi pi-history text-xl" />
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      {/* 3. Grid Card with Shared GridPanel */}
+      <Card className="border border-slate-100 p-1 shadow-xs">
+        <GridPanel<PrinterDemandItem>
+          toolbarPlacement="page"
+          data={printerDemandData}
+          searchBox={true}
+          searchPlaceholder="Search printer name..."
+          exportFilename="printer_assigned_demand.xls"
+          columns={[
+            {
+              header: "S.No.",
+              cell: (_, opt) => (
+                <span className="text-gray-500 font-medium">
+                  {opt.rowIndex + 1}
+                </span>
+              ),
+              width: "60px",
+              align: "center",
+            },
+            {
+              field: "printerName",
+              header: "Printer Name",
+              cell: (row) => (
+                <span className="font-semibold text-gray-800 dark:text-gray-200">
+                  {row.printerName}
+                </span>
+              ),
+              sortable: true,
+            },
+            {
+              field: "totalOrdered",
+              header: "Total Ordered",
+              align: "center",
+              cell: (row) => (
+                <span className="font-bold text-indigo-700 dark:text-indigo-400">
+                  {row.totalOrdered.toLocaleString()}
+                </span>
+              ),
+              sortable: true,
+            },
+            {
+              field: "deliveredToDepot",
+              header: "Delivered to Depot",
+              align: "center",
+              cell: (row) => (
+                <span className="font-bold text-blue-700 dark:text-blue-400">
+                  {row.deliveredToDepot.toLocaleString()}
+                </span>
+              ),
+              sortable: true,
+            },
+            {
+              field: "remaining",
+              header: "Remaining",
+              align: "center",
+              cell: (row) => (
+                <span className="font-bold text-amber-700 dark:text-amber-400">
+                  {row.remaining.toLocaleString()}
+                </span>
+              ),
+              sortable: true,
+            },
+            {
+              header: "% Complete",
+              cell: (row) => (
+                <ProgressBar
+                  value={row.deliveredToDepot}
+                  max={row.totalOrdered}
+                />
+              ),
+            },
+            {
+              field: "lastDeliveryDate",
+              header: "Last Delivery",
+              sortable: true,
+              align: "center",
+            },
+          ]}
+        />
       </Card>
     </Page>
   );

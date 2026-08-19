@@ -42,27 +42,27 @@ export default function PrintingProgress({ printerCode }: Props) {
   const getStatusBadgeClass = (status: string) => {
     switch (status) {
       case "Completed":
-        return "bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/50";
+        return "bg-emerald-50 text-emerald-805 border-emerald-250 dark:bg-emerald-950/20 dark:text-emerald-350 dark:border-emerald-900/50";
       case "Partially Supplied":
-        return "bg-blue-50 text-blue-700 border-blue-100 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-900/50";
+        return "bg-blue-50 text-blue-805 border-blue-250 dark:bg-blue-950/20 dark:text-blue-350 dark:border-blue-900/50";
       case "Pending":
       case "Approved":
       default:
-        return "bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/50";
+        return "bg-amber-50 text-amber-805 border-amber-250 dark:bg-amber-950/20 dark:text-amber-450 dark:border-amber-900/50";
     }
   };
 
   return (
-    <Card className="p-5 border border-gray-200/60 dark:border-gray-700/60 shadow-xs h-full flex flex-col justify-between">
+    <Card className="p-5 border border-gray-200/60 dark:border-gray-700/60 shadow-xs h-full flex flex-col justify-between border-t-transparent! relative overflow-hidden transition-all duration-300 hover:shadow-md">
+      {/* Premium top gradient border */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-emerald-500 via-teal-400 to-emerald-600 z-20" />
+
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <div>
           <h3 className="text-base font-black text-gray-800 dark:text-white flex items-center gap-2">
             <i className="pi pi-sync text-[#4F8F70]" />
             Printing Progress
           </h3>
-          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mt-0.5">
-            Production line updates and textbook print fulfillment ratios
-          </p>
         </div>
         <Button
           label="View All Orders"
@@ -73,19 +73,19 @@ export default function PrintingProgress({ printerCode }: Props) {
       </div>
 
       <div className="overflow-x-auto -mx-5 px-5">
-        <table className="w-full text-left border-collapse min-w-[700px]">
+        <table className="w-full text-left border-collapse min-w-175">
           <thead>
-            <tr className="border-b border-gray-200/80 dark:border-gray-700/80 text-[10px] uppercase font-bold tracking-widest text-gray-400 pb-2">
-              <th className="py-2.5 font-bold">Order No.</th>
+            <tr className="border-b border-gray-200/80 dark:border-gray-700/80 text-[10px] uppercase font-black tracking-widest text-slate-500 dark:text-slate-400 pb-2">
+              <th className="py-2.5 pl-2">Order No.</th>
               <th className="py-2.5 font-bold">Book / Class</th>
-              <th className="py-2.5 text-right font-bold">Quantity</th>
-              <th className="py-2.5 text-right font-bold">Printed</th>
-              <th className="py-2.5 text-right font-bold">Pending</th>
-              <th className="py-2.5 text-right font-bold">Progress</th>
-              <th className="py-2.5 pl-4 font-bold">Status</th>
+              <th className="py-2.5 text-center font-bold">Quantity</th>
+              <th className="py-2.5 text-center font-bold">Printed</th>
+              <th className="py-2.5 text-center font-bold">Pending</th>
+              <th className="py-2.5 text-center font-bold">Progress</th>
+              <th className="py-2.5 pl-4 font-bold pr-2">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-150/40 dark:divide-gray-800/40 text-xs">
+          <tbody className="divide-y divide-gray-150/40 dark:divide-gray-800/40 text-sm">
             {displayOrders.map((o) => {
               // Calculate progress percentage dynamically
               const progress = Math.min(
@@ -100,39 +100,41 @@ export default function PrintingProgress({ printerCode }: Props) {
                   onClick={() =>
                     navigate(`/printing/orders/details/${o.orderNo}`)
                   }
-                  className="group hover:bg-gray-50/70 dark:hover:bg-gray-850/30 cursor-pointer transition-colors duration-150"
+                  className="group hover:bg-[#E8F4EC]/35 dark:hover:bg-[#4F8F70]/5 cursor-pointer transition-colors duration-150"
                 >
-                  <td className="py-3 font-mono font-bold text-xs text-[#4F8F70] group-hover:underline">
+                  <td className="py-3.5 font-mono font-black text-sm text-[#4F8F70] group-hover:underline pl-2">
                     {o.orderNo}
                   </td>
-                  <td className="py-3 font-semibold text-gray-800 dark:text-gray-200">
-                    {o.bookTitle} - {o.classLevel}
+                  <td className="py-3.5 font-extrabold text-slate-900 dark:text-gray-100">
+                    {(o.bookTitle || "").includes(o.classLevel || "")
+                      ? o.bookTitle || ""
+                      : `${o.bookTitle || ""} - ${o.classLevel || ""}`}
                   </td>
-                  <td className="py-3 text-right font-semibold font-mono text-gray-700 dark:text-gray-300">
+                  <td className="py-3.5 text-center font-extrabold font-mono text-slate-900 dark:text-gray-200">
                     {o.requiredQty.toLocaleString("en-IN")}
                   </td>
-                  <td className="py-3 text-right font-semibold font-mono text-gray-700 dark:text-gray-300">
+                  <td className="py-3.5 text-center font-extrabold font-mono text-slate-900 dark:text-gray-200">
                     {o.suppliedQty.toLocaleString("en-IN")}
                   </td>
-                  <td className="py-3 text-right font-semibold font-mono text-gray-500 dark:text-gray-400">
+                  <td className="py-3.5 text-center font-extrabold font-mono text-slate-700 dark:text-gray-300">
                     {o.pendingQty.toLocaleString("en-IN")}
                   </td>
-                  <td className="py-3 text-right">
-                    <div className="inline-flex items-center gap-2.5 justify-end w-full">
-                      <div className="w-24 bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden shrink-0">
+                  <td className="py-3.5 text-center">
+                    <div className="inline-flex items-center gap-2.5 justify-center w-full">
+                      <div className="w-24 bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden shrink-0 shadow-inner border border-gray-200/10">
                         <div
-                          className="bg-[#5FAF7A] h-full rounded-full transition-all duration-550"
+                          className="bg-linear-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500"
                           style={{ width: `${progress}%` }}
                         />
                       </div>
-                      <span className="font-mono font-bold text-gray-800 dark:text-white shrink-0 text-right w-8">
+                      <span className="font-mono font-black text-slate-900 dark:text-white shrink-0 text-center w-10">
                         {progress}%
                       </span>
                     </div>
                   </td>
-                  <td className="py-3 pl-4">
+                  <td className="py-3.5 pl-4 pr-2">
                     <span
-                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold border uppercase tracking-wider ${getStatusBadgeClass(
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border uppercase tracking-wider ${getStatusBadgeClass(
                         o.status,
                       )}`}
                     >

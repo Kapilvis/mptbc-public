@@ -173,7 +173,7 @@ export default function DisbursementPage() {
     try {
       await approveClaimMutation.mutateAsync({ claims, action });
       ToastService.success(
-        `Payment of Rs. ${selectedDetails?.disbursementAmount.toLocaleString()} successfully disbursed for LR ${selectedRow.lrNumber}! Transaction Ref: ${data.neftReference}`,
+        `Payment of Rs. ${selectedDetails?.disbursementAmount.toLocaleString()} successfully disbursed for Receipt #${selectedRow.lrNumber}! Transaction Ref: ${data.neftReference}`,
       );
       setSelectedRow(null);
       setVerifiedDocs(false);
@@ -285,6 +285,7 @@ export default function DisbursementPage() {
                         {(row.bundlesLoaded * 0.04).toFixed(2)} T
                       </span>
                     ),
+                    align: "center",
                   },
                   {
                     header:
@@ -303,7 +304,7 @@ export default function DisbursementPage() {
                         </span>
                       );
                     },
-                    align: "right",
+                    align: "center",
                   },
                 ]}
               />
@@ -316,7 +317,7 @@ export default function DisbursementPage() {
               <Card className="p-5 border-l-[#008a45] border-l-4">
                 <span className="text-sm font-bold text-slate-800 border-b pb-2 flex items-center gap-2 mb-3">
                   <ShieldCheck size={18} className="text-[#008a45]" />
-                  Audit Panel: LR {selectedRow.lrNumber}
+                  Audit Panel: Receipt #{selectedRow.lrNumber}
                 </span>
 
                 <div className="flex flex-col gap-3 font-sans text-xs mb-4">
@@ -469,7 +470,7 @@ export default function DisbursementPage() {
                       className="flex-1 !text-xs"
                       onClick={() => {
                         ToastService.warning(
-                          `Claim for LR ${selectedRow.lrNumber} put on HOLD.`,
+                          `Claim for Receipt #${selectedRow.lrNumber} put on HOLD.`,
                         );
                         setSelectedRow(null);
                         setVerifiedDocs(false);

@@ -16,14 +16,14 @@
   .profile-loader-track {
     @apply absolute inset-0 rounded-full border-[3px];
 
-    border-color: #DBE8D8 !important;
+    border-color: #dbe8d8 !important;
   }
 
   .profile-loader-spinner {
     @apply absolute inset-0 animate-spin rounded-full border-[3px];
 
     border-color: #008a45 !important;
-    border-top-color: #D6E9D5 !important;
+    border-top-color: #d6e9d5 !important;
   }
 
   .profile-top-grid {
@@ -69,16 +69,8 @@
 
   .dark .profile-cover-pattern {
     background:
-      radial-gradient(
-        circle at 20% 10%,
-        rgba(4, 62, 46, 0.5),
-        transparent 34%
-      ),
-      radial-gradient(
-        circle at 78% 8%,
-        rgba(0, 138, 69, 0.4),
-        transparent 38%
-      ),
+      radial-gradient(circle at 20% 10%, rgba(4, 62, 46, 0.5), transparent 34%),
+      radial-gradient(circle at 78% 8%, rgba(0, 138, 69, 0.4), transparent 38%),
       linear-gradient(
         180deg,
         rgba(4, 62, 46, 0.6) 0%,
@@ -117,8 +109,8 @@
       text-[10px] font-extrabold uppercase tracking-wider border;
 
     color: #043e2e !important;
-    background-color: #DBE8D8 !important;
-    border-color: #D6E9D5 !important;
+    background-color: #dbe8d8 !important;
+    border-color: #d6e9d5 !important;
   }
 
   .profile-active-status {
@@ -148,8 +140,8 @@
   .profile-stat-card {
     @apply flex min-h-20 flex-col items-center justify-center rounded-2xl
       px-3 py-3 text-center border;
-    background-color: #DBE8D8 !important;
-    border-color: #D6E9D5 !important;
+    background-color: #dbe8d8 !important;
+    border-color: #d6e9d5 !important;
     color: #043e2e !important;
   }
 
@@ -198,8 +190,8 @@
   .profile-support-icon {
     @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border;
 
-    background-color: #DBE8D8 !important;
-    border-color: #D6E9D5 !important;
+    background-color: #dbe8d8 !important;
+    border-color: #d6e9d5 !important;
     color: #008a45 !important;
   }
 
@@ -223,8 +215,8 @@
   .profile-detail-icon {
     @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-lg border;
 
-    background-color: #DBE8D8 !important;
-    border-color: #D6E9D5 !important;
+    background-color: #dbe8d8 !important;
+    border-color: #d6e9d5 !important;
     color: #008a45 !important;
   }
 
@@ -272,8 +264,8 @@
   .profile-support-illustration {
     @apply flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-2xl border;
 
-    background-color: #DBE8D8 !important;
-    border-color: #D6E9D5 !important;
+    background-color: #dbe8d8 !important;
+    border-color: #d6e9d5 !important;
     color: #008a45 !important;
   }
 

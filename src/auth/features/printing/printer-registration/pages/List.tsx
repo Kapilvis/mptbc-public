@@ -9,9 +9,6 @@ import { usePageTitle } from "shared/hooks/usePageTitle";
 
 import {
   initialPrinterRegistrationListData,
-  filterCategories,
-  filterDistricts,
-  filterStatuses,
   getPrinterMockDetails,
 } from "../data";
 
@@ -183,38 +180,12 @@ export default function List() {
   const [printers, setPrinters] = useState<Printer.ListItem[]>(
     initialPrinterRegistrationListData,
   );
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("");
-  const [district, setDistrict] = useState("");
-  const [status, setStatus] = useState("");
   const [viewingItem, setViewingItem] = useState<Printer.ListItem | null>(null);
-
-  const handleResetFilters = () => {
-    setSearch("");
-    setCategory("");
-    setDistrict("");
-    setStatus("");
-  };
 
   // Client side filtering logic
   const filteredPrinters = useMemo(() => {
-    return printers.filter((item) => {
-      const matchesSearch =
-        !search ||
-        item.printerName.toLowerCase().includes(search.toLowerCase()) ||
-        item.printerCode.toLowerCase().includes(search.toLowerCase()) ||
-        item.firmRegistrationNo.toLowerCase().includes(search.toLowerCase()) ||
-        item.mobile.includes(search);
-
-      const matchesCategory = !category || item.category === category;
-      const matchesDistrict = !district || item.district === district;
-      const matchesStatus = !status || item.status === status;
-
-      return (
-        matchesSearch && matchesCategory && matchesDistrict && matchesStatus
-      );
-    });
-  }, [printers, search, category, district, status]);
+    return printers;
+  }, [printers]);
 
   // Operations actions handlers
   const handleView = (item: Printer.ListItem) => {
@@ -287,92 +258,6 @@ export default function List() {
 
       <div className="printer-registration-list-page">
         {/* Top filter toolbar section */}
-        <Card className="p-5 mb-5 border border-slate-100">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 items-end">
-            {/* Search Box */}
-            <div>
-              <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                Search Box
-              </label>
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Name, Reg No, Code..."
-                className="w-full px-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500 bg-white"
-              />
-            </div>
-
-            {/* Category Filter */}
-            <div>
-              <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                Category Filter
-              </label>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3 py-1.5 text-xs border border-slate-200 rounded-lg bg-white focus:outline-none focus:border-indigo-500"
-              >
-                <option value="">All Categories</option>
-                {filterCategories.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.text}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* District Filter */}
-            <div>
-              <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                District Filter
-              </label>
-              <select
-                value={district}
-                onChange={(e) => setDistrict(e.target.value)}
-                className="w-full px-3 py-1.5 text-xs border border-slate-200 rounded-lg bg-white focus:outline-none focus:border-indigo-500"
-              >
-                <option value="">All Districts</option>
-                {filterDistricts.map((d) => (
-                  <option key={d.id} value={d.id}>
-                    {d.text}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Status Filter */}
-            <div>
-              <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-                Status Filter
-              </label>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="w-full px-3 py-1.5 text-xs border border-slate-200 rounded-lg bg-white focus:outline-none focus:border-indigo-500"
-              >
-                <option value="">All Statuses</option>
-                {filterStatuses.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.text}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Reset Action */}
-            <div>
-              <Button
-                type="button"
-                label="Reset Filters"
-                icon="refresh"
-                variant="outlined"
-                onClick={handleResetFilters}
-                className="w-full text-xs font-bold"
-              />
-            </div>
-          </div>
-        </Card>
 
         <Card>
           <GridPanel
@@ -424,7 +309,7 @@ export default function List() {
                 sortable: true,
               },
               { field: "authorizedPerson", header: "Authorized Person" },
-              { field: "mobile", header: "Mobile Number" },
+              { field: "mobile", header: "Mobile Number", align: "center" },
               {
                 field: "totalMachines",
                 header: "Total Machines",

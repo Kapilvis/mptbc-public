@@ -19,7 +19,6 @@ export default function AcademicYearFilterBar({
   academicYear,
   onChange,
   title = "Academic ",
-  subtitle,
   className = "",
 }: AcademicYearFilterBarProps) {
   const getBadgeClass = (year: string) => {
@@ -53,10 +52,6 @@ export default function AcademicYearFilterBar({
               Session: {academicYear}
             </span>
           </div>
-          <span className="text-[15px] font-medium text-slate-800 dark:text-slate-400 block mt-0.5">
-            {subtitle ||
-              `Filter real-time operational data, supply chain metrics, and reports by academic year (${academicYear}).`}
-          </span>
         </div>
       </div>
 

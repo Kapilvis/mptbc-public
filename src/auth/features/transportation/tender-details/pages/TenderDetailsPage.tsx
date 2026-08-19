@@ -98,6 +98,7 @@ export default function TenderDetailsPage() {
               field: "financialYear",
               header: "Academic Year",
               sortable: true,
+              align: "center",
             },
             {
               header: "Mapped Transporters",
