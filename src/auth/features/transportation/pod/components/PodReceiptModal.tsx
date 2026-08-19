@@ -73,10 +73,10 @@ export default function PodReceiptModal({
           </div>
           <div className="flex flex-col items-end">
             <span className="px-2.5 py-1 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1">
-              <CheckCircle2 size={12} /> POD Verified
+              <CheckCircle2 size={12} /> Proof of Delivery Verified
             </span>
             <span className="text-[11px] text-slate-400 font-bold mt-1">
-              Doc Ref: POD-{dispatch.truckNo.replace(/[^a-zA-Z0-9]/g, "")}
+              Doc Ref: DEL-{dispatch.truckNo.replace(/[^a-zA-Z0-9]/g, "")}
             </span>
           </div>
         </div>

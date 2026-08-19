@@ -30,11 +30,11 @@ export async function createWorkOrder(
       ?.transporterName ||
     `Transporter #${resolvedTransporterId}`;
 
-  // Calculate SLA due date (instruction date + 3 days)
+  // Calculate SLA due date (instruction date + 5 days)
   const insDate = new Date(
     data.instructionDate || data.issueDate || new Date().toISOString(),
   );
-  insDate.setDate(insDate.getDate() + 3);
+  insDate.setDate(insDate.getDate() + 5);
   const dueDateStr = insDate.toISOString().split("T")[0];
 
   const prefix = data.district.slice(0, 3).toUpperCase();
@@ -162,8 +162,8 @@ export async function submitPodForDispatch(
   const actualDate = new Date(actualDeliveryDate);
   const diffTime = actualDate.getTime() - insDate.getTime();
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  // SLA is 3 days. Delay is any days beyond 3 days.
-  const delayDays = Math.max(0, diffDays - 3);
+  // Delivery limit is 5 days. Delay is any days beyond 5 days.
+  const delayDays = Math.max(0, diffDays - 5);
 
   dispatch.status = "Delivered";
   dispatch.podUploaded = true;

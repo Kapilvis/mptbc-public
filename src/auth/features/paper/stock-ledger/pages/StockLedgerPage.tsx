@@ -274,7 +274,7 @@ export default function StockLedgerPage() {
             },
             {
               header: "Quantity In (Receipt)",
-              align: "right",
+              align: "center",
               cell: (row: StockTransaction) => {
                 const isIn = row.quantity > 0 && row.type !== "Opening";
                 return (
@@ -286,7 +286,7 @@ export default function StockLedgerPage() {
             },
             {
               header: "Quantity Out (Issued)",
-              align: "right",
+              align: "center",
               cell: (row: StockTransaction) => {
                 const isOut = row.quantity < 0;
                 return (
@@ -301,7 +301,7 @@ export default function StockLedgerPage() {
             {
               field: "balance",
               header: "Balance Stock",
-              align: "right",
+              align: "center",
               cell: (row: StockTransaction) => (
                 <span className="text-xs font-bold text-indigo-700 dark:text-indigo-400">
                   {row.balance.toLocaleString()} MT

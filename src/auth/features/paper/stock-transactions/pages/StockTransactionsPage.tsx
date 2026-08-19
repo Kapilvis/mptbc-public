@@ -99,7 +99,7 @@ export default function StockTransactionsPage() {
             {
               field: "quantity",
               header: "Quantity (MT)",
-              align: "right",
+              align: "center",
               cell: (row: StockTransaction) => {
                 const isPositive = row.quantity > 0;
                 return (
@@ -115,7 +115,7 @@ export default function StockTransactionsPage() {
             {
               field: "balance",
               header: "Running Balance",
-              align: "right",
+              align: "center",
               cell: (row: StockTransaction) => (
                 <span className="text-xs font-bold text-blue-700 dark:text-blue-400">
                   {row.balance.toLocaleString()} MT

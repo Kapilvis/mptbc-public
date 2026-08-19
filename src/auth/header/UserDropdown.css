@@ -169,30 +169,38 @@
   }
 
   .user-dropdown-logout:hover {
-    background-color: color-mix(in srgb,
-        var(--color-error-500) 8%,
-        transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--color-error-500) 8%,
+      transparent
+    );
   }
 
   .dark .user-dropdown-logout:hover {
-    background-color: color-mix(in srgb,
-        var(--color-error-500) 10%,
-        transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--color-error-500) 10%,
+      transparent
+    );
   }
 
   .user-dropdown-logout-icon {
     @apply flex items-center justify-center rounded-lg p-2.5 text-sm transition-all;
 
     color: var(--color-error-500);
-    background-color: color-mix(in srgb,
-        var(--color-error-500) 8%,
-        transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--color-error-500) 8%,
+      transparent
+    );
   }
 
   .dark .user-dropdown-logout-icon {
-    background-color: color-mix(in srgb,
-        var(--color-error-500) 10%,
-        transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--color-error-500) 10%,
+      transparent
+    );
   }
 
   .user-dropdown-logout:hover .user-dropdown-logout-icon {

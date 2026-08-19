@@ -17,32 +17,25 @@ export function FulfillmentDonutChart() {
 
   const legendItems: SegmentItem[] = [
     {
-      label: "Approved & Dispatched",
-      percent: 65,
+      label: "Approved & Sent",
+      percent: 83.1,
       offset: 0,
-      count: "1,89,052 Units",
+      count: "2,90,850 Units",
       color: "#059669", // Emerald
     },
     {
-      label: "In Transit",
-      percent: 20,
-      offset: 65,
-      count: "58,170 Units",
-      color: "#10b981", // Light Green
+      label: "In-Transit to Depots",
+      percent: 10.0,
+      offset: 83.1,
+      count: "35,000 Units",
+      color: "#2563eb", // Blue
     },
     {
-      label: "Pending Dispatch",
-      percent: 10,
-      offset: 85,
-      count: "29,085 Units",
+      label: "Pending Approval",
+      percent: 6.9,
+      offset: 93.1,
+      count: "24,150 Units",
       color: "#f59e0b", // Amber
-    },
-    {
-      label: "Other Statuses",
-      percent: 5,
-      offset: 95,
-      count: "14,543 Units",
-      color: "#0284c7", // Sky Blue
     },
   ];
 
@@ -54,10 +47,10 @@ export function FulfillmentDonutChart() {
       <div>
         <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
           <i className="pi pi-chart-pie text-emerald-600 dark:text-emerald-400 text-base" />
-          Overall Textbook Supply
+          State Demand Fulfillment Status
         </h3>
         <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
-          Consolidated breakdown of demand approval and dispatch progress
+          Breakdown of 3,50,000 Total Requested Units
         </p>
       </div>
 
@@ -95,21 +88,19 @@ export function FulfillmentDonutChart() {
           {/* Dynamic Center Display */}
           <div className="pointer-events-none absolute text-center px-2">
             <span
-              className="text-2xl font-black block tracking-tight transition-colors"
+              className="text-2xl font-black block tracking-tight transition-colors leading-none"
               style={{
                 color: activeSegment ? activeSegment.color : "#059669",
               }}
             >
-              {activeSegment ? `${activeSegment.percent}%` : "85.4%"}
+              {activeSegment ? `${activeSegment.percent}%` : "83.1%"}
             </span>
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-700 dark:text-slate-300 block truncate max-w-[100px] mx-auto">
-              {activeSegment ? activeSegment.label : "Fulfilled"}
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 block truncate max-w-[120px] mx-auto mt-1">
+              {activeSegment ? activeSegment.label : "Approved & Sent"}
             </span>
-            {activeSegment && (
-              <span className="text-[9.5px] font-bold text-slate-500 dark:text-slate-400 block mt-0.5">
-                {activeSegment.count}
-              </span>
-            )}
+            <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300 block mt-0.5">
+              {activeSegment ? activeSegment.count : "2,90,850 Units"}
+            </span>
           </div>
         </div>
 

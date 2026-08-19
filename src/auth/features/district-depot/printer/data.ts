@@ -127,8 +127,9 @@ export interface PrinterChallanItem {
   dispatchedQty: number;
   receivedQty: number;
   shortage: number;
-  warehouse: string;
-  status: "Received" | "Shortage" | "Pending";
+  damagedQty?: number;
+  warehouse?: string;
+  status: "Received" | "Shortage" | "Pending" | "Damaged";
 }
 
 export const printerChallanData: PrinterChallanItem[] = [
@@ -221,5 +222,41 @@ export const printerChallanData: PrinterChallanItem[] = [
     shortage: 0,
     warehouse: "Warehouse 3",
     status: "Received",
+  },
+  {
+    id: 6,
+    challanNo: "PR-CHL/2026/8821",
+    challanDate: "18 Aug 2026",
+    receiptDate: "—",
+    depotCode: "BPL",
+    printerName: "Balaji Printers",
+    printerCode: "PR006",
+    vehicleNo: "MP04HE4412",
+    driverName: "Vikram Sharma",
+    driverMobile: "9826012345",
+    title: "पर्यावरण अध्ययन - Class 4",
+    dispatchedQty: 42000,
+    receivedQty: 0,
+    shortage: 0,
+    warehouse: "—",
+    status: "Pending",
+  },
+  {
+    id: 7,
+    challanNo: "PR-CHL/2026/9104",
+    challanDate: "18 Aug 2026",
+    receiptDate: "—",
+    depotCode: "IND",
+    printerName: "Jayesh Printers & Publishers",
+    printerCode: "PR007",
+    vehicleNo: "MP09AB7788",
+    driverName: "Sunil Verma",
+    driverMobile: "9425098765",
+    title: "संस्कृत - Class 6",
+    dispatchedQty: 35500,
+    receivedQty: 0,
+    shortage: 0,
+    warehouse: "—",
+    status: "Pending",
   },
 ];

@@ -86,13 +86,13 @@ export default function List() {
             {
               field: "orderedQtyMT",
               header: "QTY (MT)",
-              align: "right",
+              align: "center",
               cell: (row) => <span>{row.orderedQtyMT.toFixed(3)} MT</span>,
             },
             {
               field: "ratePerMT",
               header: "RATE PER MT",
-              align: "right",
+              align: "center",
               cell: (row) => <span>₹ {row.ratePerMT.toLocaleString()}</span>,
             },
             {

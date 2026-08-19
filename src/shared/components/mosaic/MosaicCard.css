@@ -21,8 +21,8 @@
 }
 .mosaic-card-fallback-badge {
   @apply inline-flex items-center gap-1.5 text-[11px] font-bold px-2 py-0.5 rounded border;
-  background-color: #DBE8D8 !important;
-  border-color: #D6E9D5 !important;
+  background-color: #dbe8d8 !important;
+  border-color: #d6e9d5 !important;
   color: #000000 !important;
 }
 .mosaic-card-fallback-badge *,

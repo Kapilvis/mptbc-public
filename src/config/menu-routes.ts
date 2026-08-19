@@ -309,15 +309,20 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         permissionKey: "distribution-section/demand-approval",
       },
       {
+        label: t("routes.distribution.printer-demand-mapping"),
+        path: "/distribution/printer-demand-mapping",
+        permissionKey: "distribution-section/printer-demand-mapping",
+      },
+      {
         label: t("routes.paper-distribution"),
         path: "/distribution/new",
         permissionKey: "paper-distribution",
       },
-      {
-        label: t("routes.distribution-history"),
-        path: "/distribution/history",
-        permissionKey: "distribution-history",
-      },
+      // {
+      //   label: t("routes.distribution-history"),
+      //   path: "/distribution/history",
+      //   permissionKey: "distribution-history",
+      // },
     ],
   },
 
@@ -428,6 +433,11 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     icon: "pi pi-print",
     children: [
       {
+        label: t("routes.printing.dashboard"),
+        path: "/printing/dashboard",
+        permissionKey: "printer-section/dashboard",
+      },
+      {
         label: t("routes.printing.printer-registration"),
         path: "/printing/printer-registration",
         permissionKey: "printer-section/printer-registration",
@@ -437,11 +447,11 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         path: "/printing/orders/list",
         permissionKey: "printer-orders",
       },
-      {
-        label: t("routes.pending-orders"),
-        path: "/printing/orders/pending",
-        permissionKey: "pending-printer-orders",
-      },
+      // {
+      //   label: t("routes.pending-orders"),
+      //   path: "/printing/orders/pending",
+      //   permissionKey: "pending-printer-orders",
+      // },
       {
         label: t("routes.quality-inspection"),
         path: "/printing/quality-inspection",
@@ -456,6 +466,11 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     icon: "pi pi-home",
     children: [
       {
+        label: t("routes.depot.central-depot-dashboard"),
+        path: "/inventory/dashboard",
+        permissionKey: "depot-section/central-depot-dashboard",
+      },
+      {
         label: t("routes.depot-registration"),
         path: "/mptbc/depot-registration",
         permissionKey: "depot-section/depot-registration",
@@ -464,31 +479,21 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         label: t("routes.printer-section"),
         children: [
           {
-            label: t("routes.printer-assigned-demand"),
-            path: "/district-depot/printer/assigned-demand",
-            permissionKey: "district-depot/printer-assigned-demand",
-          },
-          {
             label: t("routes.challan-received"),
             path: "/district-depot/printer/challan-received",
             permissionKey: "district-depot/challan-received",
+          },
+          {
+            label: t("routes.printer-assigned-demand"),
+            path: "/district-depot/printer/assigned-demand",
+            permissionKey: "district-depot/printer-assigned-demand",
           },
         ],
       },
       {
         label: t("routes.distribution-till-block"),
-        children: [
-          {
-            label: t("routes.challan-to-block"),
-            path: "/district-depot/dispatch/challan-to-block",
-            permissionKey: "district-depot/challan-to-block",
-          },
-          {
-            label: t("routes.dispatch-history"),
-            path: "/district-depot/dispatch/history",
-            permissionKey: "district-depot/dispatch-history",
-          },
-        ],
+        path: "/district-depot/dispatch/history",
+        permissionKey: "district-depot/dispatch-history",
       },
     ],
   },
@@ -539,6 +544,11 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     permissionKey: "reports",
     children: [
       {
+        label: t("routes.block-wise-textbook-distribution-report"),
+        path: "/reports/depot-block-title-supply",
+        permissionKey: "reports/depot-block-title-supply",
+      },
+      {
         label: t("routes.depot-wise-textbook-supply-report"),
         path: "/reports/depot-wise-district-textbook-supply-status",
         permissionKey: "reports/depot-supply-status",
@@ -573,33 +583,27 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
 
   /* ─── MISC / STANDALONE ─── */
   /* ─── DISTRICT DEPOT specific mock menus ─── */
-  {
-    label: "Assigned Demand",
-    icon: "pi pi-file-edit",
-    path: "/assigned-demand",
-    permissionKey: "assigned-demand",
-  },
 
   /* ─── PRINTER specific mock menus ─── */
-  {
+  /* {
     label: "Tender",
     icon: "pi pi-file",
     path: "/tender",
     permissionKey: "tender",
-  },
-  {
+  }, */
+  /* {
     label: "Paper Receiving",
     icon: "pi pi-download",
     path: "/paper-receiving",
     permissionKey: "paper-receiving",
-  },
+  }, */
   {
     label: t("routes.paper-receiving"),
     icon: "pi pi-download",
     path: "/paper/stock/receiving",
     permissionKey: "central-paper-receiving",
   },
-  {
+  /* {
     label: "Title Master",
     icon: "pi pi-bookmark",
     path: "/title-master",
@@ -622,10 +626,10 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     icon: "pi pi-wallet",
     path: "/payment",
     permissionKey: "payment",
-  },
+  }, */
 
   /* ─── PAPER VENDOR specific mock menus ─── */
-  {
+  /* {
     label: "Paper Supply",
     icon: "pi pi-upload",
     path: "/paper-supply",
@@ -636,10 +640,10 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     icon: "pi pi-shopping-cart",
     path: "/paper-orders",
     permissionKey: "paper-orders",
-  },
+  }, */
 
   /* ─── DISTRIBUTION SECTION specific mock menus ─── */
-  {
+  /* {
     label: "Demand",
     icon: "pi pi-envelope",
     path: "/demand",
@@ -662,13 +666,13 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     icon: "pi pi-directions",
     path: "/dispatch",
     permissionKey: "dispatch",
-  },
-  {
+  }, */
+  /* {
     label: "Distribution Tracking",
     icon: "pi pi-map",
     path: "/distribution-tracking",
     permissionKey: "distribution-tracking",
-  },
+  }, */
 ];
 
 export function useMenu() {

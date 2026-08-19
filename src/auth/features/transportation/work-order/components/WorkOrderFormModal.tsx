@@ -121,13 +121,13 @@ export default function WorkOrderFormModal({
     }
   }, [districtBlocks, setValue]);
 
-  // Calculate SLA due date (3 days delivery SLA)
+  // Calculate SLA due date (5 days delivery SLA)
   const slaDueDate = useMemo(() => {
     if (!watchInstructionDate) return "-";
     try {
       const d = new Date(watchInstructionDate);
       if (isNaN(d.getTime())) return "-";
-      d.setDate(d.getDate() + 3);
+      d.setDate(d.getDate() + 5);
       return d.toISOString().split("T")[0];
     } catch {
       return "-";
@@ -320,7 +320,7 @@ export default function WorkOrderFormModal({
           />
           <div>
             <span className="text-[11px] font-bold text-slate-700 block mb-1">
-              SLA Delivery Due Date
+              Delivery Due Date
             </span>
             <div className="border border-slate-200 bg-emerald-50/60 rounded-lg h-[38px] px-3 flex items-center justify-between text-xs text-slate-700">
               <span className="flex items-center gap-1.5 font-bold text-slate-800">
@@ -328,7 +328,7 @@ export default function WorkOrderFormModal({
                 {slaDueDate}
               </span>
               <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded">
-                (+3 DAYS)
+                (+5 DAYS)
               </span>
             </div>
           </div>

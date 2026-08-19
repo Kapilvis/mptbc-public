@@ -153,10 +153,12 @@ export default function List() {
                   <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-600 uppercase tracking-wide select-none">
                     <th className="py-3 px-4 text-center w-16">Rank</th>
                     <th className="py-3 px-4">Bidder Name</th>
-                    <th className="py-3 px-4">Rate (Cat 3 / 2 / 1)</th>
+                    <th className="py-3 px-4 text-center">
+                      Rate (Cat 3 / 2 / 1)
+                    </th>
                     <th className="py-3 px-4 text-center">Diff from L1</th>
                     <th className="py-3 px-4 text-center">EMD Status</th>
-                    <th className="py-3 px-4 text-right">Eligibility</th>
+                    <th className="py-3 px-4 text-center">Eligibility</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-xs">
@@ -216,7 +218,7 @@ export default function List() {
                           </td>
 
                           {/* 3. Rates */}
-                          <td className="py-3 px-4">
+                          <td className="py-3 px-4 text-center">
                             <div className="flex flex-col">
                               <span className="text-sm font-bold text-slate-900">
                                 ₹{bid.rateCat3}{" "}
@@ -252,7 +254,7 @@ export default function List() {
                           </td>
 
                           {/* 6. Eligibility for Allocation */}
-                          <td className="py-3 px-4 text-right">
+                          <td className="py-3 px-4 text-center">
                             <span
                               className={`inline-block px-2.5 py-1 rounded-md text-xs font-semibold ${
                                 bid.isL1

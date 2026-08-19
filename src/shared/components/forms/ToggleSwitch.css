@@ -27,7 +27,7 @@
 /* Switch Pill */
 .toggle-switch-pill {
   @apply w-11 h-6 rounded-[30px] relative border-none cursor-pointer transition-colors duration-300 p-0 shrink-0;
-  background-color: var(--primary-light-bg, #DBE8D8);
+  background-color: var(--primary-light-bg, #dbe8d8);
 }
 
 .toggle-switch-pill:focus {

@@ -6,7 +6,11 @@ declare namespace Distribution {
     | "Rejected"
     | "Hold";
 
-  type ReceiptStatus = "Pending" | "Received" | "Need Info";
+  type ReceiptStatus =
+    | "Pending"
+    | "Received"
+    | "Need Info"
+    | "Forwarded for Approval";
 
   interface DepartmentDemandItem {
     id: number;

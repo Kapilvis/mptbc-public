@@ -32,7 +32,7 @@ export default function DashboardPage() {
           return {
             ...m,
             value: "3,520 MT",
-            subValue: "₹ 18.10 Cr Agreement Value",
+            subValue: "",
           };
         if (idx === 1)
           return { ...m, value: "3,520 MT", badgeText: "100% Allocated" };
@@ -47,7 +47,7 @@ export default function DashboardPage() {
           return {
             ...m,
             value: "3,210 MT",
-            subValue: "₹ 16.50 Cr Agreement Value",
+            subValue: "",
           };
         if (idx === 1)
           return { ...m, value: "3,210 MT", badgeText: "100% Allocated" };
@@ -69,14 +69,12 @@ export default function DashboardPage() {
   return (
     <Page
       header={pageTitle || "Paper Vendor & Supply Chain Dashboard"}
-      subHeader="Real-time paper tender allocations, work order dispatches, GSM supply metrics, and Central Depot stock receipts."
       showHeaderActions
     >
       {/* Academic Year Filter Bar */}
       <AcademicYearFilterBar
         academicYear={academicYear}
         onChange={setAcademicYear}
-        subtitle={`Filtering paper vendor allocations, work orders, and mill supply dispatches for academic year ${academicYear}.`}
       />
 
       {/* Top 4 KPI Summary Cards */}

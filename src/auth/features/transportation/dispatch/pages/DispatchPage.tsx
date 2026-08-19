@@ -125,6 +125,7 @@ export default function DispatchPage() {
             {
               header: "Driver Mobile",
               field: "driverMobile",
+              align: "center",
               sortable: true,
             },
             {
@@ -132,6 +133,7 @@ export default function DispatchPage() {
               field: "dispatchDate",
               sortable: true,
               width: "120px",
+              align: "center",
             },
             {
               header: "Status",

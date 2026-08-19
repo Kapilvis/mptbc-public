@@ -21,6 +21,9 @@ export default function TitleReceivedList() {
 
   const [selectedDocTitle, setSelectedDocTitle] =
     useState<Distribution.TitleReceivedItem | null>(null);
+  const [needInfoModalItem, setNeedInfoModalItem] =
+    useState<Distribution.TitleReceivedItem | null>(null);
+  const [remarkText, setRemarkText] = useState("");
 
   const { data = [], isLoading } = useTitleReceivedQuery({
     academicYear,
@@ -46,7 +49,7 @@ export default function TitleReceivedList() {
   const receiptStatusOptions = [
     { label: "All Receiving Statuses", value: "All" },
     { label: "Pending", value: "Pending" },
-    { label: "Received", value: "Received" },
+    { label: "Forwarded for Approval", value: "Forwarded for Approval" },
     { label: "Need Info", value: "Need Info" },
   ];
 
@@ -59,6 +62,31 @@ export default function TitleReceivedList() {
       ToastService.success(`Title receiving status updated to ${newStatus}`);
     } catch {
       ToastService.error("Failed to update receiving status");
+    }
+  };
+
+  const handleOpenNeedInfoModal = (item: Distribution.TitleReceivedItem) => {
+    setNeedInfoModalItem(item);
+    setRemarkText(item.remarks || "");
+  };
+
+  const handleSaveNeedInfo = async () => {
+    if (!needInfoModalItem) return;
+    if (!remarkText.trim()) {
+      ToastService.error("Please enter the required remarks/information.");
+      return;
+    }
+    try {
+      await updateSingle({
+        id: needInfoModalItem.id,
+        status: "Need Info",
+        remarks: remarkText.trim(),
+      });
+      ToastService.success("Need Info remark submitted successfully.");
+      setNeedInfoModalItem(null);
+      setRemarkText("");
+    } catch {
+      ToastService.error("Failed to submit Need Info remark.");
     }
   };
 
@@ -239,19 +267,24 @@ export default function TitleReceivedList() {
               field: "receiptStatus",
               header: "Receiving Status",
               align: "center",
-              cell: (row: Distribution.TitleReceivedItem) => (
-                <span
-                  className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${
-                    row.receiptStatus === "Received"
-                      ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
-                      : row.receiptStatus === "Pending"
-                        ? "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
-                        : "bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300"
-                  }`}
-                >
-                  {row.receiptStatus}
-                </span>
-              ),
+              cell: (row: Distribution.TitleReceivedItem) => {
+                const isFwded =
+                  row.receiptStatus === "Forwarded for Approval" ||
+                  row.receiptStatus === "Received";
+                return (
+                  <span
+                    className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${
+                      isFwded
+                        ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
+                        : row.receiptStatus === "Need Info"
+                          ? "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
+                          : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                    }`}
+                  >
+                    {isFwded ? "Forwarded for Approval" : row.receiptStatus}
+                  </span>
+                );
+              },
             },
             {
               header: "Action",
@@ -269,7 +302,10 @@ export default function TitleReceivedList() {
                         disabled={isSinglePending}
                         className="!text-emerald-700 !border-emerald-600 hover:!bg-emerald-50 dark:!text-emerald-400 dark:!border-emerald-500 !py-1 !px-2.5 !text-xs font-semibold"
                         onClick={() =>
-                          handleSingleStatusChange(row.id, "Received")
+                          handleSingleStatusChange(
+                            row.id,
+                            "Forwarded for Approval",
+                          )
                         }
                       />
                       <Button
@@ -279,31 +315,43 @@ export default function TitleReceivedList() {
                         variant="outlined"
                         disabled={isSinglePending}
                         className="!text-amber-700 !border-amber-500 hover:!bg-amber-50 dark:!text-amber-400 dark:!border-amber-500 !py-1 !px-2.5 !text-xs font-semibold"
-                        onClick={() =>
-                          handleSingleStatusChange(row.id, "Need Info")
-                        }
+                        onClick={() => handleOpenNeedInfoModal(row)}
                       />
                     </div>
                   );
                 }
 
+                const isFwded =
+                  row.receiptStatus === "Forwarded for Approval" ||
+                  row.receiptStatus === "Received";
+
                 return (
                   <div className="flex items-center justify-center gap-2">
                     <span
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${
-                        row.receiptStatus === "Received"
+                        isFwded
                           ? "bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300"
                           : "bg-amber-50 text-amber-700 border border-amber-300 dark:bg-amber-950/40 dark:text-amber-300"
                       }`}
                     >
-                      {row.receiptStatus}
+                      {isFwded ? "Forwarded for Approval" : "Need Info"}
                     </span>
+                    {row.receiptStatus === "Need Info" && (
+                      <button
+                        type="button"
+                        onClick={() => handleOpenNeedInfoModal(row)}
+                        className="text-amber-600 hover:text-amber-800 text-xs p-1 cursor-pointer"
+                        title="View / Edit Remark"
+                      >
+                        <i className="pi pi-pencil" />
+                      </button>
+                    )}
                     <button
                       type="button"
                       onClick={() =>
                         handleSingleStatusChange(row.id, "Pending")
                       }
-                      className="text-gray-400 hover:text-gray-600 text-xs p-1"
+                      className="text-gray-400 hover:text-gray-600 text-xs p-1 cursor-pointer"
                       title="Reset to Pending"
                     >
                       <i className="pi pi-refresh" />
@@ -463,11 +511,67 @@ export default function TitleReceivedList() {
                   variant="outlined"
                   className="!text-emerald-700 !border-emerald-600 hover:!bg-emerald-600 hover:!text-white"
                   onClick={() => {
-                    handleSingleStatusChange(selectedDocTitle.id, "Received");
+                    handleSingleStatusChange(
+                      selectedDocTitle.id,
+                      "Forwarded for Approval",
+                    );
                     setSelectedDocTitle(null);
                   }}
                 />
               </div>
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      {/* Need Info Remarks Modal */}
+      <Modal
+        visible={!!needInfoModalItem}
+        onHide={() => {
+          setNeedInfoModalItem(null);
+          setRemarkText("");
+        }}
+        header={`Remarks / Information Required - ${needInfoModalItem?.titleCode || ""}`}
+        size="small"
+      >
+        {needInfoModalItem && (
+          <div className="space-y-4 p-1">
+            <div className="bg-amber-50 dark:bg-amber-950/40 p-3 rounded-xl border border-amber-200 dark:border-amber-800">
+              <span className="text-[11px] font-extrabold uppercase tracking-wider text-amber-800 dark:text-amber-300">
+                {needInfoModalItem.titleCode} - {needInfoModalItem.titleName}
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+                Department: {needInfoModalItem.department} | Class:{" "}
+                {needInfoModalItem.className} ({needInfoModalItem.medium})
+              </p>
+            </div>
+
+            <div>
+              <TextBox
+                label="Remarks / Information Required"
+                value={remarkText}
+                onChange={(val) => setRemarkText(String(val ?? ""))}
+                placeholder="Specify required information (e.g. Corrected soft copy matter PDF required)..."
+              />
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <Button
+                label="Cancel"
+                variant="outlined"
+                size="small"
+                onClick={() => {
+                  setNeedInfoModalItem(null);
+                  setRemarkText("");
+                }}
+              />
+              <Button
+                label="Save & Submit"
+                icon="pi pi-check"
+                size="small"
+                disabled={isSinglePending}
+                onClick={handleSaveNeedInfo}
+              />
             </div>
           </div>
         )}

@@ -69,7 +69,7 @@ export default function DistributionHistoryPage() {
             {
               field: "issueQuantity",
               header: "Quantity Issued",
-              align: "right",
+              align: "center",
               cell: (row: PaperDistribution) => (
                 <span className="text-xs text-emerald-600 font-extrabold">
                   {row.issueQuantity.toLocaleString()} MT

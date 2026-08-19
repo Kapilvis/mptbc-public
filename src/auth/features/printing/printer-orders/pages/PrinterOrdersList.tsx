@@ -1,10 +1,9 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Page from "shared/components/panels/Page";
 import { usePageTitle } from "shared/hooks/usePageTitle";
-import { Card, GridPanel, InputPanel } from "shared/components/panels";
-import { Button, ButtonPanel } from "shared/components/buttons";
-import { DropDownList, DatePicker } from "shared/components/forms";
+import { Card, GridPanel } from "shared/components/panels";
+import { Button } from "shared/components/buttons";
 import { dataManager } from "../../../inventory/mockData";
 import type { PrinterOrder } from "../../../inventory/types";
 
@@ -46,14 +45,6 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
   const pageTitle = usePageTitle();
   const navigate = useNavigate();
   const orders = dataManager.getOrders();
-  const printerList = dataManager.getPrinterMasterList();
-
-  // Filters State
-  const [printerFilter, setPrinterFilter] = useState("");
-  const [gsmFilter, setGsmFilter] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
-  const [orderDate, setOrderDate] = useState("");
-  const [requiredDate, setRequiredDate] = useState("");
 
   const filteredOrders = useMemo(() => {
     return orders.filter((o) => {
@@ -65,55 +56,9 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
       )
         return false;
 
-      // Dropdown Filters
-      if (printerFilter && o.printer !== printerFilter) return false;
-      if (gsmFilter && o.gsm.toString() !== gsmFilter) return false;
-      if (statusFilter && o.status !== statusFilter) return false;
-      if (orderDate && o.orderDate !== orderDate) return false;
-      if (requiredDate && o.requiredByDate !== requiredDate) return false;
-
       return true;
     });
-  }, [
-    orders,
-    pendingOnly,
-    printerFilter,
-    gsmFilter,
-    statusFilter,
-    orderDate,
-    requiredDate,
-  ]);
-
-  const handleResetFilters = () => {
-    setPrinterFilter("");
-    setGsmFilter("");
-    setStatusFilter("");
-    setOrderDate("");
-    setRequiredDate("");
-  };
-
-  const printerOptions = useMemo(() => {
-    return printerList.map((p) => ({
-      text: p.printerName,
-      value: p.printerName,
-    }));
-  }, [printerList]);
-
-  const gsmOptions = [
-    { text: "58 GSM", value: "58" },
-    { text: "60 GSM", value: "60" },
-    { text: "70 GSM", value: "70" },
-    { text: "80 GSM", value: "80" },
-  ];
-
-  const statusOptions = [
-    { text: "Pending", value: "Pending" },
-    { text: "Approved", value: "Approved" },
-    { text: "Partially Supplied", value: "Partially Supplied" },
-    { text: "Completed", value: "Completed" },
-    { text: "Rejected", value: "Rejected" },
-    { text: "Cancelled", value: "Cancelled" },
-  ];
+  }, [orders, pendingOnly]);
 
   return (
     <Page
@@ -128,78 +73,6 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
       }
       showHeaderActions
     >
-      {/* Filters Card */}
-      <Card className="mb-4 p-4">
-        <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-150/40">
-          <div className="flex items-center gap-2">
-            <i className="pi pi-filter text-blue-600 font-bold" />
-            <span className="text-xs font-bold text-gray-700 dark:text-gray-300">
-              Filter Printer Orders
-            </span>
-          </div>
-          <ButtonPanel>
-            <Button
-              type="button"
-              label="Reset Filters"
-              icon="pi pi-refresh"
-              onClick={handleResetFilters}
-              className="p-button-outlined p-button-secondary p-button-sm text-xs! py-1!"
-            />
-          </ButtonPanel>
-        </div>
-
-        <InputPanel orientation="horizontal">
-          <DropDownList
-            label="Select Printer"
-            data={printerOptions}
-            textField="text"
-            valueField="value"
-            value={printerFilter}
-            onChange={(val) => setPrinterFilter(val as string)}
-            defaultOptionText="All Printers"
-          />
-
-          <DropDownList
-            label="GSM Specification"
-            data={gsmOptions}
-            textField="text"
-            valueField="value"
-            value={gsmFilter}
-            onChange={(val) => setGsmFilter(val as string)}
-            defaultOptionText="All GSMs"
-          />
-
-          {!pendingOnly && (
-            <DropDownList
-              label="Order Status"
-              data={statusOptions}
-              textField="text"
-              valueField="value"
-              value={statusFilter}
-              onChange={(val) => setStatusFilter(val as string)}
-              defaultOptionText="All Statuses"
-            />
-          )}
-
-          <DatePicker
-            label="Order Date"
-            value={orderDate}
-            onChange={(val) =>
-              setOrderDate(val ? val.toISOString().split("T")[0] : "")
-            }
-          />
-
-          <DatePicker
-            label="Required Date"
-            value={requiredDate}
-            onChange={(val) =>
-              setRequiredDate(val ? val.toISOString().split("T")[0] : "")
-            }
-          />
-        </InputPanel>
-      </Card>
-
-      {/* Grid Panel List */}
       <Card>
         <GridPanel
           toolbarPlacement="page"
@@ -257,7 +130,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
             {
               field: "requiredQty",
               header: "Req Qty",
-              align: "right",
+              align: "center",
               cell: (row: PrinterOrder) => (
                 <span className="text-xs">
                   {row.requiredQty.toLocaleString()} MT
@@ -267,7 +140,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
             {
               field: "approvedQty",
               header: "Appr Qty",
-              align: "right",
+              align: "center",
               cell: (row: PrinterOrder) => (
                 <span className="text-xs text-blue-700 dark:text-blue-400 font-semibold">
                   {row.approvedQty.toLocaleString()} MT
@@ -277,7 +150,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
             {
               field: "suppliedQty",
               header: "Supplied Qty",
-              align: "right",
+              align: "center",
               cell: (row: PrinterOrder) => (
                 <span className="text-xs text-emerald-600 font-semibold">
                   {row.suppliedQty.toLocaleString()} MT
@@ -287,7 +160,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
             {
               field: "pendingQty",
               header: "Pending Qty",
-              align: "right",
+              align: "center",
               cell: (row: PrinterOrder) => (
                 <span className="text-xs text-rose-600 font-bold">
                   {row.pendingQty.toLocaleString()} MT

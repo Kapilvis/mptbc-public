@@ -90,6 +90,7 @@ export default function PaperDistributionPage() {
             {
               field: "orderNo",
               header: "Order No",
+              align: "center",
               cell: (row: PaperDistribution) => (
                 <span className="text-xs font-semibold text-indigo-650">
                   {row.orderNo}
@@ -107,7 +108,7 @@ export default function PaperDistributionPage() {
             {
               field: "issueQuantity",
               header: "Quantity Issued",
-              align: "right",
+              align: "center",
               cell: (row: PaperDistribution) => (
                 <span className="text-xs text-emerald-600 font-bold">
                   {row.issueQuantity.toLocaleString()} MT
@@ -117,6 +118,7 @@ export default function PaperDistributionPage() {
             {
               field: "vehicleNo",
               header: "Vehicle No",
+              align: "center",
               cell: (row: PaperDistribution) => (
                 <span className="text-xs">{row.vehicleNo}</span>
               ),

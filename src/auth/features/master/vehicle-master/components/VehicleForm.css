@@ -158,7 +158,8 @@
 }
 
 /* Layout structures */
-.step-container, .form-container {
+.step-container,
+.form-container {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;

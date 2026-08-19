@@ -305,6 +305,7 @@ export function TenderManagement() {
               field: "lastDate",
               header: "Last Date",
               sortable: true,
+              align: "center",
               cell: (item: Tender) => (
                 <span className="inline-flex items-center gap-1 text-xs text-gray-600">
                   <Calendar className="w-3 h-3" />
@@ -316,6 +317,7 @@ export function TenderManagement() {
               field: "openingDate",
               header: "Opening Date",
               sortable: true,
+              align: "center",
               cell: (item: Tender) => (
                 <span className="inline-flex items-center gap-1 text-xs text-gray-600">
                   <Clock className="w-3 h-3" />
@@ -327,6 +329,7 @@ export function TenderManagement() {
               field: "status",
               header: "Status",
               sortable: true,
+              align: "center",
               cell: () => (
                 <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-full">
                   <CheckCircle2 className="w-3 h-3" />
@@ -336,8 +339,9 @@ export function TenderManagement() {
             },
             {
               header: "Action",
+              align: "center",
               cell: (item: Tender) => (
-                <div className="flex gap-2">
+                <div className="flex gap-2 justify-center">
                   <button
                     className="text-xs text-blue-600 hover:underline font-medium"
                     onClick={() => navigate("/transport/commercial-bid")}
@@ -381,11 +385,21 @@ export function TenderManagement() {
                   </span>
                 ),
               },
-              { field: "district", header: "District", sortable: true },
-              { field: "lastDate", header: "Last Date", sortable: true },
+              {
+                field: "district",
+                header: "District",
+                sortable: true,
+              },
+              {
+                field: "lastDate",
+                header: "Last Date",
+                sortable: true,
+                align: "center",
+              },
               {
                 field: "status",
                 header: "Status",
+                align: "center",
                 cell: () => (
                   <span className="inline-flex items-center gap-1 bg-gray-200 text-gray-600 text-xs font-semibold px-2 py-1 rounded-full">
                     <X className="w-3 h-3" />

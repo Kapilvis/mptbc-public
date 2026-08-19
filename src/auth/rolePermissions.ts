@@ -12,6 +12,9 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "distribution-section",
     "paper-section",
     "reports",
+    "reports/depot-block-title-supply",
+    "reports/depot-supply-status",
+    "reports/agency-demand",
     "transport",
     "transportation",
     "transport/tender-details",
@@ -57,17 +60,20 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "title-section/title-approval",
     "title-section/title-master",
     // Printer Section
+    "printer-section/dashboard",
     "printer-section/printer-registration",
     "printer-section/quality-inspection",
     "printer-orders",
     "pending-printer-orders",
     "printer-supply",
     // Depot Section
+    "depot-section/central-depot-dashboard",
     "depot-section/depot-registration",
     // Distribution Section
     "distribution-section/department-demand",
     "distribution-section/dashboard",
     "distribution-section/demand-approval",
+    "distribution-section/printer-demand-mapping",
     "paper-distribution",
     "distribution-history",
     // Paper Section
@@ -213,6 +219,8 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     // Printer Section
     "printer-orders",
     "pending-printer-orders",
+    // Depot Section
+    "depot-section/central-depot-dashboard",
     // Distribution Section
     "distribution-section/department-demand",
     "distribution-section/dashboard",
@@ -264,6 +272,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "master/medium",
     "master/gsm",
     // Printer Section
+    "printer-section/dashboard",
     "printer-section/printer-registration",
     "printer-section/quality-inspection",
     "printer-orders",
@@ -358,6 +367,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "distribution-section/department-demand",
     "distribution-section/dashboard",
     "distribution-section/demand-approval",
+    "distribution-section/printer-demand-mapping",
     "paper-distribution",
     "distribution-history",
     // Distribution Section Specific

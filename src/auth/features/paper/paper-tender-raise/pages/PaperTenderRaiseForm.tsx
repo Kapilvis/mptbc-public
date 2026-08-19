@@ -426,7 +426,7 @@ export default function PaperTenderRaiseForm() {
               {
                 field: "quantityMt",
                 header: "Quantity (MT)",
-                align: "right",
+                align: "center",
                 cell: (row) => (
                   <span className="font-mono font-bold text-blue-600 dark:text-blue-400 text-sm">
                     {row.quantityMt.toFixed(3)} MT
@@ -467,16 +467,16 @@ export default function PaperTenderRaiseForm() {
                   </span>
                 ),
               },
-              {
-                field: "estimatedCostLakhs",
-                header: "Est. Cost (₹ L)",
-                align: "right",
-                cell: (row) => (
-                  <span className="font-mono font-bold text-emerald-700 dark:text-emerald-300 text-sm">
-                    ₹ {row.estimatedCostLakhs.toFixed(2)} L
-                  </span>
-                ),
-              },
+              // {
+              //   field: "estimatedCostLakhs",
+              //   header: "Est. Cost (₹ L)",
+              //   align: "center",
+              //   cell: (row) => (
+              //     <span className="font-mono font-bold text-emerald-700 dark:text-emerald-300 text-sm">
+              //       ₹ {row.estimatedCostLakhs.toFixed(2)} L
+              //     </span>
+              //   ),
+              // },
             ]}
           />
         </Card>

@@ -12,81 +12,77 @@ export const VendorPerformanceMatrixTable: React.FC<Props> = ({
   loading,
 }) => {
   return (
-    <Card>
-      <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 flex items-center justify-between">
-        <div>
-          <h3 className="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <i className="pi pi-building text-emerald-600 dark:text-emerald-400" />
-            Paper Mill Vendor Supply Performance Matrix
-          </h3>
-        </div>
-      </div>
-
+    <Card className="border border-slate-100 p-1 shadow-xs">
       <GridPanel<VendorPerformanceItem>
         toolbarPlacement="page"
         data={data}
         loading={loading}
-        searchFields={["paperMillName", "vendorName", "academicYear", "status"]}
+        searchBox={true}
+        searchPlaceholder="Search mill name, vendor, status..."
+        exportFilename="paper_vendor_performance_matrix.xls"
         columns={[
           {
-            cell: (_, option) => <span>{option.rowIndex + 1}</span>,
-            width: "50px",
+            header: "S.NO.",
+            cell: (_, option) => (
+              <span className="text-slate-500 font-medium">
+                {option.rowIndex + 1}
+              </span>
+            ),
+            width: "60px",
             align: "center",
           },
           {
             field: "paperMillName",
             header: "PAPER MILL NAME",
+            align: "center",
             cell: (row) => (
-              <div>
-                <span className="font-bold text-gray-900 dark:text-white block">
+              <div className="text-center">
+                <span className="font-bold text-slate-800 dark:text-slate-200 block">
                   {row.paperMillName}
                 </span>
-                <span className="text-[11px] text-gray-400 block font-mono">
+                <span className="text-[10px] text-slate-400 font-medium block">
                   {row.vendorName}
                 </span>
               </div>
             ),
           },
           {
-            field: "academicYear",
-            header: "AGREEMENT YEAR",
-            align: "center",
-          },
-          {
             field: "approvedTon",
-            header: "APPROVED TENDER (MT)",
-            align: "right",
+            header: "APPROVED TENDER",
+            align: "center",
             cell: (row) => (
-              <span className="font-mono">{row.approvedTon.toFixed(2)} MT</span>
+              <span className="font-bold text-slate-700 dark:text-slate-300">
+                {row.approvedTon.toLocaleString()} MT
+              </span>
             ),
           },
           {
             field: "workOrderTon",
-            header: "WORK ORDERS (MT)",
-            align: "right",
+            header: "WORK ORDERS",
+            align: "center",
             cell: (row) => (
-              <span className="font-mono">
-                {row.workOrderTon.toFixed(2)} MT
+              <span className="font-semibold text-slate-700 dark:text-slate-300">
+                {row.workOrderTon.toLocaleString()} MT
               </span>
             ),
           },
           {
             field: "suppliedTon",
-            header: "SUPPLIED (MT)",
-            align: "right",
+            header: "SUPPLIED",
+            align: "center",
             cell: (row) => (
-              <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">
-                {row.suppliedTon.toFixed(2)} MT
+              <span className="font-bold text-emerald-700 dark:text-emerald-400">
+                {row.suppliedTon.toLocaleString()} MT
               </span>
             ),
           },
           {
             field: "balanceTon",
-            header: "BALANCE (MT)",
-            align: "right",
+            header: "BALANCE",
+            align: "center",
             cell: (row) => (
-              <span className="font-mono text-amber-600 dark:text-amber-400">
-                {row.balanceTon.toFixed(2)} MT
+              <span className="font-bold text-amber-600 dark:text-amber-400">
+                {row.balanceTon.toLocaleString()} MT
               </span>
             ),
           },
@@ -97,10 +93,10 @@ export const VendorPerformanceMatrixTable: React.FC<Props> = ({
             width: "160px",
             cell: (row) => (
               <div className="w-full space-y-1">
-                <div className="flex items-center justify-between text-xs font-mono font-bold">
+                <div className="flex items-center justify-center text-xs font-black text-slate-800 dark:text-slate-200">
                   <span>{row.fulfillmentPercent.toFixed(1)}%</span>
                 </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+                <div className="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full ${
                       row.fulfillmentPercent >= 100
@@ -123,10 +119,10 @@ export const VendorPerformanceMatrixTable: React.FC<Props> = ({
             align: "center",
             cell: (row) => (
               <span
-                className={`text-[11px] font-extrabold px-2.5 py-0.5 rounded-full border ${
+                className={`text-[10px] font-extrabold uppercase tracking-wide px-2.5 py-0.5 rounded-full border ${
                   row.status === "Completed"
-                    ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700"
-                    : "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border-amber-200 dark:border-amber-700"
+                    ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700"
+                    : "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border-amber-200 dark:border-amber-700"
                 }`}
               >
                 {row.status}

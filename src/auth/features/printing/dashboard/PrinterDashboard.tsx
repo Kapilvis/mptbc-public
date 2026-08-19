@@ -12,15 +12,13 @@ import {
   PrinterKpiCards,
   PrintingProgress,
   OrderStatusChart,
-  UpcomingDeadlines,
-  MonthlyPrintingChart,
   PaperMaterialStatus,
   SupplyStatus,
-  RecentPrinterOrders,
-  PrinterAlerts,
 } from "./components";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 
 export default function PrinterDashboard() {
+  const pageTitle = usePageTitle();
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [error] = useState<string | null>(null);
@@ -71,7 +69,7 @@ export default function PrinterDashboard() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[450px] gap-3">
+      <div className="flex flex-col items-center justify-center min-h-112.5 gap-3">
         <div className="relative w-12 h-12">
           <div className="absolute inset-0 rounded-full border-4 border-[#E8F4EC] border-t-[#4F8F70] animate-spin" />
         </div>
@@ -100,51 +98,39 @@ export default function PrinterDashboard() {
   }
 
   return (
-    <Page>
+    <Page
+      header={pageTitle || "Printer Dashboard"}
+      subHeader="Operational console for managing press work orders, print execution progress, paper inventory reconciliation, and depot delivery supply lines."
+      showHeaderActions
+    >
       <div className="space-y-6">
         {/* Academic Year Filter Bar */}
         <AcademicYearFilterBar
           academicYear={academicYear}
           onChange={setAcademicYear}
-          subtitle={`Filtering press work orders, print job dispatches, and paper consumption for session ${academicYear}.`}
+          subtitle=""
         />
 
         {/* 8 Metric Cards Grid */}
         <PrinterKpiCards stats={stats} />
 
-        {/* Row 1: Printing Progress | Order Status Overview | Upcoming Deadlines */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-6">
-            <PrintingProgress printerCode={printerInfo.printerCode} />
-          </div>
-          <div className="lg:col-span-3">
-            <OrderStatusChart printerCode={printerInfo.printerCode} />
-          </div>
-          <div className="lg:col-span-3">
-            <UpcomingDeadlines printerCode={printerInfo.printerCode} />
-          </div>
-        </div>
-
-        {/* Row 2: Monthly Printing Performance | Paper & Material Status | Supply Status */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-3">
-            <MonthlyPrintingChart printerCode={printerInfo.printerCode} />
-          </div>
-          <div className="lg:col-span-5">
-            <PaperMaterialStatus printerCode={printerInfo.printerCode} />
-          </div>
-          <div className="lg:col-span-4">
-            <SupplyStatus printerCode={printerInfo.printerCode} />
-          </div>
-        </div>
-
-        {/* Row 3: Recent Printer Orders | Alerts & Notifications */}
+        {/* Row 1: Printing Progress | Order Status Overview */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-8">
-            <RecentPrinterOrders printerCode={printerInfo.printerCode} />
+            <PrintingProgress printerCode={printerInfo.printerCode} />
           </div>
           <div className="lg:col-span-4">
-            <PrinterAlerts printerCode={printerInfo.printerCode} />
+            <OrderStatusChart printerCode={printerInfo.printerCode} />
+          </div>
+        </div>
+
+        {/* Row 2: Paper & Material Status | Supply Status */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="lg:col-span-7">
+            <PaperMaterialStatus printerCode={printerInfo.printerCode} />
+          </div>
+          <div className="lg:col-span-5">
+            <SupplyStatus printerCode={printerInfo.printerCode} />
           </div>
         </div>
       </div>

@@ -257,7 +257,7 @@ export default function List() {
               {
                 field: "capacity",
                 header: "Capacity",
-                align: "right",
+                align: "center",
                 cell: (item: DepotRegistration.Registration) =>
                   item.capacity ? item.capacity.toLocaleString() : "0",
               },

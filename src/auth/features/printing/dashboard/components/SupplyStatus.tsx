@@ -9,24 +9,24 @@ export default function SupplyStatus({ printerCode }: { printerCode: string }) {
     switch (color) {
       case "emerald":
         return {
-          bar: "bg-emerald-500",
-          bg: "bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400",
+          bar: "bg-gradient-to-r from-emerald-500 to-teal-400 shadow-xs",
+          bg: "bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/10",
         };
       case "blue":
         return {
-          bar: "bg-blue-500",
-          bg: "bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400",
+          bar: "bg-gradient-to-r from-blue-500 to-indigo-450 shadow-xs",
+          bg: "bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 border border-blue-500/10",
         };
       case "purple":
         return {
-          bar: "bg-purple-500",
-          bg: "bg-purple-50 dark:bg-purple-950/20 text-purple-600 dark:text-purple-400",
+          bar: "bg-gradient-to-r from-purple-500 to-pink-450 shadow-xs",
+          bg: "bg-purple-50 dark:bg-purple-950/20 text-purple-600 dark:text-purple-400 border border-purple-500/10",
         };
       case "amber":
       default:
         return {
-          bar: "bg-amber-500",
-          bg: "bg-amber-50 dark:bg-amber-950/20 text-amber-600 dark:text-amber-400",
+          bar: "bg-gradient-to-r from-amber-500 to-orange-450 shadow-xs",
+          bg: "bg-amber-50 dark:bg-amber-950/20 text-amber-600 dark:text-amber-400 border border-amber-500/10",
         };
     }
   };
@@ -46,15 +46,15 @@ export default function SupplyStatus({ printerCode }: { printerCode: string }) {
   };
 
   return (
-    <Card className="p-5 border border-gray-200/60 dark:border-gray-700/60 shadow-xs h-full flex flex-col justify-between">
+    <Card className="p-5 border border-gray-200/60 dark:border-gray-700/60 shadow-xs h-full flex flex-col justify-between !border-t-transparent relative overflow-hidden transition-all duration-300 hover:shadow-md">
+      {/* Premium top gradient border */}
+      <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 z-20" />
+
       <div>
         <h3 className="text-sm font-bold text-gray-800 dark:text-white flex items-center gap-2">
           <i className="pi pi-truck text-[#4F8F70]" />
           Supply Status
         </h3>
-        <p className="text-xs text-gray-550 dark:text-gray-400 mt-0.5">
-          Progress levels of printed inventory matching depot dispatches
-        </p>
       </div>
 
       <div className="space-y-4 mt-4">
@@ -68,23 +68,23 @@ export default function SupplyStatus({ printerCode }: { printerCode: string }) {
 
           return (
             <div key={item.label} className="space-y-1.5">
-              <div className="flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center gap-2.5">
                   <div
-                    className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${colors.bg}`}
+                    className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-sm ${colors.bg}`}
                   >
                     <i className={icon} />
                   </div>
-                  <span className="font-bold text-gray-700 dark:text-gray-300">
+                  <span className="font-extrabold text-gray-900 dark:text-white">
                     {item.label}
                   </span>
                 </div>
-                <span className="font-mono font-black text-gray-800 dark:text-white">
+                <span className="font-black text-slate-900 dark:text-white font-mono text-sm">
                   {item.value.toLocaleString("en-IN")}
                 </span>
               </div>
 
-              <div className="w-full bg-gray-200 dark:bg-gray-750 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden shadow-inner border border-gray-200/10">
                 <div
                   className={`${colors.bar} h-full rounded-full transition-all duration-550`}
                   style={{ width: `${percent}%` }}

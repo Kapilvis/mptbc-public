@@ -224,7 +224,7 @@ export default function AgencyWiseDemandReportPage() {
             {
               field: "demand",
               header: "Demand (No. of books)",
-              align: "right",
+              align: "center",
               cell: (row: Reports.AgencyDemandReportItem) => (
                 <span
                   className={
@@ -240,7 +240,7 @@ export default function AgencyWiseDemandReportPage() {
             {
               field: "supply",
               header: "Supply (No. of books)",
-              align: "right",
+              align: "center",
               cell: (row: Reports.AgencyDemandReportItem) => (
                 <span
                   className={
@@ -256,7 +256,7 @@ export default function AgencyWiseDemandReportPage() {
             {
               field: "supplyPercent",
               header: "Distt. Wise Supply %",
-              align: "right",
+              align: "center",
               cell: (row: Reports.AgencyDemandReportItem) => (
                 <span
                   className={

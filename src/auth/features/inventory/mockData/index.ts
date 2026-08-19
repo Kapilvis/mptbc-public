@@ -46,7 +46,8 @@ const initialStock = (): PaperStock[] => [
     issuedQuantity: 1500,
     availableQuantity: 5500,
     unit: "MT",
-    minimumStockLevel: 1000,
+    dailyConsumption: 1200, // Average daily consumption in MT
+    minimumStockLevel: 3000, // 2.5 days of stock
     maximumStockLevel: 10000,
     stockStatus: "In Stock",
     lastUpdated: "2026-08-17 10:00 AM",
@@ -64,7 +65,8 @@ const initialStock = (): PaperStock[] => [
     issuedQuantity: 1200,
     availableQuantity: 3800,
     unit: "MT",
-    minimumStockLevel: 1000,
+    dailyConsumption: 1000, // Average daily consumption in MT
+    minimumStockLevel: 2500, // 2.5 days of stock
     maximumStockLevel: 10000,
     stockStatus: "In Stock",
     lastUpdated: "2026-08-17 11:30 AM",
@@ -82,7 +84,8 @@ const initialStock = (): PaperStock[] => [
     issuedQuantity: 300,
     availableQuantity: 2700,
     unit: "MT",
-    minimumStockLevel: 500,
+    dailyConsumption: 800, // Average daily consumption in MT
+    minimumStockLevel: 2000, // 2.5 days of stock
     maximumStockLevel: 8000,
     stockStatus: "In Stock",
     lastUpdated: "2026-08-17 12:15 PM",
@@ -100,7 +103,8 @@ const initialStock = (): PaperStock[] => [
     issuedQuantity: 250,
     availableQuantity: 1550,
     unit: "MT",
-    minimumStockLevel: 300,
+    dailyConsumption: 500, // Average daily consumption in MT
+    minimumStockLevel: 1250, // 2.5 days of stock
     maximumStockLevel: 5000,
     stockStatus: "In Stock",
     lastUpdated: "2026-08-17 02:45 PM",
@@ -695,13 +699,15 @@ let storedDists = getStored<PaperDistribution[]>(
 if (
   storedDists.some(
     (d) => d.distributionNo === "DIS-2026-001" && d.issueQuantity === 42000,
-  )
+  ) ||
+  !localStorage.getItem("central_depot_low_stock_v3")
 ) {
   localStorage.removeItem("central_depot_stocks");
   localStorage.removeItem("central_depot_receipts");
   localStorage.removeItem("central_depot_orders");
   localStorage.removeItem("central_depot_distributions");
   localStorage.removeItem("central_depot_transactions");
+  localStorage.setItem("central_depot_low_stock_v3", "true");
   storedDists = initialDists;
 }
 
@@ -738,6 +744,23 @@ const recalculateStocks = () => {
     stock.receivedQuantity = received;
     stock.issuedQuantity = issued;
     stock.availableQuantity = stock.openingStock + received - issued;
+
+    // Define daily consumption for each gsm if not present or to ensure accuracy
+    const dailyConsumptionMap: Record<number, number> = {
+      58: 1200,
+      60: 1000,
+      70: 800,
+      80: 500,
+    };
+    const dailyConsumption = dailyConsumptionMap[stock.gsm] || 300;
+    stock.dailyConsumption = dailyConsumption;
+
+    // Minimum stock level should be 2-3 days (e.g. 2.5 days) of average daily consumption
+    stock.minimumStockLevel = dailyConsumption * 2.5;
+
+    // Calculate days of stock remaining
+    stock.daysOfStock =
+      Math.round((stock.availableQuantity / dailyConsumption) * 10) / 10;
 
     // Status: In Stock, Low Stock, Out of Stock
     if (stock.availableQuantity <= 0) {

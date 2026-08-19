@@ -82,7 +82,7 @@ export default function PaperReceivingPage() {
             {
               field: "quantity",
               header: "Received Qty",
-              align: "right",
+              align: "center",
               cell: (row: PaperReceipt) => (
                 <span className="text-xs font-bold text-emerald-600">
                   {row.quantity.toLocaleString()} MT

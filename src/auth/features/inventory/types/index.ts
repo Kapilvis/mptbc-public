@@ -15,6 +15,8 @@ export interface PaperStock {
   maximumStockLevel: number;
   stockStatus: "In Stock" | "Low Stock" | "Out of Stock";
   lastUpdated: string;
+  dailyConsumption?: number;
+  daysOfStock?: number;
 }
 
 export interface PaperReceipt {

@@ -104,6 +104,7 @@ export default function List() {
               ),
               header: "CA Certificate",
               width: "140px",
+              align: "center",
             },
             {
               cell: (item: Transportation.TransporterRegistration) => (
@@ -117,6 +118,7 @@ export default function List() {
               ),
               header: "Evaluation Status",
               width: "160px",
+              align: "center",
             },
             {
               cell: (item: Transportation.TransporterRegistration) => (

@@ -400,7 +400,7 @@ export default function BillingEnginePage() {
                             {(row.bundlesLoaded * 0.04).toFixed(2)} Metric Ton
                           </span>
                         ),
-                        align: "right",
+                        align: "center",
                       },
                       {
                         header: "Delay Days",
@@ -422,6 +422,7 @@ export default function BillingEnginePage() {
                         header: "Billing Status",
                         field: "billingStatus",
                         width: "140px",
+                        align: "center",
                         cell: (row: BillingDispatch) => {
                           const status: string = row.billingStatus || "Pending";
                           return (
@@ -453,7 +454,7 @@ export default function BillingEnginePage() {
                   <Card className="p-5 border-l-[#008a45] border-l-4">
                     <span className="text-sm font-bold text-slate-800 border-b pb-2 flex items-center gap-2">
                       <Calculator size={18} className="text-[#008a45]" />
-                      Billing Calculations: {selectedRow.lrNumber}
+                      Billing Calculations: Receipt #${selectedRow.lrNumber}
                     </span>
 
                     {/* Math breakdown */}
@@ -656,6 +657,7 @@ export default function BillingEnginePage() {
                             {(row.bundlesLoaded * 0.04).toFixed(2)} MT
                           </span>
                         ),
+                        align: "center",
                       },
                       {
                         header: "Estimated Net",
@@ -667,7 +669,7 @@ export default function BillingEnginePage() {
                             </span>
                           );
                         },
-                        align: "right",
+                        align: "center",
                       },
                     ]}
                   />
@@ -792,6 +794,7 @@ export default function BillingEnginePage() {
                             </span>
                           );
                         },
+                        align: "center",
                       },
                       {
                         header: "Penalties / Deductions",
@@ -806,6 +809,7 @@ export default function BillingEnginePage() {
                             </span>
                           );
                         },
+                        align: "center",
                       },
                       {
                         header: "Running Advance Paid (80%)",
@@ -818,6 +822,7 @@ export default function BillingEnginePage() {
                             </span>
                           );
                         },
+                        align: "center",
                       },
                       {
                         header: "Final Bal. (20%)",
@@ -830,7 +835,7 @@ export default function BillingEnginePage() {
                             </span>
                           );
                         },
-                        align: "right",
+                        align: "center",
                       },
                     ]}
                   />
