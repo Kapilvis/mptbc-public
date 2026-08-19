@@ -5,19 +5,6 @@ import { Card, GridPanel } from "shared/components/panels";
 import { dataManager } from "../../mockData";
 import type { PaperStock, PrinterOrder, PaperDistribution } from "../../types";
 
-const getHeightClass = (percentage: number) => {
-  if (percentage <= 10) return "h-[10%]";
-  if (percentage <= 20) return "h-[20%]";
-  if (percentage <= 30) return "h-[30%]";
-  if (percentage <= 40) return "h-[40%]";
-  if (percentage <= 50) return "h-[50%]";
-  if (percentage <= 60) return "h-[60%]";
-  if (percentage <= 70) return "h-[70%]";
-  if (percentage <= 80) return "h-[80%]";
-  if (percentage <= 90) return "h-[90%]";
-  return "h-full";
-};
-
 const THEMES: Record<
   string,
   {
@@ -269,14 +256,6 @@ export default function Dashboard() {
     },
   ];
 
-  // 1. Total Paper Stock
-  const totalStock = useMemo(() => {
-    return stocks.reduce(
-      (sum: number, s: PaperStock) => sum + s.availableQuantity,
-      0,
-    );
-  }, [stocks]);
-
   // 2. Available GSM Types
   const availableGsmCount = useMemo(() => {
     return stocks.filter((s: PaperStock) => s.availableQuantity > 0).length;
@@ -289,14 +268,6 @@ export default function Dashboard() {
         o.status === "Pending" || o.status === "Partially Supplied",
     ).length;
   }, [orders]);
-
-  // 4. Today's Distribution (Using "2026-08-17" as reference date or local today)
-  const todayDistribution = useMemo(() => {
-    const todayStr = "2026-08-17"; // Static reference date for mock consistency
-    return distributions
-      .filter((d: PaperDistribution) => d.distributionDate === todayStr)
-      .reduce((sum: number, d: PaperDistribution) => sum + d.issueQuantity, 0);
-  }, [distributions]);
 
   // 5. Low Stock GSMs
   const lowStockGsmCount = useMemo(() => {
@@ -312,15 +283,6 @@ export default function Dashboard() {
     );
     return uniquePrinters.size;
   }, [distributions]);
-
-  // Mock Months Data for distribution chart
-  const monthlyData = [
-    { month: "April", qty: 4500 },
-    { month: "May", qty: 5200 },
-    { month: "June", qty: 6800 },
-    { month: "July", qty: 7900 },
-    { month: "August", qty: 6250 },
-  ];
 
   const kpis = [
     {
@@ -510,10 +472,11 @@ export default function Dashboard() {
                     const isLow = days <= 2.5;
                     return (
                       <span
-                        className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border uppercase tracking-wider inline-block ${isLow
-                          ? "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/20 dark:text-rose-400 dark:border-rose-900/50"
-                          : "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/50"
-                          }`}
+                        className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border uppercase tracking-wider inline-block ${
+                          isLow
+                            ? "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/20 dark:text-rose-400 dark:border-rose-900/50"
+                            : "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/50"
+                        }`}
                       >
                         {days} Days
                       </span>
@@ -589,7 +552,6 @@ export default function Dashboard() {
               )}
             </div>
           </Card>
-
         </div>
       </div>
 

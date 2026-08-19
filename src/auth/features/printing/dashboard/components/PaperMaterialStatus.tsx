@@ -101,8 +101,6 @@ export default function PaperMaterialStatus({
           </tbody>
         </table>
       </div>
-
-
     </Card>
   );
 }

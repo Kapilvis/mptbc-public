@@ -76,9 +76,15 @@ export const KpiCards: React.FC<Props> = ({ metrics }) => {
 
                 {(Boolean(m.subValue) || Boolean(m.badgeText)) && (
                   <div className="mt-1 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
-                    {m.subValue ? <span className="truncate">{m.subValue}</span> : <span />}
+                    {m.subValue ? (
+                      <span className="truncate">{m.subValue}</span>
+                    ) : (
+                      <span />
+                    )}
                     {m.badgeText && (
-                      <span className={`font-bold ${theme.accentText} shrink-0`}>
+                      <span
+                        className={`font-bold ${theme.accentText} shrink-0`}
+                      >
                         {m.badgeText}
                       </span>
                     )}

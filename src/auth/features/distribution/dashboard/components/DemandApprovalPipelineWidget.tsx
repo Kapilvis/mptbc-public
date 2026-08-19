@@ -197,10 +197,11 @@ export function DemandApprovalPipelineWidget() {
                     return (
                       <div
                         key={idx}
-                        className={`flex items-center justify-between p-2 rounded-xl text-xs transition-all cursor-pointer border ${isHovered
-                          ? "bg-white dark:bg-slate-700 shadow-xs border-emerald-300 font-bold scale-[1.02]"
-                          : "bg-white/60 dark:bg-slate-800/60 border-slate-200/50 dark:border-slate-700/50 hover:bg-white"
-                          }`}
+                        className={`flex items-center justify-between p-2 rounded-xl text-xs transition-all cursor-pointer border ${
+                          isHovered
+                            ? "bg-white dark:bg-slate-700 shadow-xs border-emerald-300 font-bold scale-[1.02]"
+                            : "bg-white/60 dark:bg-slate-800/60 border-slate-200/50 dark:border-slate-700/50 hover:bg-white"
+                        }`}
                         onMouseEnter={() =>
                           setHoveredSlice({ agencyId: agency.id, idx })
                         }

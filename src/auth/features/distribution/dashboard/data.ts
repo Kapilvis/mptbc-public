@@ -14,7 +14,12 @@ export interface KpiMetric {
   badgeText?: string;
   icon: string;
   theme: "indigo" | "blue" | "amber" | "emerald";
-  type: "net-demand" | "approved-demand" | "dispatch-rate" | "brc-rate" | "student-progress";
+  type:
+    | "net-demand"
+    | "approved-demand"
+    | "dispatch-rate"
+    | "brc-rate"
+    | "student-progress";
 }
 
 export interface TitleWiseDistributionItem {

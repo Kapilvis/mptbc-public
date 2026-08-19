@@ -54,11 +54,11 @@ export interface ActivityTrailItem {
   id: string;
   timestamp: string;
   module:
-  | "Paper Vendor"
-  | "Central Depot"
-  | "Printer Section"
-  | "District Depot"
-  | "Distribution";
+    | "Paper Vendor"
+    | "Central Depot"
+    | "Printer Section"
+    | "District Depot"
+    | "Distribution";
   event: string;
   entity: string;
   volume: string;
