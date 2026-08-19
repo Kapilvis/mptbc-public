@@ -6,7 +6,6 @@ import { AdminSupplyChainTracker } from "../components/AdminSupplyChainTracker";
 import { AdminActionCenter } from "../components/AdminActionCenter";
 import { AdminAnalyticsGrid } from "../components/AdminAnalyticsGrid";
 import { AdminModuleQuickJump } from "../components/AdminModuleQuickJump";
-import { AdminActivityTrail } from "../components/AdminActivityTrail";
 import AcademicYearFilterBar from "shared/components/filters/AcademicYearFilterBar";
 
 export const AdminDashboardPage: React.FC = () => {
@@ -41,9 +40,6 @@ export const AdminDashboardPage: React.FC = () => {
 
         {/* 6. Sub-Dashboard Operational Summaries (5 Quick Jump Cards) */}
         <AdminModuleQuickJump />
-
-        {/* 7. Unified Cross-Module Audit & Activity Trail */}
-        <AdminActivityTrail />
       </div>
     </Page>
   );

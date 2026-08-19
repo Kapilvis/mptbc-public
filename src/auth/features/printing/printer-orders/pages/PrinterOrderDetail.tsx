@@ -265,16 +265,16 @@ export default function PrinterOrderDetailsPage() {
                 </td>
                 <td className="px-4 py-3 font-semibold">{order.paperType}</td>
                 <td className="px-4 py-3 text-right font-medium">
-                  {order.requiredQty.toLocaleString()} MT
+                  {order.requiredQty.toLocaleString()}
                 </td>
                 <td className="px-4 py-3 text-right font-bold text-blue-700 dark:text-blue-400">
-                  {order.approvedQty.toLocaleString()} MT
+                  {order.approvedQty.toLocaleString()}
                 </td>
                 <td className="px-4 py-3 text-right font-bold text-emerald-600">
-                  {order.suppliedQty.toLocaleString()} MT
+                  {order.suppliedQty.toLocaleString()}
                 </td>
                 <td className="px-4 py-3 text-right font-extrabold text-rose-600">
-                  {order.pendingQty.toLocaleString()} MT
+                  {order.pendingQty.toLocaleString()}
                 </td>
               </tr>
             </tbody>

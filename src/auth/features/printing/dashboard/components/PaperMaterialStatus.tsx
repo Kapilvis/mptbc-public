@@ -7,7 +7,6 @@ export default function PaperMaterialStatus({
   printerCode: string;
 }) {
   const status = getPaperMaterialStatus(printerCode);
-  const lowStockPrinterItems = status.gsmTable.filter((g) => g.available <= 10);
 
   return (
     <Card className="p-5 border border-gray-200/60 dark:border-gray-700/60 shadow-xs h-full flex flex-col justify-between border-t-transparent! relative overflow-hidden transition-all duration-300 hover:shadow-md">
@@ -103,27 +102,7 @@ export default function PaperMaterialStatus({
         </table>
       </div>
 
-      {/* Low Stock Alert Banner (Printer) */}
-      {lowStockPrinterItems.length > 0 && (
-        <div className="mt-4 bg-amber-50/55 dark:bg-amber-950/10 border border-amber-250/70 rounded-xl p-3.5 flex items-start gap-3">
-          <i className="pi pi-exclamation-triangle text-amber-600 dark:text-amber-400 text-lg mt-0.5 animate-pulse" />
-          <div>
-            <h4 className="text-xs font-bold text-amber-800 dark:text-amber-300">
-              Low Stock Alert (Printer)
-            </h4>
-            <p className="text-[11px] text-amber-700 dark:text-amber-400/90 font-medium mt-0.5 leading-relaxed">
-              Your warehouse is running low on stock (under 10 MT) for:{" "}
-              <span className="font-extrabold">
-                {lowStockPrinterItems
-                  .map((item) => `${item.gsm} GSM`)
-                  .join(", ")}
-              </span>
-              . Please coordinate with the Central Depot for additional paper
-              allocation.
-            </p>
-          </div>
-        </div>
-      )}
+
     </Card>
   );
 }

@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import {
-  ZONE_PROGRESS_DATA,
-  FULFILLMENT_DONUT_DATA,
-} from "../data/adminDashboardData";
+import { ZONE_PROGRESS_DATA } from "../data/adminDashboardData";
 
 interface TooltipState {
   zone: string;
@@ -14,7 +11,6 @@ interface TooltipState {
 }
 
 export const AdminAnalyticsGrid: React.FC = () => {
-  const [activeSlice, setActiveSlice] = useState<number | null>(null);
   const [viewMode, setViewMode] = useState<"grouped" | "fulfillment" | "table">(
     "grouped",
   );
@@ -24,22 +20,11 @@ export const AdminAnalyticsGrid: React.FC = () => {
 
   const maxY = 70000;
   const yTicks = [70000, 60000, 50000, 40000, 30000, 20000, 10000, 0];
-  const activeDonutItem =
-    activeSlice !== null ? FULFILLMENT_DONUT_DATA[activeSlice] : null;
-
-  // SVG Donut Calculations
-  const radius = 75;
-  const circumference = 2 * Math.PI * radius; // ~471.24
-  const slices = [
-    { percent: 83.1, color: "#059669", offset: 0 },
-    { percent: 10.0, color: "#2563eb", offset: 83.1 },
-    { percent: 6.9, color: "#f59e0b", offset: 93.1 },
-  ];
 
   return (
-    <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 mb-6">
-      {/* 1. Statewide Regional Performance Container (2 Spans) */}
-      <div className="lg:col-span-2 flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
+    <div className="mb-6">
+      {/* 1. Statewide Regional Performance Container */}
+      <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
         <div>
           {/* Top Header & View Toggle Controls */}
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
@@ -326,136 +311,6 @@ export const AdminAnalyticsGrid: React.FC = () => {
               </table>
             </div>
           )}
-        </div>
-      </div>
-
-      {/* 2. Interactive SVG Donut Chart - State Demand Fulfillment Status */}
-      <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-        <div>
-          <div className="flex items-center justify-between gap-2 mb-1">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-100 text-emerald-800 font-bold text-xs">
-                  <i className="pi pi-chart-pie" aria-hidden="true" />
-                </span>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
-                  State Demand Fulfillment Status
-                </h3>
-              </div>
-              {/* <p className="text-[11.5px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5 ml-9">
-                Breakdown of {totalDemandUnits.toLocaleString()} Total Requested
-                Units
-              </p> */}
-            </div>
-            {activeSlice !== null && (
-              <button
-                type="button"
-                onClick={() => setActiveSlice(null)}
-                className="text-[11px] font-bold text-emerald-600 hover:underline shrink-0"
-              >
-                Reset
-              </button>
-            )}
-          </div>
-
-          {/* SVG Donut Ring Container */}
-          <div className="relative my-3 flex justify-center items-center">
-            <div className="relative flex h-56 w-56 items-center justify-center">
-              <svg
-                viewBox="0 0 200 200"
-                className="h-full w-full -rotate-90 transform transition-all duration-300"
-              >
-                {slices.map((slice, idx) => {
-                  const strokeDasharray = `${(slice.percent / 100) * circumference} ${circumference}`;
-                  const strokeDashoffset = -(
-                    (slice.offset / 100) *
-                    circumference
-                  );
-
-                  const isHighlighted = activeSlice === idx;
-                  const isGreyed = activeSlice !== null && !isHighlighted;
-                  const sliceColor = isGreyed ? "#cbd5e1" : slice.color;
-
-                  return (
-                    <circle
-                      key={idx}
-                      cx="100"
-                      cy="100"
-                      r={radius}
-                      fill="transparent"
-                      stroke={sliceColor}
-                      strokeWidth={isHighlighted ? 22 : 18}
-                      strokeDasharray={strokeDasharray}
-                      strokeDashoffset={strokeDashoffset}
-                      onMouseEnter={() => setActiveSlice(idx)}
-                      onMouseLeave={() => setActiveSlice(null)}
-                      onClick={() => setActiveSlice(isHighlighted ? null : idx)}
-                      className="cursor-pointer transition-all duration-300 hover:opacity-90"
-                    />
-                  );
-                })}
-              </svg>
-
-              {/* Center Donut Label */}
-              <div className="pointer-events-none absolute flex flex-col items-center justify-center text-center p-2">
-                <span
-                  className="text-3xl font-black transition-colors leading-none"
-                  style={{
-                    color: activeDonutItem ? activeDonutItem.color : "#059669",
-                  }}
-                >
-                  {activeDonutItem ? `${activeDonutItem.value}%` : "83.1%"}
-                </span>
-                <span className="text-[10.5px] font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 mt-1 leading-tight max-w-[130px]">
-                  {activeDonutItem ? activeDonutItem.label : "APPROVED & SENT"}
-                </span>
-                <span className="text-[11.5px] font-black text-slate-700 dark:text-slate-300 mt-1">
-                  {activeDonutItem
-                    ? `${activeDonutItem.units.toLocaleString()} Units`
-                    : "2,90,850 Units"}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Clickable/Hoverable Legend Buttons */}
-        <div className="space-y-1.5 border-t border-slate-100 pt-3 dark:border-slate-800">
-          {FULFILLMENT_DONUT_DATA.map((item, idx) => {
-            const isSelected = activeSlice === idx;
-            return (
-              <button
-                key={item.label}
-                type="button"
-                onClick={() => setActiveSlice(isSelected ? null : idx)}
-                onMouseEnter={() => setActiveSlice(idx)}
-                onMouseLeave={() => setActiveSlice(null)}
-                className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs transition-all duration-200 ${
-                  isSelected
-                    ? "bg-slate-100 shadow-2xs font-extrabold text-slate-900 dark:bg-slate-800 dark:text-white"
-                    : "hover:bg-slate-50 text-slate-600 dark:text-slate-400 dark:hover:bg-slate-800/50"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`h-3 w-3 rounded-full shadow-2xs shrink-0 transition-transform ${
-                      isSelected ? "scale-125" : ""
-                    }`}
-                    style={{ backgroundColor: item.color }}
-                  />
-                  <span className="font-bold">{item.label}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="font-black text-slate-900 dark:text-white">
-                    {item.units.toLocaleString()} Units
-                  </span>
-                  <span className="rounded-md bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10.5px] font-extrabold text-slate-600 dark:text-slate-400">
-                    {item.value}%
-                  </span>
-                </div>
-              </button>
-            );
-          })}
         </div>
       </div>
     </div>

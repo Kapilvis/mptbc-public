@@ -216,7 +216,7 @@ export const AdminKpiBanner: React.FC<{ academicYear?: string }> = ({
                         Demand
                       </span>
                       <span className="text-base font-black sm:text-lg">
-                        <AnimatedCounter target={350000} />
+                        <AnimatedCounter target={450000} />
                       </span>
                     </div>
                     <span className="text-slate-300 font-normal px-0.5 text-base">
@@ -227,7 +227,7 @@ export const AdminKpiBanner: React.FC<{ academicYear?: string }> = ({
                         Approved
                       </span>
                       <span className="text-base font-black sm:text-lg">
-                        <AnimatedCounter target={290850} />
+                        <AnimatedCounter target={390000} />
                       </span>
                     </div>
                   </div>

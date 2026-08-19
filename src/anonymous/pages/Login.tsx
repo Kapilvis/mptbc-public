@@ -26,7 +26,7 @@ const BackgroundDecorations: React.FC = () => (
     <div className="mptbc-bg-map-container">
       <div className="mptbc-map-glow" />
       <img
-        src={`${import.meta.env.BASE_URL}mp_map_bg.png`}
+        src="/mp_map_bg.png"
         alt="Madhya Pradesh District Boundary Map"
         className="mptbc-bg-map-img"
       />
@@ -76,7 +76,7 @@ const PortalBranding: React.FC = () => (
   <div className="mptbc-branding-container">
     <div className="mptbc-emblem-wrapper">
       <img
-        src={`${import.meta.env.BASE_URL}MP_LOGO.svg`}
+        src="/MP_LOGO.svg"
         alt="Government of Madhya Pradesh Seal"
         className="mptbc-emblem-img"
       />
@@ -247,9 +247,11 @@ const LoginCard: React.FC<LoginCardProps> = ({
   );
 };
 
+import { getRoleDashboardRoute } from "../../auth/authConfig";
+
 /* ─── Main Login Page Component ─── */
 export default function LoginPage() {
-  const { authenticated } = useAuth();
+  const { authenticated, user } = useAuth();
   const {
     register,
     handleSubmit,
@@ -262,7 +264,8 @@ export default function LoginPage() {
   } = useLoginForm();
 
   if (authenticated) {
-    return <Navigate to="/home" replace />;
+    const role = user?.role || localStorage.getItem("role") || "";
+    return <Navigate to={getRoleDashboardRoute(role)} replace />;
   }
 
   return (
