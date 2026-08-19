@@ -116,9 +116,12 @@ export default function RecentPrinterOrders({ printerCode }: Props) {
               return (
                 <tr
                   key={o.orderNo}
-                  className="transition-colors duration-150 hover:bg-slate-50/50 dark:hover:bg-slate-800/30"
+                  onClick={() =>
+                    navigate(`/printing/orders/details/${o.orderNo}`)
+                  }
+                  className="group hover:bg-gray-50/70 dark:hover:bg-gray-850/30 cursor-pointer transition-colors duration-150"
                 >
-                  <td className="py-3 font-mono font-bold text-xs text-slate-700 dark:text-slate-300">
+                  <td className="py-3 font-mono font-bold text-xs text-[#4F8F70] group-hover:underline">
                     {o.orderNo}
                   </td>
                   <td className="py-3 text-gray-500 font-semibold">

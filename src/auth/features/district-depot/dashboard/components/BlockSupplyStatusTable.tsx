@@ -8,13 +8,13 @@ interface BlockSupplyProps {
 
 function StatusBadge({ status }: { status: BlockSupplyItem["status"] }) {
   const cls = {
-    Pending: "bg-amber-50 text-amber-800 border-amber-300 dark:bg-amber-950/40 dark:text-amber-300",
-    Dispatched: "bg-blue-50 text-blue-800 border-blue-300 dark:bg-blue-950/40 dark:text-blue-300",
-    Acknowledged: "bg-emerald-50 text-emerald-800 border-emerald-300 dark:bg-emerald-950/40 dark:text-emerald-300",
+    Pending: "bg-amber-50 text-amber-700 border-amber-200",
+    Dispatched: "bg-blue-50 text-blue-700 border-blue-200",
+    Acknowledged: "bg-emerald-50 text-emerald-700 border-emerald-200",
   }[status];
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-black border uppercase tracking-wider ${cls}`}
+      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold border uppercase tracking-wide ${cls}`}
     >
       {status}
     </span>
@@ -23,59 +23,62 @@ function StatusBadge({ status }: { status: BlockSupplyItem["status"] }) {
 
 export function BlockSupplyStatusTable({ data }: BlockSupplyProps) {
   return (
-    <Card className="overflow-hidden p-0 border border-gray-200/60 dark:border-gray-700/60 shadow-xs hover:shadow-md transition-shadow">
-      <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-850/40">
+    <Card className="overflow-hidden">
+      <div className="flex items-center justify-between pb-3 border-b border-gray-100 dark:border-gray-800 mb-0">
         <div>
-          <h3 className="text-base font-black text-gray-900 dark:text-white flex items-center gap-2">
-            <i className="pi pi-map-marker text-amber-600 dark:text-amber-400 text-lg" />
+          <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
+            <i className="pi pi-map-marker text-amber-600 dark:text-amber-400" />
             Block-wise Supply Status
           </h3>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+            Recent dispatch status to blocks
+          </p>
         </div>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
+        <table className="w-full text-xs">
           <thead>
-            <tr className="bg-gray-100/70 dark:bg-gray-800/80 border-b border-gray-200 dark:border-gray-700 text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-200">
-              <th className="px-4 py-3 text-left">
+            <tr className="bg-gray-50 dark:bg-gray-800/60 border-b border-gray-100 dark:border-gray-700">
+              <th className="px-3 py-2.5 text-left font-semibold text-gray-600 dark:text-gray-400">
                 #
               </th>
-              <th className="px-4 py-3 text-left">
+              <th className="px-3 py-2.5 text-left font-semibold text-gray-600 dark:text-gray-400">
                 Block
               </th>
-              <th className="px-4 py-3 text-left">
+              <th className="px-3 py-2.5 text-left font-semibold text-gray-600 dark:text-gray-400">
                 Challan No
               </th>
-              <th className="px-4 py-3 text-left">
+              <th className="px-3 py-2.5 text-left font-semibold text-gray-600 dark:text-gray-400">
                 Date
               </th>
-              <th className="px-4 py-3 text-right">
+              <th className="px-3 py-2.5 text-right font-semibold text-gray-600 dark:text-gray-400">
                 Qty
               </th>
-              <th className="px-4 py-3 text-center">
+              <th className="px-3 py-2.5 text-center font-semibold text-gray-600 dark:text-gray-400">
                 Status
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-150/60 dark:divide-gray-800/60">
+          <tbody>
             {data.map((row) => (
               <tr
                 key={row.id}
-                className="hover:bg-amber-50/50 dark:hover:bg-amber-950/20 transition-colors"
+                className="border-b border-gray-50 dark:border-gray-800 hover:bg-amber-50/40 dark:hover:bg-amber-950/10 transition-colors"
               >
-                <td className="px-4 py-3 font-semibold text-gray-500 dark:text-gray-400">{row.id}</td>
-                <td className="px-4 py-3 font-extrabold text-gray-900 dark:text-white">
+                <td className="px-3 py-2 text-gray-400">{row.id}</td>
+                <td className="px-3 py-2 font-semibold text-gray-800 dark:text-gray-200">
                   {row.block}
                 </td>
-                <td className="px-4 py-3 text-gray-700 dark:text-gray-300 font-mono font-bold text-xs">
+                <td className="px-3 py-2 text-gray-600 dark:text-gray-400 font-mono text-[11px]">
                   {row.challanNo}
                 </td>
-                <td className="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">
+                <td className="px-3 py-2 text-gray-600 dark:text-gray-400">
                   {row.date}
                 </td>
-                <td className="px-4 py-3 text-right font-extrabold font-mono text-gray-900 dark:text-white">
+                <td className="px-3 py-2 text-right font-bold text-gray-800 dark:text-gray-200">
                   {row.qty.toLocaleString()}
                 </td>
-                <td className="px-4 py-3 text-center">
+                <td className="px-3 py-2 text-center">
                   <StatusBadge status={row.status} />
                 </td>
               </tr>

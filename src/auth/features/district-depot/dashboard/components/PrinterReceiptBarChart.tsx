@@ -12,19 +12,22 @@ export function PrinterReceiptBarChart({ data }: Props) {
     <Card className="h-full flex flex-col overflow-hidden">
       <div className="flex items-center justify-between pb-3 border-b border-gray-100 dark:border-gray-800 mb-4">
         <div>
-          <h3 className="text-base font-black text-gray-900 dark:text-white flex items-center gap-2">
-            <i className="pi pi-print text-blue-600 dark:text-blue-400 text-lg" />
-            Printer-wise Allotment
+          <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
+            <i className="pi pi-print text-blue-600 dark:text-blue-400" />
+            Printer-wise Book Receipt at Depot
           </h3>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+            Delivered vs remaining per printer (2026-2027)
+          </p>
         </div>
-        <div className="flex items-center gap-4 text-xs font-extrabold">
+        <div className="flex items-center gap-4 text-xs font-semibold">
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
-            <span className="text-gray-700 dark:text-gray-200">Delivered</span>
+            <span className="text-gray-600 dark:text-gray-300">Delivered</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-blue-100 border border-blue-300 dark:bg-blue-900 dark:border-blue-700" />
-            <span className="text-gray-700 dark:text-gray-200">Remaining</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-100 border border-blue-300" />
+            <span className="text-gray-600 dark:text-gray-300">Remaining</span>
           </div>
         </div>
       </div>

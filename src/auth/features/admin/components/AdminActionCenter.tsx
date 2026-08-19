@@ -36,7 +36,7 @@ export const AdminActionCenter: React.FC = () => {
           </span>
           <div>
             <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
-              Consolidated Alerts
+              System Executive Action Center (Consolidated Alerts)
             </h3>
           </div>
         </div>
