@@ -18,23 +18,23 @@ export function FulfillmentDonutChart() {
   const legendItems: SegmentItem[] = [
     {
       label: "Approved & Sent",
-      percent: 86.7,
+      percent: 83.1,
       offset: 0,
-      count: "3,90,000 Units",
+      count: "2,90,850 Units",
       color: "#059669", // Emerald
     },
     {
       label: "In-Transit to Depots",
       percent: 10.0,
-      offset: 86.7,
-      count: "45,000 Units",
+      offset: 83.1,
+      count: "35,000 Units",
       color: "#2563eb", // Blue
     },
     {
       label: "Pending Approval",
-      percent: 3.3,
-      offset: 96.7,
-      count: "15,000 Units",
+      percent: 6.9,
+      offset: 93.1,
+      count: "24,150 Units",
       color: "#f59e0b", // Amber
     },
   ];
@@ -50,7 +50,7 @@ export function FulfillmentDonutChart() {
           State Demand Fulfillment Status
         </h3>
         <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
-          Breakdown of 4,50,000 Total Requested Units
+          Breakdown of 3,50,000 Total Requested Units
         </p>
       </div>
 
@@ -93,13 +93,13 @@ export function FulfillmentDonutChart() {
                 color: activeSegment ? activeSegment.color : "#059669",
               }}
             >
-              {activeSegment ? `${activeSegment.percent}%` : "86.7%"}
+              {activeSegment ? `${activeSegment.percent}%` : "83.1%"}
             </span>
             <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 block truncate max-w-[120px] mx-auto mt-1">
               {activeSegment ? activeSegment.label : "Approved & Sent"}
             </span>
             <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300 block mt-0.5">
-              {activeSegment ? activeSegment.count : "3,90,000 Units"}
+              {activeSegment ? activeSegment.count : "2,90,850 Units"}
             </span>
           </div>
         </div>

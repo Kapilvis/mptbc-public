@@ -93,181 +93,9 @@ const THEMES: Record<
 
 export default function Dashboard() {
   const [academicYear, setAcademicYear] = useState("2026-2027");
-  const stocks: PaperStock[] = [
-    {
-      id: 1,
-      gsm: 58,
-      paperType: "Text Paper",
-      paperSpecification: "58 GSM Text Paper",
-      reelWidth: 84,
-      cutoff: 578,
-      sheetSize: "57.8 × 84",
-      openingStock: 1500,
-      receivedQuantity: 1200,
-      issuedQuantity: 1050,
-      availableQuantity: 150,
-      unit: "MT",
-      dailyConsumption: 350,
-      minimumStockLevel: 200,
-      maximumStockLevel: 5000,
-      daysOfStock: 3.0,
-      stockStatus: "In Stock",
-      lastUpdated: "2026-08-17 10:00 AM",
-    },
-    {
-      id: 2,
-      gsm: 60,
-      paperType: "Text Paper",
-      paperSpecification: "60 GSM Text Paper",
-      reelWidth: 84,
-      cutoff: 578,
-      sheetSize: "57.8 × 84",
-      openingStock: 1000,
-      receivedQuantity: 900,
-      issuedQuantity: 800,
-      availableQuantity: 100,
-      unit: "MT",
-      dailyConsumption: 400,
-      minimumStockLevel: 250,
-      maximumStockLevel: 5000,
-      daysOfStock: 2.0,
-      stockStatus: "Low Stock",
-      lastUpdated: "2026-08-17 11:30 AM",
-    },
-    {
-      id: 3,
-      gsm: 70,
-      paperType: "Text Paper",
-      paperSpecification: "70 GSM Text Paper",
-      reelWidth: 84,
-      cutoff: 578,
-      sheetSize: "57.8 × 84",
-      openingStock: 800,
-      receivedQuantity: 665,
-      issuedQuantity: 600,
-      availableQuantity: 65,
-      unit: "MT",
-      dailyConsumption: 260,
-      minimumStockLevel: 150,
-      maximumStockLevel: 4000,
-      daysOfStock: 2.3,
-      stockStatus: "Low Stock",
-      lastUpdated: "2026-08-17 12:15 PM",
-    },
-    {
-      id: 4,
-      gsm: 80,
-      paperType: "Cover Paper",
-      paperSpecification: "80 GSM Cover Paper",
-      reelWidth: 84,
-      cutoff: 560,
-      sheetSize: "56 × 84",
-      openingStock: 400,
-      receivedQuantity: 400,
-      issuedQuantity: 350,
-      availableQuantity: 50,
-      unit: "MT",
-      dailyConsumption: 220,
-      minimumStockLevel: 100,
-      maximumStockLevel: 2000,
-      daysOfStock: 1.6,
-      stockStatus: "Low Stock",
-      lastUpdated: "2026-08-17 02:45 PM",
-    },
-  ];
+  const stocks = dataManager.getStocks();
   const orders = dataManager.getOrders();
-  const distributions: PaperDistribution[] = [
-    {
-      distributionNo: "DIS-2026-001",
-      distributionDate: "2026-08-13",
-      printer: "ABC Printing Press",
-      orderNo: "PO-2026-001",
-      gsm: 80,
-      paperType: "Text Paper",
-      availableStockAtIssue: 400,
-      approvedQty: 400,
-      previouslySupplied: 0,
-      pendingQty: 400,
-      issueQuantity: 350,
-      vehicleNo: "MP04HA7788",
-      driverName: "Karan Johar",
-      challanNo: "CH-PO-001",
-      dispatchDate: "2026-08-13",
-      status: "Delivered",
-    },
-    {
-      distributionNo: "DIS-2026-002",
-      distributionDate: "2026-08-11",
-      printer: "ABC Printing Press",
-      orderNo: "PO-2026-002",
-      gsm: 70,
-      paperType: "Text Paper",
-      availableStockAtIssue: 800,
-      approvedQty: 665,
-      previouslySupplied: 0,
-      pendingQty: 665,
-      issueQuantity: 600,
-      vehicleNo: "MP04HA9911",
-      driverName: "Sohan Lal",
-      challanNo: "CH-PO-002",
-      dispatchDate: "2026-08-11",
-      status: "Delivered",
-    },
-    {
-      distributionNo: "DIS-001",
-      distributionDate: "2026-08-17",
-      printer: "Shree Offset Press",
-      orderNo: "ORD-001",
-      gsm: 58,
-      paperType: "Text Paper",
-      availableStockAtIssue: 1500,
-      approvedQty: 1200,
-      previouslySupplied: 0,
-      pendingQty: 1200,
-      issueQuantity: 500,
-      vehicleNo: "MP04HA4321",
-      driverName: "Ram Singh",
-      challanNo: "CH-001",
-      dispatchDate: "2026-08-17",
-      status: "Dispatched",
-    },
-    {
-      distributionNo: "DIS-001B",
-      distributionDate: "2026-08-17",
-      printer: "Shree Offset Press",
-      orderNo: "ORD-001",
-      gsm: 58,
-      paperType: "Text Paper",
-      availableStockAtIssue: 1000,
-      approvedQty: 1200,
-      previouslySupplied: 500,
-      pendingQty: 700,
-      issueQuantity: 550,
-      vehicleNo: "MP04HA9999",
-      driverName: "Hari Prasad",
-      challanNo: "CH-001B",
-      dispatchDate: "2026-08-17",
-      status: "Dispatched",
-    },
-    {
-      distributionNo: "DIS-002",
-      distributionDate: "2026-08-17",
-      printer: "Aditya Web Printers Ltd",
-      orderNo: "ORD-002",
-      gsm: 60,
-      paperType: "Text Paper",
-      availableStockAtIssue: 1000,
-      approvedQty: 900,
-      previouslySupplied: 0,
-      pendingQty: 900,
-      issueQuantity: 800,
-      vehicleNo: "MP09KL4321",
-      driverName: "Shyam Lal",
-      challanNo: "CH-002",
-      dispatchDate: "2026-08-17",
-      status: "Dispatched",
-    },
-  ];
+  const distributions = dataManager.getDistributions();
 
   // 1. Total Paper Stock
   const totalStock = useMemo(() => {
@@ -325,37 +153,37 @@ export default function Dashboard() {
   const kpis = [
     {
       title: "Total Paper Stock",
-      value: "3,165 MT",
+      value: `${totalStock.toLocaleString("en-IN")} MT`,
       icon: "pi pi-database",
       themeKey: "blue",
     },
     {
       title: "Available GSM",
-      value: `${availableGsmCount || 4} Types`,
+      value: `${availableGsmCount} Types`,
       icon: "pi pi-sliders-h",
       themeKey: "green",
     },
     {
       title: "Pending Orders",
-      value: `${pendingOrdersCount || 8} Orders`,
+      value: `${pendingOrdersCount} Orders`,
       icon: "pi pi-file-edit",
       themeKey: "yellow",
     },
     {
-      title: "Total Issued",
-      value: "2,800 MT",
+      title: "Today Issued",
+      value: `${todayDistribution.toLocaleString("en-IN")} MT`,
       icon: "pi pi-send",
       themeKey: "indigo",
     },
     {
       title: "Low Stock Alerts",
-      value: `${lowStockGsmCount || 3} Alerts`,
+      value: `${lowStockGsmCount} Alerts`,
       icon: "pi pi-exclamation-triangle",
       themeKey: "red",
     },
     {
       title: "Printers Active",
-      value: `${printersSuppliedCount || 3} Printers`,
+      value: `${printersSuppliedCount} Printers`,
       icon: "pi pi-users",
       themeKey: "purple",
     },
@@ -502,6 +330,18 @@ export default function Dashboard() {
                   ),
                 },
                 {
+                  field: "dailyConsumption",
+                  header: "Daily Usage (Avg)",
+                  align: "center",
+                  cell: (row: PaperStock) => (
+                    <span className="text-sm font-extrabold font-mono text-slate-900 dark:text-slate-200">
+                      {row.dailyConsumption
+                        ? `${row.dailyConsumption.toLocaleString("en-IN")} MT`
+                        : "-"}
+                    </span>
+                  ),
+                },
+                {
                   field: "daysOfStock",
                   header: "Days of Stock",
                   align: "center",
@@ -510,10 +350,11 @@ export default function Dashboard() {
                     const isLow = days <= 2.5;
                     return (
                       <span
-                        className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border uppercase tracking-wider inline-block ${isLow
-                          ? "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/20 dark:text-rose-400 dark:border-rose-900/50"
-                          : "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/50"
-                          }`}
+                        className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border uppercase tracking-wider inline-block ${
+                          isLow
+                            ? "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/20 dark:text-rose-400 dark:border-rose-900/50"
+                            : "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/50"
+                        }`}
                       >
                         {days} Days
                       </span>
@@ -590,6 +431,43 @@ export default function Dashboard() {
             </div>
           </Card>
 
+          {/* Simple Distribution Chart */}
+          <Card className="p-5 flex-1 flex flex-col justify-between border-t-transparent! relative overflow-hidden transition-all duration-300 hover:shadow-md">
+            {/* Premium top gradient border */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-emerald-500 via-teal-400 to-emerald-600 z-20" />
+
+            <div>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white pb-3 mb-4 border-b border-gray-100 dark:border-gray-855 flex items-center gap-2">
+                <i className="pi pi-chart-bar text-indigo-600" />
+                Monthly Paper Distribution Trend
+              </h3>
+              <div className="flex items-end justify-between h-28 pt-4 px-2">
+                {monthlyData.map((data, idx) => {
+                  const maxVal = Math.max(...monthlyData.map((d) => d.qty));
+                  const percentageHeight = (data.qty / maxVal) * 100;
+                  return (
+                    <div
+                      key={idx}
+                      className="flex flex-col items-center gap-2 w-full group"
+                    >
+                      <div className="relative w-7 bg-indigo-50 dark:bg-gray-800 rounded-t-md h-20 flex items-end">
+                        <div
+                          className={`w-full bg-linear-to-t from-indigo-600 via-indigo-500 to-indigo-400 rounded-t-md transition-all duration-305 group-hover:from-indigo-700 group-hover:to-indigo-550 ${getHeightClass(percentageHeight)}`}
+                        />
+                        {/* Tooltip */}
+                        <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[9px] font-bold px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap shadow-md pointer-events-none z-10">
+                          {data.qty.toLocaleString("en-IN")} MT
+                        </div>
+                      </div>
+                      <span className="text-[10px] text-slate-700 dark:text-slate-350 font-black uppercase tracking-wider">
+                        {data.month.slice(0, 3)}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
 
@@ -601,7 +479,7 @@ export default function Dashboard() {
         <div className="flex items-center justify-between pb-3 mb-4 border-b border-gray-100 dark:border-gray-800">
           <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <i className="pi pi-send text-purple-650" />
-            Paper Shipment To Printer
+            Recent Paper Distribution Shipments
           </h3>
           <span className="text-xs text-slate-500 font-extrabold">
             Showing last 5 dispatches
@@ -615,7 +493,7 @@ export default function Dashboard() {
           columns={[
             {
               field: "challanNo",
-              header: "Challan No",
+              header: "Challan / Dist No",
               cell: (row: PaperDistribution) => (
                 <span className="text-sm font-black text-slate-900 dark:text-white">
                   {row.challanNo}

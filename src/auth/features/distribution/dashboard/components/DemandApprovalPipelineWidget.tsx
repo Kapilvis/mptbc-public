@@ -32,24 +32,24 @@ export function DemandApprovalPipelineWidget() {
   const agencies: AgencyDemandData[] = [
     {
       id: "rsk",
-      name: "RSK",
+      name: "RSK Department (Rajya Shiksha Kendra)",
       badge: "Classes 1-8",
-      totalDemand: "3,10,000 Units",
-      approvedCount: "2,75,000 Units",
+      totalDemand: "1,45,000 Units",
+      approvedCount: "1,10,000 Units",
       pendingCount: "35,000 Units",
-      approvedPercent: 89,
+      approvedPercent: 76,
       slices: [
         {
           label: "Approved Demand",
-          percent: 89,
+          percent: 76,
           offset: 0,
-          count: "2,75,000 Units",
+          count: "1,10,000 Units",
           color: "#059669", // Emerald
         },
         {
           label: "Pending Queue",
-          percent: 11,
-          offset: 89,
+          percent: 24,
+          offset: 76,
           count: "35,000 Units",
           color: "#f59e0b", // Amber
         },
@@ -57,25 +57,25 @@ export function DemandApprovalPipelineWidget() {
     },
     {
       id: "cpi",
-      name: "CPI",
+      name: "CPI Department (Public Instruction)",
       badge: "High School 9-12",
-      totalDemand: "1,40,000 Units",
-      approvedCount: "1,15,000 Units",
-      pendingCount: "25,000 Units",
-      approvedPercent: 82,
+      totalDemand: "45,000 Units",
+      approvedCount: "22,000 Units",
+      pendingCount: "23,000 Units",
+      approvedPercent: 49,
       slices: [
         {
           label: "Approved Demand",
-          percent: 82,
+          percent: 49,
           offset: 0,
-          count: "1,15,000 Units",
+          count: "22,000 Units",
           color: "#0d9488", // Teal
         },
         {
           label: "Pending Queue",
-          percent: 18,
-          offset: 82,
-          count: "25,000 Units",
+          percent: 51,
+          offset: 49,
+          count: "23,000 Units",
           color: "#f59e0b", // Amber
         },
       ],
@@ -92,12 +92,16 @@ export function DemandApprovalPipelineWidget() {
           </span>
           <div>
             <h3 className="text-sm font-bold text-gray-900 dark:text-white">
-              Demand Approval Status
+              Department Demand Approval Status
             </h3>
+            <p className="text-[11px] text-gray-500 dark:text-gray-400">
+              Department-wise textbook demand approval distribution & pending
+              queue
+            </p>
           </div>
         </div>
         <span className="px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-xs font-bold dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800 shadow-2xs">
-          Overall Approved: 3,90,000 / 4,50,000 (86.7%)
+          Overall Approved: 1,32,000 / 1,90,000 (69%)
         </span>
       </div>
 
@@ -197,10 +201,11 @@ export function DemandApprovalPipelineWidget() {
                     return (
                       <div
                         key={idx}
-                        className={`flex items-center justify-between p-2 rounded-xl text-xs transition-all cursor-pointer border ${isHovered
-                          ? "bg-white dark:bg-slate-700 shadow-xs border-emerald-300 font-bold scale-[1.02]"
-                          : "bg-white/60 dark:bg-slate-800/60 border-slate-200/50 dark:border-slate-700/50 hover:bg-white"
-                          }`}
+                        className={`flex items-center justify-between p-2 rounded-xl text-xs transition-all cursor-pointer border ${
+                          isHovered
+                            ? "bg-white dark:bg-slate-700 shadow-xs border-emerald-300 font-bold scale-[1.02]"
+                            : "bg-white/60 dark:bg-slate-800/60 border-slate-200/50 dark:border-slate-700/50 hover:bg-white"
+                        }`}
                         onMouseEnter={() =>
                           setHoveredSlice({ agencyId: agency.id, idx })
                         }

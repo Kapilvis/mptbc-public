@@ -5,6 +5,7 @@ import AcademicYearFilterBar from "shared/components/filters/AcademicYearFilterB
 import { DemandApprovalPipelineWidget } from "../components/DemandApprovalPipelineWidget";
 import { DemandSupplyBarChart } from "../components/DemandSupplyBarChart";
 import { DistrictMatrixTable } from "../components/DistrictMatrixTable";
+import { FulfillmentDonutChart } from "../components/FulfillmentDonutChart";
 import { KpiCards } from "../components/KpiCards";
 import { useDashboardMetricsQuery, useDistrictMatrixQuery } from "../queries";
 
@@ -19,21 +20,23 @@ export default function DashboardPage() {
   const metrics = useMemo(() => {
     if (academicYear === "2025-2026") {
       return rawMetrics.map((m, idx) => {
-        if (idx === 0) return { ...m, value: "4.20 Cr" };
-        if (idx === 1) return { ...m, value: "3.80 Cr" };
-        if (idx === 2) return { ...m, value: "2.40 Cr" };
-        if (idx === 3) return { ...m, value: "2.00 Cr" };
-        if (idx === 4) return { ...m, value: "1.15 Cr" };
+        if (idx === 0)
+          return { ...m, value: "3.45 Cr", badgeText: "100% Approved" };
+        if (idx === 1)
+          return { ...m, value: "3.42 Cr", badgeText: "100% Printed" };
+        if (idx === 2)
+          return { ...m, value: "3.38 Cr", badgeText: "99.2% Delivered" };
         return m;
       });
     }
     if (academicYear === "2024-2025") {
       return rawMetrics.map((m, idx) => {
-        if (idx === 0) return { ...m, value: "4.00 Cr" };
-        if (idx === 1) return { ...m, value: "3.60 Cr" };
-        if (idx === 2) return { ...m, value: "2.30 Cr" };
-        if (idx === 3) return { ...m, value: "1.90 Cr" };
-        if (idx === 4) return { ...m, value: "1.10 Cr" };
+        if (idx === 0)
+          return { ...m, value: "3.20 Cr", badgeText: "100% Archived" };
+        if (idx === 1)
+          return { ...m, value: "3.18 Cr", badgeText: "100% Archived" };
+        if (idx === 2)
+          return { ...m, value: "3.18 Cr", badgeText: "100% Distributed" };
         return m;
       });
     }
@@ -66,9 +69,14 @@ export default function DashboardPage() {
       {/* Demand Approval Pipeline Status Row Widget (Progress Slider Bars + Pending Donut) */}
       <DemandApprovalPipelineWidget />
 
-      {/* Main Charts Row (Demand vs Supply Bar Chart) */}
-      <div className="mb-6">
-        <DemandSupplyBarChart />
+      {/* Main Charts Row (Demand vs Supply Bar Chart + Fulfillment Donut Chart) */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+        <div className="lg:col-span-2">
+          <DemandSupplyBarChart />
+        </div>
+        <div className="lg:col-span-1">
+          <FulfillmentDonutChart />
+        </div>
       </div>
 
       {/* Title Wise Textbook Distribution Report Data Matrix Section */}

@@ -15,7 +15,7 @@ export function DistrictMatrixTable({
       <div className="mb-3 flex justify-between items-center">
         <div>
           <h3 className="text-base font-bold text-gray-900 dark:text-white">
-            Block-Wise Distribution
+            Block-Title Wise Textbook Distribution Report
           </h3>
         </div>
       </div>
