@@ -23,7 +23,7 @@ export const AdminDashboardPage: React.FC = () => {
       <AcademicYearFilterBar
         academicYear={academicYear}
         onChange={setAcademicYear}
-        subtitle={`Viewing executive supply chain and operational statistics for session ${academicYear}.`}
+        subtitle={`Operational statistics for session ${academicYear}.`}
       />
 
       <div className="space-y-2">

@@ -24,21 +24,16 @@ export const AdminAnalyticsGrid: React.FC = () => {
 
   const maxY = 70000;
   const yTicks = [70000, 60000, 50000, 40000, 30000, 20000, 10000, 0];
-  const totalUnits = 290850;
   const activeDonutItem =
     activeSlice !== null ? FULFILLMENT_DONUT_DATA[activeSlice] : null;
-  const calculatedUnits = activeDonutItem
-    ? Math.round((activeDonutItem.value / 100) * totalUnits)
-    : 189053;
 
   // SVG Donut Calculations
   const radius = 75;
   const circumference = 2 * Math.PI * radius; // ~471.24
   const slices = [
-    { percent: 65, color: "#059669", offset: 0 },
-    { percent: 20, color: "#2563eb", offset: 65 },
-    { percent: 10, color: "#f59e0b", offset: 85 },
-    { percent: 5, color: "#ef4444", offset: 95 },
+    { percent: 83.1, color: "#059669", offset: 0 },
+    { percent: 10.0, color: "#2563eb", offset: 83.1 },
+    { percent: 6.9, color: "#f59e0b", offset: 93.1 },
   ];
 
   return (
@@ -54,7 +49,7 @@ export const AdminAnalyticsGrid: React.FC = () => {
                   <i className="pi pi-chart-bar" aria-hidden="true" />
                 </span>
                 <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
-                  Cross-District Demand vs Printing vs Supply Progress
+                  Depot Wise : Demand vs Printing vs Supply Progress
                 </h3>
               </div>
             </div>
@@ -137,7 +132,7 @@ export const AdminAnalyticsGrid: React.FC = () => {
                     />
                     <span>{hoveredTooltip.metric}:</span>
                     <span className="font-extrabold">
-                      {hoveredTooltip.value.toLocaleString()} MT
+                      {hoveredTooltip.value.toLocaleString()} Quantity
                     </span>
                   </div>
                   <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-full border-4 border-transparent border-t-slate-900 dark:border-t-slate-800" />
@@ -222,7 +217,7 @@ export const AdminAnalyticsGrid: React.FC = () => {
                           onMouseEnter={() =>
                             setHoveredTooltip({
                               zone: z.zone,
-                              metric: "Dispatched",
+                              metric: "Dispatched Output",
                               value: z.dispatched,
                               color: "#2563eb",
                               x: groupX + 2,
@@ -234,8 +229,8 @@ export const AdminAnalyticsGrid: React.FC = () => {
                           style={{ height: `${dispatchedHeight}%` }}
                         />
 
-                        {/* X-Axis Zone Label */}
-                        <div className="absolute -bottom-6 text-center text-[11px] font-bold text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                        {/* X-Axis Zone Labels */}
+                        <div className="absolute -bottom-6 text-center text-[11px] font-bold text-slate-600 dark:text-slate-400 whitespace-nowrap">
                           {z.zone}
                         </div>
                       </div>
@@ -246,9 +241,9 @@ export const AdminAnalyticsGrid: React.FC = () => {
             </div>
           )}
 
-          {/* Mode 2: Fulfillment % Progress View */}
+          {/* Mode 2: Fulfillment Percentage Progress Bars */}
           {viewMode === "fulfillment" && (
-            <div className="space-y-4 pt-2">
+            <div className="space-y-3 pt-2">
               {ZONE_PROGRESS_DATA.map((zone) => {
                 const pct = Math.round(
                   (zone.dispatched / zone.netDemand) * 100,
@@ -258,15 +253,12 @@ export const AdminAnalyticsGrid: React.FC = () => {
                 return (
                   <div
                     key={zone.zone}
-                    className="rounded-xl border border-slate-100 bg-slate-50/60 p-3.5 dark:border-slate-800 dark:bg-slate-800/40"
+                    className="rounded-xl border border-slate-100 bg-slate-50/50 p-3 dark:border-slate-800 dark:bg-slate-800/30"
                   >
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-sm font-extrabold text-slate-900 dark:text-white">
-                        {zone.zone}
-                      </span>
-                      <span className="text-xs font-black text-emerald-700 dark:text-emerald-400">
-                        {pct}% Complete ({zone.dispatched.toLocaleString()} MT
-                        Shipped)
+                    <div className="flex items-center justify-between text-xs font-bold text-slate-800 dark:text-slate-200 mb-1.5">
+                      <span>{zone.zone} Depot Supply Progress</span>
+                      <span className="text-emerald-700 dark:text-emerald-400">
+                        {pct}% Dispatched
                       </span>
                     </div>
                     <div className="h-3.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
@@ -277,10 +269,10 @@ export const AdminAnalyticsGrid: React.FC = () => {
                     </div>
                     <div className="flex items-center justify-between mt-1 text-[11px] text-slate-500 dark:text-slate-400 font-semibold">
                       <span>
-                        Total Demand: {zone.netDemand.toLocaleString()} MT
+                        Total Demand: {zone.netDemand.toLocaleString()}
                       </span>
                       <span>
-                        Remaining Balance: {remaining.toLocaleString()} MT
+                        Remaining Balance: {remaining.toLocaleString()}
                       </span>
                     </div>
                   </div>
@@ -314,13 +306,13 @@ export const AdminAnalyticsGrid: React.FC = () => {
                           {z.zone}
                         </td>
                         <td className="py-2.5 px-3 text-right font-semibold text-emerald-700">
-                          {z.netDemand.toLocaleString()} MT
+                          {z.netDemand.toLocaleString()}
                         </td>
                         <td className="py-2.5 px-3 text-right font-semibold text-amber-600">
-                          {z.printed.toLocaleString()} MT
+                          {z.printed.toLocaleString()}
                         </td>
                         <td className="py-2.5 px-3 text-right font-semibold text-blue-600">
-                          {z.dispatched.toLocaleString()} MT
+                          {z.dispatched.toLocaleString()}
                         </td>
                         <td className="py-2.5 px-3 text-right">
                           <span className="inline-flex rounded-md bg-emerald-100 px-2 py-0.5 text-[10.5px] font-bold text-emerald-800">
@@ -337,23 +329,29 @@ export const AdminAnalyticsGrid: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Interactive SVG Donut Chart with Direct Slice Hover Events */}
+      {/* 2. Interactive SVG Donut Chart - State Demand Fulfillment Status */}
       <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
         <div>
           <div className="flex items-center justify-between gap-2 mb-1">
-            <div className="flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-100 text-blue-800 font-bold text-xs">
-                <i className="pi pi-chart-pie" aria-hidden="true" />
-              </span>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
-                Overall State Fulfillment Mix
-              </h3>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-100 text-emerald-800 font-bold text-xs">
+                  <i className="pi pi-chart-pie" aria-hidden="true" />
+                </span>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
+                  State Demand Fulfillment Status
+                </h3>
+              </div>
+              {/* <p className="text-[11.5px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5 ml-9">
+                Breakdown of {totalDemandUnits.toLocaleString()} Total Requested
+                Units
+              </p> */}
             </div>
             {activeSlice !== null && (
               <button
                 type="button"
                 onClick={() => setActiveSlice(null)}
-                className="text-[11px] font-bold text-blue-600 hover:underline"
+                className="text-[11px] font-bold text-emerald-600 hover:underline shrink-0"
               >
                 Reset
               </button>
@@ -361,7 +359,7 @@ export const AdminAnalyticsGrid: React.FC = () => {
           </div>
 
           {/* SVG Donut Ring Container */}
-          <div className="relative my-2 flex justify-center items-center">
+          <div className="relative my-3 flex justify-center items-center">
             <div className="relative flex h-56 w-56 items-center justify-center">
               <svg
                 viewBox="0 0 200 200"
@@ -399,20 +397,22 @@ export const AdminAnalyticsGrid: React.FC = () => {
               </svg>
 
               {/* Center Donut Label */}
-              <div className="pointer-events-none absolute flex flex-col items-center justify-center text-center">
+              <div className="pointer-events-none absolute flex flex-col items-center justify-center text-center p-2">
                 <span
-                  className="text-3xl font-black transition-colors"
+                  className="text-3xl font-black transition-colors leading-none"
                   style={{
                     color: activeDonutItem ? activeDonutItem.color : "#059669",
                   }}
                 >
-                  {activeDonutItem ? `${activeDonutItem.value}%` : "65%"}
+                  {activeDonutItem ? `${activeDonutItem.value}%` : "83.1%"}
                 </span>
-                <span className="text-[10.5px] font-extrabold uppercase tracking-wider text-slate-700 dark:text-slate-300 leading-tight">
+                <span className="text-[10.5px] font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 mt-1 leading-tight max-w-[130px]">
                   {activeDonutItem ? activeDonutItem.label : "APPROVED & SENT"}
                 </span>
-                <span className="text-[10px] font-bold text-slate-500 mt-0.5">
-                  {calculatedUnits.toLocaleString()} Units
+                <span className="text-[11.5px] font-black text-slate-700 dark:text-slate-300 mt-1">
+                  {activeDonutItem
+                    ? `${activeDonutItem.units.toLocaleString()} Units`
+                    : "2,90,850 Units"}
                 </span>
               </div>
             </div>
@@ -420,7 +420,7 @@ export const AdminAnalyticsGrid: React.FC = () => {
         </div>
 
         {/* Clickable/Hoverable Legend Buttons */}
-        <div className="space-y-1 border-t border-slate-100 pt-3 dark:border-slate-800">
+        <div className="space-y-1.5 border-t border-slate-100 pt-3 dark:border-slate-800">
           {FULFILLMENT_DONUT_DATA.map((item, idx) => {
             const isSelected = activeSlice === idx;
             return (
@@ -430,7 +430,7 @@ export const AdminAnalyticsGrid: React.FC = () => {
                 onClick={() => setActiveSlice(isSelected ? null : idx)}
                 onMouseEnter={() => setActiveSlice(idx)}
                 onMouseLeave={() => setActiveSlice(null)}
-                className={`flex w-full items-center justify-between rounded-xl px-3 py-1.5 text-xs transition-all duration-200 ${
+                className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs transition-all duration-200 ${
                   isSelected
                     ? "bg-slate-100 shadow-2xs font-extrabold text-slate-900 dark:bg-slate-800 dark:text-white"
                     : "hover:bg-slate-50 text-slate-600 dark:text-slate-400 dark:hover:bg-slate-800/50"
@@ -443,14 +443,15 @@ export const AdminAnalyticsGrid: React.FC = () => {
                     }`}
                     style={{ backgroundColor: item.color }}
                   />
-                  <span>{item.label}</span>
+                  <span className="font-bold">{item.label}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="font-extrabold">{item.value}%</span>
-                  <i
-                    className="pi pi-chevron-right text-[10px] opacity-60"
-                    aria-hidden="true"
-                  />
+                  <span className="font-black text-slate-900 dark:text-white">
+                    {item.units.toLocaleString()} Units
+                  </span>
+                  <span className="rounded-md bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10.5px] font-extrabold text-slate-600 dark:text-slate-400">
+                    {item.value}%
+                  </span>
                 </div>
               </button>
             );
