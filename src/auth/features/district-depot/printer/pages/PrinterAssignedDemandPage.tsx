@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card } from "shared/components/panels";
 import { printerDemandData, type PrinterDemandItem } from "../data";
 import { depotDropdownItems, academicYears, printerList } from "../../data";
@@ -45,6 +46,7 @@ function ProgressBar({ value, max }: { value: number; max: number }) {
 }
 
 export default function PrinterAssignedDemandPage() {
+  const pageTitle = usePageTitle();
   const [year, setYear] = useState("2026-2027");
   const [depot, setDepot] = useState("");
   const [printer, setPrinter] = useState("");
@@ -70,7 +72,7 @@ export default function PrinterAssignedDemandPage() {
 
   return (
     <Page
-      header="Printer Assigned Demand"
+      header={pageTitle || "Printer Assigned Demand"}
       subHeader="मुद्रक-वार कार्यादेश — Books ordered from each printer, delivered to depot, and remaining balance."
       showHeaderActions
     >

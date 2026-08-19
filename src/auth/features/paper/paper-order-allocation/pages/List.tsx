@@ -5,6 +5,7 @@ import { Button } from "shared/components/buttons";
 import StatusButton from "shared/components/buttons/StatusButton";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Modal } from "shared/components/popups";
 import {
   usePaperOrderActiveStatusMutation,
@@ -12,6 +13,7 @@ import {
 } from "../queries";
 
 export default function List() {
+  const pageTitle = usePageTitle();
   const { data = [], isLoading } = usePaperOrdersQuery();
   const { mutateAsync: toggleStatus } = usePaperOrderActiveStatusMutation();
   const [selectedDocUrl, setSelectedDocUrl] = useState<string | null>(null);
@@ -39,7 +41,7 @@ export default function List() {
 
   return (
     <Page
-      header="Paper Vendor Order Details"
+      header={pageTitle || "Paper Vendor Order Details"}
       subHeader="Issue binding purchase work orders to paper mills, manage order quantities, rates, and track depot allocations."
       showHeaderActions
     >

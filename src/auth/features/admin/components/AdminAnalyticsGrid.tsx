@@ -57,9 +57,6 @@ export const AdminAnalyticsGrid: React.FC = () => {
                   Cross-District Demand vs Printing vs Supply Progress
                 </h3>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Comparative breakdown across major state zones
-              </p>
             </div>
 
             {/* View Mode Toggle Switcher & Legend */}
@@ -362,9 +359,6 @@ export const AdminAnalyticsGrid: React.FC = () => {
               </button>
             )}
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">
-            Status of all <strong>2,90,850</strong> state textbook units
-          </p>
 
           {/* SVG Donut Ring Container */}
           <div className="relative my-2 flex justify-center items-center">

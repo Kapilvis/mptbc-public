@@ -1,4 +1,5 @@
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel } from "shared/components/panels";
 import { dataManager } from "../../../inventory/mockData";
 import type { StockTransaction } from "../../../inventory/types";
@@ -28,6 +29,7 @@ function TransactionTypeBadge({ type }: { type: StockTransaction["type"] }) {
 }
 
 export default function StockTransactionsPage() {
+  const pageTitle = usePageTitle();
   const transactions = dataManager.getTransactions();
 
   // Reverse list so latest transactions are at the top
@@ -35,7 +37,7 @@ export default function StockTransactionsPage() {
 
   return (
     <Page
-      header="Stock Transaction History"
+      header={pageTitle || "Stock Transactions"}
       subHeader="स्टॉक लेनदेन इतिहास — View all incoming receipts, outgoing distributions, and adjustments logged by the depot."
       showHeaderActions
     >

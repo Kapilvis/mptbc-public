@@ -286,8 +286,8 @@ export default function BillingEnginePage() {
 
   return (
     <Page
-      header="Billing & Settlement Dashboard"
-      subHeader="Perform automated billing calculations, claim 80% running advances, and clear season final settlements."
+      header="Billing Engine"
+      subHeader="Review transport bills, advance payments, and final claims."
     >
       {/* Dynamic Tab Navigation */}
       <div className="flex border-b border-slate-200 mb-6 gap-2">
@@ -361,15 +361,15 @@ export default function BillingEnginePage() {
                     ]}
                     columns={[
                       {
-                        header: "LR Number",
-                        field: "lrNumber",
-                        width: "110px",
+                        header: "Vehicle Number",
+                        field: "truckNo",
+                        width: "140px",
                         cell: (row: BillingDispatch) => (
                           <span
                             onClick={() => handleRowSelect(row)}
                             className="font-bold text-emerald-600 hover:underline cursor-pointer text-xs"
                           >
-                            {row.lrNumber}
+                            {row.truckNo}
                           </span>
                         ),
                       },
@@ -385,7 +385,8 @@ export default function BillingEnginePage() {
                         ),
                       },
                       {
-                        header: "Transporter & Fleet",
+                        header: "Transporter & Vehicle",
+                        field: "transporterName",
                         cell: (row: BillingDispatch) => (
                           <span className="text-slate-600 font-medium text-xs">
                             {row.transporterName} | {row.truckNo}
@@ -631,12 +632,12 @@ export default function BillingEnginePage() {
                         ),
                       },
                       {
-                        header: "LR Number",
-                        field: "lrNumber",
-                        width: "110px",
+                        header: "Vehicle Number",
+                        field: "truckNo",
+                        width: "140px",
                         cell: (row: BillingDispatch) => (
                           <span className="font-bold text-slate-800">
-                            {row.lrNumber}
+                            {row.truckNo}
                           </span>
                         ),
                       },
@@ -764,12 +765,12 @@ export default function BillingEnginePage() {
                     ]}
                     columns={[
                       {
-                        header: "LR Number",
-                        field: "lrNumber",
-                        width: "110px",
+                        header: "Vehicle Number",
+                        field: "truckNo",
+                        width: "140px",
                         cell: (row: BillingDispatch) => (
                           <span className="font-bold text-slate-800">
-                            {row.lrNumber}
+                            {row.truckNo}
                           </span>
                         ),
                       },

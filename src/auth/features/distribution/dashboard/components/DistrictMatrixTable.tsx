@@ -15,12 +15,8 @@ export function DistrictMatrixTable({
       <div className="mb-3 flex justify-between items-center">
         <div>
           <h3 className="text-base font-bold text-gray-900 dark:text-white">
-            Title Wise Textbook Distribution Report
+            Block-Title Wise Textbook Distribution Report
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            Real-time title wise demand, supply, BRC receipts, and student
-            distribution status
-          </p>
         </div>
       </div>
 
@@ -39,11 +35,17 @@ export function DistrictMatrixTable({
           "mediumName",
         ]}
         columns={[
+          // {
+          //   field: "academicYear",
+          //   header: "Academic Year",
+          //   align: "center",
+          //   width: "110px",
+          // },
           {
-            field: "academicYear",
-            header: "Academic Year",
+            cell: (_, option) => <span>{option.rowIndex + 1}</span>,
+            width: "50px",
             align: "center",
-            width: "110px",
+            header: "S.No.",
           },
           {
             field: "bookTypeName",
@@ -107,7 +109,7 @@ export function DistrictMatrixTable({
           },
           {
             field: "tbcSentToBrc",
-            header: "TBC Sent to BRC",
+            header: "TBC Sent to Block",
             align: "right",
             cell: (row: TitleWiseDistributionItem) =>
               row.tbcSentToBrc.toLocaleString(),
@@ -124,14 +126,14 @@ export function DistrictMatrixTable({
           },
           {
             field: "brcReceived",
-            header: "BRC Received",
+            header: "Block Received",
             align: "right",
             cell: (row: TitleWiseDistributionItem) =>
               row.brcReceived.toLocaleString(),
           },
           {
             field: "brcReceivedSortSupply",
-            header: "BRC Short Supply",
+            header: "Block Short Supply",
             align: "right",
             cell: (row: TitleWiseDistributionItem) => (
               <span
@@ -147,7 +149,7 @@ export function DistrictMatrixTable({
           },
           {
             field: "brcReceivedDamaged",
-            header: "BRC Damaged",
+            header: "Block Damaged",
             align: "right",
             cell: (row: TitleWiseDistributionItem) => (
               <span
@@ -163,7 +165,7 @@ export function DistrictMatrixTable({
           },
           {
             field: "brcReceivedPercent",
-            header: "BRC Recv %",
+            header: "Block Received %",
             align: "right",
             cell: (row: TitleWiseDistributionItem) => (
               <span className="font-semibold text-emerald-700 dark:text-emerald-400">
@@ -173,14 +175,14 @@ export function DistrictMatrixTable({
           },
           {
             field: "brcSentToSchool",
-            header: "BRC Sent to School",
+            header: "Block Sent to School",
             align: "right",
             cell: (row: TitleWiseDistributionItem) =>
               row.brcSentToSchool.toLocaleString(),
           },
           {
             field: "brcSentToSchoolPercent",
-            header: "BRC Sent %",
+            header: "Block Sent %",
             align: "right",
             cell: (row: TitleWiseDistributionItem) => (
               <span className="font-semibold text-blue-700 dark:text-blue-400">

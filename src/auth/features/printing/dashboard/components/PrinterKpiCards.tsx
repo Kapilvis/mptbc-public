@@ -58,7 +58,7 @@ export default function PrinterKpiCards({ stats }: Props) {
   const row2 = [
     {
       title: "Paper Allocated",
-      value: `${stats.paperAllocated.toFixed(2)} MT`,
+      value: `${Math.round(stats.paperAllocated)} MT`,
       subText: "For current FY orders",
       icon: "pi pi-file-edit",
       badgeType: "blue",
@@ -67,7 +67,7 @@ export default function PrinterKpiCards({ stats }: Props) {
     },
     {
       title: "Paper Received",
-      value: `${stats.paperReceived.toFixed(2)} MT`,
+      value: `${Math.round(stats.paperReceived)} MT`,
       subText: "78.2% of allocation",
       icon: "pi pi-download",
       badgeType: "green",
@@ -85,7 +85,7 @@ export default function PrinterKpiCards({ stats }: Props) {
     },
     {
       title: "Paper Consumed",
-      value: `${stats.paperConsumed.toFixed(2)} MT`,
+      value: `${Math.round(stats.paperConsumed)} MT`,
       subText: "73.7% of received",
       icon: "pi pi-box",
       badgeType: "yellow",

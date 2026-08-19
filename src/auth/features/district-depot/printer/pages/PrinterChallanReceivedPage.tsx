@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card } from "shared/components/panels";
 import { Button } from "shared/components/buttons";
 import { ToastService } from "services";
@@ -45,6 +46,7 @@ const emptyForm = {
 };
 
 export default function PrinterChallanReceivedPage() {
+  const pageTitle = usePageTitle();
   const [challans, setChallans] =
     useState<PrinterChallanItem[]>(printerChallanData);
   const [form, setForm] = useState(emptyForm);
@@ -108,7 +110,7 @@ export default function PrinterChallanReceivedPage() {
 
   return (
     <Page
-      header="Printer Challan Received"
+      header={pageTitle || "Printer Challan Received"}
       subHeader="मुद्रक से डिपो पर प्राप्त चालान — Record and view challans received from printers at depot."
       showHeaderActions
     >

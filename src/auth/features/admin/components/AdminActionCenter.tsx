@@ -20,10 +20,6 @@ export const AdminActionCenter: React.FC = () => {
             <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
               System Executive Action Center (Consolidated Alerts)
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              High-priority operational alerts requiring immediate executive
-              sign-off or action
-            </p>
           </div>
         </div>
         <span className="inline-flex items-center rounded-full bg-rose-100 px-2.5 py-0.5 text-xs font-bold text-rose-800 dark:bg-rose-950 dark:text-rose-300">

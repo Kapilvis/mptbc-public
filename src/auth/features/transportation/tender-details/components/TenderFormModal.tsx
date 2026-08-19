@@ -191,31 +191,32 @@ export default function TenderFormModal({
           />
         </div>
 
-        {/* Row 2: Title / Scope */}
-        <TextBox
-          label="Tender Title / Scope"
-          name="title"
-          required
-          control={control}
-          placeholder="Enter Tender Title / Scope"
-        />
-
-        {/* Row 3: Transporter Multi-Checkbox Dropdown */}
-        <InputBlock label="Transporter" required>
-          <MultiSelect
-            value={selectedTransporters}
-            options={transporterOptions}
-            onChange={(e) => setSelectedTransporters(e.value || [])}
-            optionLabel="text"
-            optionValue="id"
-            placeholder="Select Transporter"
-            filter
-            display="comma"
-            className="w-full form-dropdown-input"
-            panelClassName="form-dropdown-panel"
-            appendTo={document.body}
+        {/* Row 2: Title & Transporter */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <TextBox
+            label="Tender Title"
+            name="title"
+            required
+            control={control}
+            placeholder="Enter Tender Title"
           />
-        </InputBlock>
+
+          <InputBlock label="Transporter" required>
+            <MultiSelect
+              value={selectedTransporters}
+              options={transporterOptions}
+              onChange={(e) => setSelectedTransporters(e.value || [])}
+              optionLabel="text"
+              optionValue="id"
+              placeholder="Select Transporter"
+              filter
+              display="comma"
+              className="w-full form-dropdown-input"
+              panelClassName="form-dropdown-panel"
+              appendTo={document.body}
+            />
+          </InputBlock>
+        </div>
 
         {/* Row 4: Agreement & Valid Till Dates */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

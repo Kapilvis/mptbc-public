@@ -1,11 +1,13 @@
 import { useState } from "react";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel } from "shared/components/panels";
 import { dataManager } from "../../../inventory/mockData";
 import type { PaperReceipt } from "../../../inventory/types";
 import CreateReceiving from "./CreateReceiving";
 
 export default function PaperReceivingPage() {
+  const pageTitle = usePageTitle();
   const [receipts, setReceipts] = useState<PaperReceipt[]>(() =>
     dataManager.getReceipts(),
   );
@@ -27,7 +29,7 @@ export default function PaperReceivingPage() {
 
   return (
     <Page
-      header="Paper Stock In (Receiving)"
+      header={pageTitle || "Paper Stock In (Receiving)"}
       subHeader="कागज प्राप्ति प्रविष्टि — Record and log incoming paper rolls from registered paper vendors."
       showHeaderActions
     >

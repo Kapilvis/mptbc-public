@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel, InputPanel } from "shared/components/panels";
 import { Button, ButtonPanel } from "shared/components/buttons";
 import { DropDownList, DatePicker } from "shared/components/forms";
@@ -42,6 +43,7 @@ interface Props {
 }
 
 export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
+  const pageTitle = usePageTitle();
   const navigate = useNavigate();
   const orders = dataManager.getOrders();
   const printerList = dataManager.getPrinterMasterList();
@@ -116,7 +118,8 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
   return (
     <Page
       header={
-        pendingOnly ? "Pending Printer Orders" : "Printer Order Management"
+        pageTitle ||
+        (pendingOnly ? "Pending Printer Orders" : "Printer Order Management")
       }
       subHeader={
         pendingOnly

@@ -1,7 +1,9 @@
 import React from "react";
 import { EXECUTIVE_KPIS } from "../data/adminDashboardData";
 
-export const AdminKpiBanner: React.FC = () => {
+export const AdminKpiBanner: React.FC<{ academicYear?: string }> = ({
+  academicYear = "2026-2027",
+}) => {
   const cardThemes: Record<
     string,
     {
@@ -49,9 +51,86 @@ export const AdminKpiBanner: React.FC = () => {
     },
   };
 
+  const kpis = EXECUTIVE_KPIS.map((kpi) => {
+    if (academicYear === "2025-2026") {
+      if (kpi.id === "paper")
+        return {
+          ...kpi,
+          value: "3,520 MT",
+          badge: "98.5% Fulfilled",
+          badgeType: "success" as const,
+        };
+      if (kpi.id === "depot")
+        return {
+          ...kpi,
+          value: "3,480 MT",
+          badge: "100% Inspected",
+          badgeType: "success" as const,
+        };
+      if (kpi.id === "printing")
+        return {
+          ...kpi,
+          value: "3.42 Cr",
+          badge: "100% Completed",
+          badgeType: "success" as const,
+        };
+      if (kpi.id === "district")
+        return {
+          ...kpi,
+          value: "3.38 Cr",
+          badge: "99.2% Dispatched",
+          badgeType: "success" as const,
+        };
+      if (kpi.id === "demand")
+        return {
+          ...kpi,
+          value: "3.45 Cr",
+          badge: "100% Approved",
+          badgeType: "success" as const,
+        };
+    } else if (academicYear === "2024-2025") {
+      if (kpi.id === "paper")
+        return {
+          ...kpi,
+          value: "3,210 MT",
+          badge: "100% Archived",
+          badgeType: "neutral" as const,
+        };
+      if (kpi.id === "depot")
+        return {
+          ...kpi,
+          value: "3,210 MT",
+          badge: "Closed",
+          badgeType: "neutral" as const,
+        };
+      if (kpi.id === "printing")
+        return {
+          ...kpi,
+          value: "3.18 Cr",
+          badge: "Archived",
+          badgeType: "neutral" as const,
+        };
+      if (kpi.id === "district")
+        return {
+          ...kpi,
+          value: "3.18 Cr",
+          badge: "100% Distributed",
+          badgeType: "neutral" as const,
+        };
+      if (kpi.id === "demand")
+        return {
+          ...kpi,
+          value: "3.20 Cr",
+          badge: "Archived",
+          badgeType: "neutral" as const,
+        };
+    }
+    return kpi;
+  });
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-      {EXECUTIVE_KPIS.map((kpi) => {
+      {kpis.map((kpi) => {
         const style = cardThemes[kpi.id] || cardThemes.paper;
 
         return (

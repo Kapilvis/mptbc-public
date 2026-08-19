@@ -1,34 +1,32 @@
 import { useMemo } from "react";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel } from "shared/components/panels";
-import { ConfirmDialog, useConfirmDialog } from "shared/components/popups";
-import { ToastService } from "services";
-import { Button } from "shared/components/buttons";
-import { AlertCircle, Clock, MapPin } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Clock, Truck } from "lucide-react";
 import { useWorkOrdersQuery } from "../../work-order/queries";
 
 interface FlatTrackingDispatch extends Transportation.Dispatch {
   district: string;
   block: string;
   transporterName: string;
-  slaDueDate: string;
+  expectedDeliveryDate: string;
   daysRemaining: number;
   displayStatus: string;
 }
 
 export default function TrackingPage() {
+  const pageTitle = usePageTitle();
   const { data: workOrders = [], isLoading } = useWorkOrdersQuery();
-  const { confirmAction } = useConfirmDialog();
 
   // Helper to calculate days remaining
-  const calculateSlaDays = (
+  const calculateDeliveryDays = (
     dispatchDateStr: string,
     status: string,
     actualDeliveryDate?: string,
   ) => {
     const dispatchDate = new Date(dispatchDateStr);
-    const slaDueDate = new Date(dispatchDate);
-    slaDueDate.setDate(slaDueDate.getDate() + 3); // 3-day SLA
+    const dueDate = new Date(dispatchDate);
+    dueDate.setDate(dueDate.getDate() + 3); // 3-day window
 
     const endPoint =
       status === "Delivered" && actualDeliveryDate
@@ -36,67 +34,93 @@ export default function TrackingPage() {
         : new Date();
 
     endPoint.setHours(0, 0, 0, 0);
-    slaDueDate.setHours(0, 0, 0, 0);
+    dueDate.setHours(0, 0, 0, 0);
 
-    const diffTime = slaDueDate.getTime() - endPoint.getTime();
-    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
+    const diffTime = dueDate.getTime() - endPoint.getTime();
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
-  // Flatten work orders into individual dispatches
+  // Format date to Indian IST format (DD/MM/YYYY)
+  const formatISTDate = (dateStr?: string) => {
+    if (!dateStr) return "-";
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  // Format YYYY-MM-DD
+  const calculateExpectedDeliveryDate = (dispatchDateStr: string) => {
+    const d = new Date(dispatchDateStr);
+    d.setDate(d.getDate() + 3);
+    return d.toISOString().split("T")[0];
+  };
+
+  // Flatten dispatches from work orders with live calculated delivery status
   const dispatchesList = useMemo(() => {
-    return workOrders.flatMap((wo) =>
-      (wo.dispatches || []).map((d) => {
-        const daysRemaining = calculateSlaDays(
-          d.dispatchDate,
-          d.status,
-          d.actualDeliveryDate,
-        );
+    const list: FlatTrackingDispatch[] = [];
+    workOrders.forEach((wo) => {
+      if (wo.dispatches && wo.dispatches.length > 0) {
+        wo.dispatches.forEach((disp) => {
+          const days = calculateDeliveryDays(
+            disp.dispatchDate,
+            disp.status,
+            disp.actualDeliveryDate,
+          );
+          const isDelayed = days < 0 && disp.status !== "Delivered";
 
-        let displayStatus: string = d.status;
-        if (d.status === "In Transit" && daysRemaining < 0) {
-          displayStatus = "SLA Breached";
-        }
+          list.push({
+            ...disp,
+            district: wo.district,
+            block: wo.block,
+            transporterName: wo.transporterName,
+            expectedDeliveryDate: calculateExpectedDeliveryDate(
+              disp.dispatchDate,
+            ),
+            daysRemaining: days,
+            displayStatus: isDelayed ? "Delayed" : disp.status,
+          });
+        });
+      }
+    });
 
-        const dispatchDate = new Date(d.dispatchDate);
-        const slaDueDate = new Date(dispatchDate);
-        slaDueDate.setDate(slaDueDate.getDate() + 3);
-        const slaDueDateStr = slaDueDate.toISOString().split("T")[0];
-
-        return {
-          ...d,
-          district: wo.district,
-          block: wo.block,
-          transporterName: wo.transporterName,
-          slaDueDate: slaDueDateStr,
-          daysRemaining,
-          displayStatus,
-        };
-      }),
-    );
+    // Sort by urgency: Delayed first, then nearest due date
+    return list.sort((a, b) => {
+      if (a.displayStatus === "Delayed" && b.displayStatus !== "Delayed")
+        return -1;
+      if (b.displayStatus === "Delayed" && a.displayStatus !== "Delayed")
+        return 1;
+      return a.daysRemaining - b.daysRemaining;
+    });
   }, [workOrders]);
 
-  const handleMarkDefault = (row: FlatTrackingDispatch) => {
-    confirmAction({
-      header: "Mark Transporter as Defaulted",
-      message: `Are you sure you want to mark dispatch ${row.lrNumber} (Truck: ${row.truckNo}) as Defaulted? This will initiate the penalty recovery process and blacklist this truck for active work orders.`,
-      icon: "pi pi-exclamation-triangle",
-      acceptLabel: "Confirm Default",
-      rejectLabel: "Cancel",
-      onAccept: () => {
-        ToastService.success(
-          `Dispatch ${row.lrNumber} marked as Defaulted. Incident report submitted to Head Office.`,
-        );
-      },
-    });
-  };
+  const inTransitCount = useMemo(
+    () => dispatchesList.filter((d) => d.displayStatus === "In Transit").length,
+    [dispatchesList],
+  );
 
-  const getSlaBadgeClass = (days: number, status: string) => {
+  const delayedCount = useMemo(
+    () => dispatchesList.filter((d) => d.displayStatus === "Delayed").length,
+    [dispatchesList],
+  );
+
+  const deliveredCount = useMemo(
+    () => dispatchesList.filter((d) => d.status === "Delivered").length,
+    [dispatchesList],
+  );
+
+  const totalVehicles = dispatchesList.length || 1;
+  const inTransitPct = Math.round((inTransitCount / totalVehicles) * 100);
+  const deliveredPct = Math.round((deliveredCount / totalVehicles) * 100);
+
+  const getTimelineBadgeClass = (days: number, status: string) => {
     if (status === "Delivered") {
       return "bg-emerald-50 text-emerald-700 border-emerald-200";
     }
     if (days < 0) {
-      return "bg-rose-50 text-rose-700 border-rose-200 animate-pulse";
+      return "bg-red-50 text-red-700 border-red-200";
     }
     if (days <= 1) {
       return "bg-amber-50 text-amber-700 border-amber-200";
@@ -108,8 +132,8 @@ export default function TrackingPage() {
     switch (status) {
       case "Delivered":
         return "bg-emerald-100 text-emerald-800 border-emerald-300";
-      case "SLA Breached":
-        return "bg-rose-100 text-rose-800 border-rose-300";
+      case "Delayed":
+        return "bg-red-100 text-red-800 border-red-300";
       case "In Transit":
       default:
         return "bg-sky-100 text-sky-800 border-sky-300";
@@ -118,9 +142,9 @@ export default function TrackingPage() {
 
   if (isLoading) {
     return (
-      <Page header="Delivery Tracking" subHeader="Please wait...">
+      <Page header="Live Delivery Tracking" subHeader="Please wait...">
         <div className="flex items-center justify-center min-h-[300px] text-slate-500 font-medium">
-          Syncing active dispatch signals and SLA counters...
+          Syncing active dispatch signals and vehicle tracking...
         </div>
       </Page>
     );
@@ -128,64 +152,119 @@ export default function TrackingPage() {
 
   return (
     <Page
-      header="Live Delivery Tracking Monitor"
+      header={pageTitle || "Live Delivery Tracking"}
       subHeader="Monitor in-transit shipments, audit SLA delivery clocks, and log default exceptions."
     >
-      {/* Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <Card className="p-4 flex items-center gap-4 bg-sky-50/50 border-sky-100">
-          <div className="p-3 bg-sky-100 rounded-xl text-sky-600">
-            <Clock size={24} />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              In Transit
+      {/* Rich Overview KPI Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-6">
+        {/* 1. In Transit */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col justify-between hover:shadow-md transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              In-Transit Vehicles
             </span>
-            <span className="text-xl font-bold text-slate-800">
-              {
-                dispatchesList.filter((d) => d.displayStatus === "In Transit")
-                  .length
-              }{" "}
-              Shipments
-            </span>
+            <div className="p-2.5 bg-sky-50 text-sky-600 rounded-xl">
+              <Truck size={20} />
+            </div>
           </div>
-        </Card>
+          <div className="mt-4">
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-black text-slate-800">
+                {inTransitCount}
+              </span>
+              <span className="text-xs text-slate-500 font-semibold">
+                / {totalVehicles} Active Vehicles
+              </span>
+            </div>
+            <div className="w-full bg-slate-100 h-2.5 rounded-full mt-3 overflow-hidden">
+              <div
+                className="bg-sky-500 h-full rounded-full transition-all duration-500"
+                style={{ width: `${inTransitPct}%` }}
+              />
+            </div>
+            <div className="flex justify-between items-center text-xs text-slate-600 font-semibold mt-2.5">
+              <span className="text-sky-700 flex items-center gap-1.5 font-bold">
+                <Clock size={13} /> Live GPS Active
+              </span>
+              <span className="text-slate-500">On-Route</span>
+            </div>
+          </div>
+        </div>
 
-        <Card className="p-4 flex items-center gap-4 bg-rose-50/50 border-rose-100">
-          <div className="p-3 bg-rose-100 rounded-xl text-rose-600">
-            <AlertCircle size={24} />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              SLA Breaches
+        {/* 2. Delay Alerts (Pure Bold Red) */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col justify-between hover:shadow-md transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              Delivery Delay Alerts
             </span>
-            <span className="text-xl font-bold text-slate-800">
-              {
-                dispatchesList.filter((d) => d.displayStatus === "SLA Breached")
-                  .length
-              }{" "}
-              Shipments
-            </span>
+            <div className="p-2.5 bg-red-50 text-red-600 rounded-xl">
+              <AlertTriangle size={20} />
+            </div>
           </div>
-        </Card>
+          <div className="mt-4">
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-black text-red-600">
+                {delayedCount}
+              </span>
+              <span className="text-xs text-slate-500 font-semibold">
+                Delayed Vehicle(s)
+              </span>
+            </div>
+            <div className="w-full bg-slate-100 h-2.5 rounded-full mt-3 overflow-hidden">
+              <div
+                className="bg-red-500 h-full rounded-full transition-all duration-500"
+                style={{
+                  width: `${Math.round((delayedCount / totalVehicles) * 100)}%`,
+                }}
+              />
+            </div>
+            <div className="flex justify-between items-center text-xs font-semibold mt-2.5">
+              <span className="text-red-600 font-bold">
+                Delayed Past 3 Days
+              </span>
+              <span className="text-red-700 text-xs font-bold">
+                Penalty Notice
+              </span>
+            </div>
+          </div>
+        </div>
 
-        <Card className="p-4 flex items-center gap-4 bg-emerald-50/50 border-emerald-100">
-          <div className="p-3 bg-emerald-100 rounded-xl text-emerald-600">
-            <MapPin size={24} />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              Successfully Delivered
+        {/* 3. Completed Deliveries */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col justify-between hover:shadow-md transition">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              Completed Deliveries
             </span>
-            <span className="text-xl font-bold text-slate-800">
-              {dispatchesList.filter((d) => d.status === "Delivered").length}{" "}
-              Shipments
-            </span>
+            <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl">
+              <CheckCircle2 size={20} />
+            </div>
           </div>
-        </Card>
+          <div className="mt-4">
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-black text-slate-800">
+                {deliveredCount}
+              </span>
+              <span className="text-xs text-slate-500 font-semibold">
+                / {totalVehicles} Deliveries Completed
+              </span>
+            </div>
+            <div className="w-full bg-slate-100 h-2.5 rounded-full mt-3 overflow-hidden">
+              <div
+                className="bg-emerald-500 h-full rounded-full transition-all duration-500"
+                style={{ width: `${deliveredPct}%` }}
+              />
+            </div>
+            <div className="flex justify-between items-center text-xs text-slate-600 font-semibold mt-2.5">
+              <span className="text-emerald-700 font-bold">
+                {deliveredPct}% Delivery Rate
+              </span>
+              <span className="text-emerald-700 font-bold">POD Verified</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Main Table - Clean Separate Columns without Sub-Headings */}
+      {/* Main Table */}
       <Card>
         <GridPanel
           data={dispatchesList}
@@ -208,10 +287,10 @@ export default function TrackingPage() {
               header: "S.No.",
             },
             {
-              header: "Lorry Receipt Number",
-              field: "lrNumber",
+              header: "Vehicle Number",
+              field: "truckNo",
               sortable: true,
-              width: "180px",
+              width: "160px",
             },
             {
               header: "District",
@@ -227,12 +306,6 @@ export default function TrackingPage() {
               header: "Transporter",
               field: "transporterName",
               sortable: true,
-            },
-            {
-              header: "Vehicle Number",
-              field: "truckNo",
-              sortable: true,
-              width: "140px",
             },
             {
               header: "Loaded Bundles",
@@ -253,18 +326,26 @@ export default function TrackingPage() {
             },
             {
               header: "Dispatch Date",
-              field: "dispatchDate",
+              cell: (row: FlatTrackingDispatch) => (
+                <span className="text-slate-700 font-medium">
+                  {formatISTDate(row.dispatchDate)}
+                </span>
+              ),
               sortable: true,
-              width: "120px",
+              width: "130px",
             },
             {
-              header: "SLA Due Date",
-              field: "slaDueDate",
+              header: "Expected Delivery Date",
+              cell: (row: FlatTrackingDispatch) => (
+                <span className="text-slate-700 font-medium">
+                  {formatISTDate(row.expectedDeliveryDate)}
+                </span>
+              ),
               sortable: true,
-              width: "120px",
+              width: "180px",
             },
             {
-              header: "SLA Countdown",
+              header: "Delivery Timeline",
               align: "center",
               width: "160px",
               cell: (row: FlatTrackingDispatch) => {
@@ -272,15 +353,15 @@ export default function TrackingPage() {
                 const isDelivered = row.status === "Delivered";
                 return (
                   <span
-                    className={`px-3 py-1 rounded-full text-[10px] font-bold border whitespace-nowrap inline-block ${getSlaBadgeClass(days, row.status)}`}
+                    className={`px-3 py-1 rounded-full text-[10px] font-bold border whitespace-nowrap inline-block ${getTimelineBadgeClass(days, row.status)}`}
                   >
                     {isDelivered
-                      ? "On Time Delivery"
+                      ? "On-Time Delivery"
                       : days < 0
-                        ? `LATE BY ${Math.abs(days)} DAYS`
+                        ? `Late by ${Math.abs(days)} Days`
                         : days === 0
-                          ? "DUE TODAY"
-                          : `${days} DAYS LEFT`}
+                          ? "Due Today"
+                          : `${days} Days Left`}
                   </span>
                 );
               },
@@ -298,29 +379,9 @@ export default function TrackingPage() {
                 </span>
               ),
             },
-            {
-              header: "Actions",
-              width: "140px",
-              align: "center",
-              cell: (row: FlatTrackingDispatch) => {
-                const isBreached = row.displayStatus === "SLA Breached";
-                return (
-                  <Button
-                    icon="shield"
-                    label="Mark Default"
-                    variant="danger"
-                    size="small"
-                    className="!text-xs whitespace-nowrap"
-                    onClick={() => handleMarkDefault(row)}
-                    disabled={row.status === "Delivered" || !isBreached}
-                  />
-                );
-              },
-            },
           ]}
         />
       </Card>
-      <ConfirmDialog />
     </Page>
   );
 }

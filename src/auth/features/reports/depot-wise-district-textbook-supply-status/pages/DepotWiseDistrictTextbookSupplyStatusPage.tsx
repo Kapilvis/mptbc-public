@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { depotWiseDistrictTextbookSupplyStatusData } from "../data/depotWiseDistrictTextbookSupplyStatusData";
 import DepotWiseDistrictTextbookSupplyStatusFilters from "../components/DepotWiseDistrictTextbookSupplyStatusFilters";
 import DepotWiseDistrictTextbookSupplyStatusSummary from "../components/DepotWiseDistrictTextbookSupplyStatusSummary";
@@ -8,6 +9,7 @@ import DepotWiseDistrictTextbookSupplyStatusTable from "../components/DepotWiseD
 
 export default function DepotWiseDistrictTextbookSupplyStatusPage() {
   const { t } = useTranslation();
+  const pageTitle = usePageTitle();
   const [filteredData, setFilteredData] = useState<
     Report.DepotWiseDistrictTextbookSupplyStatusRow[]
   >(depotWiseDistrictTextbookSupplyStatusData);
@@ -39,7 +41,7 @@ export default function DepotWiseDistrictTextbookSupplyStatusPage() {
 
   return (
     <Page
-      header={t("reports.supply_status.page_header")}
+      header={pageTitle || t("reports.supply_status.page_header")}
       subHeader={t("reports.supply_status.page_sub_header")}
       showHeaderActions
     >

@@ -53,7 +53,7 @@ export default function Page({
 
             <div className="page-heading-text">
               {header && <h1>{header}</h1>}
-              {subHeader && <p>{subHeader}</p>}
+              {/* {subHeader && <p>{subHeader}</p>} */}
             </div>
           </div>
 

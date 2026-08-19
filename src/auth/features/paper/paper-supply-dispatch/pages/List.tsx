@@ -5,6 +5,7 @@ import { Button } from "shared/components/buttons";
 import StatusButton from "shared/components/buttons/StatusButton";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Modal } from "shared/components/popups";
 import {
   usePaperDispatchActiveStatusMutation,
@@ -12,6 +13,7 @@ import {
 } from "../queries";
 
 export default function List() {
+  const pageTitle = usePageTitle();
   const { data = [], isLoading } = usePaperDispatchesQuery();
   const { mutateAsync: toggleStatus } = usePaperDispatchActiveStatusMutation();
   const [selectedDocUrl, setSelectedDocUrl] = useState<string | null>(null);
@@ -41,7 +43,7 @@ export default function List() {
 
   return (
     <Page
-      header="Paper Supply & Central Depot Dispatch"
+      header={pageTitle || "Paper Supply & Central Depot Dispatch"}
       subHeader="Manage paper reel dispatches, vehicle challans, and shipments sent to Central Depot and Printers."
       showHeaderActions
     >

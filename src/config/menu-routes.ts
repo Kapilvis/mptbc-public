@@ -11,27 +11,27 @@ import { ROLE_PERMISSIONS } from "../auth/rolePermissions";
 // export const menuConfig: Menu.MenuItem[] = [
 export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   {
-    label: "Home",
+    label: t("routes.home"),
     icon: "pi pi-home",
     path: "/home",
     permissionKey: "dashboard",
   },
   {
-    label: "Dashboard",
+    label: t("routes.dashboard"),
     icon: "pi pi-th-large",
     path: "",
     permissionKey: "dashboard",
   },
   {
-    label: "Profile",
+    label: t("routes.profile"),
     icon: "pi pi-user",
     path: "/profile",
     permissionKey: "profile",
   },
   {
-    label: "Master",
+    label: t("routes.master-title"),
     icon: "pi pi-database",
-    section: "Configuration",
+    section: t("routes.configuration"),
     children: [
       {
         label: t("routes.master.office.office"),
@@ -282,9 +282,9 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   },
   /* ─── 1. DISTRIBUTION SECTION ─── */
   {
-    label: "Distribution Section",
+    label: t("routes.distribution-section"),
     icon: "pi pi-truck",
-    section: "Modules",
+    section: t("routes.modules"),
     permissionKey: "distribution-section",
     children: [
       {
@@ -309,12 +309,12 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         permissionKey: "distribution-section/demand-approval",
       },
       {
-        label: "Paper Distribution",
+        label: t("routes.paper-distribution"),
         path: "/distribution/new",
         permissionKey: "paper-distribution",
       },
       {
-        label: "Distribution History",
+        label: t("routes.distribution-history"),
         path: "/distribution/history",
         permissionKey: "distribution-history",
       },
@@ -323,25 +323,25 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
 
   /* ─── 2. CONTENT MANAGEMENT ─── */
   {
-    label: "Content Management",
+    label: t("routes.content-management"),
     icon: "pi pi-book",
     children: [
       {
-        label: "Title Received (RSK / CPI)",
+        label: t("routes.title-received"),
         path: "/distribution/title-received",
         feature: "@distribution/title-received",
         action: "read",
         permissionKey: "title-section/title-received",
       },
       {
-        label: "Title Approval",
+        label: t("routes.title-approval"),
         path: "/distribution/title-approval",
         feature: "@distribution/title-approval",
         action: "read",
         permissionKey: "title-section/title-approval",
       },
       {
-        label: "Approved Title List",
+        label: t("routes.approved-title-list"),
         path: masterUrls.title.root,
         feature: "@master/title",
         action: "read",
@@ -357,7 +357,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     permissionKey: "paper-section",
     children: [
       {
-        label: "Paper Section Dashboard",
+        label: t("routes.paper-section-dashboard"),
         path: "/paper/dashboard",
         feature: "@paper/dashboard",
         action: "read",
@@ -371,49 +371,49 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         permissionKey: "paper-section/book-paper-requirement",
       },
       {
-        label: "GSM Wise Paper Demand Report",
+        label: t("routes.gsm-wise-paper-demand-report"),
         path: "/paper/gsm-demand-report",
         feature: "@paper/gsm-demand-report",
         action: "read",
         permissionKey: "paper-section/gsm-demand-report",
       },
       {
-        label: "Paper Tender",
+        label: t("routes.paper-tender"),
         path: "/paper/paper-tender-raise",
         feature: "@paper/paper-tender-raise",
         action: "read",
         permissionKey: "paper-section/paper-tender",
       },
       {
-        label: "Paper Vendor Profile",
+        label: t("routes.paper-vendor-profile"),
         path: "/paper/paper-vendor-profile",
         feature: "@paper/paper-vendor-profile",
         action: "read",
         permissionKey: "paper-section/paper-vendor-profile",
       },
       {
-        label: "Paper Vendor Order Details",
+        label: t("routes.paper-vendor-order-details"),
         path: "/paper/paper-order-allocation",
         feature: "@paper/paper-order-allocation",
         action: "read",
       },
       {
-        label: "Paper Stock",
+        label: t("routes.paper-stock"),
         path: "/paper/stock/main",
         permissionKey: "paper-stock",
       },
       {
-        label: "Stock Transactions",
+        label: t("routes.stock-transactions"),
         path: "/paper/stock/transactions",
         permissionKey: "stock-transactions",
       },
       {
-        label: "Stock Ledger",
+        label: t("routes.stock-ledger"),
         path: "/paper/stock/ledger",
         permissionKey: "stock-ledger",
       },
       {
-        label: "Paper Supply & Dispatch",
+        label: t("routes.paper-supply-dispatch"),
         path: "/paper/paper-supply-dispatch",
         feature: "@paper/paper-supply-dispatch",
         action: "read",
@@ -424,8 +424,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
 
   /* ─── 4. PRINTER SECTION ─── */
   {
-    label: "Printer Section",
-    // label: t("routes.printing.printing"),
+    label: t("routes.printer-section"),
     icon: "pi pi-print",
     children: [
       {
@@ -434,17 +433,17 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         permissionKey: "printer-section/printer-registration",
       },
       {
-        label: "Printer Orders",
+        label: t("routes.printer-orders"),
         path: "/printing/orders/list",
         permissionKey: "printer-orders",
       },
       {
-        label: "Pending Orders",
+        label: t("routes.pending-orders"),
         path: "/printing/orders/pending",
         permissionKey: "pending-printer-orders",
       },
       {
-        label: "Quality Inspection",
+        label: t("routes.quality-inspection"),
         path: "/printing/quality-inspection",
         permissionKey: "printer-section/quality-inspection",
       },
@@ -453,39 +452,39 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
 
   /* ─── 5. DEPOT ─── */
   {
-    label: "Depot Section",
+    label: t("routes.depot-section"),
     icon: "pi pi-home",
     children: [
       {
-        label: "Depot Registration",
+        label: t("routes.depot-registration"),
         path: "/mptbc/depot-registration",
         permissionKey: "depot-section/depot-registration",
       },
       {
-        label: "Printer Section",
+        label: t("routes.printer-section"),
         children: [
           {
-            label: "Printer Assigned Demand",
+            label: t("routes.printer-assigned-demand"),
             path: "/district-depot/printer/assigned-demand",
             permissionKey: "district-depot/printer-assigned-demand",
           },
           {
-            label: "Challan Received",
+            label: t("routes.challan-received"),
             path: "/district-depot/printer/challan-received",
             permissionKey: "district-depot/challan-received",
           },
         ],
       },
       {
-        label: "Distribution till Block",
+        label: t("routes.distribution-till-block"),
         children: [
           {
-            label: "Challan to Block",
+            label: t("routes.challan-to-block"),
             path: "/district-depot/dispatch/challan-to-block",
             permissionKey: "district-depot/challan-to-block",
           },
           {
-            label: "Dispatch History",
+            label: t("routes.dispatch-history"),
             path: "/district-depot/dispatch/history",
             permissionKey: "district-depot/dispatch-history",
           },
@@ -493,75 +492,40 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
       },
     ],
   },
-  /* ─── DEPOT TRANSPORT SECTION ─── */
-  // {
-  //   label: "Depot Transport Section",
-  //   icon: "pi pi-car",
-  //   permissionKey: "depot-transport",
-  //   children: [
-  //     {
-  //       label: "Transport Orders",
-  //       path: "/district-depot/transport/orders",
-  //       permissionKey: "depot-transport/transport-orders",
-  //     },
-  //     {
-  //       label: "Vehicle Management",
-  //       path: "/district-depot/transport/vehicles",
-  //       permissionKey: "depot-transport/vehicle-management",
-  //     },
-  //     {
-  //       label: "Fuel Log",
-  //       path: "/district-depot/transport/fuel-log",
-  //       permissionKey: "depot-transport/fuel-log",
-  //     },
-  //   ],
-  // },
 
   /* ─── 6. TRANSPORTATION ─── */
   {
-    label: "Transportation",
+    label: t("routes.transportation"),
     icon: "pi pi-truck",
     permissionKey: "transportation",
     children: [
       {
-        label: "Tender Details",
+        label: t("routes.tender-details"),
         path: "/transport/tender-details",
         permissionKey: "transport/tender-details",
       },
       {
-        label: "Work Order & Allocation",
+        label: t("routes.work-order-allocation"),
         path: "/transport/work-order",
         permissionKey: "transport/work-order",
       },
       {
-        label: "Loading & Dispatch",
+        label: t("routes.loading-dispatch"),
         path: "/transport/dispatch",
         permissionKey: "transport/dispatch",
       },
       {
-        label: "Live Delivery Tracking",
+        label: t("routes.live-delivery-tracking"),
         path: "/transport/tracking",
         permissionKey: "transport/tracking",
       },
       {
-        label: "POD Submission",
+        label: t("routes.pod-submission"),
         path: "/transport/pod",
         permissionKey: "transport/pod",
       },
-      /*
       {
-        label: "Billing Engine",
-        path: "/transport/billing",
-        permissionKey: "transport/billing",
-      },
-      {
-        label: "Payment Disbursement",
-        path: "/transport/disbursement",
-        permissionKey: "transport/disbursement",
-      },
-      */
-      {
-        label: "Transportation Analytics",
+        label: t("routes.transportation-analytics"),
         path: "/transport/reports",
         permissionKey: "transport/reports",
       },
@@ -575,34 +539,32 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     permissionKey: "reports",
     children: [
       {
-        label: "Depot Wise Textbook Supply Report",
-        // label: t("routes.reports.depot-wise-district-textbook-supply-status"),
+        label: t("routes.depot-wise-textbook-supply-report"),
         path: "/reports/depot-wise-district-textbook-supply-status",
         permissionKey: "reports/depot-supply-status",
       },
       {
-        // label: "Department Wise Demand Report",
         label: t("routes.reports.agency-wise-demand"),
         path: "/reports/agency-wise-demand",
         permissionKey: "reports/agency-demand",
       },
       {
-        label: "GSM-wise Stock Report",
+        label: t("routes.gsm-wise-stock-report"),
         path: "/reports/gsm-stock",
         permissionKey: "gsm-stock-report",
       },
       {
-        label: "Printer-wise Order Report",
+        label: t("routes.printer-wise-order-report"),
         path: "/reports/printer-orders",
         permissionKey: "printer-order-report",
       },
       {
-        label: "Printer-wise Supply Report",
+        label: t("routes.printer-wise-supply-report"),
         path: "/reports/printer-supply",
         permissionKey: "printer-supply-report",
       },
       {
-        label: "Paper Distribution Report",
+        label: t("routes.paper-distribution-report"),
         path: "/reports/distributions",
         permissionKey: "paper-distribution-report",
       },
@@ -610,42 +572,103 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
   },
 
   /* ─── MISC / STANDALONE ─── */
+  /* ─── DISTRICT DEPOT specific mock menus ─── */
+  {
+    label: "Assigned Demand",
+    icon: "pi pi-file-edit",
+    path: "/assigned-demand",
+    permissionKey: "assigned-demand",
+  },
+
+  /* ─── PRINTER specific mock menus ─── */
+  {
+    label: "Tender",
+    icon: "pi pi-file",
+    path: "/tender",
+    permissionKey: "tender",
+  },
   {
     label: "Paper Receiving",
+    icon: "pi pi-download",
+    path: "/paper-receiving",
+    permissionKey: "paper-receiving",
+  },
+  {
+    label: t("routes.paper-receiving"),
     icon: "pi pi-download",
     path: "/paper/stock/receiving",
     permissionKey: "central-paper-receiving",
   },
-  // {
-  //   label: "Title Master",
-  //   icon: "pi pi-bookmark",
-  //   path: "/title-master",
-  //   permissionKey: "title-master",
-  // },
-  // {
-  //   label: "GSM Master",
-  //   icon: "pi pi-sliders-h",
-  //   path: "/gsm-master",
-  //   permissionKey: "gsm-master",
-  // },
-  // {
-  //   label: "Distribution",
-  //   icon: "pi pi-map-marker",
-  //   path: "/distribution-page",
-  //   permissionKey: "distribution",
-  // },
-  // {
-  //   label: "Dispatch",
-  //   icon: "pi pi-directions",
-  //   path: "/dispatch",
-  //   permissionKey: "dispatch",
-  // },
-  // {
-  //   label: "Distribution Tracking",
-  //   icon: "pi pi-map",
-  //   path: "/distribution-tracking",
-  //   permissionKey: "distribution-tracking",
-  // },
+  {
+    label: "Title Master",
+    icon: "pi pi-bookmark",
+    path: "/title-master",
+    permissionKey: "title-master",
+  },
+  {
+    label: "GSM Master",
+    icon: "pi pi-sliders-h",
+    path: "/gsm-master",
+    permissionKey: "gsm-master",
+  },
+  {
+    label: "Supply Section",
+    icon: "pi pi-send",
+    path: "/supply-section",
+    permissionKey: "supply-section",
+  },
+  {
+    label: "Payment",
+    icon: "pi pi-wallet",
+    path: "/payment",
+    permissionKey: "payment",
+  },
+
+  /* ─── PAPER VENDOR specific mock menus ─── */
+  {
+    label: "Paper Supply",
+    icon: "pi pi-upload",
+    path: "/paper-supply",
+    permissionKey: "paper-supply",
+  },
+  {
+    label: "Paper Orders",
+    icon: "pi pi-shopping-cart",
+    path: "/paper-orders",
+    permissionKey: "paper-orders",
+  },
+
+  /* ─── DISTRIBUTION SECTION specific mock menus ─── */
+  {
+    label: "Demand",
+    icon: "pi pi-envelope",
+    path: "/demand",
+    permissionKey: "demand",
+  },
+  {
+    label: "Allocation",
+    icon: "pi pi-share-alt",
+    path: "/allocation",
+    permissionKey: "allocation",
+  },
+  {
+    label: "Distribution",
+    icon: "pi pi-map-marker",
+    path: "/distribution-page",
+    permissionKey: "distribution",
+  },
+  {
+    label: "Dispatch",
+    icon: "pi pi-directions",
+    path: "/dispatch",
+    permissionKey: "dispatch",
+  },
+  {
+    label: "Distribution Tracking",
+    icon: "pi pi-map",
+    path: "/distribution-tracking",
+    permissionKey: "distribution-tracking",
+  },
 ];
 
 export function useMenu() {
@@ -706,7 +729,10 @@ export function useMenu() {
 
     const mapped = filtered
       .map((item) => {
-        if (item.label === "Dashboard") {
+        if (
+          item.label === "Dashboard" ||
+          item.label === t("routes.dashboard")
+        ) {
           let dashboardPath = "";
           if (role === "CENTRAL_DEPOT") {
             dashboardPath = "/inventory/dashboard";
@@ -727,7 +753,8 @@ export function useMenu() {
         // For DISTRIBUTION_SECTION role, remove the duplicate child item under "Distribution Section" group so it doesn't double open
         if (
           role === "DISTRIBUTION_SECTION" &&
-          item.label === "Distribution Section" &&
+          (item.label === "Distribution Section" ||
+            item.label === t("routes.distribution-section")) &&
           item.children
         ) {
           return {
@@ -756,7 +783,11 @@ export function useMenu() {
         return item;
       })
       .filter((item) => {
-        if (item.label === "Dashboard" && !item.path) {
+        if (
+          (item.label === "Dashboard" ||
+            item.label === t("routes.dashboard")) &&
+          !item.path
+        ) {
           return false;
         }
         return true;

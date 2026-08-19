@@ -115,7 +115,7 @@ export default function DispatchFormModal({
   // Auto-calculated weight (Bundles * 0.04 Tons)
   const calculatedWeight = useMemo(() => {
     const bundles = Number(watchBundlesLoaded) || 0;
-    return Number((bundles * 0.04).toFixed(3));
+    return Math.round(bundles * 0.04);
   }, [watchBundlesLoaded]);
 
   // Overload verification
@@ -192,10 +192,10 @@ export default function DispatchFormModal({
       visible={visible}
       onHide={onHide}
       size="medium"
-      header="Create / Authorize Dispatch"
+      header="Create Dispatch"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        {/* Row 1: Work Order & Loading Truck */}
+        {/* Row 1: Work Order & Loading Vehicle */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <SelectBox
             label="Select Active Work Order"
@@ -208,7 +208,7 @@ export default function DispatchFormModal({
           />
 
           <SelectBox
-            label="Select Loading Truck"
+            label="Select Vehicle"
             name="vehicleId"
             required
             control={control}
@@ -256,10 +256,10 @@ export default function DispatchFormModal({
                 <AlertTriangle size={18} className="shrink-0 mt-0.5" />
                 <div className="flex flex-col">
                   <span className="text-xs font-bold">
-                    Fleet Maintenance Notice
+                    Vehicle Document Notice
                   </span>
                   <span className="text-xs leading-relaxed mt-0.5">
-                    {expiredCount} fleet truck(s) belonging to{" "}
+                    {expiredCount} vehicle(s) belonging to{" "}
                     {selectedWorkOrder.transporterName} have expired documents
                     and cannot be selected.
                   </span>
@@ -271,7 +271,7 @@ export default function DispatchFormModal({
                 <AlertTriangle size={18} className="shrink-0 mt-0.5" />
                 <div className="flex flex-col">
                   <span className="text-xs font-bold uppercase">
-                    All Fleet Vehicles Locked
+                    No Active Vehicles Available
                   </span>
                   <span className="text-xs leading-relaxed mt-0.5">
                     No valid vehicles with up-to-date documents are available
@@ -346,21 +346,20 @@ export default function DispatchFormModal({
           />
         </div>
 
-        {/* Row 4: Gate Pass Outward No & Lorry Receipt (LR) No */}
+        {/* Row 4: Gate Pass Outward No & LR No */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <TextBox
             label="Gate Pass Outward No."
             name="gatePassNo"
-            required
             control={control}
-            placeholder="e.g. GP-9021"
+            placeholder="e.g. GP-IND-1001"
           />
           <TextBox
-            label="Lorry Receipt (LR) No."
+            label="LR Number"
             name="lrNumber"
-            required
             control={control}
-            placeholder="e.g. LR-4029"
+            required
+            placeholder="e.g. LR-9011"
           />
         </div>
 
@@ -374,12 +373,12 @@ export default function DispatchFormModal({
           />
           <div>
             <span className="text-[11px] font-bold text-slate-700 block mb-1">
-              SLA Delivery Window
+              Delivery Timeline
             </span>
             <div className="border border-slate-200 bg-emerald-50/60 rounded-lg h-[38px] px-3 flex items-center gap-2">
               <Clock className="text-emerald-600 shrink-0" size={15} />
               <span className="text-xs font-semibold text-slate-800">
-                3-Day Delivery SLA active upon dispatch
+                3-Day delivery timeline active upon dispatch
               </span>
             </div>
           </div>
@@ -395,7 +394,7 @@ export default function DispatchFormModal({
           />
           <Button
             type="submit"
-            label="Authorize Dispatch"
+            label="Save & Generate Gate Pass"
             icon="check"
             disabled={
               addDispatchMutation.isPending ||

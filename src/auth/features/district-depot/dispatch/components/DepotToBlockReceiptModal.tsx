@@ -138,9 +138,7 @@ export function DepotToBlockReceiptModal({ item, onClose }: Props) {
             </div>
             <div className="text-center">
               <div className="border-t border-gray-400 w-32 mb-1" />
-              <div className="text-[10px] text-gray-500">
-                Block BRC (Receiver)
-              </div>
+              <div className="text-[10px] text-gray-500">Block (Receiver)</div>
             </div>
           </div>
         </div>

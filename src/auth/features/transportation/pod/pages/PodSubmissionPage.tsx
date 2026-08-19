@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel } from "shared/components/panels";
 import { Button } from "shared/components/buttons";
 import {
@@ -16,6 +17,7 @@ import {
   useWorkOrdersQuery,
   useSubmitPodMutation,
 } from "../../work-order/queries";
+import PodReceiptModal from "../components/PodReceiptModal";
 
 interface FlatPodDispatch extends Transportation.Dispatch {
   district: string;
@@ -34,8 +36,11 @@ interface PodFormValues {
 }
 
 export default function PodSubmissionPage() {
+  const pageTitle = usePageTitle();
   const { data: workOrders = [], isLoading } = useWorkOrdersQuery();
   const submitPodMutation = useSubmitPodMutation();
+  const [receiptDispatch, setReceiptDispatch] =
+    useState<FlatPodDispatch | null>(null);
 
   const todayStr = new Date().toISOString().split("T")[0];
   const [isLost, setIsLost] = useState(false);
@@ -123,10 +128,21 @@ export default function PodSubmissionPage() {
     }
   };
 
+  // Format date to Indian IST format (DD/MM/YYYY)
+  const formatISTDate = (dateStr?: string) => {
+    if (!dateStr) return "-";
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   // Dropdown options
   const dispatchOptions = useMemo(() => {
     return activeDispatches.map((d) => ({
-      text: `${d.lrNumber} - ${d.transporterName} (${d.district} - ${d.block})`,
+      text: `${d.truckNo} - ${d.transporterName} (${d.district} - ${d.block})`,
       id: `${d.workOrderId}|${d.dispatchId}`,
     }));
   }, [activeDispatches]);
@@ -186,7 +202,7 @@ export default function PodSubmissionPage() {
 
   if (isLoading) {
     return (
-      <Page header="POD Submission" subHeader="Please wait...">
+      <Page header="Proof of Delivery (POD)" subHeader="Please wait...">
         <div className="flex items-center justify-center min-h-[300px] text-slate-500 font-medium">
           Loading in-transit logs and dispatch records...
         </div>
@@ -196,26 +212,24 @@ export default function PodSubmissionPage() {
 
   return (
     <Page
-      header="Proof of Delivery (POD) Submission"
+      header={pageTitle || "Proof of Delivery (POD) Submission"}
       subHeader="Record textbook receiving logs, audit stock counts, and upload signed delivery challans."
     >
       <div className="flex flex-col gap-6">
-        {/* Full-width Form Card with Generous Spacing */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <Card className="p-6 flex flex-col gap-6">
             <div className="border-b border-slate-200 pb-3">
               <span className="text-base font-bold text-slate-800 tracking-tight">
-                POD Submission Details
+                Proof of Delivery (POD) Details
               </span>
             </div>
 
-            {/* Form Fields Container with clean vertical and horizontal gaps */}
             <div className="flex flex-col gap-6">
-              {/* Row 1: 3 Items (Dispatch, Good Bundles, Damaged/Missing) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <SelectBox
-                  label="Select Active Shipment / Dispatch"
+                  label="Select Active Dispatch"
                   name="dispatchRef"
+                  placeholder="Select Active Dispatch"
                   required
                   control={control}
                   data={dispatchOptions}
@@ -258,7 +272,6 @@ export default function PodSubmissionPage() {
                 </InputBlock>
               </div>
 
-              {/* Row 2: 3 Items (Officer Name, Designation, Delivery Date) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <TextBox
                   label="Receiving Officer Name"
@@ -274,7 +287,7 @@ export default function PodSubmissionPage() {
                   name="receiverDesignation"
                   required
                   control={control}
-                  placeholder="e.g. BRC, Sanwer Block"
+                  placeholder="e.g. Sanwer Block"
                   disabled={!selectedDispatch}
                 />
 
@@ -287,7 +300,6 @@ export default function PodSubmissionPage() {
                 />
               </div>
 
-              {/* Row 3: 3 Items (Upload Challan, Upload Signature, Lost Checkbox) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <InputBlock label="Upload Delivery Challan (PDF/JPG)" required>
                   <input
@@ -307,50 +319,50 @@ export default function PodSubmissionPage() {
                   />
                 </InputBlock>
 
-                <InputBlock label="Shipment Status">
-                  <div className="flex items-center gap-2 border border-gray-200 rounded-lg h-[38px] px-3 bg-gray-50">
+                <InputBlock label="Transit Exception Status">
+                  <div className="flex items-center h-[38px] px-3 bg-amber-50/50 border border-amber-200 rounded-lg gap-2">
                     <input
                       type="checkbox"
-                      id="lostCheckbox"
+                      id="lostCheck"
                       checked={isLost}
                       onChange={handleLostToggle}
-                      className="w-4 h-4 text-rose-600 border-gray-300 rounded focus:ring-rose-500 cursor-pointer"
+                      className="rounded text-rose-600 focus:ring-rose-500 h-4 w-4 cursor-pointer"
                       disabled={!selectedDispatch}
                     />
                     <label
-                      htmlFor="lostCheckbox"
-                      className="text-xs font-semibold text-gray-700 cursor-pointer select-none"
+                      htmlFor="lostCheck"
+                      className="text-xs font-bold text-amber-900 cursor-pointer"
                     >
-                      Declare Shipment as LOST
+                      Mark load as completely lost in transit
                     </label>
                   </div>
                 </InputBlock>
               </div>
-            </div>
 
-            {/* Deduction Warning if Damaged */}
-            {damagedBundles > 0 && (
-              <div className="bg-rose-50 border border-rose-200 rounded-xl p-3 flex items-start gap-2 text-rose-800">
-                <AlertTriangle size={18} className="shrink-0 mt-0.5" />
-                <div className="flex flex-col text-xs">
-                  <span className="font-bold">Deduction Recovery Notice</span>
-                  <span className="leading-relaxed mt-0.5">
-                    {isLost
-                      ? "Lost shipment: 1.5x of book value will be recovered from the transporter's final bill."
-                      : `${damagedBundles} missing/damaged bundles will be recovered at unit book price from freight.`}
-                  </span>
+              {/* Deduction Warning if Damaged */}
+              {damagedBundles > 0 && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-3 flex items-start gap-2 text-red-800">
+                  <AlertTriangle size={18} className="shrink-0 mt-0.5" />
+                  <div className="flex flex-col text-xs">
+                    <span className="font-bold">Deduction Recovery Notice</span>
+                    <span className="leading-relaxed mt-0.5">
+                      {isLost
+                        ? "Lost load: 1.5x of textbook value will be deducted from the transporter's final bill."
+                        : `${damagedBundles} missing/damaged bundles will be deducted at unit textbook price from bill.`}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Submit Button */}
-            <div className="flex justify-end gap-3 border-t border-slate-200 pt-4 mt-2">
-              <Button
-                type="submit"
-                label="Confirm Delivery"
-                icon="check"
-                disabled={!watchDispatchRef || submitPodMutation.isPending}
-              />
+              {/* Submit Button */}
+              <div className="flex justify-end gap-3 border-t border-slate-200 pt-4 mt-2">
+                <Button
+                  type="submit"
+                  label="Confirm Delivery"
+                  icon="check"
+                  disabled={!watchDispatchRef || submitPodMutation.isPending}
+                />
+              </div>
             </div>
           </Card>
         </form>
@@ -379,10 +391,10 @@ export default function PodSubmissionPage() {
                 header: "S.No.",
               },
               {
-                header: "Lorry Receipt Number",
-                field: "lrNumber",
+                header: "Vehicle Number",
+                field: "truckNo",
                 sortable: true,
-                width: "180px",
+                width: "160px",
               },
               {
                 header: "Work Order",
@@ -406,12 +418,6 @@ export default function PodSubmissionPage() {
                 sortable: true,
               },
               {
-                header: "Vehicle Number",
-                field: "truckNo",
-                sortable: true,
-                width: "140px",
-              },
-              {
                 header: "Delivered Bundles",
                 field: "bundlesLoaded",
                 sortable: true,
@@ -430,27 +436,35 @@ export default function PodSubmissionPage() {
               },
               {
                 header: "Dispatch Date",
-                field: "dispatchDate",
+                cell: (row: FlatPodDispatch) => (
+                  <span className="text-slate-700 font-medium">
+                    {formatISTDate(row.dispatchDate)}
+                  </span>
+                ),
                 sortable: true,
-                width: "120px",
+                width: "130px",
               },
               {
                 header: "Delivery Date",
-                field: "actualDeliveryDate",
+                cell: (row: FlatPodDispatch) => (
+                  <span className="text-slate-700 font-medium">
+                    {formatISTDate(row.actualDeliveryDate)}
+                  </span>
+                ),
                 sortable: true,
-                width: "120px",
+                width: "130px",
               },
               {
-                header: "SLA Delay Status",
+                header: "Delivery Delay Status",
                 align: "center",
-                width: "150px",
+                width: "160px",
                 cell: (row: FlatPodDispatch) => {
                   const delay = row.deliveryDelayDays || 0;
                   return (
                     <span
                       className={`px-3 py-1 rounded-full text-[10px] font-bold border whitespace-nowrap inline-block ${
                         delay > 0
-                          ? "bg-rose-50 text-rose-700 border-rose-200"
+                          ? "bg-red-50 text-red-700 border-red-200"
                           : "bg-emerald-50 text-emerald-700 border-emerald-200"
                       }`}
                     >
@@ -464,25 +478,27 @@ export default function PodSubmissionPage() {
                 width: "140px",
                 align: "center",
                 cell: (row: FlatPodDispatch) => (
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      ToastService.success(
-                        `Downloading signed challan for LR ${row.lrNumber}`,
-                      );
-                    }}
-                    className="text-emerald-600 hover:text-emerald-800 text-xs font-bold flex items-center gap-1 justify-center whitespace-nowrap"
+                  <button
+                    type="button"
+                    onClick={() => setReceiptDispatch(row)}
+                    className="text-emerald-600 hover:text-emerald-800 text-xs font-bold flex items-center gap-1 justify-center whitespace-nowrap cursor-pointer hover:underline"
                   >
                     <FileText size={14} />
                     View Receipt
-                  </a>
+                  </button>
                 ),
               },
             ]}
           />
         </Card>
       </div>
+
+      {/* Signed Delivery Receipt / Challan Modal */}
+      <PodReceiptModal
+        visible={!!receiptDispatch}
+        onHide={() => setReceiptDispatch(null)}
+        dispatch={receiptDispatch}
+      />
     </Page>
   );
 }

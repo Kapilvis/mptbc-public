@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel } from "shared/components/panels";
 import { dataManager } from "../../../inventory/mockData";
 import { StockStatusBadge } from "../../../paper/paper-stock/pages/PaperStockPage";
@@ -17,6 +18,7 @@ export default function ReportsPage({
   defaultTab?: TabId;
   hideTabs?: boolean;
 }) {
+  const pageTitle = usePageTitle();
   const [activeTab, setActiveTab] = useState<TabId>(defaultTab);
 
   useEffect(() => {
@@ -154,7 +156,7 @@ export default function ReportsPage({
 
   return (
     <Page
-      header={pageMeta.header}
+      header={pageTitle || pageMeta.header}
       subHeader={pageMeta.subHeader}
       showHeaderActions
     >

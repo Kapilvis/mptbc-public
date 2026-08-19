@@ -1,23 +1,24 @@
 import { useState } from "react";
 import { ToastService } from "services";
 import { Button } from "shared/components/buttons";
-import { CheckBox, DropDownList, TextBox } from "shared/components/forms";
+import { DropDownList, TextBox } from "shared/components/forms";
 import { Card, GridPanel } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 
 import {
-  useBulkApprovalStatusMutation,
   useDemandApprovalsQuery,
   useUpdateApprovalStatusMutation,
 } from "../queries";
 
+import { usePageTitle } from "shared/hooks/usePageTitle";
+
 export default function ApprovalList() {
+  const pageTitle = usePageTitle();
   const [academicYear, setAcademicYear] = useState("2026-2027");
   const [agency, setAgency] = useState("All");
   const [bookType, setBookType] = useState("All");
   const [classGroup, setClassGroup] = useState("All");
   const [search, setSearch] = useState("");
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   const { data = [], isLoading } = useDemandApprovalsQuery({
     academicYear,
@@ -29,8 +30,6 @@ export default function ApprovalList() {
 
   const { mutateAsync: updateStatus, isPending: isUpdating } =
     useUpdateApprovalStatusMutation();
-  const { mutateAsync: bulkUpdateStatus, isPending: isBulkUpdating } =
-    useBulkApprovalStatusMutation();
 
   const academicYearOptions = [
     { label: "2026-2027", value: "2026-2027" },
@@ -38,7 +37,7 @@ export default function ApprovalList() {
   ];
 
   const agencyOptions = [
-    { label: "All Agencies / Districts", value: "All" },
+    { label: "All Departments / Districts", value: "All" },
     { label: "RSK - Bhopal", value: "RSK - Bhopal" },
     { label: "District Aggregation", value: "District Aggregation" },
   ];
@@ -67,47 +66,10 @@ export default function ApprovalList() {
     }
   };
 
-  const handleBulkSubmit = async (status: Distribution.DemandStatus) => {
-    if (!selectedIds.length) return;
-    try {
-      await bulkUpdateStatus({ ids: selectedIds, status });
-      ToastService.success(
-        `Successfully ${status.toLowerCase()} ${selectedIds.length} demands in bulk`,
-      );
-      setSelectedIds([]);
-    } catch {
-      ToastService.error("Failed to execute bulk action");
-    }
-  };
-
-  const handleSelectRow = (id: number, checked: boolean) => {
-    if (checked) {
-      setSelectedIds((prev) => [...prev, id]);
-    } else {
-      setSelectedIds((prev) => prev.filter((i) => i !== id));
-    }
-  };
-
-  const isAllSelected = data.length > 0 && selectedIds.length === data.length;
-
-  const handleSelectAll = (checked: boolean) => {
-    if (checked) {
-      setSelectedIds(data.map((d) => d.id));
-    } else {
-      setSelectedIds([]);
-    }
-  };
-
-  const selectedItems = data.filter((item) => selectedIds.includes(item.id));
-  const totalSelectedDemand = selectedItems.reduce(
-    (sum, item) => sum + item.requestedDemand,
-    0,
-  );
-
   return (
     <Page
-      header="Approval of Agency Textbooks Demand"
-      subHeader="Review and process textbook demand requests submitted by agencies (RSK / CPI)."
+      header={pageTitle || "Approval of Department Textbooks Demand"}
+      subHeader="Review and process textbook demand requests submitted by departments (RSK / CPI)."
       showHeaderActions
     >
       {/* Top Filter Card */}
@@ -126,7 +88,7 @@ export default function ApprovalList() {
 
           <div>
             <DropDownList
-              label="Agency / District"
+              label="Department / District"
               data={agencyOptions}
               value={agency}
               onChange={(val) => setAgency(String(val ?? "All"))}
@@ -181,6 +143,7 @@ export default function ApprovalList() {
           showExport
           exportFilename="Pending_Agency_Demands_Approval"
           columns={[
+            /*
             {
               header: (
                 <div className="flex justify-center items-center">
@@ -201,6 +164,7 @@ export default function ApprovalList() {
                 </div>
               ),
             },
+            */
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
               width: "50px",
@@ -338,7 +302,8 @@ export default function ApprovalList() {
           ]}
         />
 
-        {/* Bottom Bulk Action Footer */}
+        {/* Bottom Bulk Action Footer (Disabled) */}
+        {/*
         {selectedIds.length > 0 && (
           <div className="flex flex-col sm:flex-row items-center justify-between p-3 mt-4 bg-emerald-50/50 border border-emerald-200 rounded-xl dark:bg-emerald-950/20 dark:border-emerald-900/60 gap-3 animate-in fade-in duration-200">
             <div className="flex items-center gap-3">
@@ -379,6 +344,7 @@ export default function ApprovalList() {
             </div>
           </div>
         )}
+        */}
       </Card>
     </Page>
   );

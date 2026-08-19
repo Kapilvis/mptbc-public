@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card } from "shared/components/panels";
 import { Button } from "shared/components/buttons";
 import { ToastService } from "services";
@@ -46,6 +47,7 @@ function StatusBadge({ status }: { status: ChallanToBlockItem["status"] }) {
 }
 
 export default function ChallanToBlockPage() {
+  const pageTitle = usePageTitle();
   const [challans, setChallans] =
     useState<ChallanToBlockItem[]>(challanToBlockData);
   const [form, setForm] = useState(emptyForm);
@@ -76,7 +78,7 @@ export default function ChallanToBlockPage() {
       academicYear: form.academicYear,
       depotCode: form.depotCode,
       block: block?.text ?? form.block,
-      brcCentre: form.brcCentre || `BRC ${block?.text ?? ""}`,
+      brcCentre: form.brcCentre || `Block ${block?.text ?? ""}`,
       title: title?.text ?? form.titleId,
       allottedQty: 0,
       issuedQty: parseInt(form.issuedQty) || 0,
@@ -98,8 +100,8 @@ export default function ChallanToBlockPage() {
 
   return (
     <Page
-      header="Challan to Block"
-      subHeader="ब्लॉक/BRC को पुस्तक प्रेषण — Issue books from depot to block/BRC centres with challan."
+      header={pageTitle || "Challan to Block"}
+      subHeader="विकासखंड पुस्तक प्रेषण — Issue books from depot to block centres with challan."
       showHeaderActions
     >
       {/* Form */}
@@ -137,10 +139,10 @@ export default function ChallanToBlockPage() {
               options: blockList,
             },
             {
-              label: "BRC Centre",
+              label: "Block Centre",
               field: "brcCentre",
               type: "text",
-              placeholder: "BRC centre name",
+              placeholder: "Block centre name",
             },
             {
               label: "Title *",
@@ -164,7 +166,7 @@ export default function ChallanToBlockPage() {
               label: "Receiver Name",
               field: "receiverName",
               type: "text",
-              placeholder: "BRC coordinator name",
+              placeholder: "Block coordinator name",
             },
             {
               label: "Receiver Mobile",

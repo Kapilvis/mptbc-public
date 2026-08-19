@@ -43,10 +43,6 @@ export const AdminModuleQuickJump: React.FC = () => {
           <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
             Sub-Dashboard Operational Summaries
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Live health metrics and single-click access to each specialized
-            portal
-          </p>
         </div>
       </div>
 

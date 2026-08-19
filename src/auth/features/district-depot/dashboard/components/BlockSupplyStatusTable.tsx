@@ -31,7 +31,7 @@ export function BlockSupplyStatusTable({ data }: BlockSupplyProps) {
             Block-wise Supply Status
           </h3>
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-            Recent dispatch status to blocks / BRC centres
+            Recent dispatch status to blocks
           </p>
         </div>
       </div>

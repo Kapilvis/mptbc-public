@@ -19,10 +19,6 @@ export const VendorPerformanceMatrixTable: React.FC<Props> = ({
             <i className="pi pi-building text-emerald-600 dark:text-emerald-400" />
             Paper Mill Vendor Supply Performance Matrix
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-            Consolidated agreement allocation vs actual paper dispatch
-            performance across all empaneled paper mills.
-          </p>
         </div>
       </div>
 

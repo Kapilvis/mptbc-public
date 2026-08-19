@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel, InputPanel } from "shared/components/panels";
 import { DropDownList } from "shared/components/forms";
 import { dataManager } from "../../../inventory/mockData";
@@ -29,6 +30,7 @@ export function StockStatusBadge({
 }
 
 export default function PaperStockPage() {
+  const pageTitle = usePageTitle();
   const [gsmFilter, setGsmFilter] = useState<string>("");
   const [typeFilter, setTypeFilter] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<string>("");
@@ -65,7 +67,7 @@ export default function PaperStockPage() {
 
   return (
     <Page
-      header="Paper Stock Management"
+      header={pageTitle || "Paper Stock Management"}
       subHeader="कागज स्टॉक प्रबंधन — Monitor available stock levels, reel specifications, and minimum thresholds."
       showHeaderActions
     >

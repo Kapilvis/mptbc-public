@@ -28,7 +28,7 @@ export default function PaperMaterialStatus({
             Allocated
           </span>
           <span className="text-lg font-black text-gray-800 dark:text-white block font-mono">
-            {status.allocated.toFixed(2)} MT
+            {Math.round(status.allocated)} MT
           </span>
         </div>
         <div>
@@ -36,7 +36,7 @@ export default function PaperMaterialStatus({
             Received
           </span>
           <span className="text-lg font-black text-[#5FAF7A] block font-mono">
-            {status.received.toFixed(2)} MT
+            {Math.round(status.received)} MT
           </span>
         </div>
         <div>
@@ -44,7 +44,7 @@ export default function PaperMaterialStatus({
             Consumed
           </span>
           <span className="text-lg font-black text-blue-600 dark:text-blue-405 block font-mono">
-            {status.consumed.toFixed(2)} MT
+            {Math.round(status.consumed)} MT
           </span>
         </div>
         <div>
@@ -52,7 +52,7 @@ export default function PaperMaterialStatus({
             Available
           </span>
           <span className="text-lg font-black text-amber-600 dark:text-amber-400 block font-mono">
-            {status.available.toFixed(2)} MT
+            {Math.round(status.available)} MT
           </span>
         </div>
       </div>
@@ -79,16 +79,16 @@ export default function PaperMaterialStatus({
                   {g.gsm}
                 </td>
                 <td className="py-3 text-right font-mono text-gray-700 dark:text-gray-300">
-                  {g.allocated.toFixed(2)} MT
+                  {Math.round(g.allocated)} MT
                 </td>
                 <td className="py-3 text-right font-mono text-gray-700 dark:text-gray-300">
-                  {g.received.toFixed(2)} MT
+                  {Math.round(g.received)} MT
                 </td>
                 <td className="py-3 text-right font-mono text-gray-700 dark:text-gray-300">
-                  {g.used.toFixed(2)} MT
+                  {Math.round(g.used)} MT
                 </td>
                 <td className="py-3 text-right font-mono text-gray-800 dark:text-white">
-                  {g.available.toFixed(2)} MT
+                  {Math.round(g.available)} MT
                 </td>
               </tr>
             ))}

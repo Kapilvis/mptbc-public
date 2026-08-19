@@ -123,11 +123,11 @@ export default function List() {
     },
     {
       field: "pagesGsmName",
-      header: "GSM (Pages)",
+      header: "Pages (GSM)",
     },
     {
       field: "coverGsmName",
-      header: "GSM (Cover)",
+      header: "Cover (GSM)",
     },
     {
       field: "innerPaperMt",
@@ -135,12 +135,12 @@ export default function List() {
       align: "right",
       cell: (row: BookPaperRequirement.Item) => (
         <span className="font-mono font-semibold text-blue-600">
-          {row.innerPaperMt.toFixed(3)}
+          {Math.round(row.innerPaperMt).toLocaleString()} MT
         </span>
       ),
       footer: (
         <span className="font-mono font-bold text-blue-600 text-base">
-          {totals.inner.toFixed(3)}
+          {Math.round(totals.inner).toLocaleString()} MT
         </span>
       ),
     },
@@ -150,12 +150,12 @@ export default function List() {
       align: "right",
       cell: (row: BookPaperRequirement.Item) => (
         <span className="font-mono font-semibold text-emerald-600">
-          {row.coverPaperMt.toFixed(3)}
+          {Math.round(row.coverPaperMt).toLocaleString()} MT
         </span>
       ),
       footer: (
         <span className="font-mono font-bold text-emerald-600 text-base">
-          {totals.cover.toFixed(3)}
+          {Math.round(totals.cover).toLocaleString()} MT
         </span>
       ),
     },
@@ -225,7 +225,10 @@ export default function List() {
                               Total Inner (MT)
                             </span>
                             <span className="text-xl font-extrabold text-blue-600 font-mono mt-1">
-                              {group.totalInnerPaperMt.toFixed(3)}
+                              {Math.round(
+                                group.totalInnerPaperMt,
+                              ).toLocaleString()}{" "}
+                              MT
                             </span>
                           </div>
                           <div className="flex flex-col">
@@ -233,7 +236,10 @@ export default function List() {
                               Total Cover (MT)
                             </span>
                             <span className="text-xl font-extrabold text-emerald-600 font-mono mt-1">
-                              {group.totalCoverPaperMt.toFixed(3)}
+                              {Math.round(
+                                group.totalCoverPaperMt,
+                              ).toLocaleString()}{" "}
+                              MT
                             </span>
                           </div>
                         </div>

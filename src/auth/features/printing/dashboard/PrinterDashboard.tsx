@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Page from "shared/components/panels/Page";
+import AcademicYearFilterBar from "shared/components/filters/AcademicYearFilterBar";
 import { useAuth } from "../../../AuthProvider";
 import { dataManager } from "../../inventory/mockData";
 import {
@@ -23,12 +24,33 @@ export default function PrinterDashboard() {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [error] = useState<string | null>(null);
+  const [academicYear, setAcademicYear] = useState("2026-2027");
 
   // Resolve logged-in user to their printer profile details
   const printerInfo = resolvePrinterDetails(
     user?.profile?.name || "PRINTER ADMIN",
   );
-  const stats = getPrinterDashboardStats(printerInfo.printerCode);
+  const baseStats = getPrinterDashboardStats(printerInfo.printerCode);
+
+  const stats = useMemo(() => {
+    if (academicYear === "2025-2026") {
+      return {
+        ...baseStats,
+        booksPrinted: baseStats.booksPrinted + 150000,
+        booksPending: 0,
+        supplyPending: 0,
+      };
+    }
+    if (academicYear === "2024-2025") {
+      return {
+        ...baseStats,
+        booksPrinted: baseStats.booksPrinted + 350000,
+        booksPending: 0,
+        supplyPending: 0,
+      };
+    }
+    return baseStats;
+  }, [baseStats, academicYear]);
 
   useEffect(() => {
     // Seed/reset mock data if it hasn't been seeded in local storage yet
@@ -80,6 +102,13 @@ export default function PrinterDashboard() {
   return (
     <Page>
       <div className="space-y-6">
+        {/* Academic Year Filter Bar */}
+        <AcademicYearFilterBar
+          academicYear={academicYear}
+          onChange={setAcademicYear}
+          subtitle={`Filtering press work orders, print job dispatches, and paper consumption for session ${academicYear}.`}
+        />
+
         {/* 8 Metric Cards Grid */}
         <PrinterKpiCards stats={stats} />
 

@@ -180,7 +180,7 @@ export default function WorkOrderFormModal({
       }
 
       ToastService.success(
-        `Work Order for ${blocks.length} block(s) generated successfully! Total Weight: ${totalMetricTons.toFixed(1)} Metric Ton (${totalBundles} Bundles)`,
+        `Work Order for ${blocks.length} block(s) generated successfully! Total Weight: ${Math.round(totalMetricTons)} MT (${totalBundles} Bundles)`,
       );
       onHide();
     } catch (err: unknown) {

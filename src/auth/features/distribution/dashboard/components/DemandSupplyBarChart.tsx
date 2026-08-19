@@ -37,9 +37,6 @@ export function DemandSupplyBarChart() {
             <i className="pi pi-chart-bar text-emerald-600 dark:text-emerald-400" />
             Demand vs Supply
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            District-level unit allocation & supply progress
-          </p>
         </div>
 
         {/* Legend */}

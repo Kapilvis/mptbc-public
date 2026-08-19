@@ -1,23 +1,24 @@
 import { useState } from "react";
 import { ToastService } from "services";
 import { Button } from "shared/components/buttons";
-import { CheckBox, DropDownList, TextBox } from "shared/components/forms";
+import { DropDownList, TextBox } from "shared/components/forms";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { Modal } from "shared/components/popups";
 import {
-  useBulkUpdateTitleReceivedMutation,
   useTitleReceivedQuery,
   useUpdateTitleReceivedMutation,
 } from "../queries";
 
+import { usePageTitle } from "shared/hooks/usePageTitle";
+
 export default function TitleReceivedList() {
+  const pageTitle = usePageTitle();
   const [academicYear, setAcademicYear] = useState("2026-2027");
   const [department, setDepartment] = useState("All");
   const [receiptStatus, setReceiptStatus] = useState("All");
   const [search, setSearch] = useState("");
 
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [selectedDocTitle, setSelectedDocTitle] =
     useState<Distribution.TitleReceivedItem | null>(null);
 
@@ -30,9 +31,6 @@ export default function TitleReceivedList() {
 
   const { mutateAsync: updateSingle, isPending: isSinglePending } =
     useUpdateTitleReceivedMutation();
-
-  const { mutateAsync: updateBulk, isPending: isBulkPending } =
-    useBulkUpdateTitleReceivedMutation();
 
   const academicYearOptions = [
     { label: "2026-2027", value: "2026-2027" },
@@ -52,22 +50,6 @@ export default function TitleReceivedList() {
     { label: "Need Info", value: "Need Info" },
   ];
 
-  const handleSelectAll = (checked: boolean) => {
-    if (checked) {
-      setSelectedIds(data.map((item) => item.id));
-    } else {
-      setSelectedIds([]);
-    }
-  };
-
-  const handleSelectRow = (id: number, checked: boolean) => {
-    if (checked) {
-      setSelectedIds((prev) => [...prev, id]);
-    } else {
-      setSelectedIds((prev) => prev.filter((i) => i !== id));
-    }
-  };
-
   const handleSingleStatusChange = async (
     id: number,
     newStatus: Distribution.ReceiptStatus,
@@ -80,26 +62,9 @@ export default function TitleReceivedList() {
     }
   };
 
-  const handleBulkStatusChange = async (
-    newStatus: Distribution.ReceiptStatus,
-  ) => {
-    if (selectedIds.length === 0) return;
-    try {
-      await updateBulk({ ids: selectedIds, status: newStatus });
-      ToastService.success(
-        `Successfully marked ${selectedIds.length} titles as ${newStatus}`,
-      );
-      setSelectedIds([]);
-    } catch {
-      ToastService.error("Failed to execute bulk receipt action");
-    }
-  };
-
-  const isAllSelected = data.length > 0 && selectedIds.length === data.length;
-
   return (
     <Page
-      header="Title Demand Received (RSK / CPI)"
+      header={pageTitle || "Title Demand Received (RSK / CPI)"}
       subHeader="Receive, verify soft copy matter specifications, and acknowledge textbook demand proposals sent by RSK (Class 1-8) and CPI (Class 9-12)."
       showHeaderActions
     >
@@ -163,6 +128,7 @@ export default function TitleReceivedList() {
           showExport
           exportFilename={`Title_Demand_Received_${academicYear}`}
           columns={[
+            /*
             {
               header: (
                 <div className="flex justify-center items-center">
@@ -183,6 +149,7 @@ export default function TitleReceivedList() {
                 </div>
               ),
             },
+            */
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
               width: "50px",
@@ -360,7 +327,8 @@ export default function TitleReceivedList() {
           )}
         />
 
-        {/* Bottom Bulk Action Footer */}
+        {/* Bottom Bulk Action Footer (Disabled) */}
+        {/*
         {selectedIds.length > 0 && (
           <div className="flex flex-col sm:flex-row items-center justify-between p-3 mt-4 bg-emerald-50/50 border border-emerald-200 rounded-xl dark:bg-emerald-950/20 dark:border-emerald-900/60 gap-3 animate-in fade-in duration-200">
             <div className="flex items-center gap-3">
@@ -389,6 +357,7 @@ export default function TitleReceivedList() {
             </div>
           </div>
         )}
+        */}
       </Card>
 
       {/* Soft Copy Document Viewer Modal */}

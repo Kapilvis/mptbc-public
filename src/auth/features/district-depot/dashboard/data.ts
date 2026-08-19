@@ -27,7 +27,7 @@ export const depotKpiMetrics: KpiMetric[] = [
   {
     title: "DISPATCH TO BLOCKS",
     value: "60",
-    subText: "Challans dispatched to BRC/Blocks",
+    subText: "Challans dispatched to Blocks",
     icon: "pi pi-truck",
     theme: "amber",
     type: "brc-rate",

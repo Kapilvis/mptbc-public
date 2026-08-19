@@ -1,259 +1,242 @@
 import { useState } from "react";
 import { Card } from "shared/components/panels";
 
-interface ProgressRowItem {
-  id: string;
-  name: string;
-  approved: string;
-  total: string;
-  percent: number;
-  barColor: string;
-  bgColor: string;
-  textColor: string;
-}
-
-interface PendingSegmentItem {
+interface DonutSlice {
   label: string;
-  percent: string;
+  percent: number;
+  offset: number;
   count: string;
   color: string;
-  strokeDashoffset: number;
+}
+
+interface AgencyDemandData {
+  id: string;
+  name: string;
+  badge: string;
+  totalDemand: string;
+  approvedCount: string;
+  pendingCount: string;
+  approvedPercent: number;
+  slices: DonutSlice[];
 }
 
 export function DemandApprovalPipelineWidget() {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const [hoveredDonutIdx, setHoveredDonutIdx] = useState<number | null>(null);
+  const [hoveredSlice, setHoveredSlice] = useState<{
+    agencyId: string;
+    idx: number;
+  } | null>(null);
 
-  const progressItems: ProgressRowItem[] = [
+  const radius = 38;
+  const circumference = 2 * Math.PI * radius; // 238.76
+
+  const agencies: AgencyDemandData[] = [
     {
       id: "rsk",
-      name: "RSK Agency (Rajya Shiksha Kendra)",
-      approved: "1,10,000",
-      total: "1,45,000",
-      percent: 75,
-      barColor: "bg-emerald-600",
-      bgColor: "bg-emerald-100/60 dark:bg-emerald-950/40",
-      textColor: "text-emerald-700 dark:text-emerald-400",
+      name: "RSK Department (Rajya Shiksha Kendra)",
+      badge: "Classes 1-8",
+      totalDemand: "1,45,000 Units",
+      approvedCount: "1,10,000 Units",
+      pendingCount: "35,000 Units",
+      approvedPercent: 76,
+      slices: [
+        {
+          label: "Approved Demand",
+          percent: 76,
+          offset: 0,
+          count: "1,10,000 Units",
+          color: "#059669", // Emerald
+        },
+        {
+          label: "Pending Queue",
+          percent: 24,
+          offset: 76,
+          count: "35,000 Units",
+          color: "#f59e0b", // Amber
+        },
+      ],
     },
     {
       id: "cpi",
-      name: "CPI Agency (Public Instruction)",
-      approved: "22,000",
-      total: "45,000",
-      percent: 48,
-      barColor: "bg-teal-600",
-      bgColor: "bg-teal-100/60 dark:bg-teal-950/40",
-      textColor: "text-teal-700 dark:text-teal-400",
-    },
-    {
-      id: "total",
-      name: "Total Approved Demands",
-      approved: "1,32,000",
-      total: "1,90,000",
-      percent: 69,
-      barColor: "bg-gradient-to-r from-emerald-600 to-teal-600",
-      bgColor: "bg-emerald-200/50 dark:bg-emerald-900/50",
-      textColor: "text-emerald-800 dark:text-emerald-300",
-    },
-    {
-      id: "pending",
-      name: "Pending Approval Queue",
-      approved: "58,000",
-      total: "1,90,000",
-      percent: 31,
-      barColor: "bg-amber-500",
-      bgColor: "bg-amber-100/60 dark:bg-amber-950/40",
-      textColor: "text-amber-700 dark:text-amber-400",
+      name: "CPI Department (Public Instruction)",
+      badge: "High School 9-12",
+      totalDemand: "45,000 Units",
+      approvedCount: "22,000 Units",
+      pendingCount: "23,000 Units",
+      approvedPercent: 49,
+      slices: [
+        {
+          label: "Approved Demand",
+          percent: 49,
+          offset: 0,
+          count: "22,000 Units",
+          color: "#0d9488", // Teal
+        },
+        {
+          label: "Pending Queue",
+          percent: 51,
+          offset: 49,
+          count: "23,000 Units",
+          color: "#f59e0b", // Amber
+        },
+      ],
     },
   ];
-
-  const donutLegendItems: PendingSegmentItem[] = [
-    {
-      label: "Pending Approval",
-      percent: "80%",
-      count: "58,000 Units",
-      color: "#f59e0b",
-      strokeDashoffset: 47.7,
-    },
-    {
-      label: "Rejected / Review",
-      percent: "20%",
-      count: "14,000 Units",
-      color: "#ef4444",
-      strokeDashoffset: 238.7,
-    },
-  ];
-
-  const activeSegment =
-    hoveredDonutIdx !== null ? donutLegendItems[hoveredDonutIdx] : null;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-6">
-      {/* Left Card: Demand Approval Pipeline Status Progress Bars */}
-      <Card className="lg:col-span-7 flex flex-col justify-between p-4">
-        <div>
-          {/* Header - Matching Demand vs Supply header size (text-sm font-bold) */}
-          <div className="flex items-center justify-between pb-3 border-b border-gray-100 dark:border-gray-800">
-            <div>
-              <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <i className="pi pi-check-square text-emerald-600 dark:text-emerald-400 text-base" />
-                Demand Approval Status
-              </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                Approved & processed agency demand allocation progress
-              </p>
-            </div>
-            <span className="px-2.5 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-xs font-bold dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800 shadow-2xs">
-              Approved: 1,32,000 / 1,90,000 (69%)
-            </span>
+    <Card className="mb-6 p-4">
+      {/* Widget Header */}
+      <div className="flex items-center justify-between pb-3 mb-4 border-b border-gray-100 dark:border-gray-800">
+        <div className="flex items-center gap-2">
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-100 text-emerald-800 font-bold text-xs">
+            <i className="pi pi-check-square" />
+          </span>
+          <div>
+            <h3 className="text-sm font-bold text-gray-900 dark:text-white">
+              Department Demand Approval Status
+            </h3>
+            <p className="text-[11px] text-gray-500 dark:text-gray-400">
+              Department-wise textbook demand approval distribution & pending
+              queue
+            </p>
           </div>
+        </div>
+        <span className="px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-xs font-bold dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800 shadow-2xs">
+          Overall Approved: 1,32,000 / 1,90,000 (69%)
+        </span>
+      </div>
 
-          {/* Progress Slider Bars */}
-          <div className="mt-3 space-y-2">
-            {progressItems.map((item) => {
-              const isHovered = hoveredId === item.id;
-              return (
-                <div
-                  key={item.id}
-                  className={`p-1 rounded-lg border transition-all duration-150 cursor-pointer ${
-                    isHovered
-                      ? "bg-gray-50/80 border-emerald-300 dark:bg-gray-800/80 dark:border-emerald-700 shadow-2xs"
-                      : "border-transparent"
-                  }`}
-                  onMouseEnter={() => setHoveredId(item.id)}
-                  onMouseLeave={() => setHoveredId(null)}
-                >
-                  <div className="flex justify-between items-center text-xs mb-1 font-semibold">
-                    <span className="text-gray-800 dark:text-gray-200 font-bold flex items-center gap-2 truncate">
-                      <span
-                        className={`w-2 h-2 rounded-full ${item.barColor} shrink-0`}
-                      />
-                      <span className="truncate">{item.name}</span>
-                    </span>
-                    <span
-                      className={`font-bold text-xs shrink-0 ml-2 ${item.textColor}`}
-                    >
-                      {item.approved} / {item.total} Units —{" "}
-                      <span className="underline">{item.percent}%</span>
-                    </span>
-                  </div>
+      {/* Two Donut Charts Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {agencies.map((agency) => {
+          const activeItem =
+            hoveredSlice?.agencyId === agency.id
+              ? agency.slices[hoveredSlice.idx]
+              : null;
 
-                  {/* Slider Bar Track */}
-                  <div
-                    className={`h-2.5 w-full ${item.bgColor} rounded-full overflow-hidden p-0.5 relative`}
+          return (
+            <div
+              key={agency.id}
+              className="p-4 rounded-2xl bg-slate-50/60 dark:bg-slate-800/40 border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between"
+            >
+              {/* Agency Title */}
+              <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-200/50 dark:border-slate-700/50">
+                <span className="font-extrabold text-xs text-slate-800 dark:text-slate-100 flex items-center gap-1.5 truncate">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                  {agency.name}
+                </span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-200/70 dark:bg-slate-700 text-slate-700 dark:text-slate-300 shrink-0">
+                  {agency.badge}
+                </span>
+              </div>
+
+              {/* Chart & Legend Row */}
+              <div className="flex items-center justify-around gap-4 py-2">
+                {/* 100% Full Circle SVG Donut */}
+                <div className="relative w-36 h-36 flex items-center justify-center shrink-0">
+                  <svg
+                    viewBox="0 0 100 100"
+                    className="w-full h-full -rotate-90 transform transition-all duration-300"
                   >
-                    <div
-                      className={`h-full ${item.barColor} rounded-full transition-all duration-500 ease-out shadow-2xs`}
-                      style={{ width: `${item.percent}%` }}
-                    />
+                    {agency.slices.map((slice, idx) => {
+                      const strokeDasharray = `${(slice.percent / 100) * circumference} ${circumference}`;
+                      const strokeDashoffset = -(
+                        (slice.offset / 100) *
+                        circumference
+                      );
+                      const isHovered =
+                        hoveredSlice?.agencyId === agency.id &&
+                        hoveredSlice?.idx === idx;
+
+                      return (
+                        <circle
+                          key={idx}
+                          cx="50"
+                          cy="50"
+                          r={radius}
+                          fill="transparent"
+                          stroke={slice.color}
+                          strokeWidth={isHovered ? 17 : 13}
+                          strokeDasharray={strokeDasharray}
+                          strokeDashoffset={strokeDashoffset}
+                          onMouseEnter={() =>
+                            setHoveredSlice({ agencyId: agency.id, idx })
+                          }
+                          onMouseLeave={() => setHoveredSlice(null)}
+                          className="cursor-pointer transition-all duration-300 hover:opacity-90"
+                        />
+                      );
+                    })}
+                  </svg>
+
+                  {/* Dynamic Center Display */}
+                  <div className="pointer-events-none absolute text-center px-1">
+                    <span
+                      className="text-xl font-black block tracking-tight transition-colors"
+                      style={{
+                        color: activeItem
+                          ? activeItem.color
+                          : agency.slices[0].color,
+                      }}
+                    >
+                      {activeItem
+                        ? `${activeItem.percent}%`
+                        : `${agency.approvedPercent}%`}
+                    </span>
+                    <span className="text-[9.5px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300 block truncate max-w-[85px] mx-auto">
+                      {activeItem ? activeItem.label : "Approved"}
+                    </span>
+                    <span className="text-[9px] font-semibold text-slate-500 dark:text-slate-400 block mt-0.5">
+                      {activeItem ? activeItem.count : agency.approvedCount}
+                    </span>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      </Card>
 
-      {/* Right Card: Current Pending Demands Donut (Fulfillment Donut Interactive Style) */}
-      <Card className="lg:col-span-5 flex flex-col justify-between p-4">
-        <div>
-          {/* Header - Matching Demand vs Supply header size (text-sm font-bold) */}
-          <div className="flex items-center justify-between pb-3 border-b border-gray-100 dark:border-gray-800">
-            <div>
-              <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <i className="pi pi-chart-pie text-amber-600 dark:text-amber-400 text-base" />
-                Current Pending Demands
-              </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                Pending approval vs needs review status
-              </p>
-            </div>
-          </div>
+                {/* Legend Details */}
+                <div className="flex-1 space-y-2">
+                  {agency.slices.map((slice, idx) => {
+                    const isHovered =
+                      hoveredSlice?.agencyId === agency.id &&
+                      hoveredSlice?.idx === idx;
 
-          {/* Donut Chart & Legend Container (Fulfillment Donut Interactive Style) */}
-          <div className="mt-3 flex items-center justify-between gap-4 py-1">
-            {/* SVG Interactive Donut Chart */}
-            <div className="relative w-36 h-36 flex items-center justify-center shrink-0">
-              <svg
-                className="w-full h-full transform -rotate-90 transition-transform duration-300"
-                viewBox="0 0 100 100"
-              >
-                {donutLegendItems.map((item, idx) => {
-                  const isHovered = hoveredDonutIdx === idx;
-                  return (
-                    <circle
-                      key={idx}
-                      cx="50"
-                      cy="50"
-                      r="38"
-                      stroke={item.color}
-                      strokeWidth={isHovered ? "18" : "14"}
-                      strokeDasharray="238.7"
-                      strokeDashoffset={item.strokeDashoffset}
-                      fill="transparent"
-                      className="cursor-pointer transition-all duration-300 hover:brightness-115 opacity-90 hover:opacity-100"
-                      onMouseEnter={() => setHoveredDonutIdx(idx)}
-                      onMouseLeave={() => setHoveredDonutIdx(null)}
-                    />
-                  );
-                })}
-              </svg>
-
-              {/* Dynamic Center Display (Fulfillment Donut Style) */}
-              <div className="absolute text-center px-2 pointer-events-none transition-all duration-200">
-                <span className="text-xl font-extrabold text-gray-900 dark:text-white block tracking-tight">
-                  {activeSegment ? activeSegment.percent : "58,000"}
-                </span>
-                <span className="text-[10px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider block truncate max-w-[100px]">
-                  {activeSegment ? activeSegment.label : "Pending Qty"}
-                </span>
-                {activeSegment && (
-                  <span className="text-[9.5px] font-semibold text-gray-500 dark:text-gray-400 block mt-0.5">
-                    {activeSegment.count}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            {/* Right Legend List (Fulfillment Donut Interactive Style) */}
-            <div className="flex-1 w-full space-y-2">
-              {donutLegendItems.map((item, idx) => {
-                const isHovered = hoveredDonutIdx === idx;
-                return (
-                  <div
-                    key={idx}
-                    className={`flex items-center justify-between p-2 rounded-lg text-xs transition-all cursor-pointer border ${
-                      isHovered
-                        ? "bg-amber-50 border-amber-200 dark:bg-amber-950/40 dark:border-amber-800 font-bold scale-[1.02]"
-                        : "bg-gray-50/50 border-gray-100 dark:bg-gray-800/40 dark:border-gray-800 hover:bg-gray-100/60"
-                    }`}
-                    onMouseEnter={() => setHoveredDonutIdx(idx)}
-                    onMouseLeave={() => setHoveredDonutIdx(null)}
-                  >
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span
-                        className="w-2.5 h-2.5 rounded-full shrink-0 shadow-2xs"
-                        style={{ backgroundColor: item.color }}
-                      />
-                      <div className="flex flex-col min-w-0">
-                        <span className="text-gray-800 dark:text-gray-200 font-semibold truncate text-xs">
-                          {item.label}
-                        </span>
-                        <span className="text-[10px] text-gray-500 dark:text-gray-400">
-                          {item.count}
+                    return (
+                      <div
+                        key={idx}
+                        className={`flex items-center justify-between p-2 rounded-xl text-xs transition-all cursor-pointer border ${
+                          isHovered
+                            ? "bg-white dark:bg-slate-700 shadow-xs border-emerald-300 font-bold scale-[1.02]"
+                            : "bg-white/60 dark:bg-slate-800/60 border-slate-200/50 dark:border-slate-700/50 hover:bg-white"
+                        }`}
+                        onMouseEnter={() =>
+                          setHoveredSlice({ agencyId: agency.id, idx })
+                        }
+                        onMouseLeave={() => setHoveredSlice(null)}
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span
+                            className="w-2.5 h-2.5 rounded-full shrink-0"
+                            style={{ backgroundColor: slice.color }}
+                          />
+                          <div className="flex flex-col min-w-0">
+                            <span className="text-slate-800 dark:text-slate-200 font-semibold truncate text-[11px]">
+                              {slice.label}
+                            </span>
+                            <span className="text-[9.5px] text-slate-500 dark:text-slate-400">
+                              {slice.count}
+                            </span>
+                          </div>
+                        </div>
+                        <span className="font-extrabold text-slate-900 dark:text-white shrink-0 ml-2 text-xs">
+                          {slice.percent}%
                         </span>
                       </div>
-                    </div>
-                    <span className="font-extrabold text-gray-900 dark:text-white shrink-0 ml-2 text-xs">
-                      {item.percent}
-                    </span>
-                  </div>
-                );
-              })}
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </Card>
-    </div>
+          );
+        })}
+      </div>
+    </Card>
   );
 }

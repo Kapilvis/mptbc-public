@@ -48,11 +48,11 @@ export default function Step3({ control, watch }: Step3Props) {
           placeholder="e.g. 10200000"
         />
         <TextBox
-          label="CA Certificate Document (Filename)"
+          label="CA Certified Turnover Certificate"
           name="caCertificate"
           control={control}
           required
-          placeholder="e.g. ca_certificate.pdf"
+          placeholder="e.g. ca_turnover_certificate.pdf"
         />
 
         {/* Live Technical Qualification Check Panel */}

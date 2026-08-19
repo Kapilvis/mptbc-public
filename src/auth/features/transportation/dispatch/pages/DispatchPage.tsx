@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel } from "shared/components/panels";
 import { Button } from "shared/components/buttons";
 import { Loader } from "shared/components/progress";
@@ -13,6 +14,7 @@ interface FlatDispatch extends Transportation.Dispatch {
 }
 
 export default function DispatchPage() {
+  const pageTitle = usePageTitle();
   const [modalVisible, setModalVisible] = useState(false);
   const { data: workOrders = [], isLoading: loadingWorkOrders } =
     useWorkOrdersQuery();
@@ -35,7 +37,7 @@ export default function DispatchPage() {
 
   return (
     <Page
-      header="Loading & Dispatch Terminal"
+      header={pageTitle || "Loading & Dispatch"}
       subHeader="Authorize truck loadout, perform fleet document verification, and generate dispatch gate passes."
       showHeaderActions
     >
@@ -72,10 +74,10 @@ export default function DispatchPage() {
               header: "S.No.",
             },
             {
-              header: "Lorry Receipt Number",
-              field: "lrNumber",
+              header: "Vehicle Number",
+              field: "truckNo",
               sortable: true,
-              width: "180px",
+              width: "160px",
             },
             {
               header: "Work Order",
@@ -99,12 +101,6 @@ export default function DispatchPage() {
               sortable: true,
             },
             {
-              header: "Vehicle Number",
-              field: "truckNo",
-              sortable: true,
-              width: "140px",
-            },
-            {
               header: "Loaded Bundles",
               field: "bundlesLoaded",
               sortable: true,
@@ -115,7 +111,7 @@ export default function DispatchPage() {
               header: "Loaded Weight (Metric Ton)",
               cell: (row: FlatDispatch) => (
                 <span className="font-semibold text-slate-700">
-                  {(row.bundlesLoaded * 0.04).toFixed(2)} MT
+                  {Math.round(row.bundlesLoaded * 0.04)} MT
                 </span>
               ),
               align: "center",

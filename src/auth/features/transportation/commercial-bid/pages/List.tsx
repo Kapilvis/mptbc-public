@@ -71,7 +71,7 @@ export default function List({
   return (
     <Page
       header="Commercial Bid Submission"
-      subHeader="Transporter portal to view active distribution zone tenders and quote competitive logistics rates."
+      subHeader="View active tenders and submit commercial bid rates."
       showHeaderActions
     >
       <Card title="Testing Transporter Switcher">

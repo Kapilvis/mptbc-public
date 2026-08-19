@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { DropDownList, TextBox } from "shared/components/forms";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
@@ -7,6 +8,7 @@ import { useAgencyDemandReportQuery } from "../queries";
 type TierType = "class1to4" | "class5to8" | "class9to12";
 
 export default function AgencyWiseDemandReportPage() {
+  const pageTitle = usePageTitle();
   const [activeTier, setActiveTier] = useState<TierType>("class1to4");
   const [academicYear, setAcademicYear] = useState("2026-2027");
   const [depotName, setDepotName] = useState("All");
@@ -38,7 +40,7 @@ export default function AgencyWiseDemandReportPage() {
 
   return (
     <Page
-      header="Department Wise Demand & Supply Report"
+      header={pageTitle || "Department Wise Demand & Supply Report"}
       subHeader="Depot-wise demand vs supply tracking for RSK (Class 1-8) and CPI (Class 9-12)."
       showHeaderActions
     >
