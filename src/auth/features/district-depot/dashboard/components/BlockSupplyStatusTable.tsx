@@ -8,9 +8,12 @@ interface BlockSupplyProps {
 
 function StatusBadge({ status }: { status: BlockSupplyItem["status"] }) {
   const cls = {
-    Pending: "bg-amber-50 text-amber-800 border-amber-300 dark:bg-amber-950/40 dark:text-amber-300",
-    Dispatched: "bg-blue-50 text-blue-800 border-blue-300 dark:bg-blue-950/40 dark:text-blue-300",
-    Acknowledged: "bg-emerald-50 text-emerald-800 border-emerald-300 dark:bg-emerald-950/40 dark:text-emerald-300",
+    Pending:
+      "bg-amber-50 text-amber-800 border-amber-300 dark:bg-amber-950/40 dark:text-amber-300",
+    Dispatched:
+      "bg-blue-50 text-blue-800 border-blue-300 dark:bg-blue-950/40 dark:text-blue-300",
+    Acknowledged:
+      "bg-emerald-50 text-emerald-800 border-emerald-300 dark:bg-emerald-950/40 dark:text-emerald-300",
   }[status];
   return (
     <span
@@ -36,24 +39,12 @@ export function BlockSupplyStatusTable({ data }: BlockSupplyProps) {
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-gray-100/70 dark:bg-gray-800/80 border-b border-gray-200 dark:border-gray-700 text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-200">
-              <th className="px-4 py-3 text-left">
-                #
-              </th>
-              <th className="px-4 py-3 text-left">
-                Block
-              </th>
-              <th className="px-4 py-3 text-left">
-                Challan No
-              </th>
-              <th className="px-4 py-3 text-left">
-                Date
-              </th>
-              <th className="px-4 py-3 text-right">
-                Qty
-              </th>
-              <th className="px-4 py-3 text-center">
-                Status
-              </th>
+              <th className="px-4 py-3 text-left">#</th>
+              <th className="px-4 py-3 text-left">Block</th>
+              <th className="px-4 py-3 text-left">Challan No</th>
+              <th className="px-4 py-3 text-left">Date</th>
+              <th className="px-4 py-3 text-right">Qty</th>
+              <th className="px-4 py-3 text-center">Status</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-150/60 dark:divide-gray-800/60">
@@ -62,7 +53,9 @@ export function BlockSupplyStatusTable({ data }: BlockSupplyProps) {
                 key={row.id}
                 className="hover:bg-amber-50/50 dark:hover:bg-amber-950/20 transition-colors"
               >
-                <td className="px-4 py-3 font-semibold text-gray-500 dark:text-gray-400">{row.id}</td>
+                <td className="px-4 py-3 font-semibold text-gray-500 dark:text-gray-400">
+                  {row.id}
+                </td>
                 <td className="px-4 py-3 font-extrabold text-gray-900 dark:text-white">
                   {row.block}
                 </td>

@@ -23,27 +23,13 @@ export function TitleStockTable({ data }: Props) {
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-gray-100/70 dark:bg-gray-800/80 border-b border-gray-200 dark:border-gray-700 text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-200">
-              <th className="px-4 py-3 text-left">
-                #
-              </th>
-              <th className="px-4 py-3 text-left min-w-[190px]">
-                Title
-              </th>
-              <th className="px-4 py-3 text-left">
-                Class
-              </th>
-              <th className="px-4 py-3 text-left">
-                Medium
-              </th>
-              <th className="px-4 py-3 text-right">
-                Received
-              </th>
-              <th className="px-4 py-3 text-right">
-                Issued
-              </th>
-              <th className="px-4 py-3 text-right">
-                Balance
-              </th>
+              <th className="px-4 py-3 text-left">#</th>
+              <th className="px-4 py-3 text-left min-w-[190px]">Title</th>
+              <th className="px-4 py-3 text-left">Class</th>
+              <th className="px-4 py-3 text-left">Medium</th>
+              <th className="px-4 py-3 text-right">Received</th>
+              <th className="px-4 py-3 text-right">Issued</th>
+              <th className="px-4 py-3 text-right">Balance</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-150/60 dark:divide-gray-800/60">

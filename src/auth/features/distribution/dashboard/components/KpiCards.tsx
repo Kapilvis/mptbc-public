@@ -82,7 +82,9 @@ export function KpiCards({ metrics }: KpiCardsProps) {
             key={idx}
             className={`relative overflow-hidden border ${theme.cardBg} transition-all duration-200 hover:shadow-md border-t-transparent!`}
           >
-            <div className={`absolute top-0 left-0 right-0 h-1 ${theme.topLine}`} />
+            <div
+              className={`absolute top-0 left-0 right-0 h-1 ${theme.topLine}`}
+            />
             <div className="p-4 flex items-center gap-3.5">
               {/* Left Side Icon Badge Circle (Image 1 Style) */}
               <div
@@ -176,9 +178,15 @@ export function KpiCards({ metrics }: KpiCardsProps) {
 
                 {(Boolean(m.subText) || Boolean(m.badgeText)) && (
                   <div className="mt-1 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
-                    {m.subText ? <span className="truncate">{m.subText}</span> : <span />}
+                    {m.subText ? (
+                      <span className="truncate">{m.subText}</span>
+                    ) : (
+                      <span />
+                    )}
                     {m.badgeText && (
-                      <span className={`font-bold ${theme.accentText} shrink-0`}>
+                      <span
+                        className={`font-bold ${theme.accentText} shrink-0`}
+                      >
                         {m.badgeText}
                       </span>
                     )}
