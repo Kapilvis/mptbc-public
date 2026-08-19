@@ -18,7 +18,7 @@ const ACADEMIC_YEAR_OPTIONS = [
 export default function AcademicYearFilterBar({
   academicYear,
   onChange,
-  title = "Academic Session Filter",
+  title = "Academic ",
   subtitle,
   className = "",
 }: AcademicYearFilterBarProps) {
@@ -53,7 +53,7 @@ export default function AcademicYearFilterBar({
               Session: {academicYear}
             </span>
           </div>
-          <span className="text-[14px] text-slate-500 dark:text-slate-400 block mt-0.5">
+          <span className="text-[15px] font-medium text-slate-800 dark:text-slate-400 block mt-0.5">
             {subtitle ||
               `Filter real-time operational data, supply chain metrics, and reports by academic year (${academicYear}).`}
           </span>

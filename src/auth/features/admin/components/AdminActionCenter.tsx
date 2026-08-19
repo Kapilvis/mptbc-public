@@ -1,9 +1,27 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { EXECUTIVE_ALERTS } from "../data/adminDashboardData";
 
 export const AdminActionCenter: React.FC = () => {
-  const navigate = useNavigate();
+  const alertBtnThemes: Record<
+    string,
+    { textColor: string; borderColor: string; btnHoverBg: string }
+  > = {
+    danger: {
+      textColor: "#e11d48",
+      borderColor: "#fecdd3",
+      btnHoverBg: "#e11d48",
+    },
+    warning: {
+      textColor: "#d97706",
+      borderColor: "#fde68a",
+      btnHoverBg: "#d97706",
+    },
+    info: {
+      textColor: "#2563eb",
+      borderColor: "#bfdbfe",
+      btnHoverBg: "#2563eb",
+    },
+  };
 
   return (
     <div className="mb-5 rounded-xl border border-rose-200/60 bg-rose-50/20 p-5 shadow-xs dark:border-rose-900/30 dark:bg-rose-950/10">
@@ -22,14 +40,13 @@ export const AdminActionCenter: React.FC = () => {
             </h3>
           </div>
         </div>
-        <span className="inline-flex items-center rounded-full bg-rose-100 px-2.5 py-0.5 text-xs font-bold text-rose-800 dark:bg-rose-950 dark:text-rose-300">
-          4 Critical Flags Need Approval
-        </span>
       </div>
 
       {/* Grid of Alert Cards */}
       <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
         {EXECUTIVE_ALERTS.map((alert) => {
+          const theme = alertBtnThemes[alert.severity] || alertBtnThemes.info;
+
           const borderClass =
             alert.severity === "danger"
               ? "border-rose-200 bg-white hover:border-rose-300 dark:border-rose-900/50 dark:bg-slate-900"
@@ -65,16 +82,30 @@ export const AdminActionCenter: React.FC = () => {
                 <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-tight">
                   {alert.title}
                 </h4>
-                <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 leading-snug">
-                  {alert.description}
-                </p>
+                {alert.description && (
+                  <p className="mt-1.5 text-[13.5px] font-medium text-slate-800 dark:text-slate-200 leading-snug">
+                    {alert.description}
+                  </p>
+                )}
               </div>
 
-              {/* Action Link Button */}
+              {/* Action Button (Interactive hover state matching Operational Summaries) */}
               <button
                 type="button"
-                onClick={() => navigate(alert.actionRoute)}
-                className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-bold text-slate-800 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+                className="mt-3.5 flex w-full items-center justify-center gap-1.5 rounded-xl border px-3 py-2 text-xs font-bold transition-all duration-200 shadow-2xs hover:shadow-md cursor-pointer"
+                style={{
+                  color: theme.textColor,
+                  borderColor: theme.borderColor,
+                  backgroundColor: "#ffffff",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.btnHoverBg;
+                  e.currentTarget.style.color = "#ffffff";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "#ffffff";
+                  e.currentTarget.style.color = theme.textColor;
+                }}
               >
                 <span>{alert.actionLabel}</span>
                 <i

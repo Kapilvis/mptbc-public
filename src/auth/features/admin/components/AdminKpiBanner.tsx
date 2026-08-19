@@ -1,6 +1,47 @@
 import React from "react";
 import { EXECUTIVE_KPIS } from "../data/adminDashboardData";
 
+const AnimatedCounter: React.FC<{
+  target: number;
+  duration?: number;
+  suffix?: string;
+  prefix?: string;
+}> = ({ target, duration = 1200, suffix = "", prefix = "" }) => {
+  const [count, setCount] = React.useState(0);
+
+  React.useEffect(() => {
+    let startTimestamp: number | null = null;
+    let animationFrameId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easeOutQuad = 1 - (1 - progress) * (1 - progress);
+      setCount(Math.floor(easeOutQuad * target));
+
+      if (progress < 1) {
+        animationFrameId = window.requestAnimationFrame(step);
+      } else {
+        setCount(target);
+      }
+    };
+
+    animationFrameId = window.requestAnimationFrame(step);
+
+    return () => {
+      if (animationFrameId) window.cancelAnimationFrame(animationFrameId);
+    };
+  }, [target, duration]);
+
+  return (
+    <span>
+      {prefix}
+      {count.toLocaleString()}
+      {suffix}
+    </span>
+  );
+};
+
 export const AdminKpiBanner: React.FC<{ academicYear?: string }> = ({
   academicYear = "2026-2027",
 }) => {
@@ -150,12 +191,12 @@ export const AdminKpiBanner: React.FC<{ academicYear?: string }> = ({
             />
 
             {/* Top Row: Title & Badge */}
-            <div className="flex items-start justify-between gap-2 mb-3">
-              <span className="text-[11.5px] font-bold uppercase tracking-wider leading-tight text-slate-800 dark:text-white">
+            <div className="flex items-start justify-between gap-2 mb-2.5">
+              <span className="text-[13.5px] font-extrabold uppercase tracking-wider leading-tight text-slate-900 dark:text-white">
                 {kpi.title}
               </span>
               <span
-                className="inline-flex items-center rounded-lg px-2 py-0.5 text-[10.5px] font-bold shadow-2xs shrink-0"
+                className="inline-flex items-center rounded-lg px-2.5 py-1 text-[12.5px] font-black shadow-2xs shrink-0 whitespace-nowrap"
                 style={{
                   backgroundColor: style.badgeBg,
                   color: style.badgeText,
@@ -168,10 +209,122 @@ export const AdminKpiBanner: React.FC<{ academicYear?: string }> = ({
             {/* Main Primary Metric & Subtitle - Clean Crisp Text */}
             <div className="flex items-center justify-between gap-2 mt-1">
               <div>
-                <div className="text-xl font-semibold tracking-normal leading-snug text-slate-900 dark:text-white">
-                  {kpi.primaryValue}
-                </div>
-                <p className="mt-1 text-[12px] font-medium text-slate-600 dark:text-slate-300">
+                {kpi.id === "demand" ? (
+                  <div className="flex items-center gap-2.5 text-slate-900 dark:text-white">
+                    <div className="flex flex-col">
+                      <span className="text-[11.5px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider">
+                        Demand
+                      </span>
+                      <span className="text-base font-black sm:text-lg">
+                        <AnimatedCounter target={350000} />
+                      </span>
+                    </div>
+                    <span className="text-slate-300 font-normal px-0.5 text-base">
+                      |
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[11.5px] font-black text-sky-800 dark:text-sky-300 uppercase tracking-wider">
+                        Approved
+                      </span>
+                      <span className="text-base font-black sm:text-lg">
+                        <AnimatedCounter target={290850} />
+                      </span>
+                    </div>
+                  </div>
+                ) : kpi.id === "paper" ? (
+                  <div className="flex items-center gap-2.5 text-slate-900 dark:text-white">
+                    <div className="flex flex-col">
+                      <span className="text-[11.5px] font-black text-emerald-800 dark:text-emerald-300 uppercase tracking-wider">
+                        Demand
+                      </span>
+                      <span className="text-base font-black sm:text-lg">
+                        <AnimatedCounter target={3767} suffix=" MT" />
+                      </span>
+                    </div>
+                    <span className="text-slate-300 font-normal px-0.5 text-base">
+                      |
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[11.5px] font-black text-emerald-800 dark:text-emerald-300 uppercase tracking-wider">
+                        Received
+                      </span>
+                      <span className="text-base font-black sm:text-lg">
+                        <AnimatedCounter target={3165} suffix=" MT" />
+                      </span>
+                    </div>
+                  </div>
+                ) : kpi.id === "depot" ? (
+                  <div className="flex items-center gap-2.5 text-slate-900 dark:text-white">
+                    <div className="flex flex-col">
+                      <span className="text-[11.5px] font-black text-amber-800 dark:text-amber-300 uppercase tracking-wider">
+                        Received
+                      </span>
+                      <span className="text-base font-black sm:text-lg">
+                        <AnimatedCounter target={3165} suffix=" MT" />
+                      </span>
+                    </div>
+                    <span className="text-slate-300 font-normal px-0.5 text-base">
+                      |
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[11.5px] font-black text-amber-800 dark:text-amber-300 uppercase tracking-wider">
+                        Issue
+                      </span>
+                      <span className="text-base font-black sm:text-lg">
+                        <AnimatedCounter target={2800} suffix=" MT" />
+                      </span>
+                    </div>
+                  </div>
+                ) : kpi.id === "printing" ? (
+                  <div className="flex items-center gap-2.5 text-slate-900 dark:text-white">
+                    <div className="flex flex-col">
+                      <span className="text-[11.5px] font-black text-blue-800 dark:text-blue-300 uppercase tracking-wider">
+                        Target
+                      </span>
+                      <span className="text-base font-black sm:text-lg">
+                        <AnimatedCounter target={390000} />
+                      </span>
+                    </div>
+                    <span className="text-slate-300 font-normal px-0.5 text-base">
+                      |
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[11.5px] font-black text-blue-800 dark:text-blue-300 uppercase tracking-wider">
+                        Dispatch
+                      </span>
+                      <span className="text-base font-black sm:text-lg">
+                        <AnimatedCounter target={180500} />
+                      </span>
+                    </div>
+                  </div>
+                ) : kpi.id === "district" ? (
+                  <div className="flex items-center gap-2.5 text-slate-900 dark:text-white">
+                    <div className="flex flex-col">
+                      <span className="text-[11.5px] font-black text-purple-800 dark:text-purple-300 uppercase tracking-wider">
+                        Received
+                      </span>
+                      <span className="text-base font-black sm:text-lg">
+                        <AnimatedCounter target={180500} />
+                      </span>
+                    </div>
+                    <span className="text-slate-300 font-normal px-0.5 text-base">
+                      |
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-[11.5px] font-black text-purple-800 dark:text-purple-300 uppercase tracking-wider">
+                        Dispatch
+                      </span>
+                      <span className="text-base font-black sm:text-lg">
+                        <AnimatedCounter target={150000} />
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-2xl font-black tracking-tight leading-snug text-slate-950 dark:text-white">
+                    {kpi.primaryValue}
+                  </div>
+                )}
+                <p className="mt-1 text-[13.5px] font-bold text-slate-700 dark:text-slate-200">
                   {kpi.secondaryValue}
                 </p>
               </div>

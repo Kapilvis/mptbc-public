@@ -24,10 +24,10 @@ export const AdminSupplyChainTracker: React.FC = () => {
             </h3>
           </div>
         </div>
-        <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50/80 px-3 py-1 text-xs font-bold text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-950/40 dark:text-emerald-300">
+        {/* <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50/80 px-3 py-1 text-xs font-bold text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-950/40 dark:text-emerald-300">
           <i className="pi pi-check-circle text-sm" aria-hidden="true" />
           Overall Fulfillment: 72.8%
-        </div>
+        </div> */}
       </div>
 
       {/* 5-Stage Stepper Pipeline - Clean White Cards + Multi-colored Progress Bars */}
@@ -43,7 +43,7 @@ export const AdminSupplyChainTracker: React.FC = () => {
               {/* Stage Header Title & % */}
               <div className="mb-2 flex items-center justify-between gap-2">
                 <span
-                  className="text-[11px] font-extrabold uppercase tracking-wider leading-tight"
+                  className="text-[13px] font-extrabold uppercase tracking-wider leading-tight"
                   style={{ color: theme.textColor }}
                 >
                   {stage.title}
@@ -68,7 +68,7 @@ export const AdminSupplyChainTracker: React.FC = () => {
               </div>
 
               {/* Detail Info */}
-              <p className="text-[11.5px] font-semibold text-slate-600 dark:text-slate-400">
+              <p className="text-[13px] font-semibold text-slate-800 dark:text-slate-400">
                 {stage.detailText}
               </p>
             </div>

@@ -113,7 +113,7 @@ export const AdminActivityTrail: React.FC = () => {
           </span>
           <div>
             <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
-              Unified Cross-Module Audit & Activity Trail
+              Activity Logs
             </h3>
           </div>
         </div>
