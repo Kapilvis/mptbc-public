@@ -403,7 +403,7 @@ const AppSidebar: React.FC = () => {
             <>
               <div className="sidebar-logo-expanded">
                 <img
-                  src={`${import.meta.env.BASE_URL}MP_LOGO.svg`}
+                  src="/MP_LOGO.svg"
                   alt="Madhya Pradesh Textbook Corporation"
                   className="sidebar-logo-image-expanded"
                   onError={(event) => {
@@ -419,7 +419,7 @@ const AppSidebar: React.FC = () => {
           ) : (
             <div className="sidebar-logo-collapsed">
               <img
-                src={`${import.meta.env.BASE_URL}MP_LOGO.svg`}
+                src="/MP_LOGO.svg"
                 alt="Madhya Pradesh Textbook Corporation"
                 className="sidebar-logo-image-collapsed"
                 onError={(event) => {

@@ -1,12 +1,20 @@
+export interface KpiStatItem {
+  label: string;
+  value: string;
+}
+
 export interface KpiMetric {
   title: string;
   value: string;
+  stats?: KpiStatItem[];
+  secondaryTitle?: string;
+  secondaryValue?: string;
   subText: string;
   trend?: string;
   badgeText?: string;
   icon: string;
   theme: "indigo" | "blue" | "amber" | "emerald";
-  type: "net-demand" | "dispatch-rate" | "brc-rate" | "student-progress";
+  type: "net-demand" | "approved-demand" | "dispatch-rate" | "brc-rate" | "student-progress";
 }
 
 export interface TitleWiseDistributionItem {
@@ -32,38 +40,42 @@ export interface TitleWiseDistributionItem {
 
 export const mockKpiMetrics: KpiMetric[] = [
   {
-    title: "Total Net Demand",
-    value: "2,90,850",
-    subText: "Units Required",
-    trend: "+4.2% vs last year",
+    title: "Total Demand",
+    value: "4,50,000",
+    subText: "",
     icon: "pi pi-file-edit",
     theme: "indigo",
     type: "net-demand",
   },
   {
-    title: "TBC Dispatch Rate",
-    value: "85.4%",
-    subText: "Total Units Dispatched",
-    badgeText: "2,48,385 Dispatched",
+    title: "Approved Demand",
+    value: "3,90,000",
+    subText: "",
+    icon: "pi pi-check-circle",
+    theme: "emerald",
+    type: "approved-demand",
+  },
+  {
+    title: "TBC Dispatch",
+    value: "2,48,385",
+    subText: "",
     icon: "pi pi-truck",
     theme: "blue",
     type: "dispatch-rate",
   },
   {
-    title: "Block Receipt Rate",
-    value: "82.1%",
-    subText: "Block received",
-    badgeText: "0.2% Short/Damaged",
+    title: "Block Received",
+    value: "2,03,924",
+    subText: "",
     icon: "pi pi-box",
     theme: "amber",
     type: "brc-rate",
   },
   {
-    title: "Student Distribution Progress",
-    value: "48.2%",
-    subText: "Total Distributed",
-    badgeText: "38 School Count",
-    icon: "pi pi-check-circle",
+    title: "Student Distribution",
+    value: "1,20,000",
+    subText: "",
+    icon: "pi pi-users",
     theme: "emerald",
     type: "student-progress",
   },

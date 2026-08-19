@@ -41,14 +41,15 @@ const initialStock = (): PaperStock[] => [
     reelWidth: 84,
     cutoff: 578,
     sheetSize: "57.8 × 84",
-    openingStock: 5000,
-    receivedQuantity: 2000,
-    issuedQuantity: 1500,
-    availableQuantity: 5500,
+    openingStock: 1500,
+    receivedQuantity: 1200,
+    issuedQuantity: 1050,
+    availableQuantity: 150,
     unit: "MT",
-    dailyConsumption: 1200, // Average daily consumption in MT
-    minimumStockLevel: 3000, // 2.5 days of stock
-    maximumStockLevel: 10000,
+    dailyConsumption: 350,
+    minimumStockLevel: 200,
+    maximumStockLevel: 5000,
+    daysOfStock: 3.0,
     stockStatus: "In Stock",
     lastUpdated: "2026-08-17 10:00 AM",
   },
@@ -60,15 +61,16 @@ const initialStock = (): PaperStock[] => [
     reelWidth: 84,
     cutoff: 578,
     sheetSize: "57.8 × 84",
-    openingStock: 4000,
-    receivedQuantity: 1000,
-    issuedQuantity: 1200,
-    availableQuantity: 3800,
+    openingStock: 1000,
+    receivedQuantity: 900,
+    issuedQuantity: 800,
+    availableQuantity: 100,
     unit: "MT",
-    dailyConsumption: 1000, // Average daily consumption in MT
-    minimumStockLevel: 2500, // 2.5 days of stock
-    maximumStockLevel: 10000,
-    stockStatus: "In Stock",
+    dailyConsumption: 400,
+    minimumStockLevel: 250,
+    maximumStockLevel: 5000,
+    daysOfStock: 2.0,
+    stockStatus: "Low Stock",
     lastUpdated: "2026-08-17 11:30 AM",
   },
   {
@@ -79,15 +81,16 @@ const initialStock = (): PaperStock[] => [
     reelWidth: 84,
     cutoff: 578,
     sheetSize: "57.8 × 84",
-    openingStock: 2500,
-    receivedQuantity: 500,
-    issuedQuantity: 300,
-    availableQuantity: 2700,
+    openingStock: 800,
+    receivedQuantity: 665,
+    issuedQuantity: 600,
+    availableQuantity: 65,
     unit: "MT",
-    dailyConsumption: 800, // Average daily consumption in MT
-    minimumStockLevel: 2000, // 2.5 days of stock
-    maximumStockLevel: 8000,
-    stockStatus: "In Stock",
+    dailyConsumption: 260,
+    minimumStockLevel: 150,
+    maximumStockLevel: 4000,
+    daysOfStock: 2.3,
+    stockStatus: "Low Stock",
     lastUpdated: "2026-08-17 12:15 PM",
   },
   {
@@ -98,15 +101,16 @@ const initialStock = (): PaperStock[] => [
     reelWidth: 84,
     cutoff: 560,
     sheetSize: "56 × 84",
-    openingStock: 1500,
-    receivedQuantity: 300,
-    issuedQuantity: 250,
-    availableQuantity: 1550,
+    openingStock: 400,
+    receivedQuantity: 400,
+    issuedQuantity: 350,
+    availableQuantity: 50,
     unit: "MT",
-    dailyConsumption: 500, // Average daily consumption in MT
-    minimumStockLevel: 1250, // 2.5 days of stock
-    maximumStockLevel: 5000,
-    stockStatus: "In Stock",
+    dailyConsumption: 220,
+    minimumStockLevel: 100,
+    maximumStockLevel: 2000,
+    daysOfStock: 1.6,
+    stockStatus: "Low Stock",
     lastUpdated: "2026-08-17 02:45 PM",
   },
 ];
@@ -482,11 +486,11 @@ const initialDistributions = (): PaperDistribution[] => [
     orderNo: "PO-2026-001",
     gsm: 80,
     paperType: "Text Paper",
-    availableStockAtIssue: 10000,
-    approvedQty: 50000,
+    availableStockAtIssue: 400,
+    approvedQty: 400,
     previouslySupplied: 0,
-    pendingQty: 50000,
-    issueQuantity: 1000,
+    pendingQty: 400,
+    issueQuantity: 350,
     vehicleNo: "MP04HA7788",
     driverName: "Karan Johar",
     challanNo: "CH-PO-001",
@@ -500,11 +504,11 @@ const initialDistributions = (): PaperDistribution[] => [
     orderNo: "PO-2026-002",
     gsm: 70,
     paperType: "Text Paper",
-    availableStockAtIssue: 8000,
-    approvedQty: 35000,
+    availableStockAtIssue: 800,
+    approvedQty: 665,
     previouslySupplied: 0,
-    pendingQty: 35000,
-    issueQuantity: 1200,
+    pendingQty: 665,
+    issueQuantity: 600,
     vehicleNo: "MP04HA9911",
     driverName: "Sohan Lal",
     challanNo: "CH-PO-002",
@@ -518,11 +522,11 @@ const initialDistributions = (): PaperDistribution[] => [
     orderNo: "ORD-001",
     gsm: 58,
     paperType: "Text Paper",
-    availableStockAtIssue: 7000,
-    approvedQty: 4500,
+    availableStockAtIssue: 1500,
+    approvedQty: 1200,
     previouslySupplied: 0,
-    pendingQty: 4500,
-    issueQuantity: 1500,
+    pendingQty: 1200,
+    issueQuantity: 500,
     vehicleNo: "MP04HA4321",
     driverName: "Ram Singh",
     challanNo: "CH-001",
@@ -530,18 +534,17 @@ const initialDistributions = (): PaperDistribution[] => [
     status: "Dispatched",
   },
   {
-    // Second distribution for ORD-001 to make total Supplied = 3000
     distributionNo: "DIS-001B",
     distributionDate: "2026-08-17",
     printer: "Shree Offset Press",
     orderNo: "ORD-001",
     gsm: 58,
     paperType: "Text Paper",
-    availableStockAtIssue: 5500,
-    approvedQty: 4500,
-    previouslySupplied: 1500,
-    pendingQty: 3000,
-    issueQuantity: 1500,
+    availableStockAtIssue: 1000,
+    approvedQty: 1200,
+    previouslySupplied: 500,
+    pendingQty: 700,
+    issueQuantity: 550,
     vehicleNo: "MP04HA9999",
     driverName: "Hari Prasad",
     challanNo: "CH-001B",
@@ -555,11 +558,11 @@ const initialDistributions = (): PaperDistribution[] => [
     orderNo: "ORD-002",
     gsm: 60,
     paperType: "Text Paper",
-    availableStockAtIssue: 5000,
-    approvedQty: 3000,
+    availableStockAtIssue: 1000,
+    approvedQty: 900,
     previouslySupplied: 0,
-    pendingQty: 3000,
-    issueQuantity: 3000,
+    pendingQty: 900,
+    issueQuantity: 800,
     vehicleNo: "MP09KL4321",
     driverName: "Shyam Lal",
     challanNo: "CH-002",
@@ -730,9 +733,8 @@ let transactions = getStored<StockTransaction[]>(
 );
 
 // Ensure stocks are calculated correctly
-const recalculateStocks = () => {
+const recalculateStocks = (): void => {
   paperStocks.forEach((stock) => {
-    // Opening + Received - Issued
     const received = paperReceipts
       .filter((r) => r.gsm === stock.gsm)
       .reduce((sum, r) => sum + r.quantity, 0);
@@ -741,28 +743,12 @@ const recalculateStocks = () => {
       .filter((d) => d.gsm === stock.gsm)
       .reduce((sum, d) => sum + d.issueQuantity, 0);
 
-    stock.receivedQuantity = received;
-    stock.issuedQuantity = issued;
-    stock.availableQuantity = stock.openingStock + received - issued;
+    if (received > 0 || issued > 0) {
+      stock.receivedQuantity = received;
+      stock.issuedQuantity = issued;
+      stock.availableQuantity = stock.openingStock + received - issued;
+    }
 
-    // Define daily consumption for each gsm if not present or to ensure accuracy
-    const dailyConsumptionMap: Record<number, number> = {
-      58: 1200,
-      60: 1000,
-      70: 800,
-      80: 500,
-    };
-    const dailyConsumption = dailyConsumptionMap[stock.gsm] || 300;
-    stock.dailyConsumption = dailyConsumption;
-
-    // Minimum stock level should be 2-3 days (e.g. 2.5 days) of average daily consumption
-    stock.minimumStockLevel = dailyConsumption * 2.5;
-
-    // Calculate days of stock remaining
-    stock.daysOfStock =
-      Math.round((stock.availableQuantity / dailyConsumption) * 10) / 10;
-
-    // Status: In Stock, Low Stock, Out of Stock
     if (stock.availableQuantity <= 0) {
       stock.stockStatus = "Out of Stock";
     } else if (stock.availableQuantity <= stock.minimumStockLevel) {

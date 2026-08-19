@@ -63,22 +63,14 @@ export const ROLE_OPTIONS = [
   { value: USER_ROLES.DISTRIBUTION_SECTION, text: "Distribution Section" },
 ];
 
-export function getRoleDashboardRoute(role?: UserRole | string): string {
-  switch (role) {
-    case USER_ROLES.CENTRAL_DEPOT:
-      return "/inventory/dashboard";
-    case USER_ROLES.DISTRICT_DEPOT:
-      return "/district-depot/dashboard";
-    case USER_ROLES.PRINTER:
-      return "/printing/dashboard";
-    case USER_ROLES.DISTRIBUTION_SECTION:
-      return "/distribution/dashboard";
-    case USER_ROLES.PAPER_VENDOR:
-      return "/paper/dashboard";
-    case USER_ROLES.TRANSPORTER:
-      return "/transportation/work-order";
-    case USER_ROLES.TBC_HEAD_OFFICE:
-    default:
-      return "/admin/dashboard";
-  }
+export function getRoleDashboardRoute(role?: string): string {
+  const normalizedRole = (role || "").toUpperCase();
+  if (normalizedRole === "CENTRAL_DEPOT") return "/inventory/dashboard";
+  if (normalizedRole === "DISTRICT_DEPOT") return "/district-depot/dashboard";
+  if (normalizedRole === "DISTRIBUTION_SECTION") return "/distribution/dashboard";
+  if (normalizedRole === "PAPER_VENDOR") return "/paper/dashboard";
+  if (normalizedRole === "PRINTER") return "/printing/dashboard";
+  if (normalizedRole === "TBC_HEAD_OFFICE") return "/admin/dashboard";
+  return "/admin/dashboard";
 }
+

@@ -97,12 +97,9 @@ export default function PrintingProgress({ printerCode }: Props) {
               return (
                 <tr
                   key={o.orderNo}
-                  onClick={() =>
-                    navigate(`/printing/orders/details/${o.orderNo}`)
-                  }
-                  className="group hover:bg-[#E8F4EC]/35 dark:hover:bg-[#4F8F70]/5 cursor-pointer transition-colors duration-150"
+                  className="transition-colors duration-150 hover:bg-slate-50/50 dark:hover:bg-slate-800/30"
                 >
-                  <td className="py-3.5 font-mono font-black text-sm text-[#4F8F70] group-hover:underline pl-2">
+                  <td className="py-3.5 font-mono font-bold text-sm text-slate-700 dark:text-slate-300 pl-2">
                     {o.orderNo}
                   </td>
                   <td className="py-3.5 font-extrabold text-slate-900 dark:text-gray-100">

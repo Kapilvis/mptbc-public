@@ -17,26 +17,44 @@ export function DemandSupplyBarChart() {
     { district: "Anuppur", demand: 20800, supply: 17097 },
     { district: "Betul", demand: 22500, supply: 19215 },
     { district: "Bhind", demand: 13800, supply: 12861 },
+    { district: "Bhopal", demand: 24200, supply: 21780 },
+    { district: "Chhindwara", demand: 18900, supply: 16632 },
+    { district: "Dewas", demand: 18700, supply: 16456 },
+    { district: "Dhar", demand: 21900, supply: 19491 },
+    { district: "Gwalior", demand: 23100, supply: 20328 },
+    { district: "Indore", demand: 24800, supply: 22816 },
+    { district: "Jabalpur", demand: 23500, supply: 21150 },
+    { district: "Katni", demand: 17200, supply: 15136 },
+    { district: "Khandwa", demand: 19400, supply: 17072 },
+    { district: "Khargone", demand: 20100, supply: 17688 },
     { district: "Morena", demand: 13500, supply: 11259 },
     { district: "Panna", demand: 14000, supply: 11228 },
     { district: "Ratlam", demand: 19500, supply: 15639 },
+    { district: "Rewa", demand: 21200, supply: 18656 },
+    { district: "Sagar", demand: 22000, supply: 19360 },
+    { district: "Satna", demand: 20500, supply: 18040 },
     { district: "Sehore", demand: 22350, supply: 20673 },
-    { district: "Dhar", demand: 21900, supply: 19491 },
-    { district: "Dewas", demand: 18700, supply: 16456 },
-    { district: "Katni", demand: 17200, supply: 15136 },
+    { district: "Ujjain", demand: 21600, supply: 19224 },
+    { district: "Vidisha", demand: 18300, supply: 16104 },
   ];
 
   const maxValue = 25000;
+  const startX = 52;
+  const groupWidth = 44;
+  const svgWidth = Math.max(650, startX + data.length * groupWidth + 20);
 
   return (
     <Card className="h-full flex flex-col justify-between overflow-hidden relative group">
       {/* Header & Legend */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-gray-100 dark:border-gray-800 gap-2">
-        <div>
+        <div className="flex items-center gap-2">
           <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
             <i className="pi pi-chart-bar text-emerald-600 dark:text-emerald-400" />
             Demand vs Supply
           </h3>
+          <span className="text-[11px] font-semibold text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">
+            {data.length} Districts
+          </span>
         </div>
 
         {/* Legend */}
@@ -77,11 +95,12 @@ export function DemandSupplyBarChart() {
         </div>
       )}
 
-      {/* SVG Slim Dual-Grouped Bar Chart */}
-      <div className="w-full flex-1 min-h-[220px] pt-4 pb-1">
+      {/* SVG Slim Dual-Grouped Bar Chart Container with Horizontal Scroll */}
+      <div className="w-full flex-1 min-h-[220px] pt-4 pb-2 overflow-x-auto">
         <svg
-          className="w-full h-full overflow-visible"
-          viewBox="0 0 620 200"
+          className="h-full min-w-full overflow-visible"
+          style={{ width: `${svgWidth}px` }}
+          viewBox={`0 0 ${svgWidth} 200`}
           preserveAspectRatio="none"
         >
           <defs>
@@ -117,7 +136,7 @@ export function DemandSupplyBarChart() {
                 <line
                   x1="45"
                   y1={y}
-                  x2="610"
+                  x2={svgWidth - 15}
                   y2={y}
                   stroke="#f3f4f6"
                   strokeDasharray="3 3"
@@ -139,8 +158,7 @@ export function DemandSupplyBarChart() {
 
           {/* District Groups with Slim Dual Bars */}
           {data.map((item, idx) => {
-            const groupWidth = 46;
-            const groupX = 52 + idx * groupWidth;
+            const groupX = startX + idx * groupWidth;
 
             const slimWidth = 13;
             const demandHeight = (item.demand / maxValue) * 140;

@@ -22,6 +22,7 @@ export const depotBlockTitleSupplyData: DepotBlockTitleSupplyRow[] = [
     depotName: "सागर",
     blockName: "Jabera",
     medium: "Hindi",
+    
     classGroup: "Class 3",
     bookTitle: "2026-27 हेतु एफएलएन अभ्यास पुस्तिका (तृतीय चरण)(कक्षा 3)",
     demandQty: 1474,
