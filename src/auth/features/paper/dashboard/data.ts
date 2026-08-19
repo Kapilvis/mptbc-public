@@ -38,7 +38,7 @@ export const MOCK_PAPER_KPI_METRICS: PaperKpiMetric[] = [
   {
     title: "Total Tender Allocation",
     value: "3,767 MT",
-    subValue: "6 Awarded Paper Mills",
+    subValue: "",
     icon: "pi pi-file-check",
     badgeText: "6 Paper Mills",
     badgeType: "info",
@@ -46,7 +46,7 @@ export const MOCK_PAPER_KPI_METRICS: PaperKpiMetric[] = [
   {
     title: "Work Orders Issued",
     value: "3,767 MT",
-    subValue: "6 Active Purchase Orders",
+    subValue: "",
     icon: "pi pi-shopping-bag",
     badgeText: "100.0% Allocated",
     badgeType: "success",
@@ -54,15 +54,15 @@ export const MOCK_PAPER_KPI_METRICS: PaperKpiMetric[] = [
   {
     title: "Dispatched & Delivered",
     value: "3,165 MT",
-    subValue: "Supplied to Central Depot",
+    subValue: "",
     icon: "pi pi-truck",
     badgeText: "84.0% Fulfilled",
     badgeType: "success",
   },
   {
-    title: "Balance Pending Supply",
+    title: "Pending Supply",
     value: "602 MT",
-    subValue: "Outstanding Mill Delivery",
+    subValue: "",
     icon: "pi pi-clock",
     badgeText: "16.0% Outstanding",
     badgeType: "warning",

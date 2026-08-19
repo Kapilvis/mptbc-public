@@ -7,91 +7,88 @@ interface Props {
 
 export function TitleStockTable({ data }: Props) {
   return (
-    <Card className="overflow-hidden">
-      <div className="flex items-center justify-between pb-3 border-b border-gray-100 dark:border-gray-800 mb-0">
+    <Card className="overflow-hidden p-0 border border-gray-200/60 dark:border-gray-700/60 shadow-xs hover:shadow-md transition-shadow">
+      <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-850/40">
         <div>
-          <h3 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <i className="pi pi-book text-indigo-600 dark:text-indigo-400" />
+          <h3 className="text-base font-black text-gray-900 dark:text-white flex items-center gap-2">
+            <i className="pi pi-book text-indigo-600 dark:text-indigo-400 text-lg" />
             Title-wise Stock Position
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-            Current inventory breakdown by textbook title
-          </p>
         </div>
-        <span className="text-xs bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded-full font-semibold border border-indigo-100 dark:border-indigo-900/50">
+        <span className="text-xs bg-indigo-100 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300 px-3 py-1 rounded-full font-black border border-indigo-200 dark:border-indigo-900/50">
           {data.length} Titles
         </span>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full text-xs">
+        <table className="w-full text-sm">
           <thead>
-            <tr className="bg-gray-50 dark:bg-gray-800/60 border-b border-gray-100 dark:border-gray-700">
-              <th className="px-3 py-2.5 text-left font-semibold text-gray-600 dark:text-gray-400">
+            <tr className="bg-gray-100/70 dark:bg-gray-800/80 border-b border-gray-200 dark:border-gray-700 text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-200">
+              <th className="px-4 py-3 text-left">
                 #
               </th>
-              <th className="px-3 py-2.5 text-left font-semibold text-gray-600 dark:text-gray-400 min-w-[180px]">
+              <th className="px-4 py-3 text-left min-w-[190px]">
                 Title
               </th>
-              <th className="px-3 py-2.5 text-left font-semibold text-gray-600 dark:text-gray-400">
+              <th className="px-4 py-3 text-left">
                 Class
               </th>
-              <th className="px-3 py-2.5 text-left font-semibold text-gray-600 dark:text-gray-400">
+              <th className="px-4 py-3 text-left">
                 Medium
               </th>
-              <th className="px-3 py-2.5 text-right font-semibold text-gray-600 dark:text-gray-400">
+              <th className="px-4 py-3 text-right">
                 Received
               </th>
-              <th className="px-3 py-2.5 text-right font-semibold text-gray-600 dark:text-gray-400">
+              <th className="px-4 py-3 text-right">
                 Issued
               </th>
-              <th className="px-3 py-2.5 text-right font-semibold text-gray-600 dark:text-gray-400">
+              <th className="px-4 py-3 text-right">
                 Balance
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-gray-150/60 dark:divide-gray-800/60">
             {data.map((row) => (
               <tr
                 key={row.id}
-                className="border-b border-gray-50 dark:border-gray-800 hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20 transition-colors"
+                className="hover:bg-indigo-50/50 dark:hover:bg-indigo-950/30 transition-colors"
               >
-                <td className="px-3 py-2 text-gray-400 dark:text-gray-500">
+                <td className="px-4 py-3 font-semibold text-gray-500 dark:text-gray-400">
                   {row.id}
                 </td>
-                <td className="px-3 py-2 font-medium text-gray-800 dark:text-gray-200">
+                <td className="px-4 py-3 font-extrabold text-gray-900 dark:text-white">
                   {row.title}
                 </td>
-                <td className="px-3 py-2 text-gray-600 dark:text-gray-400">
+                <td className="px-4 py-3 font-bold text-gray-700 dark:text-gray-300">
                   {row.classGroup}
                 </td>
-                <td className="px-3 py-2 text-gray-600 dark:text-gray-400">
+                <td className="px-4 py-3 font-bold text-gray-700 dark:text-gray-300">
                   {row.medium}
                 </td>
-                <td className="px-3 py-2 text-right font-semibold text-blue-700 dark:text-blue-400">
+                <td className="px-4 py-3 text-right font-extrabold font-mono text-blue-700 dark:text-blue-400">
                   {row.receivedQty.toLocaleString()}
                 </td>
-                <td className="px-3 py-2 text-right font-semibold text-amber-700 dark:text-amber-400">
+                <td className="px-4 py-3 text-right font-extrabold font-mono text-amber-700 dark:text-amber-400">
                   {row.issuedQty.toLocaleString()}
                 </td>
-                <td className="px-3 py-2 text-right font-bold text-emerald-700 dark:text-emerald-400">
+                <td className="px-4 py-3 text-right font-black font-mono text-emerald-700 dark:text-emerald-400">
                   {row.balanceQty.toLocaleString()}
                 </td>
               </tr>
             ))}
-            <tr className="bg-gray-50 dark:bg-gray-800/60 font-bold">
+            <tr className="bg-gray-100/80 dark:bg-gray-800/90 font-black text-base border-t-2 border-gray-300 dark:border-gray-700">
               <td
                 colSpan={4}
-                className="px-3 py-2 text-gray-700 dark:text-gray-300"
+                className="px-4 py-3.5 text-gray-900 dark:text-white uppercase tracking-wider text-xs"
               >
                 Total
               </td>
-              <td className="px-3 py-2 text-right text-blue-800 dark:text-blue-300">
+              <td className="px-4 py-3.5 text-right font-mono text-blue-800 dark:text-blue-300">
                 {data.reduce((s, r) => s + r.receivedQty, 0).toLocaleString()}
               </td>
-              <td className="px-3 py-2 text-right text-amber-800 dark:text-amber-300">
+              <td className="px-4 py-3.5 text-right font-mono text-amber-800 dark:text-amber-300">
                 {data.reduce((s, r) => s + r.issuedQty, 0).toLocaleString()}
               </td>
-              <td className="px-3 py-2 text-right text-emerald-800 dark:text-emerald-300">
+              <td className="px-4 py-3.5 text-right font-mono text-emerald-800 dark:text-emerald-300">
                 {data.reduce((s, r) => s + r.balanceQty, 0).toLocaleString()}
               </td>
             </tr>

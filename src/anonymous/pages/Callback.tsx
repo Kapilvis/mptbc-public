@@ -1,18 +1,20 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthProvider";
+import { getRoleDashboardRoute } from "../../auth/authConfig";
 
 export default function Callback() {
   const navigate = useNavigate();
-  const { authenticated } = useAuth();
+  const { authenticated, user } = useAuth();
 
   useEffect(() => {
     if (authenticated) {
-      navigate("/home");
+      const role = user?.role || localStorage.getItem("role") || "";
+      navigate(getRoleDashboardRoute(role));
     } else if (authenticated === false) {
       navigate("/");
     }
-  }, [authenticated, navigate]);
+  }, [authenticated, user, navigate]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-950">
