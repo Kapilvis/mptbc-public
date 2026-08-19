@@ -151,25 +151,25 @@ export default function LockOverlay({
           </Card>
         )}
 
-        {/* Card 2: Fleet Requirement */}
+        {/* Card 2: Vehicle Requirement */}
         {!report.fleetPass && (
           <Card className="h-full">
             <div className="flex flex-col justify-between h-full min-h-[220px]">
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-bold uppercase tracking-wider text-rose-500">
-                    Fleet Requirement
+                    Vehicle Requirement
                   </span>
                   <span className="bg-rose-50 border border-rose-100/50 text-rose-600 text-xs font-semibold px-2.5 py-0.5 rounded-full">
                     Shortage: {shortageVehicles} Vehicles
                   </span>
                 </div>
                 <h3 className="text-base font-bold text-slate-800 mb-1">
-                  Registered Fleet Size
+                  Registered Vehicles
                 </h3>
                 <p className="text-sm text-slate-500 mb-4 leading-relaxed">
-                  Total verified registered fleet size is {report.totalVehicles}{" "}
-                  (minimum 10 required).
+                  Total verified registered vehicle count is{" "}
+                  {report.totalVehicles} (minimum 10 required).
                 </p>
               </div>
 
@@ -215,7 +215,7 @@ export default function LockOverlay({
                   </span>
                 </div>
                 <h3 className="text-base font-bold text-slate-800 mb-1">
-                  Category 3 (≥ 9 Ton) Fleet
+                  Category 3 (≥ 9 Ton) Vehicles
                 </h3>
                 <p className="text-sm text-slate-500 mb-4 leading-relaxed">
                   Category 3 heavy vehicle count is {report.cat3Vehicles}{" "}
@@ -226,7 +226,7 @@ export default function LockOverlay({
               <div className="bg-slate-50 border border-slate-100 rounded-xl p-4 mt-auto">
                 <div className="flex justify-between text-xs mb-1.5">
                   <span className="text-slate-400 font-medium">
-                    Required Heavy Fleet:
+                    Required Heavy Trucks:
                   </span>
                   <span className="text-slate-700 font-semibold">
                     4 Vehicles
@@ -234,7 +234,7 @@ export default function LockOverlay({
                 </div>
                 <div className="flex justify-between text-xs mb-3">
                   <span className="text-slate-400 font-medium">
-                    Verified Heavy Fleet:
+                    Verified Heavy Trucks:
                   </span>
                   <span className="text-rose-600 font-bold">
                     {report.cat3Vehicles} Vehicles

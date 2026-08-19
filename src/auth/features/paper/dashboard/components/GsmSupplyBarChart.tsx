@@ -17,10 +17,6 @@ export const GsmSupplyBarChart: React.FC<Props> = ({ data }) => {
             <i className="pi pi-chart-bar text-emerald-600 dark:text-emerald-400" />
             GSM-wise Allocation vs Dispatched Quantity
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-            Comparison of total ordered Metric Tonnes against dispatched
-            quantity by GSM paper type.
-          </p>
         </div>
         <div className="flex items-center gap-4 text-xs font-semibold">
           <span className="flex items-center gap-1.5 text-gray-600 dark:text-gray-300">

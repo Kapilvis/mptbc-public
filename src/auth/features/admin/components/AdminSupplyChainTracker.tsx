@@ -22,10 +22,6 @@ export const AdminSupplyChainTracker: React.FC = () => {
             <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
               End-to-End Supply Chain Lifecycle Tracker
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Unified real-time throughput status from raw paper supply to final
-              school distribution
-            </p>
           </div>
         </div>
         <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50/80 px-3 py-1 text-xs font-bold text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-950/40 dark:text-emerald-300">

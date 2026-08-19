@@ -47,7 +47,7 @@ export default function List() {
   return (
     <Page
       header="Technical Bid Evaluation"
-      subHeader="Review transporter profile documents, financial indicators, and fleet expiration statuses to approve or reject technical bidding eligibility."
+      subHeader="Review and verify transporter technical eligibility and documents."
     >
       <Card>
         <GridPanel

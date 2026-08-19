@@ -60,7 +60,7 @@ export function DemandDetailDrawer({ item, onClose }: DemandDetailDrawerProps) {
               <div>
                 <div className="flex justify-between items-center text-xs mb-1">
                   <span className="font-semibold text-emerald-800 dark:text-emerald-300">
-                    Sent: {item.sentToBrc.toLocaleString()}
+                    Sent to Block: {item.sentToBrc.toLocaleString()}
                   </span>
                   <span className="font-bold text-emerald-700 dark:text-emerald-400">
                     ({item.sentPercent}%)
@@ -76,7 +76,7 @@ export function DemandDetailDrawer({ item, onClose }: DemandDetailDrawerProps) {
 
               <div className="flex justify-between items-center text-sm pt-1">
                 <span className="text-gray-600 dark:text-gray-400 font-medium">
-                  BRC Received:
+                  Block Received:
                 </span>
                 <span className="font-bold text-emerald-800 dark:text-emerald-300">
                   {item.brcReceived.toLocaleString()}
@@ -120,7 +120,7 @@ export function DemandDetailDrawer({ item, onClose }: DemandDetailDrawerProps) {
             </h4>
             <div className="grid grid-cols-2 gap-3 text-xs">
               <div>
-                <span className="text-gray-500 block">Agency:</span>
+                <span className="text-gray-500 block">Department:</span>
                 <span className="font-semibold text-gray-800 dark:text-gray-200">
                   {item.agency}
                 </span>

@@ -1,23 +1,20 @@
 import { useState, useMemo } from "react";
 import { ToastService } from "services";
 import { Button } from "shared/components/buttons";
-import { CheckBox, DropDownList, TextBox } from "shared/components/forms";
+import { DropDownList, TextBox } from "shared/components/forms";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Modal } from "shared/components/popups";
-import {
-  useBulkLockGsmDemandMutation,
-  useGsmPaperDemandsQuery,
-  useLockGsmDemandMutation,
-} from "../queries";
+import { useGsmPaperDemandsQuery, useLockGsmDemandMutation } from "../queries";
 
 export default function GsmDemandReportList() {
+  const pageTitle = usePageTitle();
   const [academicYear, setAcademicYear] = useState("2026-2027");
   const [paperCategory, setPaperCategory] = useState("All");
   const [status, setStatus] = useState("All");
   const [search, setSearch] = useState("");
 
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [selectedTitlesGsm, setSelectedTitlesGsm] =
     useState<Paper.GsmPaperDemandItem | null>(null);
 
@@ -30,9 +27,6 @@ export default function GsmDemandReportList() {
 
   const { mutateAsync: lockSingle, isPending: isSinglePending } =
     useLockGsmDemandMutation();
-
-  const { mutateAsync: lockBulk, isPending: isBulkPending } =
-    useBulkLockGsmDemandMutation();
 
   const academicYearOptions = [
     { label: "2026-2027", value: "2026-2027" },
@@ -70,22 +64,6 @@ export default function GsmDemandReportList() {
     };
   }, [data]);
 
-  const handleSelectAll = (checked: boolean) => {
-    if (checked) {
-      setSelectedIds(data.map((item) => item.id));
-    } else {
-      setSelectedIds([]);
-    }
-  };
-
-  const handleSelectRow = (id: number, checked: boolean) => {
-    if (checked) {
-      setSelectedIds((prev) => [...prev, id]);
-    } else {
-      setSelectedIds((prev) => prev.filter((i) => i !== id));
-    }
-  };
-
   const handleSingleLockChange = async (
     id: number,
     newStatus: Paper.DemandLockStatus,
@@ -100,24 +78,9 @@ export default function GsmDemandReportList() {
     }
   };
 
-  const handleBulkLockChange = async (newStatus: Paper.DemandLockStatus) => {
-    if (selectedIds.length === 0) return;
-    try {
-      await lockBulk({ ids: selectedIds, status: newStatus });
-      ToastService.success(
-        `Successfully locked ${selectedIds.length} GSM paper demand specification(s) for tender procurement.`,
-      );
-      setSelectedIds([]);
-    } catch {
-      ToastService.error("Failed to lock selected GSM demands");
-    }
-  };
-
-  const isAllSelected = data.length > 0 && selectedIds.length === data.length;
-
   return (
     <Page
-      header="GSM-Wise Paper Demand Report & Lock"
+      header={pageTitle || "GSM-Wise Paper Demand Report & Lock"}
       subHeader="Consolidate textbook printing paper requirements by GSM specification, calculate gross tonnage with wastage, estimate budgets, and lock paper demands for paper tender procurement."
       showHeaderActions
     >
@@ -244,6 +207,7 @@ export default function GsmDemandReportList() {
           showExport
           exportFilename={`GSM_Paper_Demand_Report_${academicYear}`}
           columns={[
+            /*
             {
               header: (
                 <div className="flex justify-center items-center">
@@ -264,6 +228,7 @@ export default function GsmDemandReportList() {
                 </div>
               ),
             },
+            */
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
               width: "50px",
@@ -349,16 +314,16 @@ export default function GsmDemandReportList() {
                 </span>
               ),
             },
-            {
-              field: "totalBudgetLakhs",
-              header: "Est. Budget",
-              align: "right",
-              cell: (row: Paper.GsmPaperDemandItem) => (
-                <span className="font-bold text-emerald-800 dark:text-emerald-300">
-                  ₹ {row.totalBudgetLakhs.toFixed(2)} L
-                </span>
-              ),
-            },
+            // {
+            //   field: "totalBudgetLakhs",
+            //   header: "Est. Budget",
+            //   align: "right",
+            //   cell: (row: Paper.GsmPaperDemandItem) => (
+            //     <span className="font-bold text-emerald-800 dark:text-emerald-300">
+            //       ₹ {row.totalBudgetLakhs.toFixed(2)} L
+            //     </span>
+            //   ),
+            // },
             // {
             //   field: "status",
             //   header: "Lock Status",
@@ -437,7 +402,8 @@ export default function GsmDemandReportList() {
           )}
         />
 
-        {/* Bottom Bulk Action Footer */}
+        {/* Bottom Bulk Action Footer (Disabled) */}
+        {/*
         {selectedIds.length > 0 && (
           <div className="flex flex-col sm:flex-row items-center justify-between p-3 mt-4 bg-emerald-50/50 border border-emerald-200 rounded-xl dark:bg-emerald-950/20 dark:border-emerald-900/60 gap-3 animate-in fade-in duration-200">
             <div className="flex items-center gap-3">
@@ -466,6 +432,7 @@ export default function GsmDemandReportList() {
             </div>
           </div>
         )}
+        */}
       </Card>
 
       {/* Titles Breakdown Modal */}
@@ -524,7 +491,7 @@ export default function GsmDemandReportList() {
                     15,00,000
                   </div>
                   <div className="col-span-3 text-right font-mono font-bold text-blue-600">
-                    148.50 MT
+                    148 MT
                   </div>
                 </div>
 
@@ -542,7 +509,7 @@ export default function GsmDemandReportList() {
                     15,00,000
                   </div>
                   <div className="col-span-3 text-right font-mono font-bold text-blue-600">
-                    148.50 MT
+                    148 MT
                   </div>
                 </div>
 

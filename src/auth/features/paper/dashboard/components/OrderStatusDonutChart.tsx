@@ -53,9 +53,6 @@ export function OrderStatusDonutChart() {
           <i className="pi pi-chart-pie text-emerald-600 dark:text-emerald-400" />
           Work Order Status Distribution
         </h3>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
-          Breakdown of purchase work orders by current fulfillment state
-        </p>
       </div>
 
       <div className="flex flex-col items-center justify-between gap-4 py-2">

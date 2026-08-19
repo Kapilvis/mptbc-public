@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card } from "shared/components/panels";
 import { Button } from "shared/components/buttons";
 import { dispatchHistoryData, type DispatchHistoryItem } from "../data";
@@ -19,6 +20,7 @@ function StatusBadge({ status }: { status: 0 | 1 }) {
 }
 
 export default function DispatchHistoryPage() {
+  const pageTitle = usePageTitle();
   const [year, setYear] = useState("2026-2027");
   const [depot, setDepot] = useState("");
   const [classGroup, setClassGroup] = useState("");
@@ -45,8 +47,8 @@ export default function DispatchHistoryPage() {
 
   return (
     <Page
-      header="Dispatch Order History"
-      subHeader="डिपो से ब्लॉक — Complete history of challans dispatched from depot to blocks / BRC centres."
+      header={pageTitle || "Dispatch History"}
+      subHeader="डिपो से ब्लॉक प्रेषण — Complete history of challans dispatched from depot to blocks."
       showHeaderActions
     >
       {/* Summary Strip */}

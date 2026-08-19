@@ -12,7 +12,7 @@ export const calculatePaperRequirement = (
     (numberOfBooks * coverReamWeight * 1.02) / (4 * 500 * 1000);
 
   return {
-    innerPaperMt: Number(innerPaperMt.toFixed(3)),
-    coverPaperMt: Number(coverPaperMt.toFixed(3)),
+    innerPaperMt: Math.round(innerPaperMt),
+    coverPaperMt: Math.round(coverPaperMt),
   };
 };

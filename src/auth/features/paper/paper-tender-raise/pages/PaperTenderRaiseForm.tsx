@@ -11,6 +11,7 @@ import {
 import { Card } from "shared/components/panels";
 import GridPanel from "shared/components/panels/GridPanel";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Modal } from "shared/components/popups";
 import {
   usePaperTenderQuery,
@@ -19,6 +20,7 @@ import {
 } from "../queries";
 
 export default function PaperTenderRaiseForm() {
+  const pageTitle = usePageTitle();
   const { data: initialTender, isLoading } = usePaperTenderQuery();
 
   const [tenderForm, setTenderForm] = useState<Partial<PaperTender.Item>>({
@@ -155,7 +157,7 @@ export default function PaperTenderRaiseForm() {
 
   return (
     <Page
-      header="Paper Tender - Notice Inviting Tender (NIT)"
+      header={pageTitle || "Paper Tender - Notice Inviting Tender (NIT)"}
       subHeader="Convert locked GSM paper demands into an official Notice Inviting Tender (NIT) draft for bulk procurement via e-Procurement/GeM portals."
       showHeaderActions
     >

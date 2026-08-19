@@ -15,10 +15,6 @@ export const SupplyPipelineWidget: React.FC<Props> = ({ stages }) => {
             <i className="pi pi-compass text-emerald-600 dark:text-emerald-400 text-lg" />
             Paper Tender & Supply Fulfillment Pipeline
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            Real-time multi-stage supply progress from Tender Allocation to
-            Central Depot Stock Receipt
-          </p>
         </div>
         <span className="text-xs font-bold px-3 py-1 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 rounded-full border border-emerald-200 dark:border-emerald-800 shrink-0">
           83.8% Overall Fulfilled

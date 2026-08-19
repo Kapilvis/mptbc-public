@@ -98,7 +98,7 @@ export default function List() {
   return (
     <Page
       header="Bidder Selection & Rate Comparison"
-      subHeader="View comparative rates and ranking of technically qualified bidders. Any eligible bidder can be allocated work based on district requirements."
+      subHeader="Compare bidder rates and assign work orders based on district requirements."
     >
       <div className="flex flex-col lg:flex-row gap-6 items-start">
         {/* Left Panel: Districts */}

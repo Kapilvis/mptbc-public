@@ -113,7 +113,7 @@ export function TenderManagement() {
   return (
     <Page
       header="Tender Management"
-      subHeader="Create and manage distribution zone tenders for transporter bidding"
+      subHeader="Manage zone-wise transportation tenders and bidder allocations."
       showHeaderActions
     >
       {/* Action Bar */}

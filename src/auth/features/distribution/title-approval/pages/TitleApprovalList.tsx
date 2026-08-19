@@ -1,23 +1,24 @@
 import { useState } from "react";
 import { ToastService } from "services";
 import { Button } from "shared/components/buttons";
-import { CheckBox, DropDownList, TextBox } from "shared/components/forms";
+import { DropDownList, TextBox } from "shared/components/forms";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { Modal } from "shared/components/popups";
 import {
-  useBulkUpdateTitleApprovalMutation,
   useTitleApprovalsQuery,
   useUpdateTitleApprovalMutation,
 } from "../queries";
 
+import { usePageTitle } from "shared/hooks/usePageTitle";
+
 export default function TitleApprovalList() {
+  const pageTitle = usePageTitle();
   const [academicYear, setAcademicYear] = useState("2026-2027");
   const [department, setDepartment] = useState("All");
   const [status, setStatus] = useState("All");
   const [search, setSearch] = useState("");
 
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [selectedDocTitle, setSelectedDocTitle] =
     useState<Distribution.TitleApprovalItem | null>(null);
 
@@ -30,9 +31,6 @@ export default function TitleApprovalList() {
 
   const { mutateAsync: updateSingle, isPending: isSinglePending } =
     useUpdateTitleApprovalMutation();
-
-  const { mutateAsync: updateBulk, isPending: isBulkPending } =
-    useBulkUpdateTitleApprovalMutation();
 
   const academicYearOptions = [
     { label: "2026-2027", value: "2026-2027" },
@@ -53,22 +51,6 @@ export default function TitleApprovalList() {
     { label: "Hold", value: "Hold" },
   ];
 
-  const handleSelectAll = (checked: boolean) => {
-    if (checked) {
-      setSelectedIds(data.map((item) => item.id));
-    } else {
-      setSelectedIds([]);
-    }
-  };
-
-  const handleSelectRow = (id: number, checked: boolean) => {
-    if (checked) {
-      setSelectedIds((prev) => [...prev, id]);
-    } else {
-      setSelectedIds((prev) => prev.filter((i) => i !== id));
-    }
-  };
-
   const handleSingleStatusChange = async (
     id: number,
     newStatus: "Approved" | "Rejected" | "Hold" | "Pending",
@@ -81,26 +63,9 @@ export default function TitleApprovalList() {
     }
   };
 
-  const handleBulkStatusChange = async (
-    newStatus: "Approved" | "Rejected" | "Hold",
-  ) => {
-    if (selectedIds.length === 0) return;
-    try {
-      await updateBulk({ ids: selectedIds, status: newStatus });
-      ToastService.success(
-        `Successfully updated ${selectedIds.length} titles to ${newStatus}`,
-      );
-      setSelectedIds([]);
-    } catch {
-      ToastService.error("Failed to perform bulk action");
-    }
-  };
-
-  const isAllSelected = data.length > 0 && selectedIds.length === data.length;
-
   return (
     <Page
-      header="Title Approval Report"
+      header={pageTitle || "Title Approval"}
       subHeader="Review, inspect soft copy matter PDFs, and approve new title specifications received from RSK and CPI."
       showHeaderActions
     >
@@ -164,6 +129,7 @@ export default function TitleApprovalList() {
           showExport
           exportFilename={`Title_Approval_Report_${academicYear}`}
           columns={[
+            /*
             {
               header: (
                 <div className="flex justify-center items-center">
@@ -184,6 +150,7 @@ export default function TitleApprovalList() {
                 </div>
               ),
             },
+            */
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
               width: "50px",
@@ -374,7 +341,8 @@ export default function TitleApprovalList() {
           )}
         />
 
-        {/* Bottom Bulk Action Footer (Matching Agency Demand Approval) */}
+        {/* Bottom Bulk Action Footer (Disabled) */}
+        {/*
         {selectedIds.length > 0 && (
           <div className="flex flex-col sm:flex-row items-center justify-between p-3 mt-4 bg-emerald-50/50 border border-emerald-200 rounded-xl dark:bg-emerald-950/20 dark:border-emerald-900/60 gap-3 animate-in fade-in duration-200">
             <div className="flex items-center gap-3">
@@ -412,6 +380,7 @@ export default function TitleApprovalList() {
             </div>
           </div>
         )}
+        */}
       </Card>
 
       {/* Redesigned Clean Modal Component for View Document */}

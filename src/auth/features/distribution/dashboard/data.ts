@@ -50,9 +50,9 @@ export const mockKpiMetrics: KpiMetric[] = [
     type: "dispatch-rate",
   },
   {
-    title: "BRC Receipt Rate",
+    title: "Block Receipt Rate",
     value: "82.1%",
-    subText: "BRC received",
+    subText: "Block received",
     badgeText: "0.2% Short/Damaged",
     icon: "pi pi-box",
     theme: "amber",

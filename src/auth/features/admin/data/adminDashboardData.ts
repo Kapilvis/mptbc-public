@@ -71,8 +71,8 @@ export const EXECUTIVE_KPIS: ExecutiveKpiItem[] = [
   {
     id: "paper",
     title: "1. Paper Procurement",
-    primaryValue: "3,767.25 MT",
-    secondaryValue: "Balance Pending: 611.20 MT",
+    primaryValue: "3,767 MT",
+    secondaryValue: "Balance Pending: 611 MT",
     badgeText: "83.8% Delivered to Central",
     badgeType: "success",
     icon: "pi pi-copy",
@@ -264,7 +264,7 @@ export const SUB_PORTAL_SUMMARIES: SubPortalSummary[] = [
     stats: [
       { label: "Ajanta Packaging:", value: "80% Done" },
       { label: "G Tech Print:", value: "78% Done" },
-      { label: "Paper Consumed:", value: "72.40 MT", isHighlight: true },
+      { label: "Paper Consumed:", value: "72 MT", isHighlight: true },
     ],
   },
   {

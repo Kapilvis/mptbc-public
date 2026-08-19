@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel, InputPanel } from "shared/components/panels";
 import { Button, ButtonPanel } from "shared/components/buttons";
 import { DropDownList, DatePicker } from "shared/components/forms";
@@ -7,6 +8,7 @@ import { dataManager } from "../../../inventory/mockData";
 import type { StockTransaction } from "../../../inventory/types";
 
 export default function StockLedgerPage() {
+  const pageTitle = usePageTitle();
   const transactions = dataManager.getTransactions();
   const stocks = dataManager.getStocks();
   const printerList = dataManager.getPrinterMasterList();
@@ -111,7 +113,7 @@ export default function StockLedgerPage() {
 
   return (
     <Page
-      header="Detailed Stock Ledger"
+      header={pageTitle || "Detailed Stock Ledger"}
       subHeader="विस्तृत स्टॉक लेजर — View and export ledger accounts containing detailed paper ledger tracking."
       showHeaderActions
     >

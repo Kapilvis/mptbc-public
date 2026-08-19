@@ -5,6 +5,7 @@ import { Button } from "shared/components/buttons";
 import StatusButton from "shared/components/buttons/StatusButton";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Modal } from "shared/components/popups";
 import {
   usePaperVendorActiveStatusMutation,
@@ -12,6 +13,7 @@ import {
 } from "../queries";
 
 export default function List() {
+  const pageTitle = usePageTitle();
   const { data = [], isLoading } = usePaperVendorsQuery();
   const { mutateAsync: toggleStatus } = usePaperVendorActiveStatusMutation();
   const [selectedDocUrl, setSelectedDocUrl] = useState<string | null>(null);
@@ -32,7 +34,7 @@ export default function List() {
 
   return (
     <Page
-      header="Paper Vendor Profile"
+      header={pageTitle || "Paper Vendor Profile"}
       subHeader="View, manage, and register paper mill vendors, supply agreements, and rate details."
       showHeaderActions
     >

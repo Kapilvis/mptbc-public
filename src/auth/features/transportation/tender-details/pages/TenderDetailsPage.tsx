@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel } from "shared/components/panels";
 import { Button } from "shared/components/buttons";
 import { ConfirmDialog, useConfirmDialog } from "shared/components/popups";
@@ -9,6 +10,7 @@ import type { TenderRecord } from "../data";
 import TenderFormModal from "../components/TenderFormModal";
 
 export default function TenderDetailsPage() {
+  const pageTitle = usePageTitle();
   const { data: tenders = [], isLoading } = useTendersQuery();
   const deleteMutation = useDeleteTenderMutation();
   const { confirmAction } = useConfirmDialog();
@@ -48,7 +50,7 @@ export default function TenderDetailsPage() {
 
   return (
     <Page
-      header="Tender Details"
+      header={pageTitle || "Tender Details"}
       subHeader="Manage annual transportation tenders, contract validity, and academic year scopes."
       showHeaderActions
     >

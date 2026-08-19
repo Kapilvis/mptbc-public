@@ -27,11 +27,13 @@
   .p-datatable .p-datatable-thead > tr > th {
     @apply border-b-0 border-r
       border-r-white/10
-      px-3.5 py-2
-      text-label font-semibold
+      px-4 py-3
+      text-xs font-bold
       uppercase tracking-[0.05em]
       text-white
-      transition-colors duration-200;
+      whitespace-nowrap
+      transition-colors duration-200
+      dark:border-r-white/5;
     background: var(--table-header-bg, var(--primary-color)) !important;
   }
 

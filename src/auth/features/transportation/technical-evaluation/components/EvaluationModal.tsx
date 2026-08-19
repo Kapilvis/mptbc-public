@@ -161,10 +161,10 @@ export default function EvaluationModal({
             </div>
           </div>
 
-          {/* Fleet summary */}
+          {/* Vehicles summary */}
           <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
             <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-              Total Fleet (Target: 10)
+              Total Vehicles (Target: 10)
             </span>
             <div className="mt-2 flex items-center justify-between">
               <span className="text-base font-bold text-slate-800">
@@ -290,11 +290,11 @@ export default function EvaluationModal({
               </div>
             </div>
 
-            {/* Item 3: Fleet Requirements */}
+            {/* Item 3: Vehicle Requirements */}
             <div className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <h4 className="font-bold text-slate-800 text-sm">
-                  Fleet Size Check
+                  Vehicle Requirement Check
                 </h4>
                 <p className="text-xs text-slate-400 mt-0.5">
                   Requirement: Minimum 10 total vehicles and at least 4
@@ -302,7 +302,7 @@ export default function EvaluationModal({
                 </p>
                 <div className="flex gap-4 mt-2 text-xs">
                   <span className="text-slate-500">
-                    Total Fleet:{" "}
+                    Total Vehicles:{" "}
                     <strong className="text-slate-700">{totalVehicles}</strong>{" "}
                     (Min: 10)
                   </span>
@@ -322,7 +322,7 @@ export default function EvaluationModal({
                   }`}
                 >
                   {fleetPass ? <Check size={14} /> : <X size={14} />}
-                  Total Fleet {fleetPass ? "Met" : "Shortage"}
+                  Total Vehicles {fleetPass ? "Met" : "Shortage"}
                 </span>
                 <span
                   className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${
@@ -332,7 +332,7 @@ export default function EvaluationModal({
                   }`}
                 >
                   {cat3Pass ? <Check size={14} /> : <X size={14} />}
-                  Cat-3 Fleet {cat3Pass ? "Met" : "Shortage"}
+                  Cat-3 Trucks {cat3Pass ? "Met" : "Shortage"}
                 </span>
               </div>
             </div>
@@ -342,7 +342,7 @@ export default function EvaluationModal({
         {/* Vehicle Document Expirations table */}
         <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
           <div className="bg-slate-50 px-5 py-3 border-b border-slate-200 font-semibold text-sm text-slate-700 flex justify-between items-center">
-            <span>FLEET DOCUMENTS EXPIRY DETAILS</span>
+            <span>VEHICLE DOCUMENT EXPIRY DETAILS</span>
             {checkAnyVehicleDocExpired() ? (
               <span className="inline-flex items-center gap-1 text-xs text-amber-600 font-semibold bg-amber-50 border border-amber-100 px-2 py-0.5 rounded-full">
                 <AlertTriangle size={12} />

@@ -6,7 +6,10 @@ import Page from "shared/components/panels/Page";
 import { DemandDetailDrawer } from "../components/DemandDetailDrawer";
 import { useDepartmentDemandsQuery } from "../queries";
 
+import { usePageTitle } from "shared/hooks/usePageTitle";
+
 export default function List() {
+  const pageTitle = usePageTitle();
   const [academicYear, setAcademicYear] = useState("2026-2027");
   const [department, setDepartment] = useState("All");
   const [district, setDistrict] = useState("All");
@@ -29,7 +32,7 @@ export default function List() {
   ];
 
   const departmentOptions = [
-    { label: "All Agencies", value: "All" },
+    { label: "All Departments", value: "All" },
     { label: "RSK / CPI", value: "RSK/CPI" },
     { label: "RSK", value: "RSK" },
     { label: "CPI", value: "CPI" },
@@ -88,7 +91,7 @@ export default function List() {
 
   return (
     <Page
-      header="Demand Received from Departments (RSK / CPI)"
+      header={pageTitle || "Demand Received from Departments (RSK / CPI)"}
       subHeader="View and track department demand received from Rajya Shiksha Kendra (RSK) and Commissionerate of Public Instruction (CPI)."
       showHeaderActions
     >

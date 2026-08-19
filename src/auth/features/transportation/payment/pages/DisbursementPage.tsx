@@ -185,8 +185,8 @@ export default function DisbursementPage() {
 
   return (
     <Page
-      header="Payment Disbursement Portal"
-      subHeader="Audit delivered textbook receipts, confirm TDS deductions, and authorize NEFT/RTGS financial settlements."
+      header="Payment Disbursement"
+      subHeader="Process and track transporter payments and disbursements."
     >
       {/* Sub-tabbing */}
       <div className="flex border-b border-slate-200 mb-6 gap-2">
@@ -246,15 +246,15 @@ export default function DisbursementPage() {
                 ]}
                 columns={[
                   {
-                    header: "LR Number",
-                    field: "lrNumber",
-                    width: "120px",
+                    header: "Vehicle Number",
+                    field: "truckNo",
+                    width: "140px",
                     cell: (row: DisbursementRow) => (
                       <span
                         onClick={() => handleRowClick(row)}
                         className="font-bold text-emerald-600 hover:underline cursor-pointer text-xs"
                       >
-                        {row.lrNumber}
+                        {row.truckNo}
                       </span>
                     ),
                   },
@@ -438,7 +438,7 @@ export default function DisbursementPage() {
                       htmlFor="auditCheck"
                       className="text-[10px] text-slate-500 cursor-pointer leading-normal"
                     >
-                      I have verified the signed delivery challan, BRC stamp
+                      I have verified the signed delivery challan, Block stamp
                       validity, and confirmed the TDS and delay penalty
                       calculations.
                     </label>

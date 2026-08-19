@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Page from "shared/components/panels/Page";
+import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel } from "shared/components/panels";
 import { Loader } from "shared/components/progress";
 import { Button } from "shared/components/buttons";
@@ -7,6 +8,7 @@ import { useWorkOrdersQuery, useTransportersL1Query } from "../queries";
 import WorkOrderFormModal from "../components/WorkOrderFormModal";
 
 export default function List() {
+  const pageTitle = usePageTitle();
   const [modalVisible, setModalVisible] = useState(false);
 
   const { data: workOrders = [], isLoading: loadingWorkOrders } =
@@ -33,7 +35,7 @@ export default function List() {
 
   return (
     <Page
-      header="Work Order & Allocation"
+      header={pageTitle || "Work Order & Allocation"}
       subHeader="Generate distribution work orders, configure block-level supply targets, and track delivery SLA timelines."
       showHeaderActions
     >

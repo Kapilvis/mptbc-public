@@ -52,9 +52,9 @@ export const getPrinterDashboardStats = (printerCode: string) => {
     inProgress,
     booksPrinted,
     booksPending,
-    paperAllocated: 125.5, // Metric Tonnes
-    paperReceived: 98.2, // Metric Tonnes
-    paperConsumed: 72.4, // Metric Tonnes
+    paperAllocated: 126, // Metric Tonnes
+    paperReceived: 98, // Metric Tonnes
+    paperConsumed: 72, // Metric Tonnes
     supplyPending: 24500, // Quantities pending dispatch
   };
 };
@@ -73,31 +73,31 @@ export const getPaperMaterialStatus = (printerCode: string) => {
     // Hook dynamic API/override logic here
   }
   return {
-    allocated: 125.5,
-    received: 98.2,
-    consumed: 72.4,
-    available: 25.8,
+    allocated: 126,
+    received: 98,
+    consumed: 72,
+    available: 26,
     gsmTable: [
       {
         gsm: "60 GSM",
-        allocated: 40.0,
-        received: 35.0,
-        used: 25.0,
-        available: 10.0,
+        allocated: 40,
+        received: 35,
+        used: 25,
+        available: 10,
       },
       {
         gsm: "70 GSM",
-        allocated: 50.0,
-        received: 40.0,
-        used: 30.0,
-        available: 10.0,
+        allocated: 50,
+        received: 40,
+        used: 30,
+        available: 10,
       },
       {
         gsm: "80 GSM",
-        allocated: 35.5,
-        received: 23.2,
-        used: 17.4,
-        available: 5.8,
+        allocated: 36,
+        received: 23,
+        used: 17,
+        available: 6,
       },
     ] as GSMStatus[],
   };

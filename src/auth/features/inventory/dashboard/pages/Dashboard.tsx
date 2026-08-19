@@ -1,5 +1,6 @@
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 import Page from "shared/components/panels/Page";
+import AcademicYearFilterBar from "shared/components/filters/AcademicYearFilterBar";
 import { Card, GridPanel } from "shared/components/panels";
 import { dataManager } from "../../mockData";
 import type { PaperStock, PrinterOrder, PaperDistribution } from "../../types";
@@ -18,6 +19,7 @@ const getHeightClass = (percentage: number) => {
 };
 
 export default function Dashboard() {
+  const [academicYear, setAcademicYear] = useState("2026-2027");
   const stocks = dataManager.getStocks();
   const orders = dataManager.getOrders();
   const distributions = dataManager.getDistributions();
@@ -81,6 +83,13 @@ export default function Dashboard() {
       subHeader="Centralized inventory management, printer orders distribution, and stock tracking."
       showHeaderActions
     >
+      {/* Academic Year Filter Bar */}
+      <AcademicYearFilterBar
+        academicYear={academicYear}
+        onChange={setAcademicYear}
+        subtitle={`Filtering Central Depot paper stock, mill dispatches, and printer allocations for session ${academicYear}.`}
+      />
+
       {/* KPI Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
         {/* KPI 1 */}

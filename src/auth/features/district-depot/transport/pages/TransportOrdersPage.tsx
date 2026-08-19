@@ -74,7 +74,7 @@ export default function TransportOrdersPage() {
       vendorName: vendor?.text ?? form.vendorName,
       depotCode: form.depotCode,
       routeFrom: `${depot?.text.split("(")[0].trim() || form.depotCode} Depot`,
-      routeTo: `${block?.text || form.routeTo} BRC`,
+      routeTo: `${block?.text || form.routeTo} Block`,
       vehicleNo: form.vehicleNo,
       qtyTon: parseFloat(form.qtyTon) || 0,
       payableAmount: parseFloat(form.payableAmount) || 0,
