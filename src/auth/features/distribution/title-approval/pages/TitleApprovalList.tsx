@@ -211,7 +211,7 @@ export default function TitleApprovalList() {
             {
               field: "totalPages",
               header: "Book Type & Pages",
-              align: "center",
+              align: "left",
               cell: (row: Distribution.TitleApprovalItem) => (
                 <span>
                   {row.bookType} ({row.totalPages} pages)

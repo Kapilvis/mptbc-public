@@ -84,7 +84,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
           columns={[
             {
               cell: (_, option) => (
-                <span className="text-xs">{option.rowIndex + 1}</span>
+                <span className="text-sm">{option.rowIndex + 1}</span>
               ),
               width: "50px",
               align: "center",
@@ -93,7 +93,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               field: "orderNo",
               header: "Order No",
               cell: (row: PrinterOrder) => (
-                <span className="text-xs font-bold text-indigo-950 dark:text-white">
+                <span className="text-sm font-bold text-indigo-950 dark:text-white">
                   {row.orderNo}
                 </span>
               ),
@@ -102,14 +102,14 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               field: "orderDate",
               header: "Order Date",
               cell: (row: PrinterOrder) => (
-                <span className="text-xs">{row.orderDate}</span>
+                <span className="text-sm">{row.orderDate}</span>
               ),
             },
             {
               field: "printer",
               header: "Printer / Press Name",
               cell: (row: PrinterOrder) => (
-                <span className="text-xs font-semibold">{row.printer}</span>
+                <span className="text-sm font-semibold">{row.printer}</span>
               ),
             },
             {
@@ -117,14 +117,14 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               header: "GSM",
               align: "center",
               cell: (row: PrinterOrder) => (
-                <span className="text-xs font-bold">{row.gsm} GSM</span>
+                <span className="text-sm font-bold">{row.gsm} GSM</span>
               ),
             },
             {
               field: "paperType",
               header: "Paper Type",
               cell: (row: PrinterOrder) => (
-                <span className="text-xs">{row.paperType}</span>
+                <span className="text-sm">{row.paperType}</span>
               ),
             },
             {
@@ -132,7 +132,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               header: "Req Qty",
               align: "center",
               cell: (row: PrinterOrder) => (
-                <span className="text-xs">
+                <span className="text-sm">
                   {row.requiredQty.toLocaleString()} MT
                 </span>
               ),
@@ -142,7 +142,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               header: "Appr Qty",
               align: "center",
               cell: (row: PrinterOrder) => (
-                <span className="text-xs text-blue-700 dark:text-blue-400 font-semibold">
+                <span className="text-sm text-blue-700 dark:text-blue-400 font-semibold">
                   {row.approvedQty.toLocaleString()} MT
                 </span>
               ),
@@ -152,7 +152,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               header: "Supplied Qty",
               align: "center",
               cell: (row: PrinterOrder) => (
-                <span className="text-xs text-emerald-600 font-semibold">
+                <span className="text-sm text-emerald-600 font-semibold">
                   {row.suppliedQty.toLocaleString()} MT
                 </span>
               ),
@@ -162,7 +162,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               header: "Pending Qty",
               align: "center",
               cell: (row: PrinterOrder) => (
-                <span className="text-xs text-rose-600 font-bold">
+                <span className="text-sm text-rose-600 font-bold">
                   {row.pendingQty.toLocaleString()} MT
                 </span>
               ),
@@ -186,7 +186,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
                   onClick={() =>
                     navigate(`/printing/orders/details/${row.orderNo}`)
                   }
-                  className="p-button-outlined p-button-sm text-xs! py-1!"
+                  className="p-button-outlined p-button-sm text-sm! py-1!"
                 />
               ),
             },

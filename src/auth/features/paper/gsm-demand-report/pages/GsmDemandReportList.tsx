@@ -130,7 +130,7 @@ export default function GsmDemandReportList() {
             {
               field: "gsmCode",
               header: "GSM",
-              align: "center",
+              align: "left",
               cell: (row: Paper.GsmPaperDemandItem) => (
                 <span className="font-extrabold text-blue-800 dark:text-blue-300">
                   {row.gsmCode}

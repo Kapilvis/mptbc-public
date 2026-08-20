@@ -1,8 +1,6 @@
-import { useState, useMemo } from "react";
 import Page from "shared/components/panels/Page";
 import { usePageTitle } from "shared/hooks/usePageTitle";
-import { Card, GridPanel, InputPanel } from "shared/components/panels";
-import { DropDownList } from "shared/components/forms";
+import { Card, GridPanel } from "shared/components/panels";
 import { dataManager } from "../../../inventory/mockData";
 import type { PaperStock } from "../../../inventory/types";
 
@@ -31,39 +29,7 @@ export function StockStatusBadge({
 
 export default function PaperStockPage() {
   const pageTitle = usePageTitle();
-  const [gsmFilter, setGsmFilter] = useState<string>("");
-  const [typeFilter, setTypeFilter] = useState<string>("");
-  const [statusFilter, setStatusFilter] = useState<string>("");
-
   const stocks = dataManager.getStocks();
-
-  const filteredData = useMemo(() => {
-    return stocks.filter((s) => {
-      const matchGsm = !gsmFilter || s.gsm.toString() === gsmFilter;
-      const matchType = !typeFilter || s.paperType === typeFilter;
-      const matchStatus = !statusFilter || s.stockStatus === statusFilter;
-      return matchGsm && matchType && matchStatus;
-    });
-  }, [stocks, gsmFilter, typeFilter, statusFilter]);
-
-  const gsmOptions = useMemo(() => {
-    const uniqueGsms = Array.from(new Set(stocks.map((s) => s.gsm)));
-    return uniqueGsms.map((gsm) => ({
-      text: `${gsm} GSM`,
-      value: gsm.toString(),
-    }));
-  }, [stocks]);
-
-  const typeOptions = useMemo(() => {
-    const uniqueTypes = Array.from(new Set(stocks.map((s) => s.paperType)));
-    return uniqueTypes.map((t) => ({ text: t, value: t }));
-  }, [stocks]);
-
-  const statusOptions = [
-    { text: "In Stock", value: "In Stock" },
-    { text: "Low Stock", value: "Low Stock" },
-    { text: "Out of Stock", value: "Out of Stock" },
-  ];
 
   return (
     <Page
@@ -71,58 +37,17 @@ export default function PaperStockPage() {
       subHeader="कागज स्टॉक प्रबंधन — Monitor available stock levels, reel specifications, and minimum thresholds."
       showHeaderActions
     >
-      {/* Filters Bar */}
-      <Card className="mb-4 p-4">
-        <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-150/40">
-          <i className="pi pi-filter text-blue-600 font-bold" />
-          <span className="text-xs font-bold text-gray-700 dark:text-gray-300">
-            Filter Stock Options
-          </span>
-        </div>
-        <InputPanel orientation="horizontal" className="grid-3">
-          <DropDownList
-            label="GSM Size"
-            data={gsmOptions}
-            textField="text"
-            valueField="value"
-            value={gsmFilter}
-            onChange={(val) => setGsmFilter(val as string)}
-            defaultOptionText="All GSMs"
-          />
-
-          <DropDownList
-            label="Paper Type"
-            data={typeOptions}
-            textField="text"
-            valueField="value"
-            value={typeFilter}
-            onChange={(val) => setTypeFilter(val as string)}
-            defaultOptionText="All Types"
-          />
-
-          <DropDownList
-            label="Stock Status"
-            data={statusOptions}
-            textField="text"
-            valueField="value"
-            value={statusFilter}
-            onChange={(val) => setStatusFilter(val as string)}
-            defaultOptionText="All Statuses"
-          />
-        </InputPanel>
-      </Card>
-
       {/* Grid List */}
       <Card>
         <GridPanel
           toolbarPlacement="page"
-          data={filteredData}
+          data={stocks}
           searchFields={["gsm", "paperType", "sheetSize"]}
           exportFilename="Central_Depot_Paper_Stock"
           columns={[
             {
               cell: (_, option) => (
-                <span className="text-xs">{option.rowIndex + 1}</span>
+                <span className="text-sm">{option.rowIndex + 1}</span>
               ),
               width: "50px",
               align: "center",
@@ -132,21 +57,22 @@ export default function PaperStockPage() {
               header: "GSM",
               align: "center",
               cell: (row: PaperStock) => (
-                <span className="text-xs font-semibold">{row.gsm} GSM</span>
+                <span className="text-sm font-semibold">{row.gsm} GSM</span>
               ),
             },
             {
               field: "paperType",
               header: "Paper Type",
               cell: (row: PaperStock) => (
-                <span className="text-xs">{row.paperType}</span>
+                <span className="text-sm">{row.paperType}</span>
               ),
             },
             {
               field: "sheetSize",
               header: "Sheet Size (cm)",
+              align: "center",
               cell: (row: PaperStock) => (
-                <span className="text-xs">{row.sheetSize}</span>
+                <span className="text-sm">{row.sheetSize}</span>
               ),
             },
             {
@@ -154,7 +80,7 @@ export default function PaperStockPage() {
               header: "Reel Width (mm)",
               align: "center",
               cell: (row: PaperStock) => (
-                <span className="text-xs">{row.reelWidth}</span>
+                <span className="text-sm">{row.reelWidth}</span>
               ),
             },
             {
@@ -162,7 +88,7 @@ export default function PaperStockPage() {
               header: "Cutoff (mm)",
               align: "center",
               cell: (row: PaperStock) => (
-                <span className="text-xs">{row.cutoff}</span>
+                <span className="text-sm">{row.cutoff}</span>
               ),
             },
             {
@@ -170,7 +96,7 @@ export default function PaperStockPage() {
               header: "Opening Stock",
               align: "center",
               cell: (row: PaperStock) => (
-                <span className="text-xs">
+                <span className="text-sm">
                   {row.openingStock.toLocaleString()} MT
                 </span>
               ),
@@ -180,7 +106,7 @@ export default function PaperStockPage() {
               header: "Received Qty",
               align: "center",
               cell: (row: PaperStock) => (
-                <span className="text-xs text-emerald-600 font-medium">
+                <span className="text-sm text-emerald-600 font-medium">
                   +{row.receivedQuantity.toLocaleString()} MT
                 </span>
               ),
@@ -190,7 +116,7 @@ export default function PaperStockPage() {
               header: "Issued Qty",
               align: "center",
               cell: (row: PaperStock) => (
-                <span className="text-xs text-rose-600 font-medium">
+                <span className="text-sm text-rose-600 font-medium">
                   -{row.issuedQuantity.toLocaleString()} MT
                 </span>
               ),
@@ -200,7 +126,7 @@ export default function PaperStockPage() {
               header: "Available Stock",
               align: "center",
               cell: (row: PaperStock) => (
-                <span className="text-xs font-bold text-blue-700 dark:text-blue-400">
+                <span className="text-sm font-bold text-blue-700 dark:text-blue-400">
                   {row.availableQuantity.toLocaleString()} MT
                 </span>
               ),
@@ -217,7 +143,7 @@ export default function PaperStockPage() {
               field: "lastUpdated",
               header: "Last Updated",
               cell: (row: PaperStock) => (
-                <span className="text-xs text-gray-500">{row.lastUpdated}</span>
+                <span className="text-sm text-gray-500">{row.lastUpdated}</span>
               ),
             },
           ]}
