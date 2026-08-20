@@ -7,6 +7,7 @@ import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Modal } from "shared/components/popups";
+import { formatDate } from "shared/utils/dateUtils";
 import {
   usePaperOrderActiveStatusMutation,
   usePaperOrdersQuery,
@@ -32,16 +33,16 @@ export default function List() {
     }
   };
 
-  const formatDateDisplay = (val: unknown) => {
-    if (!val) return "-";
-    if (val instanceof Date) return val.toISOString().split("T")[0];
-    if (typeof val === "object") return JSON.stringify(val);
-    return String(val);
-  };
+  // const formatDateDisplay = (val: unknown) => {
+  //   if (!val) return "-";
+  //   if (val instanceof Date) return val.toISOString().split("T")[0];
+  //   if (typeof val === "object") return JSON.stringify(val);
+  //   return String(val);
+  // };
 
   return (
     <Page
-      header={pageTitle || "Paper Vendor Order Details"}
+      header={pageTitle || "Paper Vendor Issue Order Details"}
       subHeader="Issue binding purchase work orders to paper mills, manage order quantities, rates, and track depot allocations."
       showHeaderActions
     >
@@ -73,7 +74,7 @@ export default function List() {
               field: "orderDate",
               header: "ORDER DATE",
               align: "center",
-              cell: (row) => <span>{formatDateDisplay(row.orderDate)}</span>,
+              cell: (row) => <span>{formatDate(row.orderDate)}</span>,
             },
             {
               field: "paperMillName",
@@ -87,7 +88,7 @@ export default function List() {
               field: "orderedQtyMT",
               header: "QTY (MT)",
               align: "center",
-              cell: (row) => <span>{row.orderedQtyMT.toFixed(3)} MT</span>,
+              cell: (row) => <span>{row.orderedQtyMT} MT</span>,
             },
             {
               field: "ratePerMT",

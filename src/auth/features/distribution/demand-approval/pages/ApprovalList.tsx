@@ -169,7 +169,6 @@ export default function ApprovalList() {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
               width: "50px",
               align: "center",
-              header: "S.No.",
             },
             {
               field: "agencyName",
@@ -188,24 +187,19 @@ export default function ApprovalList() {
             {
               field: "titleName",
               header: "Book Title",
-              width: "240px",
               cell: (row: Distribution.DemandApprovalItem) => (
-                <span className="font-semibold text-gray-900 dark:text-white block text-xs">
-                  {row.titleName}
-                </span>
+                <span>{row.titleName}</span>
               ),
             },
-            { field: "bookType", header: "Book Type", align: "center" },
-            { field: "classGroup", header: "Class", align: "center" },
-            { field: "medium", header: "Medium", align: "center" },
+            { field: "bookType", header: "Book Type" },
+            { field: "classGroup", header: "Class" },
+            { field: "medium", header: "Medium" },
             {
               field: "requestedDemand",
               header: "Requested Demand",
               align: "center",
               cell: (row: Distribution.DemandApprovalItem) => (
-                <span className="font-bold text-gray-900 dark:text-white">
-                  {row.requestedDemand.toLocaleString()}
-                </span>
+                <span>{row.requestedDemand.toLocaleString()}</span>
               ),
             },
             // {

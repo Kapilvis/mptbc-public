@@ -113,6 +113,26 @@ const initialStock = (): PaperStock[] => [
     stockStatus: "Low Stock",
     lastUpdated: "2026-08-17 02:45 PM",
   },
+  {
+    id: 5,
+    gsm: 80,
+    paperType: "Text Paper",
+    paperSpecification: "80 GSM Text Paper",
+    reelWidth: 84,
+    cutoff: 578,
+    sheetSize: "57.8 × 84",
+    openingStock: 1000,
+    receivedQuantity: 1000,
+    issuedQuantity: 350,
+    availableQuantity: 650,
+    unit: "MT",
+    dailyConsumption: 300,
+    minimumStockLevel: 200,
+    maximumStockLevel: 5000,
+    daysOfStock: 3.2,
+    stockStatus: "In Stock",
+    lastUpdated: "2026-08-17 03:00 PM",
+  },
 ];
 
 const initialReceipts = (): PaperReceipt[] => [
@@ -178,6 +198,22 @@ const initialReceipts = (): PaperReceipt[] => [
     challanNo: "CHL-10291",
     invoiceNo: "INV-2026-302",
   },
+  {
+    receiptNo: "GRN-005",
+    receiptDate: "2026-08-17",
+    supplier: "Malwa Paper Mills Ltd.",
+    gsm: 80,
+    paperType: "Text Paper",
+    reelWidth: 84,
+    cutoff: 578,
+    quantity: 1000,
+    unit: "MT",
+    weightInMt: 1000,
+    vehicleNo: "MP04HE8877",
+    challanNo: "CHL-99815",
+    invoiceNo: "INV-2026-905",
+    remarks: "Received 80 GSM Text Paper in good condition",
+  },
 ];
 
 const initialOrders = (): PrinterOrder[] => [
@@ -191,10 +227,10 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Hindi",
     gsm: 58,
     paperType: "Text Paper",
-    requiredQty: 5000,
-    approvedQty: 4500,
-    suppliedQty: 3000,
-    pendingQty: 1500,
+    requiredQty: 600,
+    approvedQty: 550,
+    suppliedQty: 350,
+    pendingQty: 200,
     priority: "High",
     requiredByDate: "2026-08-25",
     status: "Partially Supplied",
@@ -210,9 +246,9 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Mathematics",
     gsm: 60,
     paperType: "Text Paper",
-    requiredQty: 3000,
-    approvedQty: 3000,
-    suppliedQty: 3000,
+    requiredQty: 300,
+    approvedQty: 300,
+    suppliedQty: 300,
     pendingQty: 0,
     priority: "Medium",
     requiredByDate: "2026-08-22",
@@ -228,10 +264,10 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Science",
     gsm: 70,
     paperType: "Text Paper",
-    requiredQty: 2000,
-    approvedQty: 2000,
+    requiredQty: 200,
+    approvedQty: 200,
     suppliedQty: 0,
-    pendingQty: 2000,
+    pendingQty: 200,
     priority: "High",
     requiredByDate: "2026-08-28",
     status: "Approved",
@@ -246,10 +282,10 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Social Science",
     gsm: 80,
     paperType: "Cover Paper",
-    requiredQty: 1500,
-    approvedQty: 1500,
+    requiredQty: 150,
+    approvedQty: 150,
     suppliedQty: 0,
-    pendingQty: 1500,
+    pendingQty: 150,
     priority: "Low",
     requiredByDate: "2026-09-05",
     status: "Pending",
@@ -264,10 +300,10 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Mathematics",
     gsm: 80,
     paperType: "Text Paper",
-    requiredQty: 50000,
-    approvedQty: 50000,
-    suppliedQty: 42000,
-    pendingQty: 8000,
+    requiredQty: 300,
+    approvedQty: 300,
+    suppliedQty: 280,
+    pendingQty: 20,
     priority: "High",
     requiredByDate: "2026-08-30",
     status: "Partially Supplied",
@@ -283,9 +319,9 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Hindi",
     gsm: 70,
     paperType: "Text Paper",
-    requiredQty: 35000,
-    approvedQty: 35000,
-    suppliedQty: 35000,
+    requiredQty: 200,
+    approvedQty: 200,
+    suppliedQty: 200,
     pendingQty: 0,
     priority: "Medium",
     requiredByDate: "2026-08-25",
@@ -302,15 +338,15 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Science",
     gsm: 80,
     paperType: "Text Paper",
-    requiredQty: 60000,
-    approvedQty: 60000,
-    suppliedQty: 18500,
-    pendingQty: 41500,
+    requiredQty: 400,
+    approvedQty: 400,
+    suppliedQty: 150,
+    pendingQty: 250,
     priority: "High",
     requiredByDate: "2026-08-20",
     status: "Partially Supplied",
     remarks:
-      "Urgent - In progress. Immediate dispatch needed for remaining copies.",
+      "Urgent - In progress. Immediate dispatch needed for remaining paper.",
   },
   {
     orderNo: "PO-2026-004",
@@ -322,13 +358,13 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "English",
     gsm: 60,
     paperType: "Text Paper",
-    requiredQty: 30000,
-    approvedQty: 30000,
-    suppliedQty: 5000,
-    pendingQty: 25000,
+    requiredQty: 200,
+    approvedQty: 200,
+    suppliedQty: 50,
+    pendingQty: 150,
     priority: "Low",
     requiredByDate: "2026-08-28",
-    status: "Approved",
+    status: "Partially Supplied",
     remarks: "Approved by corporation - printing started.",
   },
   {
@@ -341,10 +377,10 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Social Science",
     gsm: 60,
     paperType: "Text Paper",
-    requiredQty: 25000,
-    approvedQty: 25000,
+    requiredQty: 200,
+    approvedQty: 200,
     suppliedQty: 0,
-    pendingQty: 25000,
+    pendingQty: 200,
     priority: "Low",
     requiredByDate: "2026-09-10",
     status: "Pending",
@@ -360,9 +396,9 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Sanskrit",
     gsm: 70,
     paperType: "Text Paper",
-    requiredQty: 15000,
-    approvedQty: 15000,
-    suppliedQty: 15000,
+    requiredQty: 150,
+    approvedQty: 150,
+    suppliedQty: 150,
     pendingQty: 0,
     priority: "Low",
     requiredByDate: "2026-08-15",
@@ -378,9 +414,9 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Science",
     gsm: 80,
     paperType: "Text Paper",
-    requiredQty: 40000,
-    approvedQty: 40000,
-    suppliedQty: 40000,
+    requiredQty: 352,
+    approvedQty: 352,
+    suppliedQty: 352,
     pendingQty: 0,
     priority: "High",
     requiredByDate: "2026-08-10",
@@ -396,10 +432,10 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Mathematics",
     gsm: 80,
     paperType: "Text Paper",
-    requiredQty: 45000,
-    approvedQty: 45000,
-    suppliedQty: 15000,
-    pendingQty: 30000,
+    requiredQty: 250,
+    approvedQty: 250,
+    suppliedQty: 100,
+    pendingQty: 150,
     priority: "Medium",
     requiredByDate: "2026-09-05",
     status: "Partially Supplied",
@@ -414,10 +450,10 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "English",
     gsm: 60,
     paperType: "Text Paper",
-    requiredQty: 20000,
-    approvedQty: 20000,
-    suppliedQty: 5000,
-    pendingQty: 15000,
+    requiredQty: 150,
+    approvedQty: 150,
+    suppliedQty: 100,
+    pendingQty: 50,
     priority: "Medium",
     requiredByDate: "2026-09-12",
     status: "Partially Supplied",
@@ -432,10 +468,10 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Hindi",
     gsm: 70,
     paperType: "Text Paper",
-    requiredQty: 25000,
-    approvedQty: 25000,
-    suppliedQty: 5000,
-    pendingQty: 20000,
+    requiredQty: 315,
+    approvedQty: 315,
+    suppliedQty: 100,
+    pendingQty: 215,
     priority: "Medium",
     requiredByDate: "2026-09-15",
     status: "Partially Supplied",
@@ -450,10 +486,10 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Social Science",
     gsm: 80,
     paperType: "Cover Paper",
-    requiredQty: 35000,
-    approvedQty: 35000,
+    requiredQty: 250,
+    approvedQty: 250,
     suppliedQty: 0,
-    pendingQty: 35000,
+    pendingQty: 250,
     priority: "Low",
     requiredByDate: "2026-09-20",
     status: "Approved",
@@ -468,10 +504,10 @@ const initialOrders = (): PrinterOrder[] => [
     subject: "Sanskrit",
     gsm: 70,
     paperType: "Text Paper",
-    requiredQty: 10000,
-    approvedQty: 10000,
+    requiredQty: 100,
+    approvedQty: 100,
     suppliedQty: 0,
-    pendingQty: 10000,
+    pendingQty: 100,
     priority: "Low",
     requiredByDate: "2026-09-25",
     status: "Cancelled",
@@ -580,8 +616,8 @@ const initialTransactions = (): StockTransaction[] => [
     gsm: 58,
     type: "Opening",
     reference: "Opening Balance",
-    quantity: 5000,
-    balance: 5000,
+    quantity: 1500,
+    balance: 1500,
   },
   {
     id: 2,
@@ -590,8 +626,8 @@ const initialTransactions = (): StockTransaction[] => [
     gsm: 60,
     type: "Opening",
     reference: "Opening Balance",
-    quantity: 4000,
-    balance: 4000,
+    quantity: 1000,
+    balance: 1000,
   },
   {
     id: 3,
@@ -600,8 +636,8 @@ const initialTransactions = (): StockTransaction[] => [
     gsm: 70,
     type: "Opening",
     reference: "Opening Balance",
-    quantity: 2500,
-    balance: 2500,
+    quantity: 800,
+    balance: 800,
   },
   {
     id: 4,
@@ -610,8 +646,8 @@ const initialTransactions = (): StockTransaction[] => [
     gsm: 80,
     type: "Opening",
     reference: "Opening Balance",
-    quantity: 1500,
-    balance: 1500,
+    quantity: 400,
+    balance: 400,
   },
 
   // Receipts
@@ -622,8 +658,8 @@ const initialTransactions = (): StockTransaction[] => [
     gsm: 58,
     type: "Receipt",
     reference: "Supplier: Malwa Paper Mills Ltd. (Challan: CHL-99812)",
-    quantity: 2000,
-    balance: 7000,
+    quantity: 1200,
+    balance: 2700,
   },
   {
     id: 6,
@@ -632,8 +668,8 @@ const initialTransactions = (): StockTransaction[] => [
     gsm: 60,
     type: "Receipt",
     reference: "Supplier: Rewa Paper Products (Challan: CHL-77123)",
-    quantity: 1000,
-    balance: 5000,
+    quantity: 900,
+    balance: 1900,
   },
   {
     id: 7,
@@ -642,8 +678,8 @@ const initialTransactions = (): StockTransaction[] => [
     gsm: 70,
     type: "Receipt",
     reference: "Supplier: Bhopal Paper & Board Industry (Challan: CHL-88231)",
-    quantity: 500,
-    balance: 3000,
+    quantity: 665,
+    balance: 1465,
   },
   {
     id: 8,
@@ -652,8 +688,8 @@ const initialTransactions = (): StockTransaction[] => [
     gsm: 80,
     type: "Receipt",
     reference: "Supplier: Central India Paper Suppliers (Challan: CHL-10291)",
-    quantity: 300,
-    balance: 1800,
+    quantity: 400,
+    balance: 800,
   },
 
   // Issues / Distributions
@@ -664,8 +700,8 @@ const initialTransactions = (): StockTransaction[] => [
     gsm: 58,
     type: "Distribution",
     reference: "Printer: Shree Offset Press (Order: ORD-001)",
-    quantity: -1500,
-    balance: 5500,
+    quantity: -550,
+    balance: 2150,
   },
   {
     id: 91,
@@ -674,9 +710,9 @@ const initialTransactions = (): StockTransaction[] => [
     gsm: 58,
     type: "Distribution",
     reference: "Printer: Shree Offset Press (Order: ORD-001)",
-    quantity: -1500,
-    balance: 4000,
-  }, // Wait, total issued: 3000, so let's adjust stock
+    quantity: -500,
+    balance: 1650,
+  },
   {
     id: 10,
     date: "2026-08-17",
@@ -684,11 +720,49 @@ const initialTransactions = (): StockTransaction[] => [
     gsm: 60,
     type: "Distribution",
     reference: "Printer: Aditya Web Printers Ltd (Order: ORD-002)",
-    quantity: -1200,
-    balance: 3800,
-  }, // wait, total issued: 1200 matches the stock list, wait...
-  // In stock list: 60 GSM: Opening 4000 + Received 1000 - Issued 1200 = 3800.
-  // Wait, let's keep DIS-002 issueQuantity as 1200 in the transactions, so that calculations balance perfectly!
+    quantity: -800,
+    balance: 1100,
+  },
+  {
+    id: 11,
+    date: "2026-08-16",
+    transactionNo: "DIS-003",
+    gsm: 70,
+    type: "Distribution",
+    reference: "Printer: Shree Offset Press (Order: ORD-003)",
+    quantity: -600,
+    balance: 865,
+  },
+  {
+    id: 12,
+    date: "2026-08-15",
+    transactionNo: "DIS-004",
+    gsm: 80,
+    type: "Distribution",
+    reference: "Printer: Aditya Web Printers Ltd (Order: ORD-004)",
+    quantity: -350,
+    balance: 450,
+  },
+  {
+    id: 13,
+    date: "2026-08-01",
+    transactionNo: "OPN-080T",
+    gsm: 80,
+    type: "Opening",
+    reference: "Opening Balance (Text Paper)",
+    quantity: 1000,
+    balance: 1000,
+  },
+  {
+    id: 14,
+    date: "2026-08-17",
+    transactionNo: "GRN-005",
+    gsm: 80,
+    type: "Receipt",
+    reference: "Supplier: Malwa Paper Mills Ltd. (Challan: CHL-99815)",
+    quantity: 1000,
+    balance: 2000,
+  },
 ];
 
 // In-Memory state loaded from localStorage or fallback to defaults
@@ -699,18 +773,14 @@ let storedDists = getStored<PaperDistribution[]>(
 );
 
 // If stored data has old out-of-bounds mock data, clear localStorage
-if (
-  storedDists.some(
-    (d) => d.distributionNo === "DIS-2026-001" && d.issueQuantity === 42000,
-  ) ||
-  !localStorage.getItem("central_depot_low_stock_v3")
-) {
+if (!localStorage.getItem("central_depot_data_v8")) {
   localStorage.removeItem("central_depot_stocks");
   localStorage.removeItem("central_depot_receipts");
   localStorage.removeItem("central_depot_orders");
   localStorage.removeItem("central_depot_distributions");
   localStorage.removeItem("central_depot_transactions");
-  localStorage.setItem("central_depot_low_stock_v3", "true");
+  localStorage.removeItem("central_depot_low_stock_v6");
+  localStorage.setItem("central_depot_data_v8", "true");
   storedDists = initialDists;
 }
 
@@ -736,18 +806,16 @@ let transactions = getStored<StockTransaction[]>(
 const recalculateStocks = (): void => {
   paperStocks.forEach((stock) => {
     const received = paperReceipts
-      .filter((r) => r.gsm === stock.gsm)
+      .filter((r) => r.gsm === stock.gsm && r.paperType === stock.paperType)
       .reduce((sum, r) => sum + r.quantity, 0);
 
     const issued = distributions
-      .filter((d) => d.gsm === stock.gsm)
+      .filter((d) => d.gsm === stock.gsm && d.paperType === stock.paperType)
       .reduce((sum, d) => sum + d.issueQuantity, 0);
 
-    if (received > 0 || issued > 0) {
-      stock.receivedQuantity = received;
-      stock.issuedQuantity = issued;
-      stock.availableQuantity = stock.openingStock + received - issued;
-    }
+    stock.receivedQuantity = received;
+    stock.issuedQuantity = issued;
+    stock.availableQuantity = stock.openingStock + received - issued;
 
     if (stock.availableQuantity <= 0) {
       stock.stockStatus = "Out of Stock";
@@ -797,7 +865,9 @@ export const dataManager = {
 
     // Update stocks
     recalculateStocks();
-    const updatedStock = paperStocks.find((s) => s.gsm === receipt.gsm);
+    const updatedStock = paperStocks.find(
+      (s) => s.gsm === receipt.gsm && s.paperType === receipt.paperType,
+    );
     const balance = updatedStock
       ? updatedStock.availableQuantity
       : receipt.quantity;
@@ -847,7 +917,9 @@ export const dataManager = {
 
     // Update stocks
     recalculateStocks();
-    const updatedStock = paperStocks.find((s) => s.gsm === dist.gsm);
+    const updatedStock = paperStocks.find(
+      (s) => s.gsm === dist.gsm && s.paperType === dist.paperType,
+    );
     const balance = updatedStock ? updatedStock.availableQuantity : 0;
 
     // Record transaction
@@ -860,6 +932,98 @@ export const dataManager = {
       reference: `Printer: ${dist.printer} (Order: ${dist.orderNo})`,
       quantity: -dist.issueQuantity,
       balance,
+    };
+    transactions.push(newTx);
+    setStored("central_depot_transactions", transactions);
+  },
+
+  // Record a Paper Issue to Printer with strict validations (Service Layer)
+  issuePaperToPrinter: (dist: Omit<PaperDistribution, "status">): void => {
+    // 1. Fetch approved paper requirement
+    const orderIndex = printerOrders.findIndex(
+      (o) => o.orderNo === dist.orderNo,
+    );
+    if (orderIndex === -1) {
+      throw new Error(`Work order ${dist.orderNo} not found.`);
+    }
+    const order = printerOrders[orderIndex];
+    const approvedQty = order.approvedQty;
+
+    // 2. Calculate total paper already issued for this order
+    const alreadyIssued = distributions
+      .filter(
+        (d) =>
+          d.orderNo === dist.orderNo &&
+          d.gsm === dist.gsm &&
+          d.paperType === dist.paperType,
+      )
+      .reduce((sum, d) => sum + d.issueQuantity, 0);
+
+    // 3. Calculate remaining requirement
+    const remainingQty = approvedQty - alreadyIssued;
+
+    // 4. Fetch current GSM-wise Central Depot stock
+    const stock = paperStocks.find(
+      (s) => s.gsm === dist.gsm && s.paperType === dist.paperType,
+    );
+    const availableStock = stock ? stock.availableQuantity : 0;
+
+    const qtyToIssue = dist.issueQuantity;
+
+    // 5. Validate requested issue quantity
+    if (remainingQty <= 0) {
+      throw new Error("This printing order is already fully issued.");
+    }
+    if (qtyToIssue > remainingQty) {
+      throw new Error(
+        `Issue quantity cannot exceed the remaining paper requirement of ${remainingQty.toLocaleString()} MT.`,
+      );
+    }
+    if (qtyToIssue > availableStock) {
+      throw new Error(
+        `Only ${availableStock.toLocaleString()} MT is currently available in Central Depot stock.`,
+      );
+    }
+
+    // 6. Perform the stock deduction and issue creation atomically/transactionally
+    const newDist: PaperDistribution = {
+      ...dist,
+      status: "Dispatched",
+    };
+    distributions.push(newDist);
+    setStored("central_depot_distributions", distributions);
+
+    // Update printer order supplied quantity & status
+    order.suppliedQty += qtyToIssue;
+    order.pendingQty = Math.max(0, order.approvedQty - order.suppliedQty);
+
+    if (order.suppliedQty >= order.approvedQty) {
+      order.status = "Completed";
+    } else if (order.suppliedQty > 0) {
+      order.status = "Partially Supplied";
+    } else {
+      order.status = "Pending";
+    }
+    setStored("central_depot_orders", printerOrders);
+
+    // Update stocks
+    recalculateStocks();
+    const updatedStock = paperStocks.find(
+      (s) => s.gsm === dist.gsm && s.paperType === dist.paperType,
+    );
+    const balance = updatedStock ? updatedStock.availableQuantity : 0;
+
+    // Record Stock Ledger transaction (ISSUE TO PRINTER)
+    const newTx: StockTransaction = {
+      id: transactions.length + 1,
+      date: dist.distributionDate,
+      transactionNo: dist.distributionNo,
+      gsm: dist.gsm,
+      type: "ISSUE TO PRINTER",
+      reference: `Printer: ${dist.printer} (Order: ${dist.orderNo})`,
+      quantity: -qtyToIssue,
+      balance,
+      remarks: dist.remarks,
     };
     transactions.push(newTx);
     setStored("central_depot_transactions", transactions);

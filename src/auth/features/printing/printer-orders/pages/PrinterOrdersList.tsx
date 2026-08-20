@@ -1,11 +1,10 @@
 import { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import Page from "shared/components/panels/Page";
 import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel } from "shared/components/panels";
-import { Button } from "shared/components/buttons";
 import { dataManager } from "../../../inventory/mockData";
 import type { PrinterOrder } from "../../../inventory/types";
+import { formatDate } from "shared/utils/dateUtils";
 
 export function OrderStatusBadge({
   status,
@@ -37,13 +36,17 @@ export function OrderStatusBadge({
   );
 }
 
+const formatDateWithHyphens = (dateStr: string | Date | undefined | null) => {
+  const formatted = formatDate(dateStr);
+  return formatted ? formatted.replace(/\//g, "-") : "";
+};
+
 interface Props {
   pendingOnly?: boolean;
 }
 
 export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
   const pageTitle = usePageTitle();
-  const navigate = useNavigate();
   const orders = dataManager.getOrders();
 
   const filteredOrders = useMemo(() => {
@@ -64,7 +67,9 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
     <Page
       header={
         pageTitle ||
-        (pendingOnly ? "Pending Printer Orders" : "Printer Order Management")
+        (pendingOnly
+          ? "Pending Printer Orders (Books)"
+          : "Printer Order Management (Books)")
       }
       subHeader={
         pendingOnly
@@ -102,7 +107,9 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               field: "orderDate",
               header: "Order Date",
               cell: (row: PrinterOrder) => (
-                <span className="text-sm">{row.orderDate}</span>
+                <span className="text-sm">
+                  {formatDateWithHyphens(row.orderDate)}
+                </span>
               ),
             },
             {
@@ -113,57 +120,32 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               ),
             },
             {
-              field: "gsm",
-              header: "GSM",
-              align: "center",
-              cell: (row: PrinterOrder) => (
-                <span className="text-sm font-bold">{row.gsm} GSM</span>
-              ),
-            },
-            {
-              field: "paperType",
-              header: "Paper Type",
-              cell: (row: PrinterOrder) => (
-                <span className="text-sm">{row.paperType}</span>
-              ),
-            },
-            {
-              field: "requiredQty",
-              header: "Req Qty",
-              align: "center",
-              cell: (row: PrinterOrder) => (
-                <span className="text-sm">
-                  {row.requiredQty.toLocaleString()} MT
-                </span>
-              ),
-            },
-            {
               field: "approvedQty",
-              header: "Appr Qty",
+              header: "Total",
               align: "center",
               cell: (row: PrinterOrder) => (
                 <span className="text-sm text-blue-700 dark:text-blue-400 font-semibold">
-                  {row.approvedQty.toLocaleString()} MT
+                  {row.approvedQty.toLocaleString()}
                 </span>
               ),
             },
             {
               field: "suppliedQty",
-              header: "Supplied Qty",
+              header: "Supplied",
               align: "center",
               cell: (row: PrinterOrder) => (
                 <span className="text-sm text-emerald-600 font-semibold">
-                  {row.suppliedQty.toLocaleString()} MT
+                  {row.suppliedQty.toLocaleString()}
                 </span>
               ),
             },
             {
               field: "pendingQty",
-              header: "Pending Qty",
+              header: "Pending",
               align: "center",
               cell: (row: PrinterOrder) => (
                 <span className="text-sm text-rose-600 font-bold">
-                  {row.pendingQty.toLocaleString()} MT
+                  {row.pendingQty.toLocaleString()}
                 </span>
               ),
             },
@@ -173,21 +155,6 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               align: "center",
               cell: (row: PrinterOrder) => (
                 <OrderStatusBadge status={row.status} />
-              ),
-            },
-            {
-              header: "Action",
-              align: "center",
-              cell: (row: PrinterOrder) => (
-                <Button
-                  type="button"
-                  label="View Details"
-                  icon="pi pi-eye"
-                  onClick={() =>
-                    navigate(`/printing/orders/details/${row.orderNo}`)
-                  }
-                  className="p-button-outlined p-button-sm text-sm! py-1!"
-                />
               ),
             },
           ]}

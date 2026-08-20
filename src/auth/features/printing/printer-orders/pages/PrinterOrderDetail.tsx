@@ -6,6 +6,12 @@ import { Button } from "shared/components/buttons";
 import { dataManager } from "../../../inventory/mockData";
 import { getPrinterMockDetails } from "auth/features/printing/printer-registration/data";
 import { OrderStatusBadge } from "./PrinterOrdersList";
+import { formatDate } from "shared/utils/dateUtils";
+
+const formatDateWithHyphens = (dateStr: string | Date | undefined | null) => {
+  const formatted = formatDate(dateStr);
+  return formatted ? formatted.replace(/\//g, "-") : "";
+};
 
 export default function PrinterOrderDetailsPage() {
   const { orderNo } = useParams<{ orderNo: string }>();
@@ -161,7 +167,7 @@ export default function PrinterOrderDetailsPage() {
                   Order Date
                 </span>
                 <span className="font-semibold text-gray-700 dark:text-gray-300">
-                  {order.orderDate}
+                  {formatDateWithHyphens(order.orderDate)}
                 </span>
               </div>
               <div>
@@ -169,7 +175,7 @@ export default function PrinterOrderDetailsPage() {
                   Required By Date
                 </span>
                 <span className="font-semibold text-gray-700 dark:text-gray-300">
-                  {order.requiredByDate}
+                  {formatDateWithHyphens(order.requiredByDate)}
                 </span>
               </div>
               <div>
@@ -221,8 +227,7 @@ export default function PrinterOrderDetailsPage() {
 
           <div className="border-t border-gray-100 dark:border-gray-800 pt-4 flex items-center justify-between text-sm text-gray-500">
             <span>
-              Allocated and calculated values are measured in Metric Tonnes
-              (MT).
+              Allocated and calculated values are measured in numbers of Books.
             </span>
             <span>
               Priority:{" "}
@@ -239,7 +244,7 @@ export default function PrinterOrderDetailsPage() {
         <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-800 flex items-center gap-2">
           <i className="pi pi-check-square text-emerald-600" />
           <span className="text-sm font-bold text-gray-800 dark:text-gray-200">
-            Order Paper Requirement
+            Order Books Allocation
           </span>
         </div>
         <div className="p-0 overflow-x-auto">
@@ -248,13 +253,12 @@ export default function PrinterOrderDetailsPage() {
               <tr className="bg-gray-50 dark:bg-gray-800/40 text-gray-500 uppercase text-[10px] tracking-wider border-b border-gray-100 dark:border-gray-800">
                 <th className="px-4 py-3 text-center">GSM</th>
                 <th className="px-4 py-3">Paper Type</th>
-                <th className="px-4 py-3 text-right">Required Quantity</th>
-                <th className="px-4 py-3 text-right">Approved Quantity</th>
+                <th className="px-4 py-3 text-right">Total Books</th>
                 <th className="px-4 py-3 text-right text-emerald-600">
-                  Supplied Quantity
+                  Supplied Books
                 </th>
                 <th className="px-4 py-3 text-right text-rose-600">
-                  Pending Quantity
+                  Pending Books
                 </th>
               </tr>
             </thead>
@@ -264,17 +268,14 @@ export default function PrinterOrderDetailsPage() {
                   {order.gsm} GSM
                 </td>
                 <td className="px-4 py-3 font-semibold">{order.paperType}</td>
-                <td className="px-4 py-3 text-right font-medium">
-                  {order.requiredQty.toLocaleString()}
-                </td>
                 <td className="px-4 py-3 text-right font-bold text-blue-700 dark:text-blue-400">
-                  {order.approvedQty.toLocaleString()}
+                  {order.approvedQty.toLocaleString()} Books
                 </td>
                 <td className="px-4 py-3 text-right font-bold text-emerald-600">
-                  {order.suppliedQty.toLocaleString()}
+                  {order.suppliedQty.toLocaleString()} Books
                 </td>
                 <td className="px-4 py-3 text-right font-extrabold text-rose-600">
-                  {order.pendingQty.toLocaleString()}
+                  {order.pendingQty.toLocaleString()} Books
                 </td>
               </tr>
             </tbody>
@@ -317,7 +318,9 @@ export default function PrinterOrderDetailsPage() {
                   <td className="px-4 py-3 text-center font-bold text-indigo-950 dark:text-white">
                     {dist.challanNo}
                   </td>
-                  <td className="px-4 py-3">{dist.dispatchDate}</td>
+                  <td className="px-4 py-3">
+                    {formatDateWithHyphens(dist.dispatchDate)}
+                  </td>
                   <td className="px-4 py-3 text-center font-semibold">
                     {dist.gsm} GSM
                   </td>

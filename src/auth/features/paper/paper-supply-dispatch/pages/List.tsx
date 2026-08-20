@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastService } from "services";
 import { Button } from "shared/components/buttons";
-import StatusButton from "shared/components/buttons/StatusButton";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Modal } from "shared/components/popups";
+import { formatDate } from "shared/utils/dateUtils";
 import {
   usePaperDispatchActiveStatusMutation,
   usePaperDispatchesQuery,
@@ -34,12 +34,12 @@ export default function List() {
     }
   };
 
-  const formatDateDisplay = (val: unknown) => {
-    if (!val) return "-";
-    if (val instanceof Date) return val.toISOString().split("T")[0];
-    if (typeof val === "object") return JSON.stringify(val);
-    return String(val);
-  };
+  // const formatDateDisplay = (val: unknown) => {
+  //   if (!val) return "-";
+  //   if (val instanceof Date) return val.toISOString().split("T")[0];
+  //   if (typeof val === "object") return JSON.stringify(val);
+  //   return String(val);
+  // };
 
   return (
     <Page
@@ -62,7 +62,7 @@ export default function List() {
             "status",
           ]}
           CreateForm={CreateRedirect}
-          EditForm={EditRedirect}
+          // EditForm={EditRedirect}
           columns={[
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
@@ -77,7 +77,7 @@ export default function List() {
               field: "challanDate",
               header: "DATE",
               align: "center",
-              cell: (row) => <span>{formatDateDisplay(row.challanDate)}</span>,
+              cell: (row) => <span>{formatDate(row.challanDate)}</span>,
             },
             {
               field: "consigneeName",
@@ -87,17 +87,17 @@ export default function List() {
               field: "paperType",
               header: "PAPER TYPE",
             },
-            {
-              field: "reelCount",
-              header: "REELS",
-              align: "center",
-              cell: (row) => <span>{row.reelCount.toLocaleString()}</span>,
-            },
+            // {
+            //   field: "reelCount",
+            //   header: "REELS",
+            //   align: "center",
+            //   cell: (row) => <span>{row.reelCount.toLocaleString()}</span>,
+            // },
             {
               field: "totalWeightTon",
-              header: "WEIGHT (TON)",
+              header: "WEIGHT",
               align: "center",
-              cell: (row) => <span>{row.totalWeightTon.toFixed(3)} MT</span>,
+              cell: (row) => <span>{row.totalWeightTon} MT</span>,
             },
             {
               header: "CHALLAN",
@@ -117,17 +117,17 @@ export default function List() {
                 />
               ),
             },
-            {
-              field: "isActive",
-              header: "STATUS",
-              align: "center",
-              cell: (row) => (
-                <StatusButton
-                  value={row.isActive}
-                  onClick={() => handleToggleStatus(row)}
-                />
-              ),
-            },
+            // {
+            //   field: "isActive",
+            //   header: "STATUS",
+            //   align: "center",
+            //   cell: (row) => (
+            //     <StatusButton
+            //       value={row.isActive}
+            //       onClick={() => handleToggleStatus(row)}
+            //     />
+            //   ),
+            // },
           ]}
           renderContent={(item) => (
             <Mosaic.Card
@@ -192,13 +192,13 @@ const CreateRedirect: React.FC<{ onSave: () => void }> = () => {
   return null;
 };
 
-const EditRedirect: React.FC<{
-  data: PaperSupplyDispatch.PaperDispatchItem;
-  onSave: () => void;
-}> = ({ data }) => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    navigate(`/paper/paper-supply-dispatch/edit/${data.dispatchId}`);
-  }, [navigate, data]);
-  return null;
-};
+// const EditRedirect: React.FC<{
+//   data: PaperSupplyDispatch.PaperDispatchItem;
+//   onSave: () => void;
+// }> = ({ data }) => {
+//   const navigate = useNavigate();
+//   useEffect(() => {
+//     navigate(`/paper/paper-supply-dispatch/edit/${data.dispatchId}`);
+//   }, [navigate, data]);
+//   return null;
+// };

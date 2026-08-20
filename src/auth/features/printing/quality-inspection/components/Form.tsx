@@ -161,7 +161,7 @@ export default function QualityInspectionForm({
                   <th className="p-3 text-center w-36">
                     Registration, colour scheme & Printing Quality
                     <br />
-                    <span className="text-[10px] text-emerald-600 font-normal">
+                    <span className="text-[10px] text-black font-bold">
                       (Max: 1)
                     </span>
                   </th>
@@ -169,7 +169,7 @@ export default function QualityInspectionForm({
                     Registration, colour, Quality of Ink, Scum, Pin mark &
                     imposition
                     <br />
-                    <span className="text-[10px] text-emerald-600 font-normal">
+                    <span className="text-[10px] text-black font-bold">
                       (Max: 7)
                     </span>
                   </th>
@@ -177,7 +177,7 @@ export default function QualityInspectionForm({
                     Stitching/Perfect Binding, scheme, Evenness of Ink, Cover
                     Pasting & Trimming
                     <br />
-                    <span className="text-[10px] text-emerald-600 font-normal">
+                    <span className="text-[10px] text-black font-bold">
                       (Max: 2)
                     </span>
                   </th>
@@ -185,7 +185,7 @@ export default function QualityInspectionForm({
                   <th className="p-3 text-center w-24">
                     Total
                     <br />
-                    <span className="text-[10px] text-emerald-600 font-normal">
+                    <span className="text-[10px] text-black font-bold">
                       (Max: 10)
                     </span>
                   </th>

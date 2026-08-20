@@ -207,7 +207,7 @@ export function DepotToBlockReceiptModal({ item, onClose }: Props) {
 
         {/* Challan Books Details Table Section */}
         <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden shadow-xs">
-          <div className="bg-gradient-to-r from-emerald-600 to-teal-700 px-4 py-2.5 text-white flex items-center gap-2">
+          <div className="bg-linear-to-r from-emerald-600 to-teal-700 px-4 py-2.5 text-white flex items-center gap-2">
             <i className="pi pi-book text-sm" />
             <h3 className="font-extrabold text-xs uppercase tracking-wider">
               Challan Books Details (Multiple Textbook Line Items)
@@ -221,7 +221,7 @@ export function DepotToBlockReceiptModal({ item, onClose }: Props) {
                   <th className="p-2.5 text-center w-12 border-r border-slate-200 dark:border-slate-700">
                     S.No
                   </th>
-                  <th className="p-2.5 border-r border-slate-200 dark:border-slate-700 min-w-[280px]">
+                  <th className="p-2.5 border-r border-slate-200 dark:border-slate-700 min-w-70">
                     Title (Book Name)
                   </th>
                   <th className="p-2.5 text-center w-20 border-r border-slate-200 dark:border-slate-700">

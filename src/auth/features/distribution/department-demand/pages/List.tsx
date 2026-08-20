@@ -48,46 +48,33 @@ export default function List() {
               ),
               width: "60px",
               align: "center",
-              header: "S.NO.",
             },
             {
               field: "agency",
               header: "DEPARTMENT",
-              align: "left",
               cell: (row: Distribution.DepartmentDemandItem) => (
-                <span className="font-bold text-slate-800 dark:text-slate-200">
-                  {row.agency}
-                </span>
+                <span>{row.agency}</span>
               ),
             },
             {
               field: "district",
               header: "DISTRICT",
-              align: "left",
               cell: (row: Distribution.DepartmentDemandItem) => (
-                <span className="font-semibold text-slate-700 dark:text-slate-300">
-                  {row.district}
-                </span>
+                <span>{row.district}</span>
               ),
             },
             {
               field: "block",
               header: "BLOCK",
-              align: "left",
               cell: (row: Distribution.DepartmentDemandItem) => (
-                <span className="text-slate-600 dark:text-slate-400 font-medium">
-                  {row.block}
-                </span>
+                <span>{row.block}</span>
               ),
             },
             {
               field: "titleName",
               header: "BOOK TITLE",
-              align: "left",
               cell: (row: Distribution.DepartmentDemandItem) => (
-                <span className="font-semibold text-slate-800 dark:text-slate-200 leading-snug">
-                  {row.titleName}
-                </span>
+                <span>{row.titleName}</span>
               ),
             },
             {

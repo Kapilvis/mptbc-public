@@ -43,7 +43,8 @@ function InnerDropDownList<
   label,
   data,
   textField = "text" as keyof TData,
-
+  valueField,
+  optionValue,
   onChange,
   required,
   defaultOptionText,
@@ -90,6 +91,7 @@ function InnerDropDownList<
           inputId={id ?? name}
           options={!defaultOptionText ? sortedData : optionsWithDefault}
           optionLabel={textField as string}
+          optionValue={(optionValue || valueField || "value") as string}
           onChange={(e) => {
             onChange?.(e.value);
             onSelectionChange?.(e.value);

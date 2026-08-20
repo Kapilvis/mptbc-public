@@ -4,12 +4,10 @@ import { usePageTitle } from "shared/hooks/usePageTitle";
 import AcademicYearFilterBar from "shared/components/filters/AcademicYearFilterBar";
 import { GsmSupplyBarChart } from "../components/GsmSupplyBarChart";
 import { KpiCards } from "../components/KpiCards";
-import { SupplyPipelineWidget } from "../components/SupplyPipelineWidget";
 import { VendorPerformanceMatrixTable } from "../components/VendorPerformanceMatrixTable";
 import {
   useGsmSupplyDataQuery,
   usePaperDashboardMetricsQuery,
-  useSupplyPipelineStagesQuery,
   useVendorPerformanceMatrixQuery,
 } from "../queries";
 
@@ -18,7 +16,6 @@ export default function DashboardPage() {
   const [academicYear, setAcademicYear] = useState("2026-2027");
 
   const { data: rawMetrics = [] } = usePaperDashboardMetricsQuery();
-  const { data: rawPipelineStages = [] } = useSupplyPipelineStagesQuery();
   const { data: rawGsmData = [] } = useGsmSupplyDataQuery();
   const { data: vendorMatrix = [], isLoading: isMatrixLoading } =
     useVendorPerformanceMatrixQuery();
@@ -79,8 +76,8 @@ export default function DashboardPage() {
       {/* Top 4 KPI Summary Cards */}
       <KpiCards metrics={metrics} />
 
-      {/* 4-Stage Paper Supply Fulfillment Pipeline Widget */}
-      <SupplyPipelineWidget stages={rawPipelineStages} />
+      {/* 4-Stage Paper Supply Fulfillment Pipeline Widget (commented out for now) */}
+      {/* <SupplyPipelineWidget stages={rawPipelineStages} /> */}
 
       {/* Analytical Charts Row (GSM Supply Bar Chart) */}
       <div className="mb-6">

@@ -171,23 +171,32 @@ export const EXECUTIVE_ALERTS: ExecutiveAlert[] = [
   {
     id: "alert-2",
     module: "PRINTER SECTION",
-    category: "DEADLINE BREACH",
-    title: "5 Printer Orders Near Deadline",
+    category: "DEADLINE",
+    title: "5 Printers Supply Near Delay",
     severity: "danger",
     actionLabel: "View",
     actionRoute: "/printing/orders/list",
   },
   {
     id: "alert-3",
+    module: "PAPER VENDOR",
+    category: "QUALITY INSPECTION",
+    title: "3 Vendors Below Avg QC Score",
+    severity: "danger",
+    actionLabel: "View",
+    actionRoute: "/printing/quality-inspection",
+  },
+  {
+    id: "alert-4",
     module: "DISTRIBUTION",
     category: "PENDING QUEUE",
-    title: "Classes Demand Pending – 2",
+    title: "Block Demand Pending - 2",
     severity: "warning",
     actionLabel: "View",
     actionRoute: "/distribution/demand-approval",
   },
   {
-    id: "alert-4",
+    id: "alert-5",
     module: "DISTRICT DEPOT",
     category: "Logistics Hurdles",
     title: "Dispatch Pending – 4",
@@ -198,19 +207,14 @@ export const EXECUTIVE_ALERTS: ExecutiveAlert[] = [
 ];
 
 export const ZONE_PROGRESS_DATA: ZoneProgressItem[] = [
-  { zone: "Indore", netDemand: 48500, printed: 39200, dispatched: 36400 },
-  { zone: "Bhopal", netDemand: 45200, printed: 38000, dispatched: 34800 },
-  {
-    zone: "Jabalpur",
-    netDemand: 42150,
-    printed: 34500,
-    dispatched: 31200,
-  },
-  { zone: "Khandwa", netDemand: 36800, printed: 29800, dispatched: 27000 },
-  { zone: "Gwalior", netDemand: 32400, printed: 26000, dispatched: 22500 },
-  { zone: "Ujjain", netDemand: 30200, printed: 24400, dispatched: 21600 },
-  { zone: "Sagar", netDemand: 28600, printed: 23000, dispatched: 20200 },
-  { zone: "Rewa", netDemand: 27000, printed: 21600, dispatched: 18800 },
+  { zone: "Indore", netDemand: 48500, printed: 42000, dispatched: 39800 },
+  { zone: "Bhopal", netDemand: 45200, printed: 38000, dispatched: 35200 },
+  { zone: "Jabalpur", netDemand: 42150, printed: 35000, dispatched: 31600 },
+  { zone: "Khandwa", netDemand: 36800, printed: 28000, dispatched: 24300 },
+  { zone: "Ujjain", netDemand: 30200, printed: 22000, dispatched: 18400 },
+  { zone: "Gwalior", netDemand: 32400, printed: 20000, dispatched: 16800 },
+  { zone: "Sagar", netDemand: 28600, printed: 14000, dispatched: 10800 },
+  { zone: "Rewa", netDemand: 27000, printed: 11500, dispatched: 9200 },
 ];
 
 export const FULFILLMENT_DONUT_DATA = [
@@ -238,7 +242,7 @@ export const SUB_PORTAL_SUMMARIES: SubPortalSummary[] = [
   {
     id: "distribution",
     title: "Distribution",
-    subtitle: "Demand ",
+    subtitle: "Demand Books",
     route: "/distribution/dashboard",
     badge: "Departments",
     accentColor: "#0284c7",

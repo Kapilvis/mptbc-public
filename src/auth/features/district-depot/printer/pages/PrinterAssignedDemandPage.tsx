@@ -39,7 +39,7 @@ export default function PrinterAssignedDemandPage() {
 
   return (
     <Page
-      header={pageTitle || "Printer Assigned Demand"}
+      header={pageTitle || "Printer Demand Details "}
       subHeader="मुद्रक-वार कार्यादेश — Books ordered from each printer, delivered to depot, and remaining balance."
       showHeaderActions
     >

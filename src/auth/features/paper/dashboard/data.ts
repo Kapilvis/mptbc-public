@@ -36,7 +36,7 @@ export interface VendorPerformanceItem {
 
 export const MOCK_PAPER_KPI_METRICS: PaperKpiMetric[] = [
   {
-    title: "Total Tender Allocation",
+    title: "Total Tender Issued",
     value: "3,767 MT",
     subValue: "",
     icon: "pi pi-file-check",
@@ -66,6 +66,14 @@ export const MOCK_PAPER_KPI_METRICS: PaperKpiMetric[] = [
     icon: "pi pi-clock",
     badgeText: "16.0% Outstanding",
     badgeType: "warning",
+  },
+  {
+    title: "Central Stock Verified",
+    value: "2,850 MT",
+    subValue: "",
+    icon: "pi pi-building",
+    badgeText: "75.7% Stocked",
+    badgeType: "info",
   },
 ];
 
