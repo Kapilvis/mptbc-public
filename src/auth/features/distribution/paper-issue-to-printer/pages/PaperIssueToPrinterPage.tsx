@@ -47,7 +47,6 @@ export default function PaperIssueToPrinterPage() {
   const navigate = useNavigate();
 
   // 1. Core Data
-  const distributions = useMemo(() => dataManager.getDistributions(), []);
   const orders = useMemo(() => dataManager.getOrders(), []);
 
   // 2. Selection States for Modals
@@ -65,12 +64,6 @@ export default function PaperIssueToPrinterPage() {
   };
 
   // 4. View details history helper
-  const selectedOrderHistory = useMemo(() => {
-    if (!selectedOrderForDetails) return [];
-    return distributions.filter(
-      (d) => d.orderNo === selectedOrderForDetails.orderNo,
-    );
-  }, [selectedOrderForDetails, distributions]);
 
   return (
     <Page
@@ -225,7 +218,6 @@ export default function PaperIssueToPrinterPage() {
             setSelectedOrderForDetails(null);
           }}
           order={selectedOrderForDetails}
-          history={selectedOrderHistory}
         />
       )}
     </Page>
