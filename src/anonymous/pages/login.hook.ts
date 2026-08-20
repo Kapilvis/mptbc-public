@@ -13,11 +13,11 @@ function generateCaptchaImage(code: string): string {
   canvas.height = 40;
   const ctx = canvas.getContext("2d");
   if (ctx) {
-    ctx.fillStyle = "#E6F4EA";
+    ctx.fillStyle = "#f8fafc";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < 5; i++) {
-      ctx.strokeStyle = `rgba(5, 150, 105, ${0.2 + Math.random() * 0.35})`;
-      ctx.lineWidth = 1 + Math.random() * 1.5;
+      ctx.strokeStyle = `rgba(37, 99, 235, ${0.15 + Math.random() * 0.2})`;
+      ctx.lineWidth = 1 + Math.random() * 1.2;
       ctx.beginPath();
       ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
       ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
@@ -34,7 +34,7 @@ function generateCaptchaImage(code: string): string {
       const angle = (Math.random() * 16 - 8) * (Math.PI / 180);
       ctx.translate(x, y);
       ctx.rotate(angle);
-      ctx.fillStyle = i % 2 === 0 ? "#044E3B" : "#059669";
+      ctx.fillStyle = i % 2 === 0 ? "#003882" : "#1e293b";
       ctx.fillText(code[i], 0, 0);
       ctx.restore();
     }
@@ -43,10 +43,21 @@ function generateCaptchaImage(code: string): string {
 }
 
 const generateRandomCode = () => {
-  return "000000";
+  if (import.meta.env.MODE !== "production") {
+    return "000000";
+  }
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let result = "";
+  for (let i = 0; i < 6; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
 };
 
-import { staticCredentials } from "../../auth/authConfig";
+import {
+  staticCredentials,
+  getRoleDashboardRoute,
+} from "../../auth/authConfig";
 
 export function useLoginForm() {
   const navigate = useNavigate();
@@ -55,6 +66,7 @@ export function useLoginForm() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [captchaCode, setCaptchaCode] = useState("");
+  const [captchaText, setCaptchaText] = useState("");
 
   /* ─── Unauthorized / Login Error State & Auto-Dismiss ─── */
   const [loginError, setLoginError] = useState<string | undefined>();
@@ -113,6 +125,7 @@ export function useLoginForm() {
 
   const regenerateCaptcha = useCallback(() => {
     const code = generateRandomCode();
+    setCaptchaText(code);
     setCaptchaCode(generateCaptchaImage(code));
   }, []);
 
@@ -133,7 +146,15 @@ export function useLoginForm() {
   const onSubmit = handleSubmit(async (data) => {
     setIsLoading(true);
 
-    // CAPTCHA validation bypassed for all environments
+    if (data.captcha?.toUpperCase() !== captchaText.toUpperCase()) {
+      PubSubService.publish(
+        "@event/api-unauthorized",
+        "Invalid CAPTCHA code. Please try again.",
+      );
+      setIsLoading(false);
+      regenerateCaptcha();
+      return;
+    }
 
     const matched = staticCredentials.find(
       (cred) =>
@@ -160,7 +181,7 @@ export function useLoginForm() {
         roles: [matched.roleName],
       });
       setIsLoading(false);
-      navigate("/home");
+      navigate(getRoleDashboardRoute(matched.role));
     }, 500);
   });
 

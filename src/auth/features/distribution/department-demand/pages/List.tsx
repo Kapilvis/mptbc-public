@@ -4,6 +4,7 @@ import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { DemandDetailDrawer } from "../components/DemandDetailDrawer";
 import { useDepartmentDemandsQuery } from "../queries";
+import { formatDate } from "shared/utils/dateUtils";
 
 import { usePageTitle } from "shared/hooks/usePageTitle";
 
@@ -52,7 +53,7 @@ export default function List() {
             {
               field: "agency",
               header: "DEPARTMENT",
-              align: "center",
+              align: "left",
               cell: (row: Distribution.DepartmentDemandItem) => (
                 <span className="font-bold text-slate-800 dark:text-slate-200">
                   {row.agency}
@@ -62,7 +63,7 @@ export default function List() {
             {
               field: "district",
               header: "DISTRICT",
-              align: "center",
+              align: "left",
               cell: (row: Distribution.DepartmentDemandItem) => (
                 <span className="font-semibold text-slate-700 dark:text-slate-300">
                   {row.district}
@@ -72,7 +73,7 @@ export default function List() {
             {
               field: "block",
               header: "BLOCK",
-              align: "center",
+              align: "left",
               cell: (row: Distribution.DepartmentDemandItem) => (
                 <span className="text-slate-600 dark:text-slate-400 font-medium">
                   {row.block}
@@ -82,7 +83,7 @@ export default function List() {
             {
               field: "titleName",
               header: "BOOK TITLE",
-              align: "center",
+              align: "left",
               cell: (row: Distribution.DepartmentDemandItem) => (
                 <span className="font-semibold text-slate-800 dark:text-slate-200 leading-snug">
                   {row.titleName}
@@ -92,7 +93,7 @@ export default function List() {
             {
               field: "medium",
               header: "MEDIUM",
-              align: "center",
+              align: "left",
             },
             {
               field: "classNo",
@@ -113,6 +114,9 @@ export default function List() {
               field: "receivedDate",
               header: "RECEIVED DATE",
               align: "center",
+              cell: (row: Distribution.DepartmentDemandItem) => (
+                <span>{formatDate(row.receivedDate)}</span>
+              ),
             },
             // {
             //   field: "status",

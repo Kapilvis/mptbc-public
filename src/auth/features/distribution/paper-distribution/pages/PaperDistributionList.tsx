@@ -76,6 +76,7 @@ export default function PaperDistributionPage() {
             {
               field: "distributionDate",
               header: "Date",
+              align: "center",
               cell: (row: PaperDistribution) => (
                 <span className="text-xs">{row.distributionDate}</span>
               ),

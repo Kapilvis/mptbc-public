@@ -70,7 +70,7 @@ function ActionsMenu({ item, onView, onEdit, onDelete }: ActionsMenuProps) {
             right: menuStyle.right,
             zIndex: 9999,
           }}
-          className="w-36 bg-white rounded-lg shadow-lg border border-slate-200 py-1 text-xs"
+          className="w-36 bg-white rounded-lg shadow-lg border border-slate-200 py-1 text-sm"
         >
           <button
             type="button"
@@ -131,7 +131,7 @@ function ActionsMenu({ item, onView, onEdit, onDelete }: ActionsMenuProps) {
         className="w-7 h-7 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 focus:outline-none transition-colors border border-transparent hover:border-slate-200"
         title="Actions"
       >
-        <i className="pi pi-ellipsis-v text-xs" />
+        <i className="pi pi-ellipsis-v text-sm" />
       </button>
       {dropdown}
     </div>
@@ -249,7 +249,7 @@ export default function List() {
               icon="plus"
               onClick={() => navigate("./create")}
               variant="primary"
-              className="shadow-sm font-bold text-xs"
+              className="shadow-sm font-bold text-sm"
             />
           }
           data={inspections}
@@ -318,7 +318,7 @@ export default function List() {
             {
               field: "grade",
               header: "Grade",
-              align: "center",
+              align: "left",
               width: "120px",
             },
             {

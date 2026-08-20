@@ -34,7 +34,7 @@ export const VendorPerformanceMatrixTable: React.FC<Props> = ({
           {
             field: "paperMillName",
             header: "PAPER MILL NAME",
-            align: "center",
+            align: "left",
             cell: (row) => (
               <div className="text-center">
                 <span className="font-bold text-slate-800 dark:text-slate-200 block">

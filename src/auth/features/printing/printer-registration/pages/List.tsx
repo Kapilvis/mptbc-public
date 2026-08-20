@@ -59,11 +59,11 @@ function ActionsMenu({
         className="w-7 h-7 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 focus:outline-none transition-colors border border-transparent hover:border-slate-200"
         title="Actions"
       >
-        <i className="pi pi-ellipsis-v text-xs" />
+        <i className="pi pi-ellipsis-v text-sm" />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-1 w-36 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-50 text-xs">
+        <div className="absolute right-0 mt-1 w-36 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-50 text-sm">
           <button
             type="button"
             onClick={() => {
@@ -271,7 +271,7 @@ export default function List() {
                 icon="plus"
                 onClick={() => navigate("./create")}
                 variant="primary"
-                className="shadow-sm font-bold text-xs"
+                className="shadow-sm font-bold text-sm"
               />
             }
             columns={[
@@ -288,7 +288,7 @@ export default function List() {
               {
                 field: "printerCode",
                 header: "Printer Code",
-                align: "center",
+                align: "left",
                 width: "120px",
               },
               {
@@ -300,12 +300,12 @@ export default function List() {
               {
                 field: "category",
                 header: "Printer Category",
-                align: "center",
+                align: "left",
               },
               {
                 field: "district",
                 header: "District",
-                align: "center",
+                align: "left",
                 sortable: true,
               },
               { field: "authorizedPerson", header: "Authorized Person" },
@@ -375,7 +375,7 @@ export default function List() {
                 </h3>
 
                 {/* Specifications List */}
-                <div className="w-full space-y-2 text-left text-xs text-slate-600">
+                <div className="w-full space-y-2 text-left text-sm text-slate-600">
                   <div className="flex items-center justify-between">
                     <span className="text-slate-400 font-medium">District</span>
                     <span className="font-semibold text-slate-800">
@@ -441,11 +441,11 @@ export default function List() {
                   {/* Section 1: Firm Profile & Contacts */}
                   <div>
                     <div className="border-l-4 border-green-600 pl-2 mb-3">
-                      <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                      <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
                         Firm & Authorized Representative Details
                       </h3>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
                         <span className="text-slate-400 block mb-0.5">
                           Registration No.
@@ -516,11 +516,11 @@ export default function List() {
                   {/* Section 2: Address Geography */}
                   <div>
                     <div className="border-l-4 border-green-600 pl-2 mb-3">
-                      <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                      <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
                         Registered Address & Geography
                       </h3>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div className="col-span-2 bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
                         <span className="text-slate-400 block mb-0.5">
                           Address Line 1
@@ -575,11 +575,11 @@ export default function List() {
                   {/* Section 3: Machine Lists */}
                   <div>
                     <div className="border-l-4 border-green-600 pl-2 mb-3">
-                      <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                      <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
                         Machine & Equipment Infrastructure
                       </h3>
                     </div>
-                    <div className="border border-slate-100 rounded-xl overflow-hidden text-xs">
+                    <div className="border border-slate-100 rounded-xl overflow-hidden text-sm">
                       <table className="w-full text-left border-collapse">
                         <thead>
                           <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold">
@@ -643,7 +643,7 @@ export default function List() {
                     label="Close Details"
                     variant="outlined"
                     onClick={() => setViewingItem(null)}
-                    className="font-bold text-xs"
+                    className="font-bold text-sm"
                   />
                 </div>
               </div>

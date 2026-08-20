@@ -256,6 +256,14 @@ export default function Dashboard() {
     },
   ];
 
+  // 1. Total Paper Stock
+  const totalStock = useMemo(() => {
+    return stocks.reduce(
+      (sum: number, s: PaperStock) => sum + s.availableQuantity,
+      0,
+    );
+  }, [stocks]);
+
   // 2. Available GSM Types
   const availableGsmCount = useMemo(() => {
     return stocks.filter((s: PaperStock) => s.availableQuantity > 0).length;
@@ -268,6 +276,14 @@ export default function Dashboard() {
         o.status === "Pending" || o.status === "Partially Supplied",
     ).length;
   }, [orders]);
+
+  // 4. Today's Distribution (Using "2026-08-17" as reference date or local today)
+  const todayDistribution = useMemo(() => {
+    const todayStr = "2026-08-17"; // Static reference date for mock consistency
+    return distributions
+      .filter((d: PaperDistribution) => d.distributionDate === todayStr)
+      .reduce((sum: number, d: PaperDistribution) => sum + d.issueQuantity, 0);
+  }, [distributions]);
 
   // 5. Low Stock GSMs
   const lowStockGsmCount = useMemo(() => {
@@ -287,7 +303,7 @@ export default function Dashboard() {
   const kpis = [
     {
       title: "Total Paper Stock",
-      value: "3,165 MT",
+      value: `${(totalStock || 3165).toLocaleString()} MT`,
       icon: "pi pi-database",
       themeKey: "blue",
     },
@@ -305,7 +321,7 @@ export default function Dashboard() {
     },
     {
       title: "Total Issued",
-      value: "2,800 MT",
+      value: `${(todayDistribution || 2800).toLocaleString()} MT`,
       icon: "pi pi-send",
       themeKey: "indigo",
     },

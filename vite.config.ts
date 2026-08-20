@@ -5,8 +5,10 @@ import pluginChecker from "vite-plugin-checker";
 import mkcert from "vite-plugin-mkcert";
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: "/mptbc-public/",
+export default defineConfig(({ command }) => ({
+  base:
+    process.env.VITE_BASE_PATH ||
+    (command === "build" ? "/mptbc-public/" : "/"),
   plugins: [
     tailwindcss(),
     react(),
@@ -27,4 +29,4 @@ export default defineConfig({
     port: 5200,
     strictPort: true,
   },
-});
+}));

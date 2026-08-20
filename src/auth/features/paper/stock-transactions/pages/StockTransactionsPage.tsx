@@ -50,7 +50,7 @@ export default function StockTransactionsPage() {
           columns={[
             {
               cell: (_, option) => (
-                <span className="text-xs">{option.rowIndex + 1}</span>
+                <span className="text-sm">{option.rowIndex + 1}</span>
               ),
               width: "50px",
               align: "center",
@@ -58,15 +58,16 @@ export default function StockTransactionsPage() {
             {
               field: "date",
               header: "Transaction Date",
+              align: "center",
               cell: (row: StockTransaction) => (
-                <span className="text-xs">{row.date}</span>
+                <span className="text-sm">{row.date}</span>
               ),
             },
             {
               field: "transactionNo",
               header: "Transaction No",
               cell: (row: StockTransaction) => (
-                <span className="text-xs font-bold text-gray-900 dark:text-white">
+                <span className="text-sm font-bold text-gray-900 dark:text-white">
                   {row.transactionNo}
                 </span>
               ),
@@ -76,7 +77,7 @@ export default function StockTransactionsPage() {
               header: "GSM",
               align: "center",
               cell: (row: StockTransaction) => (
-                <span className="text-xs font-semibold">{row.gsm} GSM</span>
+                <span className="text-sm font-semibold">{row.gsm} GSM</span>
               ),
             },
             {
@@ -91,7 +92,7 @@ export default function StockTransactionsPage() {
               field: "reference",
               header: "Reference Source / Details",
               cell: (row: StockTransaction) => (
-                <span className="text-xs text-gray-600 dark:text-gray-300">
+                <span className="text-sm text-gray-600 dark:text-gray-300">
                   {row.reference}
                 </span>
               ),
@@ -104,7 +105,7 @@ export default function StockTransactionsPage() {
                 const isPositive = row.quantity > 0;
                 return (
                   <span
-                    className={`text-xs font-bold ${row.type === "Opening" ? "text-gray-700 dark:text-gray-300" : isPositive ? "text-emerald-600" : "text-rose-600"}`}
+                    className={`text-sm font-bold ${row.type === "Opening" ? "text-gray-700 dark:text-gray-300" : isPositive ? "text-emerald-600" : "text-rose-600"}`}
                   >
                     {isPositive && row.type !== "Opening" ? "+" : ""}
                     {row.quantity.toLocaleString()} MT
@@ -117,7 +118,7 @@ export default function StockTransactionsPage() {
               header: "Running Balance",
               align: "center",
               cell: (row: StockTransaction) => (
-                <span className="text-xs font-bold text-blue-700 dark:text-blue-400">
+                <span className="text-sm font-bold text-blue-700 dark:text-blue-400">
                   {row.balance.toLocaleString()} MT
                 </span>
               ),

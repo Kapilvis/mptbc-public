@@ -79,7 +79,7 @@ export default function PrinterOrderDetailsPage() {
             <i className="pi pi-print text-blue-600" />
             Printer Information
           </h3>
-          <div className="flex flex-col gap-3 text-xs">
+          <div className="flex flex-col gap-3 text-sm">
             <div>
               <span className="text-gray-400 block uppercase text-[10px]">
                 Printer Name
@@ -147,7 +147,7 @@ export default function PrinterOrderDetailsPage() {
               <i className="pi pi-file text-indigo-600" />
               Order Information
             </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs mb-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm mb-4">
               <div>
                 <span className="text-gray-400 block uppercase text-[10px]">
                   Order Number
@@ -180,7 +180,7 @@ export default function PrinterOrderDetailsPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-gray-50/50 dark:bg-gray-800/25 p-3 rounded-lg border border-gray-100 dark:border-gray-800 text-xs mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-gray-50/50 dark:bg-gray-800/25 p-3 rounded-lg border border-gray-100 dark:border-gray-800 text-sm mb-4">
               <div>
                 <span className="text-gray-400 block uppercase text-[10px]">
                   Class / Medium
@@ -208,7 +208,7 @@ export default function PrinterOrderDetailsPage() {
             </div>
 
             {order.remarks && (
-              <div className="text-xs mb-4">
+              <div className="text-sm mb-4">
                 <span className="text-gray-400 block uppercase text-[10px]">
                   Order Remarks
                 </span>
@@ -219,7 +219,7 @@ export default function PrinterOrderDetailsPage() {
             )}
           </div>
 
-          <div className="border-t border-gray-100 dark:border-gray-800 pt-4 flex items-center justify-between text-xs text-gray-500">
+          <div className="border-t border-gray-100 dark:border-gray-800 pt-4 flex items-center justify-between text-sm text-gray-500">
             <span>
               Allocated and calculated values are measured in Metric Tonnes
               (MT).
@@ -243,7 +243,7 @@ export default function PrinterOrderDetailsPage() {
           </span>
         </div>
         <div className="p-0 overflow-x-auto">
-          <table className="w-full text-xs text-left border-collapse">
+          <table className="w-full text-sm text-left border-collapse">
             <thead>
               <tr className="bg-gray-50 dark:bg-gray-800/40 text-gray-500 uppercase text-[10px] tracking-wider border-b border-gray-100 dark:border-gray-800">
                 <th className="px-4 py-3 text-center">GSM</th>
@@ -291,12 +291,12 @@ export default function PrinterOrderDetailsPage() {
               Paper Distribution History
             </span>
           </div>
-          <span className="text-xs text-gray-400">
+          <span className="text-sm text-gray-400">
             Total Shipments: {orderDistributions.length}
           </span>
         </div>
         <div className="p-0 overflow-x-auto">
-          <table className="w-full text-xs text-left border-collapse">
+          <table className="w-full text-sm text-left border-collapse">
             <thead>
               <tr className="bg-gray-50 dark:bg-gray-800/40 text-gray-500 uppercase text-[10px] tracking-wider border-b border-gray-100 dark:border-gray-800">
                 <th className="px-4 py-3 text-center">Challan / Dist No</th>
