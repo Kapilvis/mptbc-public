@@ -5,7 +5,6 @@ import { useMenu } from "../../config/menu-routes";
 import { useSidebar } from "../context/SidebarContext";
 import "./AppSidebar.css";
 import Scrollbar from "./Scrollbar";
-import { getAssetUrl } from "../../shared/utils/assetPath";
 
 const AppSidebar: React.FC = () => {
   const { t } = useTranslation();
@@ -404,7 +403,7 @@ const AppSidebar: React.FC = () => {
             <>
               <div className="sidebar-logo-expanded">
                 <img
-                  src={getAssetUrl("MP_LOGO.svg")}
+                  src="/MP_LOGO.svg"
                   alt="Madhya Pradesh Textbook Corporation"
                   className="sidebar-logo-image-expanded"
                   onError={(event) => {
@@ -420,7 +419,7 @@ const AppSidebar: React.FC = () => {
           ) : (
             <div className="sidebar-logo-collapsed">
               <img
-                src={getAssetUrl("MP_LOGO.svg")}
+                src="/MP_LOGO.svg"
                 alt="Madhya Pradesh Textbook Corporation"
                 className="sidebar-logo-image-collapsed"
                 onError={(event) => {

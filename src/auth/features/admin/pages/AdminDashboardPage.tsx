@@ -2,7 +2,6 @@ import React from "react";
 import Page from "shared/components/panels/Page";
 import { usePageTitle } from "shared/hooks/usePageTitle";
 import { AdminKpiBanner } from "../components/AdminKpiBanner";
-import { AdminSupplyChainTracker } from "../components/AdminSupplyChainTracker";
 import { AdminActionCenter } from "../components/AdminActionCenter";
 import { AdminAnalyticsGrid } from "../components/AdminAnalyticsGrid";
 import { AdminModuleQuickJump } from "../components/AdminModuleQuickJump";
@@ -30,7 +29,7 @@ export const AdminDashboardPage: React.FC = () => {
         <AdminKpiBanner academicYear={academicYear} />
 
         {/* 2. End-to-End Supply Chain Lifecycle Tracker */}
-        <AdminSupplyChainTracker />
+        {/* <AdminSupplyChainTracker /> */}
 
         {/* 3 & 4. Zone Progress Chart & Fulfillment Mix Donut */}
         <AdminAnalyticsGrid />

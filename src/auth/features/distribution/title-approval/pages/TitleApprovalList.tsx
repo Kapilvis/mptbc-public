@@ -5,6 +5,7 @@ import { DropDownList, TextBox } from "shared/components/forms";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { Modal } from "shared/components/popups";
+import { formatDate } from "shared/utils/dateUtils";
 import {
   useTitleApprovalsQuery,
   useUpdateTitleApprovalMutation,
@@ -235,27 +236,30 @@ export default function TitleApprovalList() {
               field: "receivedDate",
               header: "Received Date",
               align: "center",
-            },
-            {
-              field: "status",
-              header: "Status",
-              align: "center",
               cell: (row: Distribution.TitleApprovalItem) => (
-                <span
-                  className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${
-                    row.status === "Approved"
-                      ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
-                      : row.status === "Pending"
-                        ? "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
-                        : row.status === "Hold"
-                          ? "bg-amber-50 text-amber-700 border border-amber-400 dark:bg-amber-900/30"
-                          : "bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300"
-                  }`}
-                >
-                  {row.status}
-                </span>
+                <span>{formatDate(row.receivedDate)}</span>
               ),
             },
+            // {
+            //   field: "status",
+            //   header: "Status",
+            //   align: "center",
+            //   cell: (row: Distribution.TitleApprovalItem) => (
+            //     <span
+            //       className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${
+            //         row.status === "Approved"
+            //           ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
+            //           : row.status === "Pending"
+            //             ? "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
+            //             : row.status === "Hold"
+            //               ? "bg-amber-50 text-amber-700 border border-amber-400 dark:bg-amber-900/30"
+            //               : "bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300"
+            //       }`}
+            //     >
+            //       {row.status}
+            //     </span>
+            //   ),
+            // },
             {
               header: "Action",
               align: "center",
@@ -387,7 +391,7 @@ export default function TitleApprovalList() {
       <Modal
         visible={!!selectedDocTitle}
         onHide={() => setSelectedDocTitle(null)}
-        header={`Title Soft Copy & Specifications - ${selectedDocTitle?.titleCode || ""}`}
+        header={`Title Soft Copy & Details- ${selectedDocTitle?.titleCode || ""}`}
         size="medium"
       >
         {selectedDocTitle && (
@@ -463,20 +467,20 @@ export default function TitleApprovalList() {
             <div className="border border-dashed border-emerald-300 dark:border-emerald-700 rounded-xl p-5 text-center bg-emerald-50/30 dark:bg-emerald-950/20">
               <i className="pi pi-file-pdf text-red-500 text-3xl mb-2 inline-block" />
               <p className="text-xs font-bold text-gray-900 dark:text-white">
-                {selectedDocTitle.titleCode}_Matter_Copy_2026.pdf
+                {selectedDocTitle.titleCode}_Copy_2026.pdf
               </p>
               <p className="text-[11px] text-gray-500 mt-1">
-                Official textbook matter PDF received from{" "}
+                Official textbook PDF received from{" "}
                 {selectedDocTitle.department} for printing approval.
               </p>
 
               <div className="flex items-center justify-center gap-3 mt-4">
                 <Button
                   icon="pi pi-download"
-                  label="Download Matter PDF"
+                  label="Download PDF"
                   size="small"
                   onClick={() =>
-                    ToastService.success("Downloading Matter PDF Document...")
+                    ToastService.success("Downloading PDF Document...")
                   }
                 />
                 <Button

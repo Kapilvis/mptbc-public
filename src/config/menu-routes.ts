@@ -313,10 +313,15 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         path: "/distribution/printer-demand-mapping",
         permissionKey: "distribution-section/printer-demand-mapping",
       },
+      // {
+      //   label: t("routes.paper-distribution"),
+      //   path: "/distribution/new",
+      //   permissionKey: "paper-distribution",
+      // },
       {
-        label: t("routes.paper-distribution"),
-        path: "/distribution/new",
-        permissionKey: "paper-distribution",
+        label: t("routes.paper-issue-to-printer"),
+        path: "/distribution/paper-issue-to-printer",
+        permissionKey: "paper-issue-to-printer",
       },
       // {
       //   label: t("routes.distribution-history"),
@@ -411,11 +416,6 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         label: t("routes.stock-transactions"),
         path: "/paper/stock/transactions",
         permissionKey: "stock-transactions",
-      },
-      {
-        label: t("routes.stock-ledger"),
-        path: "/paper/stock/ledger",
-        permissionKey: "stock-ledger",
       },
       {
         label: t("routes.paper-supply-dispatch"),

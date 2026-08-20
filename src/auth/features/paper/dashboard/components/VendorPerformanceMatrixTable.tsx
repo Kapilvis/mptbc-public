@@ -34,9 +34,8 @@ export const VendorPerformanceMatrixTable: React.FC<Props> = ({
           {
             field: "paperMillName",
             header: "PAPER MILL NAME",
-            align: "left",
             cell: (row) => (
-              <div className="text-center">
+              <div>
                 <span className="font-bold text-slate-800 dark:text-slate-200 block">
                   {row.paperMillName}
                 </span>
@@ -69,7 +68,6 @@ export const VendorPerformanceMatrixTable: React.FC<Props> = ({
           {
             field: "suppliedTon",
             header: "SUPPLIED",
-            align: "center",
             cell: (row) => (
               <span className="font-bold text-emerald-700 dark:text-emerald-400">
                 {row.suppliedTon.toLocaleString()} MT
@@ -78,7 +76,7 @@ export const VendorPerformanceMatrixTable: React.FC<Props> = ({
           },
           {
             field: "balanceTon",
-            header: "BALANCE",
+            header: "Available Stock",
             align: "center",
             cell: (row) => (
               <span className="font-bold text-amber-600 dark:text-amber-400">

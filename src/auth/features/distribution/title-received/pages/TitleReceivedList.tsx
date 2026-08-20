@@ -5,6 +5,7 @@ import { DropDownList, TextBox } from "shared/components/forms";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { Modal } from "shared/components/popups";
+import { formatDate } from "shared/utils/dateUtils";
 import {
   useTitleReceivedQuery,
   useUpdateTitleReceivedMutation,
@@ -182,12 +183,10 @@ export default function TitleReceivedList() {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
               width: "50px",
               align: "center",
-              header: "S.No.",
             },
             {
               field: "titleCode",
               header: "Title Code",
-              align: "center",
               cell: (row: Distribution.TitleReceivedItem) => (
                 <span className="font-extrabold text-emerald-800 dark:text-emerald-300">
                   {row.titleCode}
@@ -213,7 +212,6 @@ export default function TitleReceivedList() {
             {
               field: "department",
               header: "Department",
-              align: "center",
               cell: (row: Distribution.TitleReceivedItem) => (
                 <span
                   className={`text-xs px-2 py-0.5 rounded font-extrabold ${
@@ -238,7 +236,6 @@ export default function TitleReceivedList() {
             {
               field: "totalPages",
               header: "Book Type & Pages",
-              align: "center",
               cell: (row: Distribution.TitleReceivedItem) => (
                 <span>
                   {row.bookType} ({row.totalPages} pages)
@@ -262,30 +259,33 @@ export default function TitleReceivedList() {
               field: "submissionDate",
               header: "Submission Date",
               align: "center",
+              cell: (row: Distribution.TitleReceivedItem) => (
+                <span>{formatDate(row.submissionDate)}</span>
+              ),
             },
-            {
-              field: "receiptStatus",
-              header: "Receiving Status",
-              align: "center",
-              cell: (row: Distribution.TitleReceivedItem) => {
-                const isFwded =
-                  row.receiptStatus === "Forwarded for Approval" ||
-                  row.receiptStatus === "Received";
-                return (
-                  <span
-                    className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${
-                      isFwded
-                        ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
-                        : row.receiptStatus === "Need Info"
-                          ? "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
-                          : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
-                    }`}
-                  >
-                    {isFwded ? "Forwarded for Approval" : row.receiptStatus}
-                  </span>
-                );
-              },
-            },
+            // {
+            //   field: "receiptStatus",
+            //   header: "Receiving Status",
+            //   align: "center",
+            //   cell: (row: Distribution.TitleReceivedItem) => {
+            //     const isFwded =
+            //       row.receiptStatus === "Forwarded for Approval" ||
+            //       row.receiptStatus === "Received";
+            //     return (
+            //       <span
+            //         className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${
+            //           isFwded
+            //             ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
+            //             : row.receiptStatus === "Need Info"
+            //               ? "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
+            //               : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+            //         }`}
+            //       >
+            //         {isFwded ? "Forwarded for Approval" : row.receiptStatus}
+            //       </span>
+            //     );
+            //   },
+            // },
             {
               header: "Action",
               align: "center",
@@ -300,7 +300,7 @@ export default function TitleReceivedList() {
                         size="small"
                         variant="outlined"
                         disabled={isSinglePending}
-                        className="!text-emerald-700 !border-emerald-600 hover:!bg-emerald-50 dark:!text-emerald-400 dark:!border-emerald-500 !py-1 !px-2.5 !text-xs font-semibold"
+                        className="text-emerald-700! border-emerald-600! hover:bg-emerald-50! dark:text-emerald-400! dark:border-emerald-500! py-1! px-2.5! text-xs! font-semibold"
                         onClick={() =>
                           handleSingleStatusChange(
                             row.id,
@@ -314,7 +314,7 @@ export default function TitleReceivedList() {
                         size="small"
                         variant="outlined"
                         disabled={isSinglePending}
-                        className="!text-amber-700 !border-amber-500 hover:!bg-amber-50 dark:!text-amber-400 dark:!border-amber-500 !py-1 !px-2.5 !text-xs font-semibold"
+                        className="text-amber-700! border-amber-500! hover:bg-amber-50! dark:text-amber-400! dark:border-amber-500! py-1! px-2.5! text-xs! font-semibold"
                         onClick={() => handleOpenNeedInfoModal(row)}
                       />
                     </div>
@@ -418,7 +418,7 @@ export default function TitleReceivedList() {
         {selectedDocTitle && (
           <div className="space-y-4 p-1">
             {/* Title Header Card */}
-            <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800 flex items-center justify-between">
+            <div className="bg-linear-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800 flex items-center justify-between">
               <div>
                 <span className="text-[11px] font-extrabold tracking-wider uppercase text-emerald-800 dark:text-emerald-300">
                   {selectedDocTitle.titleCode}
@@ -498,7 +498,7 @@ export default function TitleReceivedList() {
               <div className="flex items-center justify-center gap-3 mt-4">
                 <Button
                   icon="pi pi-download"
-                  label="Download Matter PDF"
+                  label="Download PDF"
                   size="small"
                   onClick={() =>
                     ToastService.success("Downloading Matter PDF Document...")
@@ -509,7 +509,7 @@ export default function TitleReceivedList() {
                   label="Acknowledge & Mark Received"
                   size="small"
                   variant="outlined"
-                  className="!text-emerald-700 !border-emerald-600 hover:!bg-emerald-600 hover:!text-white"
+                  className="text-emerald-700! border-emerald-600! hover:bg-emerald-600! hover:text-white!"
                   onClick={() => {
                     handleSingleStatusChange(
                       selectedDocTitle.id,

@@ -108,7 +108,7 @@ export default function ViewReport({
                   <th className="p-3 text-center w-36">
                     Registration, colour scheme & Printing Quality
                     <br />
-                    <span className="text-[10px] text-slate-400 font-normal">
+                    <span className="text-[10px] text-black font-bold">
                       (Max: 1)
                     </span>
                   </th>
@@ -116,7 +116,7 @@ export default function ViewReport({
                     Registration, colour, Quality of Ink, Scum, Pin mark &
                     imposition
                     <br />
-                    <span className="text-[10px] text-slate-400 font-normal">
+                    <span className="text-[10px] text-black font-bold">
                       (Max: 7)
                     </span>
                   </th>
@@ -124,7 +124,7 @@ export default function ViewReport({
                     Stitching/Perfect Binding, scheme, Evenness of Ink, Cover
                     Pasting & Trimming
                     <br />
-                    <span className="text-[10px] text-slate-400 font-normal">
+                    <span className="text-[10px] text-black font-bold">
                       (Max: 2)
                     </span>
                   </th>
@@ -132,7 +132,7 @@ export default function ViewReport({
                   <th className="p-3 text-center w-24">
                     Total Score
                     <br />
-                    <span className="text-[10px] text-slate-400 font-normal">
+                    <span className="text-[10px] text-black font-bold">
                       (Max: 10)
                     </span>
                   </th>

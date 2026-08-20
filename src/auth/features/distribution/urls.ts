@@ -5,4 +5,5 @@ export const distributionUrls = {
   demandApproval: "/distribution/demand-approval",
   titleReceived: "/distribution/title-received",
   titleApproval: "/distribution/title-approval",
+  paperIssueToPrinter: "/distribution/paper-issue-to-printer",
 };

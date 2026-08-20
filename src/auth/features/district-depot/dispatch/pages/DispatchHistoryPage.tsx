@@ -37,7 +37,7 @@ export default function DispatchHistoryPage() {
 
   return (
     <Page
-      header={pageTitle || "Depot to Block Dispatch"}
+      header={pageTitle || "Depot to Block Dispatch (Books)"}
       subHeader="डिपो से ब्लॉक प्रेषण — Complete history of challans dispatched from depot to blocks."
       showHeaderActions
     >
@@ -148,7 +148,7 @@ export default function DispatchHistoryPage() {
               onClick={() =>
                 navigate("/district-depot/dispatch/challan-to-block")
               }
-              label="Create Dispatch"
+              label="Add"
               icon="pi pi-plus"
               variant="primary"
             />

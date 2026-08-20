@@ -197,12 +197,12 @@
       "paper-tender": "Paper Tender",
       "paper-vendor-profile": "Paper Vendor Profile",
       "paper-vendor-order-details": "Paper Vendor Order Details",
-      "paper-stock": "Paper Stock",
-      "stock-transactions": "Stock Transactions",
+      "paper-stock": "Central Depot Paper Stock",
+      "stock-transactions": "Stock Summary ",
       "stock-ledger": "Stock Ledger",
       "paper-supply-dispatch": "Paper Supply & Dispatch",
       "printer-section": "Printer Section",
-      "printer-orders": "Printer Orders",
+      "printer-orders": "Printer Orders (Books)",
       "pending-orders": "Pending Orders",
       "quality-inspection": "Quality Inspection",
       "depot-section": "Depot Section",
@@ -210,9 +210,9 @@
       "depot": {
         "central-depot-dashboard": "Central Depot Dashboard"
       },
-      "printer-assigned-demand": "Printer Assigned Demand",
-      "challan-received": "Challan Received",
-      "distribution-till-block": "Depot to Block Dispatch",
+      "printer-assigned-demand": "Printer Demand Details",
+      "challan-received": "Challan Received (Books)",
+      "distribution-till-block": "Depot to Block Dispatch (Books)",
       "challan-to-block": "Challan to Block",
       "dispatch-history": "Dispatch History",
       "transportation": "Transportation",
@@ -228,7 +228,8 @@
       "printer-wise-order-report": "Printer-wise Order Report",
       "printer-wise-supply-report": "Printer-wise Supply Report",
       "paper-distribution-report": "Paper Distribution Report",
-      "paper-receiving": "Paper Receiving"
+      "paper-receiving": "Paper Receiving",
+      "paper-issue-to-printer": "Paper Issue to Printer"
     },
     "printing": {
       "list": {

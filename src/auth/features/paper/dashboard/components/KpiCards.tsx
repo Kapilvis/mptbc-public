@@ -40,10 +40,18 @@ export const KpiCards: React.FC<Props> = ({ metrics }) => {
       textPrimary: "text-amber-950 dark:text-amber-100",
       accentText: "text-amber-700 dark:text-amber-400",
     },
+    {
+      cardBg:
+        "bg-purple-50/70 border-purple-100/90 dark:bg-purple-950/20 dark:border-purple-900/40",
+      iconBg:
+        "bg-purple-100 text-purple-700 dark:bg-purple-900/60 dark:text-purple-300",
+      textPrimary: "text-purple-950 dark:text-purple-100",
+      accentText: "text-purple-700 dark:text-purple-400",
+    },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
       {metrics.map((m, idx) => {
         const theme = cardThemes[idx % cardThemes.length];
 

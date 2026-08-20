@@ -15,7 +15,7 @@ export function DistrictMatrixTable({
       <div className="mb-3 flex justify-between items-center">
         <div>
           <h3 className="text-base font-bold text-gray-900 dark:text-white">
-            Block-Wise Distribution
+            Block-Wise Distribution (Books)
           </h3>
         </div>
       </div>
@@ -45,12 +45,11 @@ export function DistrictMatrixTable({
             cell: (_, option) => <span>{option.rowIndex + 1}</span>,
             width: "50px",
             align: "center",
-            header: "S.No.",
           },
           {
             field: "bookTypeName",
             header: "Book Type",
-            align: "center",
+            align: "left",
             cell: (row: TitleWiseDistributionItem) => (
               <span className="font-medium text-gray-800 dark:text-gray-200">
                 {row.bookTypeName}
@@ -66,9 +65,7 @@ export function DistrictMatrixTable({
             field: "districtName",
             header: "District Name",
             cell: (row: TitleWiseDistributionItem) => (
-              <span className="font-semibold text-gray-900 dark:text-white">
-                {row.districtName}
-              </span>
+              <span>{row.districtName}</span>
             ),
           },
           {
@@ -79,22 +76,16 @@ export function DistrictMatrixTable({
           {
             field: "titleName",
             header: "Title Name",
-            width: "240px",
             cell: (row: TitleWiseDistributionItem) => (
-              <span className="font-semibold text-gray-900 dark:text-white block text-xs">
-                {row.titleName}
-              </span>
+              <span>{row.titleName}</span>
             ),
           },
           {
             field: "classId",
             header: "Class",
             align: "center",
-            width: "70px",
             cell: (row: TitleWiseDistributionItem) => (
-              <span className="font-bold text-gray-800 dark:text-gray-200">
-                {row.classId}
-              </span>
+              <span>{row.classId}</span>
             ),
           },
           {
@@ -109,14 +100,14 @@ export function DistrictMatrixTable({
           },
           {
             field: "tbcSentToBrc",
-            header: "TBC Sent to Block",
+            header: "TBC Dispatched to Block",
             align: "center",
             cell: (row: TitleWiseDistributionItem) =>
               row.tbcSentToBrc.toLocaleString(),
           },
           {
             field: "tbcSentPercent",
-            header: "TBC Sent %",
+            header: "TBC Dispatched %",
             align: "center",
             cell: (row: TitleWiseDistributionItem) => (
               <span className="font-semibold text-emerald-700 dark:text-emerald-400">
@@ -175,14 +166,14 @@ export function DistrictMatrixTable({
           },
           {
             field: "brcSentToSchool",
-            header: "Block Sent to School",
+            header: "Block Distributed to School",
             align: "center",
             cell: (row: TitleWiseDistributionItem) =>
               row.brcSentToSchool.toLocaleString(),
           },
           {
             field: "brcSentToSchoolPercent",
-            header: "Block Sent %",
+            header: "Block Distributed %",
             align: "center",
             cell: (row: TitleWiseDistributionItem) => (
               <span className="font-semibold text-blue-700 dark:text-blue-400">

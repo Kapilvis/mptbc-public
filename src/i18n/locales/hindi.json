@@ -198,11 +198,11 @@
       "paper-vendor-profile": "कागज विक्रेता प्रोफ़ाइल",
       "paper-vendor-order-details": "कागज विक्रेता ऑर्डर विवरण",
       "paper-stock": "कागज स्टॉक",
-      "stock-transactions": "स्टॉक लेनदेन",
+      "stock-transactions": "स्टॉक विवरण",
       "stock-ledger": "स्टॉक लेजर",
       "paper-supply-dispatch": "कागज आपूर्ति एवं प्रेषण",
       "printer-section": "मुद्रक अनुभाग",
-      "printer-orders": "मुद्रक ऑर्डर",
+      "printer-orders": "मुद्रक ऑर्डर (पुस्तकें)",
       "pending-orders": "लंबित ऑर्डर",
       "quality-inspection": "गुणवत्ता निरीक्षण",
       "depot-section": "डिपो अनुभाग",
@@ -228,7 +228,8 @@
       "printer-wise-order-report": "मुद्रक वार ऑर्डर रिपोर्ट",
       "printer-wise-supply-report": "मुद्रक वार आपूर्ति रिपोर्ट",
       "paper-distribution-report": "कागज वितरण रिपोर्ट",
-      "paper-receiving": "कागज प्राप्ति"
+      "paper-receiving": "कागज प्राप्ति",
+      "paper-issue-to-printer": "मुद्रक को कागज जारी करना"
     },
     "printing": {
       "list": {

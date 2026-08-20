@@ -103,7 +103,7 @@ export default function PaperStockPage() {
             },
             {
               field: "receivedQuantity",
-              header: "Received Qty",
+              header: "Received Paper",
               align: "center",
               cell: (row: PaperStock) => (
                 <span className="text-sm text-emerald-600 font-medium">
@@ -113,7 +113,7 @@ export default function PaperStockPage() {
             },
             {
               field: "issuedQuantity",
-              header: "Issued Qty",
+              header: "Paper Issued",
               align: "center",
               cell: (row: PaperStock) => (
                 <span className="text-sm text-rose-600 font-medium">

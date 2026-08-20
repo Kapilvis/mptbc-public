@@ -12,7 +12,7 @@ interface TooltipState {
 
 export const AdminAnalyticsGrid: React.FC = () => {
   const [viewMode, setViewMode] = useState<"grouped" | "fulfillment" | "table">(
-    "grouped",
+    "fulfillment",
   );
   const [hoveredTooltip, setHoveredTooltip] = useState<TooltipState | null>(
     null,
@@ -20,6 +20,31 @@ export const AdminAnalyticsGrid: React.FC = () => {
 
   const maxY = 70000;
   const yTicks = [70000, 60000, 50000, 40000, 30000, 20000, 10000, 0];
+
+  const getProgressStyles = (pct: number) => {
+    if (pct < 40) {
+      return {
+        barBg: "bg-rose-500",
+        text: "text-rose-600 dark:text-rose-400",
+        badge:
+          "bg-rose-100 text-rose-800 dark:bg-rose-900/50 dark:text-rose-300",
+      };
+    }
+    if (pct < 70) {
+      return {
+        barBg: "bg-amber-500",
+        text: "text-amber-600 dark:text-amber-400",
+        badge:
+          "bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300",
+      };
+    }
+    return {
+      barBg: "bg-emerald-600",
+      text: "text-emerald-700 dark:text-emerald-400",
+      badge:
+        "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300",
+    };
+  };
 
   return (
     <div className="mb-6">
@@ -44,17 +69,6 @@ export const AdminAnalyticsGrid: React.FC = () => {
               <div className="flex items-center rounded-lg bg-slate-100 p-1 dark:bg-slate-800">
                 <button
                   type="button"
-                  onClick={() => setViewMode("grouped")}
-                  className={`px-2.5 py-1 text-xs font-bold rounded-md transition-all ${
-                    viewMode === "grouped"
-                      ? "bg-white text-slate-900 shadow-2xs dark:bg-slate-700 dark:text-white"
-                      : "text-slate-500 hover:text-slate-900 dark:text-slate-400"
-                  }`}
-                >
-                  Grouped Columns
-                </button>
-                <button
-                  type="button"
                   onClick={() => setViewMode("fulfillment")}
                   className={`px-2.5 py-1 text-xs font-bold rounded-md transition-all ${
                     viewMode === "fulfillment"
@@ -63,6 +77,17 @@ export const AdminAnalyticsGrid: React.FC = () => {
                   }`}
                 >
                   Fulfillment %
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode("grouped")}
+                  className={`px-2.5 py-1 text-xs font-bold rounded-md transition-all ${
+                    viewMode === "grouped"
+                      ? "bg-white text-slate-900 shadow-2xs dark:bg-slate-700 dark:text-white"
+                      : "text-slate-500 hover:text-slate-900 dark:text-slate-400"
+                  }`}
+                >
+                  Grouped Columns
                 </button>
                 <button
                   type="button"
@@ -234,6 +259,7 @@ export const AdminAnalyticsGrid: React.FC = () => {
                   (zone.dispatched / zone.netDemand) * 100,
                 );
                 const remaining = zone.netDemand - zone.dispatched;
+                const style = getProgressStyles(pct);
 
                 return (
                   <div
@@ -242,13 +268,11 @@ export const AdminAnalyticsGrid: React.FC = () => {
                   >
                     <div className="flex items-center justify-between text-xs font-bold text-slate-800 dark:text-slate-200 mb-1.5">
                       <span>{zone.zone} Depot Supply Progress</span>
-                      <span className="text-emerald-700 dark:text-emerald-400">
-                        {pct}% Dispatched
-                      </span>
+                      <span className={style.text}>{pct}% Dispatched</span>
                     </div>
                     <div className="h-3.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
                       <div
-                        className="h-full rounded-full bg-emerald-600 transition-all duration-500"
+                        className={`h-full rounded-full transition-all duration-500 ${style.barBg}`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -282,6 +306,7 @@ export const AdminAnalyticsGrid: React.FC = () => {
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                   {ZONE_PROGRESS_DATA.map((z) => {
                     const pct = Math.round((z.dispatched / z.netDemand) * 100);
+                    const style = getProgressStyles(pct);
                     return (
                       <tr
                         key={z.zone}
@@ -300,7 +325,9 @@ export const AdminAnalyticsGrid: React.FC = () => {
                           {z.dispatched.toLocaleString()}
                         </td>
                         <td className="py-2.5 px-3 text-right">
-                          <span className="inline-flex rounded-md bg-emerald-100 px-2 py-0.5 text-[10.5px] font-bold text-emerald-800">
+                          <span
+                            className={`inline-flex rounded-md px-2 py-0.5 text-[10.5px] font-bold ${style.badge}`}
+                          >
                             {pct}%
                           </span>
                         </td>

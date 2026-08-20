@@ -178,7 +178,7 @@ export function DemandApprovalPipelineWidget() {
                         ? `${activeItem.percent}%`
                         : `${agency.approvedPercent}%`}
                     </span>
-                    <span className="text-[9.5px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300 block truncate max-w-[85px] mx-auto">
+                    <span className="text-[9.5px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300 block truncate max-w-21.25 mx-auto">
                       {activeItem ? activeItem.label : "Approved"}
                     </span>
                     <span className="text-[9px] font-semibold text-slate-500 dark:text-slate-400 block mt-0.5">

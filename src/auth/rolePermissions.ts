@@ -76,6 +76,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "distribution-section/printer-demand-mapping",
     "paper-distribution",
     "distribution-history",
+    "paper-issue-to-printer",
     // Paper Section
     "paper-section/book-paper-requirement",
     "paper-section/gsm-demand-report",
@@ -180,6 +181,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "distribution-section/demand-approval",
     "paper-distribution",
     "distribution-history",
+    "paper-issue-to-printer",
     // District Depot
     "district-depot/printer-assigned-demand",
     "district-depot/challan-received",
@@ -227,6 +229,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "distribution-section/demand-approval",
     "paper-distribution",
     "distribution-history",
+    "paper-issue-to-printer",
     // Paper Section
     "paper-section/book-paper-requirement",
     "paper-section/gsm-demand-report",
@@ -370,6 +373,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "distribution-section/printer-demand-mapping",
     "paper-distribution",
     "distribution-history",
+    "paper-issue-to-printer",
     // Distribution Section Specific
     // "demand",
     // "allocation",

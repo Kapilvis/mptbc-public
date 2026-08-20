@@ -7,6 +7,8 @@ import TitleApprovalList from "./title-approval/pages/TitleApprovalList";
 import PaperDistributionList from "./paper-distribution/pages/PaperDistributionList";
 import DistributionHistoryList from "./paper-distribution/pages/DistributionHistoryList";
 import PrinterDemandMapping from "./printer-demand-mapping";
+import PaperIssueToPrinterPage from "./paper-issue-to-printer/pages/PaperIssueToPrinterPage";
+import CreatePaperIssuePage from "./paper-issue-to-printer/pages/CreatePaperIssuePage";
 
 export default function Distribution() {
   return (
@@ -22,6 +24,14 @@ export default function Distribution() {
       <Route path="title-approval" element={<TitleApprovalList />} />
       <Route path="new" element={<PaperDistributionList />} />
       <Route path="history" element={<DistributionHistoryList />} />
+      <Route
+        path="paper-issue-to-printer"
+        element={<PaperIssueToPrinterPage />}
+      />
+      <Route
+        path="paper-issue-to-printer/create"
+        element={<CreatePaperIssuePage />}
+      />
     </Routes>
   );
 }

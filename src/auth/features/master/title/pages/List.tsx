@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { ToastService } from "services";
 import { Button } from "shared/components/buttons";
-import StatusButton from "shared/components/buttons/StatusButton";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { Modal } from "shared/components/popups";
 import { usePageTitle } from "shared/hooks/usePageTitle";
-import { masterUrls } from "../../urls";
 import { useTitleActiveStatusMutation, useTitlesQuery } from "../queries";
 
 export default function List() {
@@ -51,8 +48,8 @@ export default function List() {
             "bookTypeName",
             "mediumName",
           ]}
-          CreateForm={CreateRedirect}
-          EditForm={EditRedirect}
+          /* CreateForm={CreateRedirect} */
+          /* EditForm={EditRedirect} */
           columns={[
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
@@ -91,17 +88,17 @@ export default function List() {
                 />
               ),
             },
-            {
-              field: "isActive",
-              header: "Status",
-              align: "center",
-              cell: (row: Master.TitleItem) => (
-                <StatusButton
-                  value={row.isActive}
-                  onClick={() => handleToggleStatus(row)}
-                />
-              ),
-            },
+            // {
+            //   field: "isActive",
+            //   header: "Status",
+            //   align: "center",
+            //   cell: (row: Master.TitleItem) => (
+            //     <StatusButton
+            //       value={row.isActive}
+            //       onClick={() => handleToggleStatus(row)}
+            //     />
+            //   ),
+            // },
           ]}
           renderContent={(item) => (
             <Mosaic.Card
@@ -124,7 +121,7 @@ export default function List() {
       <Modal
         visible={!!selectedTitleDoc}
         onHide={() => setSelectedTitleDoc(null)}
-        header={`Title Matter Document Specs - ${selectedTitleDoc?.code || ""}`}
+        header={`Title Details - ${selectedTitleDoc?.code || ""}`}
         size="medium"
       >
         {selectedTitleDoc && (
@@ -205,7 +202,7 @@ export default function List() {
               <div className="flex items-center justify-center gap-3 mt-4">
                 <Button
                   icon="pi pi-download"
-                  label="Download Matter PDF"
+                  label="Download PDF"
                   size="small"
                   onClick={() =>
                     ToastService.success("Downloading Title Soft Copy PDF...")
@@ -229,21 +226,21 @@ export default function List() {
   );
 }
 
-const CreateRedirect: React.FC<{ onSave: () => void }> = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    navigate(masterUrls.title.create);
-  }, [navigate]);
-  return null;
-};
+// const CreateRedirect: React.FC<{ onSave: () => void }> = () => {
+//   const navigate = useNavigate();
+//   useEffect(() => {
+//     navigate(masterUrls.title.create);
+//   }, [navigate]);
+//   return null;
+// };
 
-const EditRedirect: React.FC<{
-  data: Master.TitleItem;
-  onSave: () => void;
-}> = ({ data }) => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    navigate(masterUrls.title.edit(data.titleId));
-  }, [navigate, data]);
-  return null;
-};
+// const EditRedirect: React.FC<{
+//   data: Master.TitleItem;
+//   onSave: () => void;
+// }> = ({ data }) => {
+//   const navigate = useNavigate();
+//   useEffect(() => {
+//     navigate(masterUrls.title.edit(data.titleId));
+//   }, [navigate, data]);
+//   return null;
+// };
