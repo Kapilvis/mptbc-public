@@ -414,6 +414,11 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         action: "read",
       },
       {
+        label: t("routes.paper-receiving"),
+        path: "/paper/stock/receiving",
+        permissionKey: "central-paper-receiving",
+      },
+      {
         label: t("routes.paper-stock"),
         path: "/paper/stock/main",
         permissionKey: "paper-stock",
@@ -610,12 +615,6 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     path: "/paper-receiving",
     permissionKey: "paper-receiving",
   }, */
-  {
-    label: t("routes.paper-receiving"),
-    icon: "pi pi-download",
-    path: "/paper/stock/receiving",
-    permissionKey: "central-paper-receiving",
-  },
   /* {
     label: "Title Master",
     icon: "pi pi-bookmark",

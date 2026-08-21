@@ -451,7 +451,7 @@ export default function TitleReceivedList() {
                 size="small"
                 variant="outlined"
                 disabled={isBulkPending}
-                className="!text-emerald-700 !border-emerald-600 hover:!bg-emerald-50 dark:!text-emerald-400 dark:!border-emerald-500 font-bold"
+                className="text-emerald-700! border-emerald-600! hover:bg-emerald-50! dark:text-emerald-400! dark:border-emerald-500! font-bold"
                 onClick={() => handleBulkStatusChange("Forwarded for Approval")}
               />
               <button
@@ -534,7 +534,7 @@ export default function TitleReceivedList() {
 
               <div className="bg-gray-50 dark:bg-gray-800/80 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
                 <span className="text-gray-500 dark:text-gray-400 font-semibold block text-[11px]">
-                  Weight & Paper Area
+                  Book Weight & Paper Area
                 </span>
                 <span className="font-bold text-gray-900 dark:text-white text-sm">
                   {selectedDocTitle.weight}g | {selectedDocTitle.paperArea} m²

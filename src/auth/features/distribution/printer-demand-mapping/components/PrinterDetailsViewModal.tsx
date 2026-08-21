@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { Modal } from "shared/components/popups";
 import { printerDemandMappingMock } from "../printerDemandMapping.mock";
+import { formatDate } from "shared/utils/dateUtils";
 
 interface Props {
   visible: boolean;
@@ -108,7 +109,9 @@ export default function PrinterDetailsViewModal({
                 Expected Delivery Date
               </span>
               <span className="font-bold text-gray-900 dark:text-gray-100 block mt-0.5">
-                {order.expectedDeliveryDate}
+                {formatDate(order.expectedDeliveryDate).replace(/\//g, "-") ||
+                  order.expectedDeliveryDate ||
+                  "N/A"}
               </span>
             </div>
           </div>

@@ -71,7 +71,7 @@ export default function List() {
             },
             {
               field: "weight",
-              header: "Weight",
+              header: "Book Weight",
               align: "center",
               cell: (row: Master.TitleItem) => <span>{row.weight} g</span>,
             },
@@ -127,7 +127,7 @@ export default function List() {
         {selectedTitleDoc && (
           <div className="space-y-4 p-1">
             {/* Title Header Card */}
-            <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800 flex items-center justify-between">
+            <div className="bg-linear-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800 flex items-center justify-between">
               <div>
                 <span className="text-[11px] font-extrabold tracking-wider uppercase text-emerald-800 dark:text-emerald-300">
                   {selectedTitleDoc.code}
