@@ -430,6 +430,13 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         action: "read",
         permissionKey: "paper-section/paper-order-allocation",
       },
+      {
+        label: t("routes.paper-lab-testing"),
+        path: "/paper/lab-testing",
+        feature: "@paper/lab-testing",
+        action: "read",
+        permissionKey: "paper-section/lab-testing",
+      },
     ],
   },
 

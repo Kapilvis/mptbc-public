@@ -8,6 +8,7 @@ import PaperSupplyDispatchModule from "./paper-supply-dispatch";
 import PaperTenderRaiseForm from "./paper-tender-raise/pages/PaperTenderRaiseForm";
 import PaperVendorProfile from "./paper-vendor-profile";
 import StockTransactionsPage from "./stock-transactions/pages/StockTransactionsPage";
+import PaperLabTesting from "./lab-testing";
 
 export default function PaperModule() {
   return (
@@ -28,6 +29,7 @@ export default function PaperModule() {
         path="paper-supply-dispatch/*"
         element={<PaperSupplyDispatchModule />}
       />
+      <Route path="lab-testing/*" element={<PaperLabTesting />} />
     </Routes>
   );
 }

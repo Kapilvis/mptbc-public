@@ -116,6 +116,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "paper-section/paper-tender",
     "paper-section/paper-vendor-profile",
     "paper-section/paper-order-allocation",
+    "paper-section/lab-testing",
     // District Depot Transport (parent key)
     "depot-transport",
     // Standalone pages
