@@ -101,23 +101,23 @@ export const TimelineDashboardPage: React.FC = () => {
   const getScheduleStatusBadge = (status: Milestone["scheduleStatus"]) => {
     switch (status) {
       case "On Time":
-        return "bg-[#eaf5ea] text-[#008a45] dark:bg-emerald-900/30 dark:text-emerald-400 text-xs font-semibold px-2.5 py-1 rounded-md border border-[#c2d8be]";
+        return "bg-[#eaf5ea] text-[#008a45] dark:bg-emerald-900/30 dark:text-emerald-400 text-xs font-semibold px-2.5 py-1 rounded-md border border-[#c2d8be] inline-block whitespace-nowrap text-center";
       case "In Progress":
-        return "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 text-xs font-semibold px-2.5 py-1 rounded-md border border-amber-200";
+        return "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 text-xs font-semibold px-2.5 py-1 rounded-md border border-amber-200 inline-block whitespace-nowrap text-center";
       case "Overdue":
-        return "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-400 text-xs font-semibold px-2.5 py-1 rounded-md border border-rose-200";
+        return "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-400 text-xs font-semibold px-2.5 py-1 rounded-md border border-rose-200 inline-block whitespace-nowrap text-center";
       case "Upcoming":
       default:
-        return "bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-400 text-xs font-semibold px-2.5 py-1 rounded-md border border-sky-200";
+        return "bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-400 text-xs font-semibold px-2.5 py-1 rounded-md border border-sky-200 inline-block whitespace-nowrap text-center";
     }
   };
 
   // Completion Status badge styling helper
   const getCompletionStatusBadge = (status: Milestone["completionStatus"]) => {
     if (status === "Complete") {
-      return "bg-[#eaf5ea] text-[#008a45] dark:bg-emerald-900/30 dark:text-emerald-400 text-xs font-semibold px-2.5 py-1 rounded-md border border-[#c2d8be]";
+      return "bg-[#eaf5ea] text-[#008a45] dark:bg-emerald-900/30 dark:text-emerald-400 text-xs font-semibold px-2.5 py-1 rounded-md border border-[#c2d8be] inline-block whitespace-nowrap text-center";
     }
-    return "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 text-xs font-semibold px-2.5 py-1 rounded-md border border-amber-200";
+    return "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 text-xs font-semibold px-2.5 py-1 rounded-md border border-amber-200 inline-block whitespace-nowrap text-center";
   };
 
   // CSS row background class helper based on schedule status
@@ -144,7 +144,7 @@ export const TimelineDashboardPage: React.FC = () => {
       {portalTarget &&
         createPortal(
           <Button
-            label="Textbook Production Tracker"
+            label="Textbook Printing Cycle"
             icon="pi pi-plus"
             onClick={() => navigate("/timeline/add")}
             className="bg-[#008a45] hover:bg-[#00753a] text-white font-bold text-xs"
@@ -158,8 +158,8 @@ export const TimelineDashboardPage: React.FC = () => {
             Timeline Filter Center
           </h2>
           <p className="text-sm md:text-sm font-medium text-slate-700 dark:text-slate-350 mt-1">
-            Detailed view of production milestones, deadlines, progress, and
-            textbook production periods for the selected year.
+            Detailed overview of milestones, deadlines, progress and periods of
+            textbook production for selected year.
           </p>
         </div>
 
@@ -205,9 +205,6 @@ export const TimelineDashboardPage: React.FC = () => {
               <div className="text-2xl font-black tracking-tight leading-snug text-black dark:text-white">
                 {stats.total}
               </div>
-              <p className="mt-1 text-[13.5px] font-bold text-slate-700 dark:text-slate-200">
-                For AY {selectedYear}
-              </p>
             </div>
 
             {/* Bold Vibrant Icon Button */}
@@ -231,7 +228,7 @@ export const TimelineDashboardPage: React.FC = () => {
           {/* Top Row: Title */}
           <div className="flex items-start justify-between gap-2 mb-2.5">
             <span className="text-[13.5px] font-extrabold uppercase tracking-wider leading-tight text-slate-900 dark:text-white">
-              Completed
+              Milestones (Completed)
             </span>
           </div>
 
@@ -241,9 +238,6 @@ export const TimelineDashboardPage: React.FC = () => {
               <div className="text-2xl font-black tracking-tight leading-snug text-black dark:text-white">
                 {stats.completed}
               </div>
-              <p className="mt-1 text-[13.5px] font-bold text-slate-700 dark:text-slate-200">
-                Milestones finished
-              </p>
             </div>
 
             {/* Bold Vibrant Icon Button */}
@@ -267,7 +261,7 @@ export const TimelineDashboardPage: React.FC = () => {
           {/* Top Row: Title */}
           <div className="flex items-start justify-between gap-2 mb-2.5">
             <span className="text-[13.5px] font-extrabold uppercase tracking-wider leading-tight text-slate-900 dark:text-white">
-              In Progress
+              Milestones (In Progress)
             </span>
           </div>
 
@@ -277,9 +271,6 @@ export const TimelineDashboardPage: React.FC = () => {
               <div className="text-2xl font-black tracking-tight leading-snug text-black dark:text-white">
                 {stats.inProgress}
               </div>
-              <p className="mt-1 text-[13.5px] font-bold text-slate-700 dark:text-slate-200">
-                Milestones active
-              </p>
             </div>
 
             {/* Bold Vibrant Icon Button */}
@@ -303,7 +294,7 @@ export const TimelineDashboardPage: React.FC = () => {
           {/* Top Row: Title */}
           <div className="flex items-start justify-between gap-2 mb-2.5">
             <span className="text-[13.5px] font-extrabold uppercase tracking-wider leading-tight text-slate-900 dark:text-white">
-              Upcoming
+              Milestones (Upcoming)
             </span>
           </div>
 
@@ -313,9 +304,6 @@ export const TimelineDashboardPage: React.FC = () => {
               <div className="text-2xl font-black tracking-tight leading-snug text-black dark:text-white">
                 {stats.upcoming}
               </div>
-              <p className="mt-1 text-[13.5px] font-bold text-slate-700 dark:text-slate-200">
-                Milestones pending
-              </p>
             </div>
 
             {/* Bold Vibrant Icon Button */}
@@ -339,7 +327,7 @@ export const TimelineDashboardPage: React.FC = () => {
           {/* Top Row: Title */}
           <div className="flex items-start justify-between gap-2 mb-2.5">
             <span className="text-[13.5px] font-extrabold uppercase tracking-wider leading-tight text-slate-900 dark:text-white">
-              Overdue
+              Milestones (Overdue)
             </span>
           </div>
 
@@ -349,9 +337,6 @@ export const TimelineDashboardPage: React.FC = () => {
               <div className="text-2xl font-black tracking-tight leading-snug text-black dark:text-white">
                 {stats.overdue}
               </div>
-              <p className="mt-1 text-[13.5px] font-bold text-slate-700 dark:text-slate-200">
-                Milestones delayed
-              </p>
             </div>
 
             {/* Bold Vibrant Icon Button */}
@@ -392,16 +377,16 @@ export const TimelineDashboardPage: React.FC = () => {
                       Milestone
                     </th>
                     <th className="py-3 px-4 text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">
-                      Deadline Date
+                      Planned Date
                     </th>
                     <th className="py-3 px-4 text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">
-                      Completion Date
+                      Actual Date
                     </th>
                     <th className="py-3 px-4 text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">
                       Days Left / Overdue
                     </th>
                     <th className="py-3 px-4 text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">
-                      Schedule Status
+                      Deviation
                     </th>
                     <th className="py-3 px-4 text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">
                       Completion Status
@@ -465,9 +450,6 @@ export const TimelineDashboardPage: React.FC = () => {
                       <td className="py-3.5 px-4">
                         <div className="font-semibold text-slate-855 dark:text-slate-255 text-xs">
                           {item.deadlineDate}
-                        </div>
-                        <div className="text-[10px] text-slate-455 dark:text-slate-500 mt-0.5">
-                          {item.dayOfWeek}
                         </div>
                       </td>
                       <td className="py-3.5 px-4 font-semibold text-xs text-slate-600 dark:text-slate-400">
@@ -579,7 +561,7 @@ export const TimelineDashboardPage: React.FC = () => {
           <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 rounded-2xl shadow-2xs">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xs font-bold text-slate-800 dark:text-slate-400 uppercase tracking-wider">
-                TEXTBOOK PRODUCTION TRACKER
+                TEXTBOOK PRINTING CYCLE
               </h3>
             </div>
 

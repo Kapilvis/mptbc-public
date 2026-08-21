@@ -211,6 +211,7 @@
       "depot": {
         "central-depot-dashboard": "केन्द्रीय डिपो डैशबोर्ड"
       },
+      "printer-to-depot": "मुद्रक से डिपो",
       "printer-assigned-demand": "मुद्रक आवंटित मांग",
       "challan-received": "चालान प्राप्त",
       "distribution-till-block": "डिपो से ब्लॉक प्रेषण",

@@ -10,7 +10,7 @@ const AppFooter: React.FC = () => {
         <div className="app-footer-copyright">
           <span>&copy; {currentYear} </span>
           <span className="app-footer-department">
-            Madhya Pradesh Textbook Corporation Department
+            Madhya Pradesh Textbook Corporation
           </span>
         </div>
 

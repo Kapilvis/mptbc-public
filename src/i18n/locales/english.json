@@ -211,6 +211,7 @@
       "depot": {
         "central-depot-dashboard": "Central Depot Dashboard"
       },
+      "printer-to-depot": "Printer to Depot",
       "printer-assigned-demand": "Printer Demand Details",
       "challan-received": "Challan Received (Books)",
       "distribution-till-block": "Depot to Block Dispatch (Books)",

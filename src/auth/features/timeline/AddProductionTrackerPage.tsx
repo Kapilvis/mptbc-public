@@ -224,7 +224,7 @@ export const AddProductionTrackerPage: React.FC = () => {
 
   return (
     <Page
-      header="Textbook Production Tracker"
+      header="Textbook Printing Cycle"
       subHeader="Configure milestone timelines relative to the Demand Submission (Books) start date."
       showHeaderActions
     >
@@ -367,7 +367,6 @@ export const AddProductionTrackerPage: React.FC = () => {
                 const isFirst = index === 0;
                 const dateVal = calculatedDates[index];
                 const dateStr = dateVal ? formatDateStr(dateVal) : "-";
-                const dayName = dateVal ? getDayOfWeek(dateVal) : "";
 
                 return (
                   <tr
@@ -438,11 +437,6 @@ export const AddProductionTrackerPage: React.FC = () => {
                       <div className="font-bold text-slate-900 dark:text-slate-100 text-xs">
                         {dateStr}
                       </div>
-                      {dayName && (
-                        <div className="text-xs font-semibold text-black dark:text-slate-400 mt-0.5">
-                          {dayName}
-                        </div>
-                      )}
                     </td>
                   </tr>
                 );

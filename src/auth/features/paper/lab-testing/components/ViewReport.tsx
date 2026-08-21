@@ -20,7 +20,11 @@ export default function ViewReport({
     window.print();
   };
 
-  const isPass = record.overallResult === "PASS";
+  const isPass =
+    record.overallResult === "PASS" ||
+    record.overallResult === "SENT" ||
+    record.overallResult === "AWAITED" ||
+    record.parameters.every((p) => p.status === "PASS");
   const passedParamsCount = record.parameters.filter(
     (p) => p.status === "PASS",
   ).length;
@@ -186,7 +190,7 @@ export default function ViewReport({
                   <th className="py-3 px-4">Required Specification</th>
                   <th className="py-3 px-4">Actual Result</th>
                   <th className="py-3 px-4 text-center">Deviation</th>
-                  {/* Status Column removed as requested */}
+                  <th className="py-3 px-4 text-center">Status</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 bg-white">
@@ -221,6 +225,22 @@ export default function ViewReport({
                         }`}
                       >
                         {param.deviation}
+                      </td>
+                      <td className="py-3 px-4 text-center">
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold border tracking-wider uppercase ${
+                            isParamPass
+                              ? "bg-emerald-100 text-emerald-800 border-emerald-300"
+                              : "bg-rose-100 text-rose-800 border-rose-300"
+                          }`}
+                        >
+                          <i
+                            className={`pi ${
+                              isParamPass ? "pi-check" : "pi-times"
+                            } text-[10px]`}
+                          />
+                          {isParamPass ? "PASSED" : "FAILED"}
+                        </span>
                       </td>
                     </tr>
                   );
@@ -285,11 +305,11 @@ export default function ViewReport({
         </div>
 
         {/* Footer Notice */}
-        <div className="border-t border-slate-200 pt-3 text-center text-[10px] text-slate-400 italic">
+        {/* <div className="border-t border-slate-200 pt-3 text-center text-[10px] text-slate-400 italic">
           Note: Results are valid for the tested sample only. This report shall
           not be reproduced except in full, without written approval of the
           laboratory.
-        </div>
+        </div> */}
       </div>
     </Modal>
   );
