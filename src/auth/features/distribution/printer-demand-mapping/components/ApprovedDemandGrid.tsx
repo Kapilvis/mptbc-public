@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { GridPanel } from "shared/components/panels";
 import { Button } from "shared/components/buttons";
 import type { SavedOrder } from "../printerDemandMapping.types";
+import { formatDate } from "shared/utils/dateUtils";
 
 interface ApprovedDemandGridProps {
   data: SavedOrder[];
@@ -90,11 +91,17 @@ export default function ApprovedDemandGrid({
           field: "expectedDeliveryDate",
           header: "Expected Delivery Date",
           align: "center",
-          cell: (row) => (
-            <span className="font-mono text-gray-950 dark:text-gray-50 text-sm font-semibold">
-              {row.expectedDeliveryDate}
-            </span>
-          ),
+          cell: (row) => {
+            const formatted = formatDate(row.expectedDeliveryDate).replace(
+              /\//g,
+              "-",
+            );
+            return (
+              <span className="font-mono text-gray-950 dark:text-gray-50 text-sm font-semibold">
+                {formatted || row.expectedDeliveryDate || "N/A"}
+              </span>
+            );
+          },
           width: "160px",
         },
         {

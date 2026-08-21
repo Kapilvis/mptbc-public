@@ -252,7 +252,7 @@ export const initialLabTestingRecords: PaperLabTestingRecord[] = [
   {
     id: "PAP-2026-00125",
     sampleId: "PAP-2026-00125",
-    supplierVendor: "ABC Paper Mills",
+    supplierVendor: "Bharat Paper Mills",
     paperType: "Book Printing Paper",
     gsm: "80 GSM",
     batchLotNo: "LOT-45821",
@@ -353,7 +353,7 @@ export const initialLabTestingRecords: PaperLabTestingRecord[] = [
   {
     id: "PAP-2026-00124",
     sampleId: "PAP-2026-00124",
-    supplierVendor: "Sunrise Paper Ltd.",
+    supplierVendor: "Bharat Paper Mills",
     paperType: "Book Printing Paper",
     gsm: "75 GSM",
     batchLotNo: "LOT-45810",
@@ -452,7 +452,7 @@ export const initialLabTestingRecords: PaperLabTestingRecord[] = [
   {
     id: "PAP-2026-00123",
     sampleId: "PAP-2026-00123",
-    supplierVendor: "MPP Paper Industries",
+    supplierVendor: "Shree Ganesh Paper",
     paperType: "Book Printing Paper",
     gsm: "70 GSM",
     batchLotNo: "LOT-45798",

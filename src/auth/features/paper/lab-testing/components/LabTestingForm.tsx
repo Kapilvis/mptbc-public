@@ -118,25 +118,6 @@ export default function LabTestingForm({
     });
   }, [watchedParameters, setValue, isCreateStage]);
 
-  // Overall pass/fail status
-  const isOverallPass = useMemo(() => {
-    if (!watchedParameters || watchedParameters.length === 0) return true;
-    return watchedParameters.every((p) => p.status === "PASS");
-  }, [watchedParameters]);
-
-  useEffect(() => {
-    if (isCreateStage) {
-      setValue("overallResult", "SENT");
-      setValue("approvalStatus", "Sent for Lab Testing");
-    } else {
-      setValue("overallResult", isOverallPass ? "PASS" : "FAIL");
-      setValue(
-        "approvalStatus",
-        isOverallPass ? "Approved for Use" : "Rejected / Out of Spec",
-      );
-    }
-  }, [isOverallPass, setValue, isCreateStage]);
-
   const testingAgencyOptions = useMemo(() => {
     return testingAgencies.map((a) => ({ text: a.name, value: a.name }));
   }, []);
@@ -161,6 +142,16 @@ export default function LabTestingForm({
     { text: "Galaxy Paper Ltd.", value: "Galaxy Paper Ltd." },
     { text: "Shakti Paper Mills", value: "Shakti Paper Mills" },
   ];
+
+  // Helper submitters for manual decision buttons
+  const handleDecisionSubmit = (result: "PASS" | "FAIL") => {
+    setValue("overallResult", result);
+    setValue(
+      "approvalStatus",
+      result === "PASS" ? "Approved for Use" : "Rejected / Out of Spec",
+    );
+    handleSubmit();
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -342,51 +333,12 @@ export default function LabTestingForm({
         </Card>
       )}
 
-      {/* ─── STAGE 2: LAB PARAMETERS EVALUATION GRID CARD (ENABLED ON RECEIVE / EDIT) ─── */}
+      {/* ─── STAGE 2: LAB PARAMETERS EVALUATION GRID CARD (INSTANT REAL-TIME RED HIGHLIGHTING) ─── */}
       {!isCreateStage && (
         <Card
           className="p-6 border border-slate-100 shadow-sm"
           title="Lab Testing Parameters (10 Key Quality Indicators)"
         >
-          <div className="mb-4 p-4 rounded-xl border flex items-center justify-between bg-slate-50 border-slate-200">
-            <div>
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                Overall Test Result Status
-              </span>
-              <div className="flex items-center gap-2 mt-1">
-                <span
-                  className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold ${
-                    isOverallPass
-                      ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
-                      : "bg-rose-100 text-rose-800 border border-rose-300"
-                  }`}
-                >
-                  <i
-                    className={`pi ${
-                      isOverallPass ? "pi-check-circle" : "pi-times-circle"
-                    }`}
-                  />
-                  {isOverallPass
-                    ? "PASSED (Approved for Use)"
-                    : "FAILED (Rejected / Out of Spec)"}
-                </span>
-                <span className="text-xs font-semibold text-slate-600">
-                  (Calculated automatically based on 10 lab parameter
-                  evaluations)
-                </span>
-              </div>
-            </div>
-
-            <div className="text-right">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                Total Key Parameters
-              </span>
-              <div className="text-lg font-black text-slate-900">
-                10 Parameters
-              </div>
-            </div>
-          </div>
-
           <div className="overflow-x-auto rounded-lg border border-slate-200">
             <table className="w-full text-left text-sm text-slate-800">
               <thead className="bg-slate-800 text-white font-bold uppercase text-xs tracking-wider">
@@ -402,36 +354,52 @@ export default function LabTestingForm({
                   <th className="py-3.5 px-4 min-w-[140px] text-center">
                     Deviation (Auto)
                   </th>
-                  <th className="py-3.5 px-4 min-w-[120px] text-center">
-                    Status
-                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 bg-white font-semibold">
                 {fields.map((field, idx) => {
                   const config = fixedLabParameters[idx];
-                  const currentStatus =
-                    watchedParameters[idx]?.status || "PASS";
-                  const currentDeviation =
-                    watchedParameters[idx]?.deviation || "-";
-                  const isParamPass = currentStatus === "PASS";
+                  const actualVal = watchedParameters[idx]?.actualResult;
+                  const evalRes = config
+                    ? computeParameterEvaluation(config, actualVal)
+                    : { deviation: "-", status: "PASS" as const };
+
+                  const isOut = evalRes.status === "FAIL";
 
                   return (
                     <tr
                       key={field.id}
-                      className="hover:bg-slate-50/80 transition-colors"
+                      className={
+                        isOut
+                          ? "bg-rose-50/90 border-l-4 border-rose-500 font-bold text-rose-900 transition-all duration-150"
+                          : "hover:bg-slate-50/80 transition-colors"
+                      }
                     >
-                      <td className="py-3.5 px-4 text-center font-bold text-slate-600">
+                      <td
+                        className={`py-3.5 px-4 text-center font-bold ${
+                          isOut ? "text-rose-700" : "text-slate-600"
+                        }`}
+                      >
                         {idx + 1}
                       </td>
 
                       {/* Column 1: Parameter Name */}
-                      <td className="py-3.5 px-4 font-bold text-slate-800">
+                      <td
+                        className={`py-3.5 px-4 font-bold ${
+                          isOut ? "text-rose-900" : "text-slate-800"
+                        }`}
+                      >
                         {config?.name || watchedParameters[idx]?.parameterName}
                       </td>
 
                       {/* Column 2: Required Specification */}
-                      <td className="py-3.5 px-4 font-semibold text-slate-800 font-mono bg-slate-50/50">
+                      <td
+                        className={`py-3.5 px-4 font-semibold font-mono ${
+                          isOut
+                            ? "bg-rose-100/60 text-rose-900"
+                            : "bg-slate-50/50 text-slate-800"
+                        }`}
+                      >
                         {config?.requiredSpecification ||
                           watchedParameters[idx]?.requiredSpecification}
                       </td>
@@ -447,26 +415,12 @@ export default function LabTestingForm({
                       </td>
 
                       {/* Column 4: Auto-calculated Deviation */}
-                      <td className="py-3.5 px-4 text-center font-mono font-extrabold text-slate-800">
-                        {currentDeviation}
-                      </td>
-
-                      {/* Column 5: Auto-calculated Pass/Fail Status */}
-                      <td className="py-3.5 px-4 text-center">
-                        <span
-                          className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-extrabold ${
-                            isParamPass
-                              ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
-                              : "bg-rose-100 text-rose-700 border border-rose-200"
-                          }`}
-                        >
-                          <i
-                            className={`pi ${
-                              isParamPass ? "pi-check" : "pi-times"
-                            } text-[9px]`}
-                          />
-                          {isParamPass ? "PASSED" : "FAILED"}
-                        </span>
+                      <td
+                        className={`py-3.5 px-4 text-center font-mono font-black ${
+                          isOut ? "text-rose-700" : "text-slate-800"
+                        }`}
+                      >
+                        {evalRes.deviation}
                       </td>
                     </tr>
                   );
@@ -477,28 +431,52 @@ export default function LabTestingForm({
         </Card>
       )}
 
-      {/* ─── ACTION BUTTONS (FLUSH RIGHT ALIGNED) ─────────────────────────────── */}
+      {/* ─── ACTION BUTTONS (PASS & FAIL EXPLICIT DECISION BUTTONS) ─────────────────────────────── */}
       <div className="flex justify-end items-center gap-3 pt-2 w-full">
-        <Button
-          label={
-            isCreateStage
-              ? "Send Sample for Testing"
-              : mode === "receive"
-                ? "Save Lab Test Report"
-                : "Update Lab Report"
-          }
-          type="submit"
-          isLoading={isSaving}
-          disabled={isSaving}
-          icon={isCreateStage ? "pi pi-send" : "pi pi-save"}
-        />
-        <Button
-          type="button"
-          label={mode === "create" ? "Clear" : "Reset"}
-          icon="pi pi-refresh"
-          onClick={() => reset()}
-          disabled={isSaving}
-        />
+        {isCreateStage ? (
+          <>
+            <Button
+              label="Send Sample for Testing"
+              type="submit"
+              isLoading={isSaving}
+              disabled={isSaving}
+              icon="pi pi-send"
+            />
+            <Button
+              type="button"
+              label="Clear"
+              icon="pi pi-refresh"
+              onClick={() => reset()}
+              disabled={isSaving}
+            />
+          </>
+        ) : (
+          <>
+            {/* Pass Report & Approve Button */}
+            <Button
+              type="button"
+              label="Pass Report & Approve"
+              icon="pi pi-check-circle"
+              variant="primary"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg shadow-sm"
+              isLoading={isSaving}
+              disabled={isSaving}
+              onClick={() => handleDecisionSubmit("PASS")}
+            />
+
+            {/* Fail Report & Reject Button */}
+            <Button
+              type="button"
+              label="Fail Report & Reject"
+              icon="pi pi-times-circle"
+              className="bg-rose-600 hover:bg-rose-700 text-white font-bold px-4 py-2 rounded-lg shadow-sm border-none"
+              isLoading={isSaving}
+              disabled={isSaving}
+              onClick={() => handleDecisionSubmit("FAIL")}
+            />
+          </>
+        )}
+
         <Button
           type="button"
           label="Cancel"

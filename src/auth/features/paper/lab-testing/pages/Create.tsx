@@ -24,7 +24,7 @@ export default function CreatePaperLabTesting() {
 
   return (
     <Page
-      header={`${pageTitle} - Create Sample Test`}
+      header={`${pageTitle} - Send Paper Sample`}
       subHeader="Enter agency paper testing details and record the 10 key laboratory quality parameters."
     >
       <LabTestingForm

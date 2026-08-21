@@ -69,7 +69,7 @@ export default function ViewReport({
           </p>
         </div>
 
-        {/* ─── FULL WIDTH SAMPLE INFORMATION CARD (FONT UP 1-2 POINTS + TEXT WRAP) ─── */}
+        {/* ─── FULL WIDTH SAMPLE INFORMATION CARD ─────────────────────────────── */}
         <div className="border border-slate-200 rounded-xl p-5 bg-slate-50/50 w-full shadow-sm">
           <div className="flex items-center gap-2 border-b border-slate-200 pb-3 mb-4">
             <i className="pi pi-info-circle text-blue-600 text-base" />
@@ -165,7 +165,7 @@ export default function ViewReport({
           </div>
         </div>
 
-        {/* ─── MIDDLE SECTION: TEST RESULTS (10 KEY PARAMETERS) TABLE (FONT UP 1-2 POINTS) ─── */}
+        {/* ─── MIDDLE SECTION: TEST RESULTS (10 KEY PARAMETERS) TABLE ───────── */}
         <div className="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
           <div className="bg-slate-800 text-white px-5 py-3 flex items-center justify-between">
             <h3 className="text-xs font-bold uppercase tracking-wider flex items-center gap-2">
@@ -186,7 +186,7 @@ export default function ViewReport({
                   <th className="py-3 px-4">Required Specification</th>
                   <th className="py-3 px-4">Actual Result</th>
                   <th className="py-3 px-4 text-center">Deviation</th>
-                  <th className="py-3 px-4 text-center">Status</th>
+                  {/* Status Column removed as requested */}
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 bg-white">
@@ -195,7 +195,9 @@ export default function ViewReport({
                   return (
                     <tr
                       key={param.parameterId || index}
-                      className="hover:bg-slate-50/70 transition-colors"
+                      className={`hover:bg-slate-50/70 transition-colors ${
+                        !isParamPass ? "bg-rose-50/50" : ""
+                      }`}
                     >
                       <td className="py-3 px-4 text-center font-bold text-slate-500">
                         {index + 1}
@@ -206,27 +208,19 @@ export default function ViewReport({
                       <td className="py-3 px-4 text-slate-700 font-mono text-sm font-medium">
                         {param.requiredSpecification}
                       </td>
-                      <td className="py-3 px-4 font-black text-slate-900 font-mono text-sm">
+                      <td
+                        className={`py-3 px-4 font-black font-mono text-sm ${
+                          !isParamPass ? "text-rose-700" : "text-slate-900"
+                        }`}
+                      >
                         {param.actualResult}
                       </td>
-                      <td className="py-3 px-4 text-center font-mono text-slate-800 font-bold text-sm">
+                      <td
+                        className={`py-3 px-4 text-center font-mono font-bold text-sm ${
+                          !isParamPass ? "text-rose-700" : "text-slate-800"
+                        }`}
+                      >
                         {param.deviation}
-                      </td>
-                      <td className="py-3 px-4 text-center">
-                        <span
-                          className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-extrabold ${
-                            isParamPass
-                              ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                              : "bg-rose-100 text-rose-800 border border-rose-200"
-                          }`}
-                        >
-                          <i
-                            className={`pi ${
-                              isParamPass ? "pi-check" : "pi-times"
-                            } text-[9px]`}
-                          />
-                          {isParamPass ? "PASSED" : "FAILED"}
-                        </span>
                       </td>
                     </tr>
                   );
@@ -236,7 +230,7 @@ export default function ViewReport({
           </div>
         </div>
 
-        {/* ─── BOTTOM KPI SUMMARY CARDS (IMAGE 3 SPECIFICATION) ──────────────── */}
+        {/* ─── BOTTOM KPI SUMMARY CARDS ──────────────── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           <div className="border border-slate-200 rounded-xl p-4 bg-slate-50/50 text-center">
             <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-1">
@@ -287,58 +281,6 @@ export default function ViewReport({
               />
               {isPass ? "PASSED" : "FAILED"}
             </span>
-          </div>
-        </div>
-
-        {/* ─── BOTTOM SECTION: CERTIFICATE & AUTHORIZATION ──────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-          {/* Test Certificate Card */}
-          <div className="border border-amber-200 bg-amber-50/20 rounded-xl p-4 text-center flex flex-col items-center justify-center">
-            <div className="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mb-1">
-              <i className="pi pi-award text-base" />
-            </div>
-            <h4 className="text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-              Test Certificate
-            </h4>
-            <p className="text-[10px] text-slate-600 leading-tight">
-              This is to certify that the paper sample mentioned above has been
-              tested and evaluated as per approved specifications.
-            </p>
-            <div className="mt-2 text-xs font-bold text-emerald-700 uppercase border border-emerald-300 bg-emerald-50 px-3 py-1 rounded">
-              FINAL DECISION: {isPass ? "APPROVED FOR PRINTING" : "REJECTED"}
-            </div>
-          </div>
-
-          {/* Authorization Block */}
-          <div className="border border-slate-200 rounded-xl p-4 bg-slate-50/30">
-            <h4 className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-3 text-center">
-              Authorization & Signatures
-            </h4>
-            <div className="grid grid-cols-3 gap-2 text-center text-[10px]">
-              <div>
-                <div className="h-10 border-b border-slate-300 flex items-end justify-center italic text-slate-500 font-serif pb-1">
-                  {record.testedBy || "R. K. Singh"}
-                </div>
-                <div className="font-bold text-slate-800 mt-1">Tested By</div>
-                <div className="text-slate-400 text-[9px]">Lab Technician</div>
-              </div>
-              <div>
-                <div className="h-10 border-b border-slate-300 flex items-end justify-center italic text-slate-500 font-serif pb-1">
-                  Neha Sharma
-                </div>
-                <div className="font-bold text-slate-800 mt-1">Verified By</div>
-                <div className="text-slate-400 text-[9px]">Quality Officer</div>
-              </div>
-              <div>
-                <div className="h-10 border-b border-slate-300 flex items-end justify-center italic text-slate-500 font-serif pb-1">
-                  Amit Singh
-                </div>
-                <div className="font-bold text-slate-800 mt-1">Approved By</div>
-                <div className="text-slate-400 text-[9px]">
-                  Authorized Officer
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
