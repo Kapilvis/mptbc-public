@@ -229,7 +229,8 @@
       "printer-wise-supply-report": "Printer-wise Supply Report",
       "paper-distribution-report": "Paper Distribution Report",
       "paper-receiving": "Paper Receiving",
-      "paper-issue-to-printer": "Paper Issue to Printer"
+      "paper-issue-to-printer": "Paper Issue to Printer",
+      "timeline-dashboard": "Deadline Tracker"
     },
     "printing": {
       "list": {

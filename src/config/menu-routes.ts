@@ -23,6 +23,12 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     permissionKey: "dashboard",
   },
   {
+    label: t("routes.timeline-dashboard"),
+    icon: "pi pi-calendar",
+    path: "/timeline",
+    permissionKey: "dashboard",
+  },
+  {
     label: t("routes.profile"),
     icon: "pi pi-user",
     path: "/profile",
