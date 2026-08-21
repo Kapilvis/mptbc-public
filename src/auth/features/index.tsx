@@ -18,6 +18,8 @@ import CentralDepot from "./inventory";
 import AdminModule from "./admin";
 import MockModulePage from "../components/MockModulePage";
 import UnauthorizedPage from "../components/UnauthorizedPage";
+import TimelineDashboardPage from "./timeline/TimelineDashboardPage";
+import AddProductionTrackerPage from "./timeline/AddProductionTrackerPage";
 
 export default function Features() {
   return (
@@ -50,6 +52,8 @@ export default function Features() {
         <Route path="transport/*" element={<Transportation />} />
         <Route path="inventory/*" element={<CentralDepot />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="timeline" element={<TimelineDashboardPage />} />
+        <Route path="timeline/add" element={<AddProductionTrackerPage />} />
 
         {/* Mock Module Routes */}
         <Route path="assigned-demand" element={<MockModulePage />} />
