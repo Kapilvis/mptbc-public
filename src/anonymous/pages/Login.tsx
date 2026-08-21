@@ -48,10 +48,8 @@ const LoginCard: React.FC<LoginCardProps> = ({
       {/* Top Header Title */}
       <div className="mptbc-card-header">
         <div className="mptbc-card-header-text">
-          <h2 className="mptbc-login-title">पोर्टल में प्रवेश करें</h2>
-          <p className="mptbc-login-subtitle">
-            अधिकृत यूजर आईडी व पासवर्ड दर्ज करें
-          </p>
+          <h2 className="mptbc-login-title">स्वागत है!</h2>
+          <p className="mptbc-login-subtitle">MPTBC पोर्टल में लॉगिन करें</p>
         </div>
       </div>
 
@@ -70,7 +68,7 @@ const LoginCard: React.FC<LoginCardProps> = ({
 
         <div className="mptbc-input-field-group">
           <TextBox
-            label="उपयोगकर्ता नाम"
+            label="उपयोगकर्ता नाम  / User ID"
             placeholder="उपयोगकर्ता नाम / User ID"
             icon="user"
             required
@@ -80,7 +78,7 @@ const LoginCard: React.FC<LoginCardProps> = ({
 
         <div className="mptbc-input-field-group">
           <PasswordBox
-            label="पासवर्ड"
+            label="पासवर्ड  / Password"
             placeholder="पासवर्ड दर्ज करें"
             icon="lock"
             required
@@ -90,7 +88,7 @@ const LoginCard: React.FC<LoginCardProps> = ({
 
         <div className="captcha-field-wrapper mptbc-input-field-group">
           <Captcha
-            label="सुरक्षा कैप्चा"
+            label="कैप्चा / CAPTCHA"
             placeholder="कैप्चा कोड दर्ज करें"
             captchaCode={captchaCode}
             onRegenerate={onRegenerateCaptcha}
@@ -223,12 +221,9 @@ export default function LoginPage() {
         <div className="mptbc-footer-left">
           <span>
             © {new Date().getFullYear()} मध्य प्रदेश पाठ्यपुस्तक निगम.
-            सर्वाधिकार सुरक्षित।
           </span>
         </div>
-        <div className="mptbc-footer-right">
-          <span>स्कूल शिक्षा विभाग, मध्य प्रदेश शासन</span>
-        </div>
+        <div className="mptbc-footer-right"></div>
       </footer>
 
       {/* Floating Error Toast */}
