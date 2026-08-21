@@ -12,11 +12,11 @@ import ViewReport from "../components/ViewReport";
 
 // Custom Status Badge matching Quality Inspection List.tsx
 function StatusBadge({ status }: { status: string }) {
-  if (status === "SENT") {
+  if (status === "SENT" || status === "AWAITED") {
     return (
       <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold border tracking-wider uppercase bg-amber-50 text-amber-700 border-amber-200">
-        <i className="pi pi-send text-[8px]" />
-        SENT
+        <i className="pi pi-clock text-[8px]" />
+        AWAITED
       </span>
     );
   }
@@ -320,7 +320,7 @@ export default function PaperLabTestingList() {
                   TESTING AGENCY
                 </th>
                 <th className="py-3.5 px-3 text-center border-r border-emerald-800">
-                  SENT DATE
+                  Dispatch DATE
                 </th>
                 <th className="py-3.5 px-3 text-center border-r border-emerald-800">
                   RECEIVED DATE
@@ -425,9 +425,10 @@ export default function PaperLabTestingList() {
                         {/* Column 9: Received Date */}
                         <td className="py-3 px-3 text-center border-r border-slate-100">
                           {item.overallResult === "SENT" ||
+                          item.overallResult === "AWAITED" ||
                           !item.receivedDate ? (
-                            <span className="text-slate-400 font-mono text-xs">
-                              -
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                              In Progress
                             </span>
                           ) : (
                             <span className="font-semibold text-slate-800">
@@ -454,10 +455,11 @@ export default function PaperLabTestingList() {
 
                         {/* Column 12: Action */}
                         <td className="py-3 px-3 text-center">
-                          {item.overallResult === "SENT" ? (
+                          {item.overallResult === "SENT" ||
+                          item.overallResult === "AWAITED" ? (
                             <Button
                               icon="pi pi-download"
-                              label="Received"
+                              label="Receive"
                               size="small"
                               variant="outlined"
                               onClick={() =>

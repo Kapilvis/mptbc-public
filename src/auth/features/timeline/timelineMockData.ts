@@ -26,21 +26,21 @@ export interface DemandCycle {
 export const DEMAND_CYCLES: DemandCycle[] = [
   {
     id: "cycle-1",
-    name: "Production Period (Jan 2026)",
+    name: "Printing Cycle (Jan 2026)",
     periodText: "05 Jan 2026 - 02 Apr 2026",
     status: "Completed",
     statusText: "Completed",
   },
   {
     id: "cycle-2",
-    name: "Production Period (Jul 2026)",
+    name: "Printing Cycle (Jul 2026)",
     periodText: "05 Jul 2026 - 31 Oct 2026",
     status: "Active",
     statusText: "Active",
   },
   {
     id: "cycle-3",
-    name: "Production Period (Jan 2027)",
+    name: "Printing Cycle (Jan 2027)",
     periodText: "05 Jan 2027 - 05 Apr 2027",
     status: "Upcoming",
     statusText: "Upcoming",

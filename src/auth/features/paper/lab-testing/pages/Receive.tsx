@@ -25,8 +25,10 @@ export default function ReceivePaperLabTesting() {
   const handleSubmit = async (data: PaperLabTestingRecord) => {
     try {
       const isPass = data.parameters.every((p) => p.status === "PASS");
+      const todayStr = new Date().toISOString().split("T")[0];
       await updateRecord({
         ...data,
+        receivedDate: data.receivedDate || todayStr,
         overallResult: isPass ? "PASS" : "FAIL",
         approvalStatus: isPass ? "Approved for Use" : "Rejected / Out of Spec",
       });

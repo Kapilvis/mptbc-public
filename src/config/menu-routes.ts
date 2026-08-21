@@ -494,7 +494,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         permissionKey: "depot-section/depot-registration",
       },
       {
-        label: t("routes.printer-section"),
+        label: t("routes.printer-to-depot"),
         children: [
           {
             label: t("routes.challan-received"),

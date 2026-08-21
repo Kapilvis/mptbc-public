@@ -143,16 +143,6 @@ export default function LabTestingForm({
     { text: "Shakti Paper Mills", value: "Shakti Paper Mills" },
   ];
 
-  // Helper submitters for manual decision buttons
-  const handleDecisionSubmit = (result: "PASS" | "FAIL") => {
-    setValue("overallResult", result);
-    setValue(
-      "approvalStatus",
-      result === "PASS" ? "Approved for Use" : "Rejected / Out of Spec",
-    );
-    handleSubmit();
-  };
-
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* ─── STAGE 1: SAMPLE & TESTING AGENCY INFO (READ-ONLY SUMMARY ON RECEIVE PAGE) ──── */}
@@ -354,6 +344,9 @@ export default function LabTestingForm({
                   <th className="py-3.5 px-4 min-w-[140px] text-center">
                     Deviation (Auto)
                   </th>
+                  <th className="py-3.5 px-4 min-w-[120px] text-center">
+                    Status
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 bg-white font-semibold">
@@ -422,6 +415,24 @@ export default function LabTestingForm({
                       >
                         {evalRes.deviation}
                       </td>
+
+                      {/* Column 5: Auto Status Badge */}
+                      <td className="py-3.5 px-4 text-center">
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold border tracking-wider uppercase ${
+                            !isOut
+                              ? "bg-emerald-100 text-emerald-800 border-emerald-300"
+                              : "bg-rose-100 text-rose-800 border-rose-300"
+                          }`}
+                        >
+                          <i
+                            className={`pi ${
+                              !isOut ? "pi-check" : "pi-times"
+                            } text-[10px]`}
+                          />
+                          {!isOut ? "PASSED" : "FAILED"}
+                        </span>
+                      </td>
                     </tr>
                   );
                 })}
@@ -431,7 +442,7 @@ export default function LabTestingForm({
         </Card>
       )}
 
-      {/* ─── ACTION BUTTONS (PASS & FAIL EXPLICIT DECISION BUTTONS) ─────────────────────────────── */}
+      {/* ─── ACTION BUTTONS ─────────────────────────────── */}
       <div className="flex justify-end items-center gap-3 pt-2 w-full">
         {isCreateStage ? (
           <>
@@ -451,30 +462,15 @@ export default function LabTestingForm({
             />
           </>
         ) : (
-          <>
-            {/* Pass Report & Approve Button */}
-            <Button
-              type="button"
-              label="Pass Report & Approve"
-              icon="pi pi-check-circle"
-              variant="primary"
-              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg shadow-sm"
-              isLoading={isSaving}
-              disabled={isSaving}
-              onClick={() => handleDecisionSubmit("PASS")}
-            />
-
-            {/* Fail Report & Reject Button */}
-            <Button
-              type="button"
-              label="Fail Report & Reject"
-              icon="pi pi-times-circle"
-              className="bg-rose-600 hover:bg-rose-700 text-white font-bold px-4 py-2 rounded-lg shadow-sm border-none"
-              isLoading={isSaving}
-              disabled={isSaving}
-              onClick={() => handleDecisionSubmit("FAIL")}
-            />
-          </>
+          <Button
+            label="Save Lab Test Report"
+            type="submit"
+            icon="pi pi-check"
+            variant="primary"
+            className="shadow-sm font-bold text-sm"
+            isLoading={isSaving}
+            disabled={isSaving}
+          />
         )}
 
         <Button
