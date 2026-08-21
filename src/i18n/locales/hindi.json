@@ -229,7 +229,8 @@
       "printer-wise-supply-report": "मुद्रक वार आपूर्ति रिपोर्ट",
       "paper-distribution-report": "कागज वितरण रिपोर्ट",
       "paper-receiving": "कागज प्राप्ति",
-      "paper-issue-to-printer": "मुद्रक को कागज जारी करना"
+      "paper-issue-to-printer": "मुद्रक को कागज जारी करना",
+      "timeline-dashboard": "डेडलाइन ट्रैकर"
     },
     "printing": {
       "list": {
