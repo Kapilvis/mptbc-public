@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { ToastService } from "services";
 import { Button } from "shared/components/buttons";
-import { DropDownList, TextBox } from "shared/components/forms";
+import { CheckBox, DropDownList, TextBox } from "shared/components/forms";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { Modal } from "shared/components/popups";
 import { formatDate } from "shared/utils/dateUtils";
 import {
+  useBulkUpdateTitleApprovalMutation,
   useTitleApprovalsQuery,
   useUpdateTitleApprovalMutation,
 } from "../queries";
@@ -23,6 +24,8 @@ export default function TitleApprovalList() {
   const [selectedDocTitle, setSelectedDocTitle] =
     useState<Distribution.TitleApprovalItem | null>(null);
 
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+
   const { data = [], isLoading } = useTitleApprovalsQuery({
     academicYear,
     department,
@@ -30,8 +33,51 @@ export default function TitleApprovalList() {
     search,
   });
 
+  const toggleSelected = useCallback((id: number, checked: boolean) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (checked) {
+        next.add(id);
+      } else {
+        next.delete(id);
+      }
+      return next;
+    });
+  }, []);
+
+  const rows = useMemo(
+    () =>
+      data.map((item, index) => ({
+        ...item,
+        serialNumber: index + 1,
+        _selectionKey: selectedIds.has(item.id),
+      })),
+    [data, selectedIds],
+  );
+
   const { mutateAsync: updateSingle, isPending: isSinglePending } =
     useUpdateTitleApprovalMutation();
+
+  const { mutateAsync: bulkUpdateStatus, isPending: isBulkPending } =
+    useBulkUpdateTitleApprovalMutation();
+
+  const handleBulkStatusChange = async (
+    newStatus: "Approved" | "Rejected" | "Hold" | "Pending",
+  ) => {
+    if (selectedIds.size === 0) return;
+    try {
+      await bulkUpdateStatus({
+        ids: Array.from(selectedIds),
+        status: newStatus,
+      });
+      ToastService.success(
+        `Updated ${selectedIds.size} proposal(s) to ${newStatus}`,
+      );
+      setSelectedIds(new Set());
+    } catch {
+      ToastService.error("Failed to perform bulk update");
+    }
+  };
 
   const academicYearOptions = [
     { label: "2026-2027", value: "2026-2027" },
@@ -124,40 +170,54 @@ export default function TitleApprovalList() {
         <GridPanel
           toolbarPlacement="panel"
           defaultMode="grid"
-          data={data}
+          data={rows}
           loading={isLoading}
           searchBox={false}
           showExport
           exportFilename={`Title_Approval_Report_${academicYear}`}
           columns={[
-            /*
             {
+              filter: false,
               header: (
-                <div className="flex justify-center items-center">
+                <div style={{ display: "inline-block" }}>
                   <CheckBox
-                    checked={isAllSelected}
-                    onChange={(checked) => handleSelectAll(!!checked)}
+                    name="select-all"
+                    checked={
+                      rows.length > 0 &&
+                      rows.every((r) => selectedIds.has(r.id))
+                    }
+                    onChange={(checked) => {
+                      if (checked) {
+                        const next = new Set<number>();
+                        rows.forEach((r) => next.add(r.id));
+                        setSelectedIds(next);
+                      } else {
+                        setSelectedIds(new Set());
+                      }
+                    }}
                   />
                 </div>
               ),
-              width: "40px",
-              align: "center",
-              cell: (row: Distribution.TitleApprovalItem) => (
-                <div className="flex justify-center items-center">
-                  <CheckBox
-                    checked={selectedIds.includes(row.id)}
-                    onChange={(checked) => handleSelectRow(row.id, !!checked)}
-                  />
-                </div>
-              ),
+              cell: (row: Distribution.TitleApprovalItem) => {
+                const rowId = row.id;
+                return (
+                  <div style={{ display: "inline-block" }}>
+                    <CheckBox
+                      name={`checkbox-${rowId}`}
+                      checked={selectedIds.has(rowId)}
+                      onChange={(checked) => toggleSelected(rowId, checked)}
+                    />
+                  </div>
+                );
+              },
+              width: "60px",
             },
-            */
-            {
-              cell: (_, option) => <span>{option.rowIndex + 1}</span>,
-              width: "50px",
-              align: "center",
-              header: "S.No.",
-            },
+            // {
+            //   cell: (_, option) => <span>{option.rowIndex + 1}</span>,
+            //   width: "50px",
+            //   align: "center",
+            //   header: "S.No.",
+            // },
             {
               field: "titleCode",
               header: "Title Code",
@@ -345,19 +405,18 @@ export default function TitleApprovalList() {
           )}
         />
 
-        {/* Bottom Bulk Action Footer (Disabled) */}
-        {/*
-        {selectedIds.length > 0 && (
+        {/* Bottom Bulk Action Footer */}
+        {selectedIds.size > 0 && (
           <div className="flex flex-col sm:flex-row items-center justify-between p-3 mt-4 bg-emerald-50/50 border border-emerald-200 rounded-xl dark:bg-emerald-950/20 dark:border-emerald-900/60 gap-3 animate-in fade-in duration-200">
             <div className="flex items-center gap-3">
               <span className="text-xs font-bold text-emerald-900 dark:text-emerald-200">
-                Selected: {selectedIds.length} title proposal(s)
+                Selected: {selectedIds.size} title proposal(s)
               </span>
             </div>
 
             <div className="flex items-center gap-2">
               <Button
-                label={`Approve (${selectedIds.length})`}
+                label={`Approve (${selectedIds.size})`}
                 icon="pi pi-check"
                 size="small"
                 variant="outlined"
@@ -366,7 +425,7 @@ export default function TitleApprovalList() {
                 onClick={() => handleBulkStatusChange("Approved")}
               />
               <Button
-                label={`Reject (${selectedIds.length})`}
+                label={`Reject (${selectedIds.size})`}
                 icon="pi pi-times"
                 size="small"
                 variant="outlined"
@@ -376,15 +435,14 @@ export default function TitleApprovalList() {
               />
               <button
                 type="button"
-                onClick={() => setSelectedIds([])}
-                className="px-2.5 py-1.5 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-xs font-semibold cursor-pointer"
+                onClick={() => setSelectedIds(new Set())}
+                className="px-2.5 py-1.5 text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 text-sm font-bold cursor-pointer transition-colors duration-150"
               >
                 Clear
               </button>
             </div>
           </div>
         )}
-        */}
       </Card>
 
       {/* Redesigned Clean Modal Component for View Document */}
