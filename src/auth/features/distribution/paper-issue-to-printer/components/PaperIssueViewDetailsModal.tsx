@@ -37,9 +37,7 @@ export default function PaperIssueViewDetailsModal({
     > = {};
 
     const allOrders = dataManager.getOrders();
-    const activeOrders = allOrders.filter(
-      (o) => o.printerCode === order.printerCode,
-    );
+    const activeOrders = allOrders.filter((o) => o.orderNo === order.orderNo);
 
     activeOrders.forEach((o) => {
       const key = `${o.gsm}_${o.paperType}`;
@@ -58,7 +56,7 @@ export default function PaperIssueViewDetailsModal({
     });
 
     return Object.values(groups);
-  }, [order.printerCode]);
+  }, [order.orderNo]);
 
   return (
     <Modal

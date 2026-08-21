@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { ToastService } from "services";
 import { Button } from "shared/components/buttons";
-import { DropDownList, TextBox } from "shared/components/forms";
+import { CheckBox, DropDownList, TextBox } from "shared/components/forms";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { Modal } from "shared/components/popups";
 import { formatDate } from "shared/utils/dateUtils";
 import {
+  useBulkUpdateTitleReceivedMutation,
   useTitleReceivedQuery,
   useUpdateTitleReceivedMutation,
 } from "../queries";
@@ -26,6 +27,8 @@ export default function TitleReceivedList() {
     useState<Distribution.TitleReceivedItem | null>(null);
   const [remarkText, setRemarkText] = useState("");
 
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+
   const { data = [], isLoading } = useTitleReceivedQuery({
     academicYear,
     department,
@@ -33,8 +36,51 @@ export default function TitleReceivedList() {
     search,
   });
 
+  const toggleSelected = useCallback((id: number, checked: boolean) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (checked) {
+        next.add(id);
+      } else {
+        next.delete(id);
+      }
+      return next;
+    });
+  }, []);
+
+  const rows = useMemo(
+    () =>
+      data.map((item, index) => ({
+        ...item,
+        serialNumber: index + 1,
+        _selectionKey: selectedIds.has(item.id),
+      })),
+    [data, selectedIds],
+  );
+
   const { mutateAsync: updateSingle, isPending: isSinglePending } =
     useUpdateTitleReceivedMutation();
+
+  const { mutateAsync: bulkUpdateStatus, isPending: isBulkPending } =
+    useBulkUpdateTitleReceivedMutation();
+
+  const handleBulkStatusChange = async (
+    newStatus: Distribution.ReceiptStatus,
+  ) => {
+    if (selectedIds.size === 0) return;
+    try {
+      await bulkUpdateStatus({
+        ids: Array.from(selectedIds),
+        status: newStatus,
+      });
+      ToastService.success(
+        `Updated ${selectedIds.size} proposal(s) to ${newStatus}`,
+      );
+      setSelectedIds(new Set());
+    } catch {
+      ToastService.error("Failed to perform bulk update");
+    }
+  };
 
   const academicYearOptions = [
     { label: "2026-2027", value: "2026-2027" },
@@ -151,39 +197,53 @@ export default function TitleReceivedList() {
         <GridPanel
           toolbarPlacement="panel"
           defaultMode="grid"
-          data={data}
+          data={rows}
           loading={isLoading}
           searchBox={false}
           showExport
           exportFilename={`Title_Demand_Received_${academicYear}`}
           columns={[
-            /*
             {
+              filter: false,
               header: (
-                <div className="flex justify-center items-center">
+                <div style={{ display: "inline-block" }}>
                   <CheckBox
-                    checked={isAllSelected}
-                    onChange={(checked) => handleSelectAll(!!checked)}
+                    name="select-all"
+                    checked={
+                      rows.length > 0 &&
+                      rows.every((r) => selectedIds.has(r.id))
+                    }
+                    onChange={(checked) => {
+                      if (checked) {
+                        const next = new Set<number>();
+                        rows.forEach((r) => next.add(r.id));
+                        setSelectedIds(next);
+                      } else {
+                        setSelectedIds(new Set());
+                      }
+                    }}
                   />
                 </div>
               ),
-              width: "40px",
-              align: "center",
-              cell: (row: Distribution.TitleReceivedItem) => (
-                <div className="flex justify-center items-center">
-                  <CheckBox
-                    checked={selectedIds.includes(row.id)}
-                    onChange={(checked) => handleSelectRow(row.id, !!checked)}
-                  />
-                </div>
-              ),
+              cell: (row: Distribution.TitleReceivedItem) => {
+                const rowId = row.id;
+                return (
+                  <div style={{ display: "inline-block" }}>
+                    <CheckBox
+                      name={`checkbox-${rowId}`}
+                      checked={selectedIds.has(rowId)}
+                      onChange={(checked) => toggleSelected(rowId, checked)}
+                    />
+                  </div>
+                );
+              },
+              width: "60px",
             },
-            */
-            {
-              cell: (_, option) => <span>{option.rowIndex + 1}</span>,
-              width: "50px",
-              align: "center",
-            },
+            // {
+            //   cell: (_, option) => <span>{option.rowIndex + 1}</span>,
+            //   width: "50px",
+            //   align: "center",
+            // },
             {
               field: "titleCode",
               header: "Title Code",
@@ -375,37 +435,35 @@ export default function TitleReceivedList() {
           )}
         />
 
-        {/* Bottom Bulk Action Footer (Disabled) */}
-        {/*
-        {selectedIds.length > 0 && (
+        {/* Bottom Bulk Action Footer */}
+        {selectedIds.size > 0 && (
           <div className="flex flex-col sm:flex-row items-center justify-between p-3 mt-4 bg-emerald-50/50 border border-emerald-200 rounded-xl dark:bg-emerald-950/20 dark:border-emerald-900/60 gap-3 animate-in fade-in duration-200">
             <div className="flex items-center gap-3">
               <span className="text-xs font-bold text-emerald-900 dark:text-emerald-200">
-                Selected: {selectedIds.length} title proposal(s)
+                Selected: {selectedIds.size} title proposal(s)
               </span>
             </div>
 
             <div className="flex items-center gap-2">
               <Button
-                label={`Mark Selected as Received (${selectedIds.length})`}
-                icon="pi pi-check-circle"
+                label={`Forward for Approval (${selectedIds.size})`}
+                icon="pi pi-send"
                 size="small"
                 variant="outlined"
                 disabled={isBulkPending}
                 className="!text-emerald-700 !border-emerald-600 hover:!bg-emerald-50 dark:!text-emerald-400 dark:!border-emerald-500 font-bold"
-                onClick={() => handleBulkStatusChange("Received")}
+                onClick={() => handleBulkStatusChange("Forwarded for Approval")}
               />
               <button
                 type="button"
-                onClick={() => setSelectedIds([])}
-                className="px-2.5 py-1.5 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-xs font-semibold cursor-pointer"
+                onClick={() => setSelectedIds(new Set())}
+                className="px-2.5 py-1.5 text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 text-sm font-bold cursor-pointer transition-colors duration-150"
               >
                 Clear
               </button>
             </div>
           </div>
         )}
-        */}
       </Card>
 
       {/* Soft Copy Document Viewer Modal */}

@@ -1,12 +1,17 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { ToastService } from "services";
 import { Button } from "shared/components/buttons";
+import { CheckBox } from "shared/components/forms";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Modal } from "shared/components/popups";
 import AcademicYearFilterBar from "shared/components/filters/AcademicYearFilterBar";
-import { useGsmPaperDemandsQuery, useLockGsmDemandMutation } from "../queries";
+import {
+  useGsmPaperDemandsQuery,
+  useLockGsmDemandMutation,
+  useBulkLockGsmDemandMutation,
+} from "../queries";
 
 export default function GsmDemandReportList() {
   const pageTitle = usePageTitle();
@@ -15,12 +20,55 @@ export default function GsmDemandReportList() {
   const [selectedTitlesGsm, setSelectedTitlesGsm] =
     useState<Paper.GsmPaperDemandItem | null>(null);
 
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+
   const { data = [], isLoading } = useGsmPaperDemandsQuery({
     academicYear,
   });
 
+  const toggleSelected = useCallback((id: number, checked: boolean) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (checked) {
+        next.add(id);
+      } else {
+        next.delete(id);
+      }
+      return next;
+    });
+  }, []);
+
+  const rows = useMemo(
+    () =>
+      data.map((item, index) => ({
+        ...item,
+        serialNumber: index + 1,
+        _selectionKey: selectedIds.has(item.id),
+      })),
+    [data, selectedIds],
+  );
+
   const { mutateAsync: lockSingle, isPending: isSinglePending } =
     useLockGsmDemandMutation();
+
+  const { mutateAsync: bulkLock, isPending: isBulkPending } =
+    useBulkLockGsmDemandMutation();
+
+  const handleBulkLockChange = async (newStatus: Paper.DemandLockStatus) => {
+    if (selectedIds.size === 0) return;
+    try {
+      await bulkLock({
+        ids: Array.from(selectedIds),
+        status: newStatus,
+      });
+      ToastService.success(
+        `Updated ${selectedIds.size} GSM specification(s) to ${newStatus === "Locked" ? "Locked for Tender" : "Draft"}.`,
+      );
+      setSelectedIds(new Set());
+    } catch {
+      ToastService.error("Failed to perform bulk lock update");
+    }
+  };
 
   const summaryStats = useMemo(() => {
     const totalGrossMt = data.reduce(
@@ -114,7 +162,7 @@ export default function GsmDemandReportList() {
         <GridPanel
           toolbarPlacement="page"
           defaultMode="grid"
-          data={data}
+          data={rows}
           loading={isLoading}
           searchBox={true}
           searchPlaceholder="Search code, GSM or usage..."
@@ -122,10 +170,40 @@ export default function GsmDemandReportList() {
           exportFilename={`GSM_Paper_Demand_Report_${academicYear}`}
           columns={[
             {
-              cell: (_, option) => <span>{option.rowIndex + 1}</span>,
-              width: "50px",
-              align: "center",
-              header: "S.NO.",
+              filter: false,
+              header: (
+                <div style={{ display: "inline-block" }}>
+                  <CheckBox
+                    name="select-all"
+                    checked={
+                      rows.length > 0 &&
+                      rows.every((r) => selectedIds.has(r.id))
+                    }
+                    onChange={(checked) => {
+                      if (checked) {
+                        const next = new Set<number>();
+                        rows.forEach((r) => next.add(r.id));
+                        setSelectedIds(next);
+                      } else {
+                        setSelectedIds(new Set());
+                      }
+                    }}
+                  />
+                </div>
+              ),
+              cell: (row: Paper.GsmPaperDemandItem) => {
+                const rowId = row.id;
+                return (
+                  <div style={{ display: "inline-block" }}>
+                    <CheckBox
+                      name={`checkbox-${rowId}`}
+                      checked={selectedIds.has(rowId)}
+                      onChange={(checked) => toggleSelected(rowId, checked)}
+                    />
+                  </div>
+                );
+              },
+              width: "60px",
             },
             {
               field: "gsmCode",
@@ -283,6 +361,45 @@ export default function GsmDemandReportList() {
             />
           )}
         />
+
+        {/* Bottom Bulk Action Footer */}
+        {selectedIds.size > 0 && (
+          <div className="flex flex-col sm:flex-row items-center justify-between p-3 mt-4 bg-blue-50/50 border border-blue-200 rounded-xl dark:bg-blue-950/20 dark:border-blue-900/60 gap-3 animate-in fade-in duration-200">
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-bold text-blue-900 dark:text-blue-200">
+                Selected: {selectedIds.size} GSM paper specification(s)
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Button
+                label={`Lock Selected Demand (${selectedIds.size})`}
+                icon="pi pi-lock"
+                size="small"
+                variant="outlined"
+                disabled={isBulkPending}
+                className="!text-emerald-700 !border-emerald-600 hover:!bg-emerald-50 dark:!text-emerald-400 dark:!border-emerald-500 font-bold"
+                onClick={() => handleBulkLockChange("Locked")}
+              />
+              <Button
+                label={`Unlock to Draft (${selectedIds.size})`}
+                icon="pi pi-refresh"
+                size="small"
+                variant="outlined"
+                disabled={isBulkPending}
+                className="!text-amber-700 !border-amber-600 hover:!bg-amber-50 dark:!text-amber-400 dark:!border-amber-500 font-bold"
+                onClick={() => handleBulkLockChange("Draft")}
+              />
+              <button
+                type="button"
+                onClick={() => setSelectedIds(new Set())}
+                className="px-2.5 py-1.5 text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 text-sm font-bold cursor-pointer transition-colors duration-150"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        )}
       </Card>
 
       {/* Titles Breakdown Modal */}

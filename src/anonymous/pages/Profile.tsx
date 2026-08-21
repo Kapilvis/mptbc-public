@@ -1,6 +1,5 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthProvider";
-import { getAssetUrl } from "../../shared/utils/assetPath";
 import "./Profile.css";
 
 const Profile = () => {
@@ -55,7 +54,7 @@ const Profile = () => {
           <div className="profile-avatar-wrapper">
             <div className="profile-avatar">
               <img
-                src={getAssetUrl("images/user/owner.jpg")}
+                src={`${import.meta.env.BASE_URL}images/user/owner.jpg`}
                 alt="Profile Avatar"
                 className="profile-avatar-image"
                 onError={(event) => {
