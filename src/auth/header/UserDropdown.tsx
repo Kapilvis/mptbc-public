@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { getAssetUrl } from "../../shared/utils/assetPath";
 import { useAuth } from "../AuthProvider";
 import "./UserDropdown.css";
 
@@ -63,9 +64,12 @@ export default function UserDropdown() {
         <div className="user-dropdown-avatar-wrapper">
           <div className="user-dropdown-avatar">
             <img
-              src="/images/user/owner.jpg"
+              src={getAssetUrl("/images/user/owner.jpg")}
               alt={`${userName} profile`}
               className="user-dropdown-avatar-image"
+              onError={(event) => {
+                event.currentTarget.src = getAssetUrl("/images/user/owner.jpg");
+              }}
             />
           </div>
 
