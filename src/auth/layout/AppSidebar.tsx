@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { useMenu } from "../../config/menu-routes";
+import { getAssetUrl } from "../../shared/utils/assetPath";
 import { useSidebar } from "../context/SidebarContext";
 import "./AppSidebar.css";
 import Scrollbar from "./Scrollbar";
@@ -403,7 +404,7 @@ const AppSidebar: React.FC = () => {
             <>
               <div className="sidebar-logo-expanded">
                 <img
-                  src="/MP_LOGO.svg"
+                  src={getAssetUrl("/MP_LOGO.svg")}
                   alt="Madhya Pradesh Textbook Corporation"
                   className="sidebar-logo-image-expanded"
                   onError={(event) => {
@@ -419,7 +420,7 @@ const AppSidebar: React.FC = () => {
           ) : (
             <div className="sidebar-logo-collapsed">
               <img
-                src="/MP_LOGO.svg"
+                src={getAssetUrl("/MP_LOGO.svg")}
                 alt="Madhya Pradesh Textbook Corporation"
                 className="sidebar-logo-image-collapsed"
                 onError={(event) => {

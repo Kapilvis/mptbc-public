@@ -10,6 +10,7 @@ import {
   PasswordBox,
   TextBox,
 } from "../../shared/components/forms";
+import { getAssetUrl } from "../../shared/utils/assetPath";
 import "./Login.css";
 import { useLoginForm } from "./login.hook";
 
@@ -38,7 +39,7 @@ const LoginCard: React.FC<LoginCardProps> = ({
       {/* Floating Emblem Logo: Half Inside, Half Outside */}
       <div className="mptbc-card-floating-logo-wrapper">
         <img
-          src="/logo.png"
+          src={getAssetUrl("/logo.png")}
           alt="MPTBC Official Seal"
           className="mptbc-card-floating-logo"
         />
@@ -148,12 +149,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="mptbc-light-page-wrapper">
+    <div
+      className="mptbc-light-page-wrapper"
+      style={{ backgroundImage: `url(${getAssetUrl("/login_bgg.jpg")})` }}
+    >
       {/* Top Banner Navigation Bar */}
       <header className="mptbc-light-nav-header">
         <div className="mptbc-nav-brand">
           <img
-            src="/MP_LOGO.svg"
+            src={getAssetUrl("/MP_LOGO.svg")}
             alt="MP State Emblem"
             className="mptbc-nav-logo"
           />
