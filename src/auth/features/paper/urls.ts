@@ -6,4 +6,5 @@ export const paperUrls = {
   paperVendorProfile: "/paper/paper-vendor-profile",
   paperOrderAllocation: "/paper/paper-order-allocation",
   paperSupplyDispatch: "/paper/paper-supply-dispatch",
+  labTesting: "/paper/lab-testing",
 };

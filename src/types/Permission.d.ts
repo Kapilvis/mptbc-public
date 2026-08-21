@@ -73,7 +73,8 @@ declare namespace Permission {
     | "@paper/paper-tender-raise"
     | "@paper/paper-vendor-profile"
     | "@paper/paper-order-allocation"
-    | "@paper/paper-supply-dispatch";
+    | "@paper/paper-supply-dispatch"
+    | "@paper/lab-testing";
   // Actions mapped to backend policies
   type Action = "read" | "write";
 }
