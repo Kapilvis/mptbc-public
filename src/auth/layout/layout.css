@@ -5,7 +5,7 @@
 }
 
 .layout-main-content {
-  @apply flex flex-col h-[calc(100vh-2rem)] my-4 mr-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 shadow-xl rounded-2xl transition-[margin] duration-300 ease-in-out overflow-hidden;
+  @apply flex flex-col h-[calc(100vh-2rem)] my-4 mr-4 bg-[#F7FAF8] dark:bg-slate-900 border border-slate-200 dark:border-white/5 shadow-xl rounded-2xl transition-[margin] duration-300 ease-in-out overflow-hidden;
 }
 
 .layout-main-content-expanded {

@@ -1,12 +1,12 @@
 import React from "react";
-import { EXECUTIVE_ALERTS } from "../data/adminDashboardData";
+import { mockDashboardData } from "../data/mockKpiData";
 
 export const AdminActionCenter: React.FC = () => {
   const alertBtnThemes: Record<
     string,
     { textColor: string; borderColor: string; btnHoverBg: string }
   > = {
-    danger: {
+    critical: {
       textColor: "#e11d48",
       borderColor: "#fecdd3",
       btnHoverBg: "#e11d48",
@@ -44,20 +44,20 @@ export const AdminActionCenter: React.FC = () => {
 
       {/* Grid of Alert Cards */}
       <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-        {EXECUTIVE_ALERTS.map((alert) => {
-          const theme = alertBtnThemes[alert.severity] || alertBtnThemes.info;
+        {mockDashboardData.alerts.map((alert) => {
+          const theme = alertBtnThemes[alert.type] || alertBtnThemes.info;
 
           const borderClass =
-            alert.severity === "danger"
+            alert.type === "critical"
               ? "border-rose-200 bg-white hover:border-rose-300 dark:border-rose-900/50 dark:bg-slate-900"
-              : alert.severity === "warning"
+              : alert.type === "warning"
                 ? "border-amber-200 bg-white hover:border-amber-300 dark:border-amber-900/50 dark:bg-slate-900"
                 : "border-blue-200 bg-white hover:border-blue-300 dark:border-blue-900/50 dark:bg-slate-900";
 
           const categoryBadge =
-            alert.severity === "danger"
+            alert.type === "critical"
               ? "bg-rose-100 text-rose-800"
-              : alert.severity === "warning"
+              : alert.type === "warning"
                 ? "bg-amber-100 text-amber-800"
                 : "bg-blue-100 text-blue-800";
 
@@ -75,21 +75,19 @@ export const AdminActionCenter: React.FC = () => {
                   <span
                     className={`rounded px-1.5 py-0.5 text-[10px] font-extrabold uppercase ${categoryBadge}`}
                   >
-                    {alert.category}
+                    {alert.type}
                   </span>
                 </div>
 
                 <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-tight">
-                  {alert.title}
+                  {alert.message}
                 </h4>
-                {alert.description && (
-                  <p className="mt-1.5 text-[13.5px] font-medium text-slate-800 dark:text-slate-200 leading-snug">
-                    {alert.description}
-                  </p>
-                )}
+                <p className="mt-1.5 text-[11px] font-medium text-slate-500 dark:text-slate-400 leading-snug">
+                  {alert.time}
+                </p>
               </div>
 
-              {/* Action Button (Interactive hover state matching Operational Summaries) */}
+              {/* Action Button */}
               <button
                 type="button"
                 className="mt-3.5 flex w-full items-center justify-center gap-1.5 rounded-xl border px-3 py-2 text-xs font-bold transition-all duration-200 shadow-2xs hover:shadow-md cursor-pointer"
@@ -107,7 +105,7 @@ export const AdminActionCenter: React.FC = () => {
                   e.currentTarget.style.color = theme.textColor;
                 }}
               >
-                <span>{alert.actionLabel}</span>
+                <span>Take Action</span>
                 <i
                   className="pi pi-arrow-right text-[11px]"
                   aria-hidden="true"

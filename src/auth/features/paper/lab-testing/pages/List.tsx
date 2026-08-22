@@ -90,17 +90,17 @@ export default function PaperLabTestingList() {
 
   // Compute KPI metrics dynamically from records
   const kpis = useMemo(() => {
-    const totalVendors =
-      new Set(rawRecords.map((r) => r.supplierVendor)).size || 10;
-    const samplesSent = rawRecords.length || 25;
-    const samplesReceived =
-      rawRecords.filter((r) => r.overallResult !== "SENT").length || 18;
-    const samplesPending = Math.max(0, samplesSent - samplesReceived);
+    const totalVendors = new Set(rawRecords.map((r) => r.supplierVendor)).size;
+    const samplesSent = rawRecords.length;
+    const samplesReceived = rawRecords.filter(
+      (r) => r.overallResult !== "SENT" && r.overallResult !== "AWAITED",
+    ).length;
+    const samplesPending = rawRecords.filter(
+      (r) => r.overallResult === "SENT" || r.overallResult === "AWAITED",
+    ).length;
 
-    const passed =
-      rawRecords.filter((r) => r.overallResult === "PASS").length || 14;
-    const failed =
-      rawRecords.filter((r) => r.overallResult === "FAIL").length || 4;
+    const passed = rawRecords.filter((r) => r.overallResult === "PASS").length;
+    const failed = rawRecords.filter((r) => r.overallResult === "FAIL").length;
 
     return {
       totalVendors,
@@ -111,8 +111,8 @@ export default function PaperLabTestingList() {
       failed,
       avgBrightness: "88.41 %",
       avgOpacity: "91.02 %",
-      overallQualityScore: "87%",
-      overallQualityRating: "Good",
+      overallQualityScore: "100%",
+      overallQualityRating: "Excellent",
     };
   }, [rawRecords]);
 
@@ -149,7 +149,7 @@ export default function PaperLabTestingList() {
         <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex items-center justify-between">
           <div>
             <div className="text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-1">
-              1. Total Vendors
+              1. Total Paper Vendors
             </div>
             <div className="text-3xl font-black text-slate-900">
               {kpis.totalVendors}
