@@ -137,7 +137,7 @@ export const TimelineDashboardPage: React.FC = () => {
 
   return (
     <Page
-      header="Deadline Tracker"
+      header="Lifecycle Tracker"
       subHeader={`Track all key milestones and deadlines for Academic Year ${selectedYear}`}
       showHeaderActions
     >

@@ -126,7 +126,7 @@ export const AdminModuleQuickJump: React.FC = () => {
                   e.currentTarget.style.color = portal.accentColor;
                 }}
               >
-                <span>View Dashboard</span>
+                <span>View Details</span>
                 <i
                   className="pi pi-external-link text-[11px]"
                   aria-hidden="true"

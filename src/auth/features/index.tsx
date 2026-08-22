@@ -8,6 +8,9 @@ import PrinterRegistration from "./printing/printer-registration";
 import DepotRegistration from "./depot-registration";
 import UserManagement from "./user-management";
 import HRMS from "./hrms";
+import FinanceModule from "./finance";
+import GrievanceModule from "./grievance";
+import LegalModule from "./legal";
 import Reports from "./reports";
 import Distribution from "./distribution";
 import PaperModule from "./paper";
@@ -41,6 +44,9 @@ export default function Features() {
           element={<DepotRegistration />}
         />
         <Route path="hrms/*" element={<HRMS />} />
+        <Route path="finance/*" element={<FinanceModule />} />
+        <Route path="grievance/*" element={<GrievanceModule />} />
+        <Route path="legal/*" element={<LegalModule />} />
         <Route path="reports/*" element={<Reports />} />
         <Route path="distribution/*" element={<Distribution />} />
         <Route path="paper/*" element={<PaperModule />} />

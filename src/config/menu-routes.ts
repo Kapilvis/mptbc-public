@@ -1,6 +1,9 @@
 import { masterUrls } from "auth/features/master/urls";
 import { userManagementUrls } from "auth/features/user-management/urls";
 import { hrmsUrls } from "auth/features/hrms/urls";
+import { financeUrls } from "auth/features/finance/urls";
+import { grievanceUrls } from "auth/features/grievance/urls";
+import { legalUrls } from "auth/features/legal/urls";
 import { bookPaperRequirementUrls } from "auth/features/book-paper-requirement/urls";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -278,11 +281,56 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     section: "Configuration",
     children: [
       {
+        label: "HRMS Dashboard",
+        path: hrmsUrls.dashboard,
+        feature: "@hrms/employee-details",
+        action: "read",
+      },
+      {
         label: t("routes.master.hrms.employee-details"),
         path: hrmsUrls.employeeDetails.root,
         feature: "@hrms/employee-details",
         action: "write",
         permissionKey: "hrms/employee-details",
+      },
+    ],
+  },
+  {
+    label: "Finance Dashboard",
+    icon: "pi pi-wallet",
+    section: "Configuration",
+    permissionKey: "finance",
+    children: [
+      {
+        label: "Finance Dashboard",
+        path: financeUrls.dashboard,
+        permissionKey: "finance/dashboard",
+      },
+    ],
+  },
+  {
+    label: "Grievance Dashboard",
+    icon: "pi pi-[#006A38] pi-headphones",
+    section: "Configuration",
+    permissionKey: "grievance",
+    children: [
+      {
+        label: "Grievance Dashboard",
+        path: grievanceUrls.dashboard,
+        permissionKey: "grievance/dashboard",
+      },
+    ],
+  },
+  {
+    label: "Legal Dashboard",
+    icon: "pi pi-briefcase",
+    section: "Configuration",
+    permissionKey: "legal",
+    children: [
+      {
+        label: "Legal Dashboard",
+        path: legalUrls.dashboard,
+        permissionKey: "legal/dashboard",
       },
     ],
   },
