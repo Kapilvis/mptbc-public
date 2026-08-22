@@ -49,7 +49,9 @@ export const AdminDashboardPage: React.FC = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-4">
         <div>
-          <h1 className="text-[26px] font-bold text-slate-800 leading-tight mb-1">Progress At A Glance</h1>
+          <h1 className="text-[26px] font-bold text-slate-800 leading-tight mb-1">
+            Progress At Glance
+          </h1>
         </div>
         <div className="text-[12px] font-semibold text-gray-500 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm">
           Last updated: <span className="text-slate-800">{lastUpdated}</span>
@@ -64,11 +66,8 @@ export const AdminDashboardPage: React.FC = () => {
       />
 
       <div className="space-y-4">
-
-
         {/* 11 KPI Modules Grid (12-column layout) */}
         <div className="grid grid-cols-12 gap-4">
-
           {/* Row 1 */}
           <div className="col-span-12 xl:col-span-9">
             <DemandKpiCard />
