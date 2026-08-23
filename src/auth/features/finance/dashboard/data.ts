@@ -82,10 +82,10 @@ export interface ExpenditureOutlayItem {
 
 export const initialFinanceKpis: FinanceKpis = {
   totalRevenue: "₹ 185.40 Cr",
-  totalExpenditure: "₹ 142.80 Cr",
+  totalExpenditure: "₹ 119.50 Cr",
   pendingBillsCount: 18,
   pendingBillsAmount: "₹ 8.45 Cr",
-  monthlyPayroll: "₹ 4.85 Cr",
+  monthlyPayroll: "₹ 20.00 Lakhs",
   ifmisGrantUtilization: 84.2,
 };
 
@@ -108,25 +108,25 @@ export const expenditureOutlayData: ExpenditureOutlayItem[] = [
   {
     category: "Paper Procurement (3.76K MT)",
     amountCr: 59.98,
-    percentage: 42,
+    percentage: 50,
     color: "#006A38",
   },
   {
     category: "Printing & Binding POs",
     amountCr: 49.98,
-    percentage: 35,
+    percentage: 42,
     color: "#2563eb",
   },
   {
     category: "HRMS Staff Payroll & EPF",
-    amountCr: 25.7,
-    percentage: 18,
+    amountCr: 2.4,
+    percentage: 2,
     color: "#f59e0b",
   },
   {
     category: "Depot Logistics & Freight",
     amountCr: 7.14,
-    percentage: 5,
+    percentage: 6,
     color: "#8b5cf6",
   },
 ];
@@ -257,17 +257,17 @@ export const initialPendingBills: FinancialBillItem[] = [
     },
     linkedOperationalData: {
       purchaseOrderNo: "HRMS-PAY-AUG-2026",
-      schemeName: "1,420 Active Staff (Class I-IV & Contract)",
+      schemeName: "85 Active Staff (Class I-IV & Contract)",
     },
-    grossBillAmount: 48520000,
+    grossBillAmount: 2000000,
     deductions: {
-      tdsIncomeTax2pc: 1250000,
+      tdsIncomeTax2pc: 90000,
       tdsGst2pc: 0,
       paperWastagePenalty: 0,
       lateDeliveryPenaltyLd: 0,
-      securityDepositRetention: 4850000, // NPS / GPF remittance
+      securityDepositRetention: 200000, // NPS / GPF remittance
     },
-    netPayableAmount: 42420000,
+    netPayableAmount: 1710000,
     approvalWorkflow: {
       verifiedByAccountsOfficer: true,
       auditedByInternalAudit: true,

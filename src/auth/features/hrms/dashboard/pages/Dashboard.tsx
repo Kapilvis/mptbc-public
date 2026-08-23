@@ -452,7 +452,7 @@ export default function HrmsDashboard() {
                 1. WORKFORCE DEPLOYMENT
               </span>
               <span className="text-[10px] font-bold bg-blue-100 text-blue-900 px-2 py-0.5 rounded-full border border-blue-300">
-                {kpis?.totalWorkforce || 1420} Total
+                {kpis?.totalWorkforce || 85} Total
               </span>
             </div>
 
@@ -462,7 +462,7 @@ export default function HrmsDashboard() {
                   PERMANENT
                 </span>
                 <div className="text-xl font-black text-slate-900">
-                  {kpis?.regularCount || 680}
+                  {kpis?.regularCount || 42}
                 </div>
               </div>
               <div>
@@ -470,7 +470,7 @@ export default function HrmsDashboard() {
                   CONTRACT
                 </span>
                 <div className="text-xl font-black text-slate-900">
-                  {kpis?.contractualCount || 340}
+                  {kpis?.contractualCount || 25}
                 </div>
               </div>
               <div>
@@ -478,7 +478,7 @@ export default function HrmsDashboard() {
                   OUTSOURCED
                 </span>
                 <div className="text-xl font-black text-slate-900">
-                  {kpis?.outsourcedCount || 400}
+                  {kpis?.outsourcedCount || 18}
                 </div>
               </div>
             </div>
@@ -486,7 +486,7 @@ export default function HrmsDashboard() {
           <div className="text-xs font-medium text-slate-700 mt-3 pt-2 border-t border-[#bfdbfe]">
             Staff Deployed:{" "}
             <strong className="text-slate-900 font-bold">
-              {kpis?.totalWorkforce || 1420} Active
+              {kpis?.totalWorkforce || 85} Active
             </strong>
           </div>
         </div>
@@ -499,7 +499,7 @@ export default function HrmsDashboard() {
                 2. TODAY'S ATTENDANCE
               </span>
               <span className="text-[10px] font-bold bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded-full border border-emerald-300">
-                {kpis?.attendancePct || 92.4}% Synced
+                {kpis?.attendancePct || 91.8}% Synced
               </span>
             </div>
 
@@ -509,7 +509,7 @@ export default function HrmsDashboard() {
                   PRESENT
                 </span>
                 <div className="text-xl font-black text-slate-900">
-                  {kpis?.presentCount || 1312}
+                  {kpis?.presentCount || 78}
                 </div>
               </div>
               <div>
@@ -517,8 +517,7 @@ export default function HrmsDashboard() {
                   ABSENT / LEAVE
                 </span>
                 <div className="text-xl font-black text-slate-900">
-                  {(kpis?.totalWorkforce || 1420) -
-                    (kpis?.presentCount || 1312)}
+                  {(kpis?.totalWorkforce || 85) - (kpis?.presentCount || 78)}
                 </div>
               </div>
             </div>
@@ -526,7 +525,7 @@ export default function HrmsDashboard() {
           <div className="text-xs font-medium text-slate-700 mt-3 pt-2 border-t border-[#bbf7d0]">
             Biometric Attendance:{" "}
             <strong className="text-emerald-900 font-bold">
-              {kpis?.attendancePct || 92.4}%
+              {kpis?.attendancePct || 91.8}%
             </strong>
           </div>
         </div>
@@ -539,7 +538,7 @@ export default function HrmsDashboard() {
                 3. MONTHLY PAYROLL
               </span>
               <span className="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full border border-amber-300">
-                {kpis?.monthlyPayrollBudget || "₹ 4.85 Cr"}
+                {kpis?.monthlyPayrollBudget || "₹ 20.00 Lakhs"}
               </span>
             </div>
 
@@ -549,7 +548,7 @@ export default function HrmsDashboard() {
                   SANCTIONED
                 </span>
                 <div className="text-xl font-black text-slate-900">
-                  {kpis?.monthlyPayrollBudget || "₹ 4.85 Cr"}
+                  {kpis?.monthlyPayrollBudget || "₹ 20.00 Lakhs"}
                 </div>
               </div>
               <div>
@@ -557,7 +556,7 @@ export default function HrmsDashboard() {
                   DISBURSED
                 </span>
                 <div className="text-xl font-black text-slate-900">
-                  {kpis?.disbursedPayroll || "₹ 4.78 Cr"}
+                  {kpis?.disbursedPayroll || "₹ 19.65 Lakhs"}
                 </div>
               </div>
             </div>
@@ -565,7 +564,7 @@ export default function HrmsDashboard() {
           <div className="text-xs font-medium text-slate-700 mt-3 pt-2 border-t border-[#fde68a]">
             IFMIS Bank Transfer:{" "}
             <strong className="text-slate-900 font-bold">
-              {kpis?.ifmisDisbursedPct || 98.6}% Complete
+              {kpis?.ifmisDisbursedPct || 98.3}% Complete
             </strong>
           </div>
         </div>
@@ -578,7 +577,7 @@ export default function HrmsDashboard() {
                 4. PENDING HR ACTIONS
               </span>
               <span className="text-[10px] font-bold bg-rose-100 text-rose-900 px-2 py-0.5 rounded-full border border-rose-300">
-                34 Pending
+                6 Pending
               </span>
             </div>
 
@@ -587,26 +586,26 @@ export default function HrmsDashboard() {
                 <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider block">
                   LEAVE
                 </span>
-                <div className="text-xl font-black text-slate-900">18</div>
+                <div className="text-xl font-black text-slate-900">3</div>
               </div>
               <div>
                 <span className="text-[10px] font-bold text-blue-800 uppercase tracking-wider block">
                   TRANSFER
                 </span>
-                <div className="text-xl font-black text-slate-900">10</div>
+                <div className="text-xl font-black text-slate-900">2</div>
               </div>
               <div>
                 <span className="text-[10px] font-bold text-indigo-800 uppercase tracking-wider block">
                   APAR
                 </span>
-                <div className="text-xl font-black text-slate-900">6</div>
+                <div className="text-xl font-black text-slate-900">1</div>
               </div>
             </div>
           </div>
           <div className="text-xs font-medium text-slate-700 mt-3 pt-2 border-t border-[#bae6fd]">
             Total Files Pending:{" "}
             <strong className="text-rose-700 font-bold">
-              34 Action Required
+              6 Action Required
             </strong>
           </div>
         </div>
@@ -623,7 +622,7 @@ export default function HrmsDashboard() {
                 Staff Breakdown by Employee Category & Office
               </h3>
               <p className="text-xs text-slate-800 font-bold mt-0.5">
-                Total 1,420 Employees working across Regular Officers, Staff,
+                Total 85 Employees working across Regular Officers, Staff,
                 Contractual, and Outsourced Roles.
               </p>
             </div>
@@ -640,12 +639,12 @@ export default function HrmsDashboard() {
                   Regular Class I & Class II Officers (GMs, Depot Managers,
                   Inspectors)
                 </span>
-                <span className="text-slate-900">180 (12.7%)</span>
+                <span className="text-slate-900">14 (16.5%)</span>
               </div>
               <div className="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden flex">
                 <div
                   className="bg-[#006A38] h-full rounded-full"
-                  style={{ width: "12.7%" }}
+                  style={{ width: "16.5%" }}
                 />
               </div>
             </div>
@@ -657,12 +656,12 @@ export default function HrmsDashboard() {
                   Regular Class III & IV Support Staff (Clerks, Storekeepers,
                   Peons)
                 </span>
-                <span className="text-slate-900">500 (35.2%)</span>
+                <span className="text-slate-900">28 (32.9%)</span>
               </div>
               <div className="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden flex">
                 <div
                   className="bg-emerald-500 h-full rounded-full"
-                  style={{ width: "35.2%" }}
+                  style={{ width: "32.9%" }}
                 />
               </div>
             </div>
@@ -674,12 +673,12 @@ export default function HrmsDashboard() {
                   Contractual Technical Personnel (Depot Assistants, IT Data
                   Analysts)
                 </span>
-                <span className="text-slate-900">340 (23.9%)</span>
+                <span className="text-slate-900">25 (29.4%)</span>
               </div>
               <div className="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden flex">
                 <div
                   className="bg-blue-600 h-full rounded-full"
-                  style={{ width: "23.9%" }}
+                  style={{ width: "29.4%" }}
                 />
               </div>
             </div>
@@ -691,12 +690,12 @@ export default function HrmsDashboard() {
                   Outsourced Warehouse Helpers & Depot Security (Mandideep & 51
                   Depots)
                 </span>
-                <span className="text-slate-900">400 (28.2%)</span>
+                <span className="text-slate-900">18 (21.2%)</span>
               </div>
               <div className="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden flex">
                 <div
                   className="bg-amber-500 h-full rounded-full"
-                  style={{ width: "28.2%" }}
+                  style={{ width: "21.2%" }}
                 />
               </div>
             </div>
@@ -708,7 +707,7 @@ export default function HrmsDashboard() {
                 HEAD OFFICE
               </span>
               <strong className="text-slate-900 font-black text-sm">
-                140 Staff
+                12 Staff
               </strong>
             </div>
             <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60">
@@ -716,7 +715,7 @@ export default function HrmsDashboard() {
                 51 DEPOTS
               </span>
               <strong className="text-slate-900 font-black text-sm">
-                1,080 Staff
+                55 Staff
               </strong>
             </div>
             <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60">
@@ -724,7 +723,7 @@ export default function HrmsDashboard() {
                 MANDIDEEP WAREHOUSE
               </span>
               <strong className="text-slate-900 font-black text-sm">
-                120 Staff
+                10 Staff
               </strong>
             </div>
             <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60">
@@ -732,7 +731,7 @@ export default function HrmsDashboard() {
                 QUALITY WING
               </span>
               <strong className="text-slate-900 font-black text-sm">
-                80 Staff
+                8 Staff
               </strong>
             </div>
           </div>
@@ -747,7 +746,7 @@ export default function HrmsDashboard() {
                 Daily Staff Attendance Summary
               </h3>
               <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-300">
-                Today: 92.4% Synced
+                Today: 91.8% Synced
               </span>
             </div>
 
@@ -767,39 +766,39 @@ export default function HrmsDashboard() {
                     strokeWidth="14"
                     fill="transparent"
                   />
-                  {/* Segment 1: Present (92.4%) */}
+                  {/* Segment 1: Present (91.8%) */}
                   <circle
                     cx="50"
                     cy="50"
                     r="38"
                     stroke="#1e9b61ff"
                     strokeWidth="14"
-                    strokeDasharray="220.5 238.7"
+                    strokeDasharray="219.1 238.7"
                     strokeDashoffset="0"
                     fill="transparent"
                     className="transition-all duration-300 hover:brightness-110 cursor-pointer"
                   />
-                  {/* Segment 2: Field Duty (4.5%) */}
+                  {/* Segment 2: Field Duty (4.7%) */}
                   <circle
                     cx="50"
                     cy="50"
                     r="38"
                     stroke="#467becff"
                     strokeWidth="14"
-                    strokeDasharray="10.7 238.7"
-                    strokeDashoffset="-220.5"
+                    strokeDasharray="11.2 238.7"
+                    strokeDashoffset="-219.1"
                     fill="transparent"
                     className="transition-all duration-300 hover:brightness-110 cursor-pointer"
                   />
-                  {/* Segment 3: Absent / On Leave (3.1%) */}
+                  {/* Segment 3: Absent / On Leave (3.5%) */}
                   <circle
                     cx="50"
                     cy="50"
                     r="38"
                     stroke="#f32c25ff"
                     strokeWidth="14"
-                    strokeDasharray="7.5 238.7"
-                    strokeDashoffset="-231.2"
+                    strokeDasharray="8.4 238.7"
+                    strokeDashoffset="-230.3"
                     fill="transparent"
                     className="transition-all duration-300 hover:brightness-110 cursor-pointer"
                   />
@@ -808,10 +807,10 @@ export default function HrmsDashboard() {
                 {/* Center Badge Text */}
                 <div className="absolute text-center pointer-events-none">
                   <span className="text-2xl font-black text-slate-900 block tracking-tight">
-                    92.4%
+                    91.8%
                   </span>
                   <span className="text-[10px] font-extrabold text-[#006A38] uppercase tracking-wider block">
-                    1,312 Present
+                    78 Present
                   </span>
                 </div>
               </div>
@@ -827,10 +826,10 @@ export default function HrmsDashboard() {
                   </div>
                   <div className="text-right">
                     <strong className="text-slate-900 font-extrabold block">
-                      1,312
+                      78
                     </strong>
                     <span className="text-[10px] text-emerald-800 font-bold">
-                      92.4%
+                      91.8%
                     </span>
                   </div>
                 </div>
@@ -844,10 +843,10 @@ export default function HrmsDashboard() {
                   </div>
                   <div className="text-right">
                     <strong className="text-slate-900 font-extrabold block">
-                      64
+                      4
                     </strong>
                     <span className="text-[10px] text-blue-800 font-bold">
-                      4.5%
+                      4.7%
                     </span>
                   </div>
                 </div>
@@ -861,10 +860,10 @@ export default function HrmsDashboard() {
                   </div>
                   <div className="text-right">
                     <strong className="text-slate-900 font-extrabold block">
-                      44
+                      3
                     </strong>
                     <span className="text-[10px] text-rose-800 font-bold">
-                      3.1%
+                      3.5%
                     </span>
                   </div>
                 </div>
@@ -894,7 +893,7 @@ export default function HrmsDashboard() {
                   APPROVED LEAVES
                 </span>
                 <strong className="text-slate-900 font-extrabold text-xs block mt-0.5">
-                  42 Staff
+                  3 Staff
                 </strong>
               </div>
             </div>
@@ -910,7 +909,7 @@ export default function HrmsDashboard() {
             <div>
               <h3 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                 <i className="pi pi-check-square text-rose-600" />
-                Action & Approval Center (34 Requests Pending)
+                Action & Approval Center (6 Requests Pending)
               </h3>
               <p className="text-xs text-slate-500 font-medium mt-0.5">
                 Official Leave Approvals, Transfer Requests, and Annual APAR
@@ -1081,7 +1080,7 @@ export default function HrmsDashboard() {
                   GROSS SALARY
                 </span>
                 <div className="text-base font-black text-slate-900 mt-0.5">
-                  ₹ 4,85,20,000
+                  ₹ 20,00,000
                 </div>
                 <span className="text-[10px] font-bold text-slate-500 block mt-0.5">
                   Monthly Commitment
@@ -1093,7 +1092,7 @@ export default function HrmsDashboard() {
                   NPS / GPF DEDUCTION
                 </span>
                 <div className="text-base font-black text-slate-900 mt-0.5">
-                  ₹ 48,50,000
+                  ₹ 2,00,000
                 </div>
                 <span className="text-[10px] font-bold text-slate-500 block mt-0.5">
                   Remitted to Treasury
@@ -1105,10 +1104,10 @@ export default function HrmsDashboard() {
                   OUTSOURCED EPF
                 </span>
                 <div className="text-base font-black text-slate-900 mt-0.5">
-                  ₹ 14,20,000
+                  ₹ 90,000
                 </div>
                 <span className="text-[10px] font-bold text-slate-500 block mt-0.5">
-                  400 Support Staff
+                  18 Support Staff
                 </span>
               </div>
 
@@ -1117,7 +1116,7 @@ export default function HrmsDashboard() {
                   NET DISBURSED
                 </span>
                 <div className="text-base font-black text-emerald-900 mt-0.5">
-                  ₹ 4,22,50,000
+                  ₹ 17,10,000
                 </div>
                 <span className="text-[10px] font-bold text-emerald-800 block mt-0.5">
                   100% Bank Credit
@@ -1204,7 +1203,7 @@ export default function HrmsDashboard() {
                     OPEN TICKETS
                   </span>
                   <div className="text-base font-black text-amber-900 mt-0.5">
-                    14 Tickets
+                    2 Tickets
                   </div>
                 </div>
                 <div className="bg-emerald-50/60 border border-emerald-200 p-2.5 rounded-xl">
@@ -1212,7 +1211,7 @@ export default function HrmsDashboard() {
                     RESOLVED MONTH
                   </span>
                   <div className="text-base font-black text-emerald-900 mt-0.5">
-                    28 Tickets
+                    4 Tickets
                   </div>
                 </div>
               </div>
@@ -1341,7 +1340,7 @@ export default function HrmsDashboard() {
             <div className="p-4 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 bg-slate-50/30">
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                  Master Employee Directory (1,420 Personnel)
+                  Master Employee Directory (85 Personnel)
                 </h4>
                 <span className="text-xs font-bold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">
                   {filteredEmployees.length} Officers Listed

@@ -5,14 +5,10 @@ import Page from "shared/components/panels/Page";
 import { Button } from "shared/components/buttons";
 import {
   Calendar,
-  CheckCircle2,
   Clock,
-  RotateCcw,
   AlertTriangle,
   ArrowRight,
   Check,
-  CalendarDays,
-  ListTodo,
 } from "lucide-react";
 
 import type { Milestone } from "./timelineMockData";
@@ -40,62 +36,6 @@ export const TimelineDashboardPage: React.FC = () => {
     }
     return ALL_MILESTONES[selectedCycle] || [];
   }, [selectedCycle, selectedYear]);
-
-  // Derived statistics for the KPI block
-  const stats = useMemo(() => {
-    const total = milestones.length;
-    const completed = milestones.filter(
-      (m) => m.completionStatus === "Complete",
-    ).length;
-    const inProgress = milestones.filter(
-      (m) =>
-        m.scheduleStatus === "In Progress" && m.completionStatus !== "Complete",
-    ).length;
-    const upcoming = milestones.filter(
-      (m) =>
-        m.scheduleStatus === "Upcoming" && m.completionStatus !== "Complete",
-    ).length;
-    const overdue = milestones.filter(
-      (m) =>
-        m.scheduleStatus === "Overdue" && m.completionStatus !== "Complete",
-    ).length;
-
-    // Calculate percentage
-    const completedPercent =
-      total > 0 ? Math.round((completed / total) * 100) : 0;
-    const inProgressPercent =
-      total > 0 ? Math.round((inProgress / total) * 100) : 0;
-    const upcomingPercent =
-      total > 0 ? Math.round((upcoming / total) * 100) : 0;
-    const overduePercent = total > 0 ? Math.round((overdue / total) * 100) : 0;
-
-    return {
-      total,
-      completed,
-      completedPercent,
-      inProgress,
-      inProgressPercent,
-      upcoming,
-      upcomingPercent,
-      overdue,
-      overduePercent,
-    };
-  }, [milestones]);
-
-  // CSS class helper for deadline diff badges
-  const getBadgeClasses = (type: Milestone["daysDiffType"]) => {
-    switch (type) {
-      case "early":
-      case "on-time":
-        return "bg-[#eaf5ea] text-[#008a45] border-[#c2d8be] dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900";
-      case "late":
-      case "overdue":
-        return "bg-rose-55 text-rose-700 border-rose-200 dark:bg-rose-950/20 dark:text-rose-400 dark:border-rose-900";
-      case "remaining":
-      default:
-        return "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-900";
-    }
-  };
 
   // Schedule Status badge styling helper
   const getScheduleStatusBadge = (status: Milestone["scheduleStatus"]) => {
@@ -137,7 +77,7 @@ export const TimelineDashboardPage: React.FC = () => {
 
   return (
     <Page
-      header="Lifecycle Tracker"
+      header="Textbook Deadline Tracker"
       subHeader={`Track all key milestones and deadlines for Academic Year ${selectedYear}`}
       showHeaderActions
     >
@@ -155,7 +95,7 @@ export const TimelineDashboardPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-2xs mb-6">
         <div>
           <h2 className="text-base font-bold text-slate-800 dark:text-slate-100">
-            Timeline Filter Center
+            Textbook Deadline Tracker
           </h2>
           <p className="text-sm md:text-sm font-medium text-slate-700 dark:text-slate-350 mt-1">
             Detailed overview of milestones, deadlines, progress and periods of
@@ -182,189 +122,12 @@ export const TimelineDashboardPage: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. KPI Metrics Ribbon */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-        {/* Total Milestones */}
-        <div
-          className="group relative flex flex-col justify-between rounded-2xl p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden"
-          style={{
-            backgroundColor: "#f0f9ff",
-            border: "1.5px solid #bae6fd",
-          }}
-        >
-          {/* Top Row: Title */}
-          <div className="flex items-start justify-between gap-2 mb-2.5">
-            <span className="text-[13.5px] font-extrabold uppercase tracking-wider leading-tight text-slate-900 dark:text-white">
-              Total Milestones
-            </span>
-          </div>
-
-          {/* Main Primary Metric & Subtitle */}
-          <div className="flex items-center justify-between gap-2 mt-1">
-            <div>
-              <div className="text-2xl font-black tracking-tight leading-snug text-black dark:text-white">
-                {stats.total}
-              </div>
-            </div>
-
-            {/* Bold Vibrant Icon Button */}
-            <span
-              className="flex h-11 w-11 items-center justify-center rounded-xl text-white text-lg shadow-md shrink-0 transition-transform duration-300 group-hover:scale-105"
-              style={{ backgroundColor: "#0284c7" }}
-            >
-              <CalendarDays size={20} />
-            </span>
-          </div>
-        </div>
-
-        {/* Completed */}
-        <div
-          className="group relative flex flex-col justify-between rounded-2xl p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden"
-          style={{
-            backgroundColor: "#f0fdf4",
-            border: "1.5px solid #bbf7d0",
-          }}
-        >
-          {/* Top Row: Title */}
-          <div className="flex items-start justify-between gap-2 mb-2.5">
-            <span className="text-[13.5px] font-extrabold uppercase tracking-wider leading-tight text-slate-900 dark:text-white">
-              Milestones (Completed)
-            </span>
-          </div>
-
-          {/* Main Primary Metric & Subtitle */}
-          <div className="flex items-center justify-between gap-2 mt-1">
-            <div>
-              <div className="text-2xl font-black tracking-tight leading-snug text-black dark:text-white">
-                {stats.completed}
-              </div>
-            </div>
-
-            {/* Bold Vibrant Icon Button */}
-            <span
-              className="flex h-11 w-11 items-center justify-center rounded-xl text-white text-lg shadow-md shrink-0 transition-transform duration-300 group-hover:scale-105"
-              style={{ backgroundColor: "#059669" }}
-            >
-              <CheckCircle2 size={20} />
-            </span>
-          </div>
-        </div>
-
-        {/* In Progress */}
-        <div
-          className="group relative flex flex-col justify-between rounded-2xl p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden"
-          style={{
-            backgroundColor: "#eff6ff",
-            border: "1.5px solid #bfdbfe",
-          }}
-        >
-          {/* Top Row: Title */}
-          <div className="flex items-start justify-between gap-2 mb-2.5">
-            <span className="text-[13.5px] font-extrabold uppercase tracking-wider leading-tight text-slate-900 dark:text-white">
-              Milestones (In Progress)
-            </span>
-          </div>
-
-          {/* Main Primary Metric & Subtitle */}
-          <div className="flex items-center justify-between gap-2 mt-1">
-            <div>
-              <div className="text-2xl font-black tracking-tight leading-snug text-black dark:text-white">
-                {stats.inProgress}
-              </div>
-            </div>
-
-            {/* Bold Vibrant Icon Button */}
-            <span
-              className="flex h-11 w-11 items-center justify-center rounded-xl text-white text-lg shadow-md shrink-0 transition-transform duration-300 group-hover:scale-105"
-              style={{ backgroundColor: "#2563eb" }}
-            >
-              <Clock size={20} />
-            </span>
-          </div>
-        </div>
-
-        {/* Upcoming */}
-        <div
-          className="group relative flex flex-col justify-between rounded-2xl p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden"
-          style={{
-            backgroundColor: "#fffbeb",
-            border: "1.5px solid #fde68a",
-          }}
-        >
-          {/* Top Row: Title */}
-          <div className="flex items-start justify-between gap-2 mb-2.5">
-            <span className="text-[13.5px] font-extrabold uppercase tracking-wider leading-tight text-slate-900 dark:text-white">
-              Milestones (Upcoming)
-            </span>
-          </div>
-
-          {/* Main Primary Metric & Subtitle */}
-          <div className="flex items-center justify-between gap-2 mt-1">
-            <div>
-              <div className="text-2xl font-black tracking-tight leading-snug text-black dark:text-white">
-                {stats.upcoming}
-              </div>
-            </div>
-
-            {/* Bold Vibrant Icon Button */}
-            <span
-              className="flex h-11 w-11 items-center justify-center rounded-xl text-white text-lg shadow-md shrink-0 transition-transform duration-300 group-hover:scale-105"
-              style={{ backgroundColor: "#d97706" }}
-            >
-              <RotateCcw size={20} />
-            </span>
-          </div>
-        </div>
-
-        {/* Overdue */}
-        <div
-          className="group relative flex flex-col justify-between rounded-2xl p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden"
-          style={{
-            backgroundColor: "#fff5f5",
-            border: "1.5px solid #feb2b2",
-          }}
-        >
-          {/* Top Row: Title */}
-          <div className="flex items-start justify-between gap-2 mb-2.5">
-            <span className="text-[13.5px] font-extrabold uppercase tracking-wider leading-tight text-slate-900 dark:text-white">
-              Milestones (Overdue)
-            </span>
-          </div>
-
-          {/* Main Primary Metric & Subtitle */}
-          <div className="flex items-center justify-between gap-2 mt-1">
-            <div>
-              <div className="text-2xl font-black tracking-tight leading-snug text-black dark:text-white">
-                {stats.overdue}
-              </div>
-            </div>
-
-            {/* Bold Vibrant Icon Button */}
-            <span
-              className="flex h-11 w-11 items-center justify-center rounded-xl text-white text-lg shadow-md shrink-0 transition-transform duration-300 group-hover:scale-105"
-              style={{ backgroundColor: "#e53e3e" }}
-            >
-              <AlertTriangle size={20} />
-            </span>
-          </div>
-        </div>
-      </div>
-
       {/* 3. Overall Progress & Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
         {/* Left Columns - Milestone Deadline Tracker & Flow */}
         <div className="lg:col-span-9 flex flex-col gap-6">
           {/* Milestone Deadline Tracker Card */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-2xs overflow-hidden">
-            <div className="p-5 border-b border-slate-200/80 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <h3 className="text-base font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                  <ListTodo size={18} className="text-[#008a45]" />
-                  Milestone Deadline Tracker
-                </h3>
-              </div>
-            </div>
-
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
@@ -374,7 +137,7 @@ export const TimelineDashboardPage: React.FC = () => {
                       #
                     </th>
                     <th className="py-3 px-4 text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">
-                      Milestone
+                      Lifecycle
                     </th>
                     <th className="py-3 px-4 text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">
                       Planned Date
@@ -382,9 +145,7 @@ export const TimelineDashboardPage: React.FC = () => {
                     <th className="py-3 px-4 text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">
                       Actual Date
                     </th>
-                    <th className="py-3 px-4 text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">
-                      Days Left / Overdue
-                    </th>
+
                     <th className="py-3 px-4 text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">
                       Deviation
                     </th>
@@ -455,20 +216,16 @@ export const TimelineDashboardPage: React.FC = () => {
                       <td className="py-3.5 px-4 font-semibold text-xs text-slate-600 dark:text-slate-400">
                         {item.completionDate}
                       </td>
-                      <td className="py-3.5 px-4">
-                        <span
-                          className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${getBadgeClasses(item.daysDiffType)}`}
-                        >
-                          {item.daysDiffText}
-                        </span>
-                      </td>
+
                       <td className="py-3.5 px-4">
                         <span
                           className={getScheduleStatusBadge(
                             item.scheduleStatus,
                           )}
                         >
-                          {item.scheduleStatus}
+                          {item.scheduleStatus === "Overdue"
+                            ? "Overrun"
+                            : item.scheduleStatus}
                         </span>
                       </td>
                       <td className="py-3.5 px-4">
@@ -503,60 +260,6 @@ export const TimelineDashboardPage: React.FC = () => {
 
         {/* Right Columns - Overall Progress & Demand Cycle Management */}
         <div className="lg:col-span-3 flex flex-col gap-6">
-          {/* Overall Progress Card */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 rounded-2xl shadow-2xs">
-            <h3 className="text-xs font-bold text-slate-800 dark:text-slate-400 uppercase tracking-wider mb-4">
-              Overall Progress
-            </h3>
-
-            <div className="flex flex-col items-center justify-center py-3">
-              {/* Circular SVG Progress Bar */}
-              <div className="relative h-32 w-32 flex items-center justify-center">
-                <svg className="absolute transform -rotate-90 h-32 w-32">
-                  {/* Track ring */}
-                  <circle
-                    cx="64"
-                    cy="64"
-                    r="52"
-                    strokeWidth="8"
-                    stroke="currentColor"
-                    className="text-slate-100 dark:text-slate-800"
-                    fill="transparent"
-                  />
-                  {/* Progress ring */}
-                  <circle
-                    cx="64"
-                    cy="64"
-                    r="52"
-                    strokeWidth="8"
-                    strokeDasharray={326.7}
-                    strokeDashoffset={
-                      326.7 - (326.7 * stats.completedPercent) / 100
-                    }
-                    strokeLinecap="round"
-                    stroke="currentColor"
-                    className="text-(--primary-color,#008a45) transition-all duration-500"
-                    fill="transparent"
-                  />
-                </svg>
-                <div className="text-center">
-                  <span className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 block">
-                    {stats.completedPercent}%
-                  </span>
-                  <span className="text-[9px] text-slate-400 dark:text-slate-500 block uppercase font-bold tracking-wider mt-0.5">
-                    Completed
-                  </span>
-                </div>
-              </div>
-
-              <div className="text-center mt-4">
-                <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                  {stats.completed} of {stats.total} Milestones Completed
-                </p>
-              </div>
-            </div>
-          </div>
-
           {/* Demand Cycle Management */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 rounded-2xl shadow-2xs">
             <div className="flex items-center justify-between mb-4">

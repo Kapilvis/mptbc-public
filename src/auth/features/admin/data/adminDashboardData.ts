@@ -241,7 +241,7 @@ export const FULFILLMENT_DONUT_DATA = [
 export const SUB_PORTAL_SUMMARIES: SubPortalSummary[] = [
   {
     id: "distribution",
-    title: "Distribution",
+    title: "Distribution Dashboard",
     subtitle: "Demand Books",
     route: "/distribution/dashboard",
     badge: "Departments",
