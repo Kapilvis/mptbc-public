@@ -72,7 +72,7 @@ export function DemandSupplyBarChart() {
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-xs" />
             <span className="text-rose-700 dark:text-rose-400 font-bold">
-              Critical Deficit (&lt;40%)
+              Delay (&lt;40%)
             </span>
           </div>
         </div>

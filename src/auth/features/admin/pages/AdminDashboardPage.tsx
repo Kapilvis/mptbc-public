@@ -49,7 +49,7 @@ export const AdminDashboardPage: React.FC = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-4">
         <div>
-          <h1 className="text-[26px] font-bold text-slate-800 leading-tight mb-1">Progress At A Glance</h1>
+          <h1 className="text-[26px] font-bold text-slate-800 leading-tight mb-1">Progress @ Glance</h1>
         </div>
         <div className="text-[12px] font-semibold text-gray-500 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm">
           Last updated: <span className="text-slate-800">{lastUpdated}</span>

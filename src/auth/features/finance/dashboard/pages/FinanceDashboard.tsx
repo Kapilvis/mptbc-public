@@ -408,7 +408,7 @@ export default function FinanceDashboard() {
                   PAYROLL
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  ₹ 25.7 Cr
+                  ₹ 2.4 Cr
                 </div>
               </div>
               <div>
@@ -423,7 +423,7 @@ export default function FinanceDashboard() {
           </div>
           <div className="text-xs font-bold text-slate-800 mt-2">
             Disbursed via Treasury:{" "}
-            <strong className="text-emerald-900 font-black">₹ 142.80 Cr</strong>
+            <strong className="text-emerald-900 font-black">₹ 119.50 Cr</strong>
           </div>
         </div>
 
@@ -483,11 +483,11 @@ export default function FinanceDashboard() {
                 4. HRMS PAYROLL SYNC
               </span>
               <span className="text-[10px] font-bold bg-purple-100 text-purple-900 px-2 py-0.5 rounded-full border border-purple-300">
-                1,420 Staff
+                85 Staff
               </span>
             </div>
             <div className="text-xl font-black text-purple-950 mt-1">
-              ₹ 4.85 Cr / Mo
+              ₹ 20.00 Lakhs / Mo
             </div>
 
             <div className="grid grid-cols-3 gap-1 text-left mt-2.5 pt-2 border-t border-[#e9d5ff]">
@@ -496,7 +496,7 @@ export default function FinanceDashboard() {
                   REGULAR
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  ₹ 3.20 Cr
+                  ₹ 13.80 L
                 </div>
               </div>
               <div>
@@ -504,7 +504,7 @@ export default function FinanceDashboard() {
                   CONTRACT
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  ₹ 1.05 Cr
+                  ₹ 4.60 L
                 </div>
               </div>
               <div>
@@ -512,14 +512,16 @@ export default function FinanceDashboard() {
                   OUTSOURCE
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  ₹ 0.60 Cr
+                  ₹ 1.60 L
                 </div>
               </div>
             </div>
           </div>
           <div className="text-xs font-bold text-slate-800 mt-2">
             Monthly Commitment:{" "}
-            <strong className="text-purple-900 font-black">₹ 4.85 Cr</strong>
+            <strong className="text-purple-900 font-black">
+              ₹ 20.00 Lakhs
+            </strong>
           </div>
         </div>
 
@@ -585,7 +587,7 @@ export default function FinanceDashboard() {
                 </p>
               </div>
               <span className="text-xs font-extrabold text-slate-800 bg-slate-100 px-3 py-1 rounded-full">
-                FY26 Total Outflow: ₹ 142.80 Cr
+                FY26 Total Outflow: ₹ 119.50 Cr
               </span>
             </div>
 
@@ -597,7 +599,7 @@ export default function FinanceDashboard() {
                   <div className="flex justify-between items-center text-[10px] font-bold text-emerald-900 uppercase">
                     <span>PAPER MILLS</span>
                     <span className="bg-emerald-100 px-2 py-0.5 rounded border border-emerald-300">
-                      42% Outlay
+                      50% Outlay
                     </span>
                   </div>
                   <div className="text-lg font-black text-slate-900 mt-1">
@@ -619,7 +621,7 @@ export default function FinanceDashboard() {
                   <div className="flex justify-between items-center text-[10px] font-bold text-blue-900 uppercase">
                     <span>PRINTER POS</span>
                     <span className="bg-blue-100 px-2 py-0.5 rounded border border-blue-300">
-                      35% Outlay
+                      42% Outlay
                     </span>
                   </div>
                   <div className="text-lg font-black text-slate-900 mt-1">
@@ -641,18 +643,18 @@ export default function FinanceDashboard() {
                   <div className="flex justify-between items-center text-[10px] font-bold text-amber-900 uppercase">
                     <span>HRMS PAYROLL</span>
                     <span className="bg-amber-100 px-2 py-0.5 rounded border border-amber-300">
-                      18% Outlay
+                      2% Outlay
                     </span>
                   </div>
                   <div className="text-lg font-black text-slate-900 mt-1">
-                    ₹ 25.70 Cr
+                    ₹ 2.40 Cr
                   </div>
                   <span className="text-xs font-bold text-slate-800 block mt-0.5">
-                    1,420 Staff Salaries
+                    85 Staff Salaries
                   </span>
                 </div>
                 <div className="pt-2 border-t border-amber-200 text-[11px] font-extrabold text-amber-950 flex justify-between">
-                  <span>₹ 4.85 Cr / Month</span>
+                  <span>₹ 20.00 Lakhs / Month</span>
                   <span>100% Paid</span>
                 </div>
               </div>
@@ -663,7 +665,7 @@ export default function FinanceDashboard() {
                   <div className="flex justify-between items-center text-[10px] font-bold text-purple-900 uppercase">
                     <span>DEPOT FREIGHT</span>
                     <span className="bg-purple-100 px-2 py-0.5 rounded border border-purple-300">
-                      5% Outlay
+                      6% Outlay
                     </span>
                   </div>
                   <div className="text-lg font-black text-slate-900 mt-1">
@@ -732,10 +734,10 @@ export default function FinanceDashboard() {
                   },
                   {
                     name: "HRMS Staff Payroll",
-                    val: "₹ 25.70 Cr",
+                    val: "₹ 2.40 Cr",
                     height: "36%",
                     color: "#d97706",
-                    sub: "1,420 Active Personnel",
+                    sub: "85 Active Personnel",
                   },
                   {
                     name: "Depot Freight",
@@ -782,7 +784,7 @@ export default function FinanceDashboard() {
                   Expenditure Outlay Breakdown
                 </h3>
                 <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  ₹ 142.80 Cr Total
+                  ₹ 119.50 Cr Total
                 </span>
               </div>
 
@@ -801,48 +803,48 @@ export default function FinanceDashboard() {
                       strokeWidth="14"
                       fill="transparent"
                     />
-                    {/* Paper 42% */}
+                    {/* Paper 50% */}
                     <circle
                       cx="50"
                       cy="50"
                       r="38"
                       stroke="#006A38"
                       strokeWidth="14"
-                      strokeDasharray="100.2 238.7"
+                      strokeDasharray="119.8 238.7"
                       strokeDashoffset="0"
                       fill="transparent"
                     />
-                    {/* Printing 35% */}
+                    {/* Printing 42% */}
                     <circle
                       cx="50"
                       cy="50"
                       r="38"
                       stroke="#2563eb"
                       strokeWidth="14"
-                      strokeDasharray="83.5 238.7"
-                      strokeDashoffset="-100.2"
+                      strokeDasharray="99.8 238.7"
+                      strokeDashoffset="-119.8"
                       fill="transparent"
                     />
-                    {/* Payroll 18% */}
+                    {/* Payroll 2% */}
                     <circle
                       cx="50"
                       cy="50"
                       r="38"
                       stroke="#f59e0b"
                       strokeWidth="14"
-                      strokeDasharray="42.9 238.7"
-                      strokeDashoffset="-183.7"
+                      strokeDasharray="4.8 238.7"
+                      strokeDashoffset="-219.6"
                       fill="transparent"
                     />
-                    {/* Logistics 5% */}
+                    {/* Logistics 6% */}
                     <circle
                       cx="50"
                       cy="50"
                       r="38"
                       stroke="#8b5cf6"
                       strokeWidth="14"
-                      strokeDasharray="11.9 238.7"
-                      strokeDashoffset="-226.6"
+                      strokeDasharray="14.3 238.7"
+                      strokeDashoffset="-224.4"
                       fill="transparent"
                     />
                   </svg>
@@ -874,7 +876,7 @@ export default function FinanceDashboard() {
                       </span>
                     </div>
                     <span className="font-extrabold text-slate-900">
-                      ₹ {item.amountCr} Cr ({item.percentage}%)
+                      ₹ {item.amountCr.toFixed(2)} Cr ({item.percentage}%)
                     </span>
                   </div>
                 ))}

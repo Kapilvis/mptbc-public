@@ -15,7 +15,9 @@ const AppFooter: React.FC = () => {
         </div>
 
         <div className="app-footer-credit">
-          <span className="app-footer-credit-short">D&amp;D by : </span>
+          <span className="app-footer-credit-short">
+            Designed &amp; Developed :{" "}
+          </span>
           <span className="app-footer-company">NICSI</span>
         </div>
       </div>

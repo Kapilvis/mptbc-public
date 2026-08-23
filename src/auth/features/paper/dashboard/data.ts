@@ -52,7 +52,7 @@ export const MOCK_PAPER_KPI_METRICS: PaperKpiMetric[] = [
     badgeType: "success",
   },
   {
-    title: "Dispatched & Delivered",
+    title: "Received",
     value: "3,165 MT",
     subValue: "",
     icon: "pi pi-truck",
@@ -60,7 +60,7 @@ export const MOCK_PAPER_KPI_METRICS: PaperKpiMetric[] = [
     badgeType: "success",
   },
   {
-    title: "Pending Supply",
+    title: "Pending",
     value: "602 MT",
     subValue: "",
     icon: "pi pi-clock",
@@ -68,8 +68,8 @@ export const MOCK_PAPER_KPI_METRICS: PaperKpiMetric[] = [
     badgeType: "warning",
   },
   {
-    title: "Central Stock Verified",
-    value: "2,850 MT",
+    title: "Delivered to Printer",
+    value: "2850 MT",
     subValue: "",
     icon: "pi pi-building",
     badgeText: "75.7% Stocked",

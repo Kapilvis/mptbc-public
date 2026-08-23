@@ -8,7 +8,7 @@ import {
   Truck,
   CreditCard,
   AlertTriangle,
-  DollarSign,
+  IndianRupee,
   Users,
   Scale,
   CheckSquare,
@@ -23,6 +23,7 @@ import { PaperGsmModal } from "../modals/PaperGsmModal";
 
 export const DemandKpiCard: React.FC = () => {
   const data = mockDashboardData.demand;
+  const navigate = useNavigate();
 
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
@@ -162,7 +163,7 @@ export const DemandKpiCard: React.FC = () => {
               <span className="text-xs font-black text-black uppercase tracking-wide mb-1">
                 Total Demand
               </span>
-              <span className="text-3xl font-black text-black leading-none mb-1">
+              <span className="text-3xl font-black text-blue-600 leading-none mb-1">
                 {data.totalDemand}
               </span>
               <span className="text-xs text-black font-black uppercase tracking-wide">
@@ -180,7 +181,7 @@ export const DemandKpiCard: React.FC = () => {
               <span className="text-xs font-black text-black uppercase tracking-wide mb-1">
                 Demand Approval
               </span>
-              <span className="text-3xl font-black text-black leading-none mb-1">
+              <span className="text-3xl font-black text-emerald-600 leading-none mb-1">
                 {data.demandApproved}
               </span>
               <span className="text-xs text-black font-black uppercase tracking-wide">
@@ -198,7 +199,7 @@ export const DemandKpiCard: React.FC = () => {
               <span className="text-xs font-black text-black uppercase tracking-wide mb-1">
                 Under Approval
               </span>
-              <span className="text-3xl font-black text-black leading-none mb-1">
+              <span className="text-3xl font-black text-orange-600 leading-none mb-1">
                 {data.underApproval?.value || "3,00,000"}
               </span>
               <span className="text-xs text-black font-black uppercase tracking-wide">
@@ -216,9 +217,9 @@ export const DemandKpiCard: React.FC = () => {
               <span className="text-xs font-black text-black uppercase tracking-wide mb-1">
                 Last Year (YOY)
               </span>
-              <span className="text-3xl font-black text-black flex items-center gap-1 leading-none mb-1">
-                <i className="pi pi-arrow-up text-[18px] text-black -mt-1"></i>
-                {data.lastYearComparison?.value || "+5%"}
+              <span className="text-3xl font-black text-purple-600 flex items-center gap-1 leading-none mb-1">
+                <i className="pi pi-arrow-up text-[18px] text-purple-600 -mt-1"></i>
+                {data.lastYearComparison?.value || "+5.39%"}
               </span>
               <span className="text-xs text-black font-black uppercase tracking-wide">
                 Growth
@@ -240,50 +241,73 @@ export const DemandKpiCard: React.FC = () => {
               <div className="grid grid-cols-3 gap-2 text-center divide-x divide-black/10">
                 <div>
                   <div className="text-xs font-black text-black mb-1">2025</div>
-                  <div className="text-sm font-black text-black tracking-tight">
-                    4,27,000
+                  <div className="text-sm font-black text-black tracking-tight flex items-center justify-center gap-1 flex-wrap">
+                    <span>4,27,000</span>
+                    <span className="text-[10px] font-black text-emerald-600 inline-flex items-center gap-0.5">
+                      <i className="pi pi-arrow-up text-[8px]"></i>+1.43%
+                    </span>
                   </div>
                 </div>
                 <div>
                   <div className="text-xs font-black text-black mb-1">2024</div>
-                  <div className="text-sm font-black text-black tracking-tight">
-                    4,21,000
+                  <div className="text-sm font-black text-black tracking-tight flex items-center justify-center gap-1 flex-wrap">
+                    <span>4,21,000</span>
+                    <span className="text-[10px] font-black text-emerald-600 inline-flex items-center gap-0.5">
+                      <i className="pi pi-arrow-up text-[8px]"></i>+2.43%
+                    </span>
                   </div>
                 </div>
                 <div>
                   <div className="text-xs font-black text-black mb-1">2023</div>
-                  <div className="text-sm font-black text-black tracking-tight">
-                    4,11,000
+                  <div className="text-sm font-black text-black tracking-tight flex items-center justify-center gap-1 flex-wrap">
+                    <span>4,11,000</span>
+                    <span className="text-[10px] font-bold text-gray-400">
+                      (Base)
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* View Demand Card */}
-            <div className="bg-white border border-blue-100 rounded-[10px] p-5 shadow-[0_1px_2px_rgba(0,0,0,0.02)] flex-1">
-              <h3 className="text-xs font-black text-black mb-4 flex items-center gap-2 uppercase tracking-wide">
-                <i className="pi pi-list text-black"></i> View Demand
-              </h3>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { id: "class", label: "Group Class Wise" },
-                  { id: "detailedClass", label: "Class Wise" },
-                  { id: "stream", label: "Stream Wise" },
-                  { id: "medium", label: "Medium Wise" },
-                  { id: "gsm", label: "GSM Wise" },
-                  { id: "bookType", label: "Book Type Wise" },
-                ].map((btn) => (
-                  <button
-                    key={btn.id}
-                    onClick={() =>
-                      setModalState({ isOpen: true, type: btn.id })
-                    }
-                    className="flex items-center justify-between rounded-lg border border-black/10 bg-white px-3 py-2 text-xs font-black text-black hover:bg-gray-100 transition-all text-left shadow-sm group"
-                  >
-                    <span>{btn.label}</span>
-                    <i className="pi pi-chevron-right text-xs text-black/50 group-hover:translate-x-0.5 transition-transform" />
-                  </button>
-                ))}
+            <div className="bg-white border border-blue-100 rounded-[10px] p-5 shadow-[0_1px_2px_rgba(0,0,0,0.02)] flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="text-xs font-black text-black mb-4 flex items-center gap-2 uppercase tracking-wide">
+                  <i className="pi pi-list text-black"></i> View Demand
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { id: "class", label: "Group Class Wise" },
+                    { id: "detailedClass", label: "Class Wise" },
+                    { id: "stream", label: "Stream Wise" },
+                    { id: "medium", label: "Medium Wise" },
+                    { id: "gsm", label: "GSM Wise" },
+                    { id: "bookType", label: "Book Type Wise" },
+                  ].map((btn) => (
+                    <button
+                      key={btn.id}
+                      onClick={() =>
+                        setModalState({ isOpen: true, type: btn.id })
+                      }
+                      className="flex items-center justify-between rounded-lg border border-black/10 bg-white px-3 py-2 text-xs font-black text-black hover:bg-gray-100 transition-all text-left shadow-sm group"
+                    >
+                      <span>{btn.label}</span>
+                      <i className="pi pi-chevron-right text-xs text-black/50 group-hover:translate-x-0.5 transition-transform" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-4 pt-4 border-t border-black/10">
+                <button
+                  onClick={() => navigate("/distribution/dashboard")}
+                  className="w-full rounded-lg border border-black/10 bg-white px-3 py-2.5 text-xs font-black text-black hover:bg-gray-100 transition-all flex justify-between items-center group shadow-sm"
+                >
+                  <span>View Dashboard</span>
+                  <span className="flex items-center gap-1 text-black">
+                    View{" "}
+                    <i className="pi pi-chevron-right text-xs group-hover:translate-x-0.5 transition-transform" />
+                  </span>
+                </button>
               </div>
             </div>
           </div>
@@ -298,7 +322,7 @@ export const DemandKpiCard: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-[15px] font-black text-black uppercase tracking-wide">
-                    Department Wise Demand
+                    Demand Analytics
                   </h3>
                 </div>
               </div>
@@ -419,31 +443,112 @@ export const PaperAnalysisKpiCard: React.FC = () => {
   const [isGsmModalOpen, setGsmModalOpen] = useState(false);
 
   return (
-    <BaseKpiCard
-      title="Paper Analysis"
-      badge="In MT / Books"
-      theme="green"
-      icon={FileText}
-    >
-      <div className="flex flex-col gap-1 flex-1">
-        <MetricRow label="Total Required" value={data.totalRequiredMt} />
-        <MetricRow
-          label="Opening Stock"
-          value={data.openingStockMt?.value || "80 / 8,000"}
-        />
-        <MetricRow label="Available Stock" value={data.availableStockMt} />
+    <BaseKpiCard title="Paper & Books Analysis" theme="green" icon={FileText}>
+      <div className="flex flex-col gap-1.5 flex-1">
+        {/* Total Required */}
+        <div className="flex justify-between items-center py-2 border-b border-black/10 border-dashed">
+          <span className="text-[13px] font-black text-black uppercase tracking-wide">
+            Total Required
+          </span>
+          <div className="text-right flex flex-col leading-snug">
+            <span className="text-[14px] font-black text-black">3,767 MT</span>
+            <span className="text-[13px] font-black text-black">
+              3,90,000 Books
+            </span>
+          </div>
+        </div>
 
-        <MetricRow
-          label="Need To Purchased"
-          value={
-            <span className="text-orange-600">{data.needToPurchaseMt}</span>
-          }
-        />
+        {/* Opening Stock */}
+        <div className="flex justify-between items-center py-2 border-b border-black/10 border-dashed">
+          <div className="flex flex-col leading-snug">
+            <span className="text-[13px] font-black text-black uppercase tracking-wide">
+              Opening Stock
+            </span>
+            <span className="text-[11px] font-black text-black lowercase tracking-wide normal-case">
+              (as on 1-Jan-2026)
+            </span>
+          </div>
+          <div className="text-right flex flex-col leading-snug">
+            <span className="text-[14px] font-black text-black">60 MT</span>
+            <span className="text-[13px] font-black text-black">
+              6,000 Books
+            </span>
+          </div>
+        </div>
 
-        <MetricRow
-          label="Received Paper"
-          value={data.receivedPaperMt?.value || "3,617 / 3,42,000"}
-        />
+        {/* Received Stock */}
+        <div className="flex justify-between items-center py-2 border-b border-black/10 border-dashed">
+          <div className="flex flex-col leading-snug">
+            <span className="text-[13px] font-black text-black uppercase tracking-wide">
+              Received Stock
+            </span>
+            <span className="text-[11px] font-black text-black lowercase tracking-wide normal-case">
+              (last received: 17-Aug-2026)
+            </span>
+          </div>
+          <div className="text-right flex flex-col leading-snug">
+            <span className="text-[14px] font-black text-black">3,165 MT</span>
+            <span className="text-[13px] font-black text-black">
+              3,27,650 Books
+            </span>
+          </div>
+        </div>
+
+        {/* Return Stock */}
+        <div className="flex justify-between items-center py-2 border-b border-black/10 border-dashed">
+          <div className="flex flex-col leading-snug">
+            <span className="text-[13px] font-black text-black uppercase tracking-wide">
+              Return Stock
+            </span>
+            <span className="text-[11px] font-black text-black lowercase tracking-wide normal-case">
+              (Return on 1-Aug-2026)
+            </span>
+          </div>
+          <div className="text-right flex flex-col leading-snug">
+            <span className="text-[14px] font-black text-black">10 MT</span>
+            <span className="text-[13px] font-black text-black">
+              1,000 Books
+            </span>
+          </div>
+        </div>
+
+        {/* Available Stock (GREEN) */}
+        <div className="flex justify-between items-center py-2 border-b border-black/10 border-dashed">
+          <div className="flex flex-col leading-snug">
+            <span className="text-[13px] font-black text-black uppercase tracking-wide">
+              Available Stock
+            </span>
+            <span className="text-[11px] font-black text-black lowercase tracking-wide normal-case">
+              (as on 23-Aug-2026)
+            </span>
+          </div>
+          <div className="text-right flex flex-col leading-snug">
+            <span className="text-[14px] font-black text-emerald-600">
+              602 MT
+            </span>
+            <span className="text-[13px] font-black text-emerald-600">
+              62,350 Books
+            </span>
+          </div>
+        </div>
+
+        {/* Need To Purchase (RED) */}
+        <div className="flex justify-between items-center py-2 last:border-0">
+          <div className="flex flex-col leading-snug">
+            <span className="text-[13px] font-black text-black uppercase tracking-wide">
+              Need To Purchase / Print
+            </span>
+            <span className="text-[11px] font-black text-black lowercase tracking-wide normal-case">
+              (since 10-aug-2026)
+            </span>
+          </div>
+          <div className="text-right flex flex-col leading-snug">
+            <span className="text-[14px] font-black text-rose-600">52 MT</span>
+            <span className="text-[13px] font-black text-rose-600">
+              5,20,000 Books
+            </span>
+          </div>
+        </div>
       </div>
 
       <div className="mt-5 flex flex-col gap-3 border-t border-black/10 pt-4">
@@ -595,19 +700,101 @@ export const PrintingProgressKpiCard: React.FC<{ onOpenModal: () => void }> = ({
       icon={Settings}
     >
       <div className="flex flex-col gap-1 flex-1">
-        <MetricRow label="Total Printer" value={data.totalPrinters} />
-        <MetricRow label="Total Target" value={data.totalBooksTarget} />
-        <MetricRow label="Dispatch" value={data.dispatchCount} />
-        <MetricRow
-          label="Pending"
-          value={<span className="text-orange-600">{data.pending}</span>}
-        />
-        <MetricRow label="Total Inspection" value={data.totalInspections} />
-        <MetricRow
-          label="QA (Passed)"
-          value={<span className="text-emerald-600">{data.qaPassed}</span>}
-        />
-        <MetricRow label="Total Transporter" value={data.totalTransporter} />
+        {/* Total Printer */}
+        <div className="flex justify-between items-center py-2 border-b border-black/10 border-dashed">
+          <div className="flex flex-col leading-snug">
+            <span className="text-[13px] font-black text-black uppercase tracking-wide">
+              Total Printer
+            </span>
+            <span className="text-[11px] font-black text-black lowercase tracking-wide normal-case">
+              (as per rate contract)
+            </span>
+          </div>
+          <span className="text-[14px] font-black text-black">
+            {data.totalPrinters}
+          </span>
+        </div>
+
+        {/* Total Target */}
+        <div className="flex justify-between items-center py-2 border-b border-black/10 border-dashed">
+          <div className="flex flex-col leading-snug">
+            <span className="text-[13px] font-black text-black uppercase tracking-wide">
+              Total Target
+            </span>
+            <span className="text-[11px] font-black text-black lowercase tracking-wide normal-case">
+              (as per work order)
+            </span>
+          </div>
+          <span className="text-[14px] font-black text-black">
+            {data.totalBooksTarget}
+          </span>
+        </div>
+
+        {/* Dispatch */}
+        <div className="flex justify-between items-center py-2 border-b border-black/10 border-dashed">
+          <div className="flex flex-col leading-snug">
+            <span className="text-[13px] font-black text-black uppercase tracking-wide">
+              Dispatch
+            </span>
+            <span className="text-[11px] font-black text-black lowercase tracking-wide normal-case">
+              (printer to depot)
+            </span>
+          </div>
+          <span className="text-[14px] font-black text-black">
+            {data.dispatchCount}
+          </span>
+        </div>
+
+        {/* Total Inspection */}
+        <div className="flex justify-between items-center py-2 border-b border-black/10 border-dashed">
+          <div className="flex flex-col leading-snug">
+            <span className="text-[13px] font-black text-black uppercase tracking-wide">
+              Total Inspection
+            </span>
+          </div>
+          <span className="text-[14px] font-black text-black">
+            {data.totalInspections}
+          </span>
+        </div>
+
+        {/* QA (Passed) */}
+        <div className="flex justify-between items-center py-2 border-b border-black/10 border-dashed">
+          <div className="flex flex-col leading-snug">
+            <span className="text-[13px] font-black text-black uppercase tracking-wide">
+              QA (Passed)
+            </span>
+          </div>
+          <span className="text-[14px] font-black text-emerald-600">
+            {data.qaPassed}
+          </span>
+        </div>
+
+        {/* Pending */}
+        <div className="flex justify-between items-center py-2 border-b border-black/10 border-dashed">
+          <div className="flex flex-col leading-snug">
+            <span className="text-[13px] font-black text-black uppercase tracking-wide">
+              Pending
+            </span>
+            <span className="text-[11px] font-black text-black lowercase tracking-wide normal-case">
+              (from printer)
+            </span>
+          </div>
+          <span className="text-[14px] font-black text-rose-600">
+            {data.pending}
+          </span>
+        </div>
+
+        {/* Total Transporter */}
+        <div className="flex justify-between items-center py-2 last:border-0">
+          <div className="flex flex-col leading-snug">
+            <span className="text-[13px] font-black text-black uppercase tracking-wide">
+              Total Transporter
+            </span>
+          </div>
+          <span className="text-[14px] font-black text-black">
+            {data.totalTransporter}
+          </span>
+        </div>
       </div>
 
       <div className="mt-5 flex flex-col gap-3 border-t border-black/10 pt-4">
@@ -636,18 +823,20 @@ export const DistributionKpiCard: React.FC = () => {
       icon={Truck}
     >
       <div className="flex flex-col gap-1 flex-1">
-        <MetricRow label="Received" value={data.received} />
+        <MetricRow label="Received from printer" value={data.received} />
         <MetricRow
-          label="Delivered"
+          label="Dispatch to block"
           value={<span className="text-emerald-600">{data.delivered}</span>}
         />
         <MetricRow
-          label="Pending"
-          value={<span className="text-orange-600">{data.pending}</span>}
+          label="In transit to block"
+          value={data.inTransit?.value || "10,500"}
         />
         <MetricRow
-          label="In Transit"
-          value={data.inTransit?.value || "3,00,000"}
+          label="Pending for dispatch"
+          value={
+            <span className="text-rose-600 font-extrabold">{data.pending}</span>
+          }
         />
       </div>
     </BaseKpiCard>
@@ -657,9 +846,10 @@ export const DistributionKpiCard: React.FC = () => {
 export const BillAndPaymentKpiCard: React.FC<{
   onOpenPaperModal: () => void;
   onOpenPrinterModal: () => void;
-}> = ({ onOpenPaperModal, onOpenPrinterModal }) => {
-  const [tab, setTab] = useState<"paper" | "printer">("paper");
-  const data = mockDashboardData.billAndPayment[tab];
+}> = ({ onOpenPaperModal }) => {
+  const paperData = mockDashboardData.billAndPayment.paper;
+  const printerData = mockDashboardData.billAndPayment.printer;
+  const othersData = mockDashboardData.billAndPayment.others;
 
   return (
     <BaseKpiCard
@@ -668,40 +858,130 @@ export const BillAndPaymentKpiCard: React.FC<{
       theme="teal"
       icon={CreditCard}
     >
-      <div className="flex bg-white rounded-lg p-1.5 mb-4 border border-black/10 shadow-sm">
-        <button
-          className={`flex-1 text-xs font-black py-1.5 rounded-md transition-colors ${tab === "paper" ? "bg-black shadow-sm text-white" : "text-black hover:bg-gray-100"}`}
-          onClick={() => setTab("paper")}
-        >
-          Paper
-        </button>
-        <button
-          className={`flex-1 text-xs font-black py-1.5 rounded-md transition-colors ${tab === "printer" ? "bg-black shadow-sm text-white" : "text-black hover:bg-gray-100"}`}
-          onClick={() => setTab("printer")}
-        >
-          Printer
-        </button>
-      </div>
       <div className="flex flex-col gap-1 flex-1">
-        <MetricRow label="Total Work Orders" value={data.totalWorkOrders} />
-        <MetricRow label="Bills Received" value={data.billsReceived} />
-        <MetricRow
-          label="Payment Released"
-          value={
-            <span className="text-emerald-600">{data.paymentReleased}</span>
-          }
-        />
-        <MetricRow
-          label="Payment In Process"
-          value={
-            <span className="text-orange-600">{data.paymentInProcess}</span>
-          }
-        />
+        {/* Table / Grid Header */}
+        <div className="grid grid-cols-12 gap-1 pb-2 border-b border-black/10 text-xs font-black text-black uppercase tracking-wide">
+          <div className="col-span-4">Metric</div>
+          <div className="col-span-2 text-right">Total</div>
+          <div className="col-span-2 text-right">Paper</div>
+          <div className="col-span-2 text-right">Printer</div>
+          <div className="col-span-2 text-right">Other</div>
+        </div>
+
+        {/* Total Work Orders */}
+        <div className="grid grid-cols-12 gap-1 py-2 border-b border-black/10 border-dashed items-center text-xs font-black text-black">
+          <div className="col-span-4 text-black uppercase tracking-wide text-[11px]">
+            Work Orders
+          </div>
+          <div className="col-span-2 text-right font-black">70</div>
+          <div className="col-span-2 text-right font-black">
+            {paperData.totalWorkOrders}
+          </div>
+          <div className="col-span-2 text-right font-black">
+            {printerData.totalWorkOrders}
+          </div>
+          <div className="col-span-2 text-right font-black">
+            {othersData.totalWorkOrders}
+          </div>
+        </div>
+
+        {/* Bills Received */}
+        <div className="grid grid-cols-12 gap-1 py-2 border-b border-black/10 border-dashed items-center text-xs font-black text-black">
+          <div className="col-span-4 text-black uppercase tracking-wide text-[11px]">
+            Bills Recv.
+          </div>
+          <div className="col-span-2 text-right font-black">58</div>
+          <div className="col-span-2 text-right font-black">
+            {paperData.billsReceived}
+          </div>
+          <div className="col-span-2 text-right font-black">
+            {printerData.billsReceived}
+          </div>
+          <div className="col-span-2 text-right font-black">
+            {othersData.billsReceived}
+          </div>
+        </div>
+
+        {/* Payment Released */}
+        <div className="grid grid-cols-12 gap-1 py-2 border-b border-black/10 border-dashed items-center text-xs font-black text-black">
+          <div className="col-span-4 text-black uppercase tracking-wide text-[11px]">
+            Released
+          </div>
+          <div className="col-span-2 text-right font-black text-emerald-600">
+            ₹140 Cr
+          </div>
+          <div className="col-span-2 text-right font-black text-emerald-600">
+            {paperData.paymentReleased}
+          </div>
+          <div className="col-span-2 text-right font-black text-emerald-600">
+            {printerData.paymentReleased}
+          </div>
+          <div className="col-span-2 text-right font-black text-emerald-600">
+            {othersData.paymentReleased}
+          </div>
+        </div>
+
+        {/* Payment In Process */}
+        <div className="grid grid-cols-12 gap-1 py-2 border-b border-black/10 border-dashed items-center text-xs font-black text-black">
+          <div className="col-span-4 text-black uppercase tracking-wide text-[11px]">
+            In Process
+          </div>
+          <div className="col-span-2 text-right font-black text-orange-600">
+            ₹25 Cr
+          </div>
+          <div className="col-span-2 text-right font-black text-orange-600">
+            {paperData.paymentInProcess}
+          </div>
+          <div className="col-span-2 text-right font-black text-orange-600">
+            {printerData.paymentInProcess}
+          </div>
+          <div className="col-span-2 text-right font-black text-orange-600">
+            {othersData.paymentInProcess}
+          </div>
+        </div>
+
+        {/* Pending (30 Days) */}
+        <div className="grid grid-cols-12 gap-1 py-2 border-b border-black/10 border-dashed items-center text-xs font-black text-black">
+          <div className="col-span-4 text-black uppercase tracking-wide text-[11px]">
+            Pending (30 Days)
+          </div>
+          <div className="col-span-2 text-right font-black text-rose-600">
+            ₹16 Cr
+          </div>
+          <div className="col-span-2 text-right font-black text-rose-600">
+            {paperData.pending30Days}
+          </div>
+          <div className="col-span-2 text-right font-black text-rose-600">
+            {printerData.pending30Days}
+          </div>
+          <div className="col-span-2 text-right font-black text-rose-600">
+            {othersData.pending30Days}
+          </div>
+        </div>
+
+        {/* Pending (60 Days) */}
+        <div className="grid grid-cols-12 gap-1 py-2 border-b border-black/10 border-dashed last:border-0 items-center text-xs font-black text-black">
+          <div className="col-span-4 text-black uppercase tracking-wide text-[11px]">
+            Pending (60 Days)
+          </div>
+          <div className="col-span-2 text-right font-black text-rose-700">
+            ₹9 Cr
+          </div>
+          <div className="col-span-2 text-right font-black text-rose-700">
+            {paperData.pending60Days}
+          </div>
+          <div className="col-span-2 text-right font-black text-rose-700">
+            {printerData.pending60Days}
+          </div>
+          <div className="col-span-2 text-right font-black text-rose-700">
+            {othersData.pending60Days}
+          </div>
+        </div>
       </div>
 
       <div className="mt-5 flex flex-col gap-3 border-t border-black/10 pt-4">
         <button
-          onClick={tab === "paper" ? onOpenPaperModal : onOpenPrinterModal}
+          onClick={onOpenPaperModal}
           className="w-full rounded-lg border border-black/10 bg-white px-3 py-2.5 text-xs font-black text-black hover:bg-gray-100 transition-all flex justify-between items-center group shadow-sm"
         >
           <span>View Details</span>
@@ -747,7 +1027,7 @@ export const FinanceKpiCard: React.FC = () => {
       title="Finance"
       badge="In Amount"
       theme="green"
-      icon={DollarSign}
+      icon={IndianRupee}
     >
       <div className="flex flex-col gap-1 flex-1">
         <MetricRow label="Total Budget" value={data.totalBudget} />
@@ -774,10 +1054,40 @@ export const FinanceKpiCard: React.FC = () => {
 
 export const HrmsKpiCard: React.FC = () => {
   const data = mockDashboardData.hrms;
+  const navigate = useNavigate();
   return (
     <BaseKpiCard title="HRMS" badge="In Numbers" theme="blue" icon={Users}>
       <div className="flex flex-col gap-1 flex-1">
         <MetricRow label="Total Employees" value={data.totalEmployees} />
+
+        {/* Sub-breakdown rows */}
+        <div className="pl-3.5 border-l-2 border-blue-500/80 my-1.5 flex flex-col gap-1.5">
+          <div className="flex justify-between items-center text-[11px] font-black text-black">
+            <span className="uppercase tracking-wide text-black/70">
+              Permanent
+            </span>
+            <span className="font-extrabold">{data.permanent || 30}</span>
+          </div>
+          <div className="flex justify-between items-center text-[11px] font-black text-black">
+            <span className="uppercase tracking-wide text-black/70">
+              Samvida
+            </span>
+            <span className="font-extrabold">{data.samvida || 20}</span>
+          </div>
+          <div className="flex justify-between items-center text-[11px] font-black text-black">
+            <span className="uppercase tracking-wide text-black/70">
+              Contractual
+            </span>
+            <span className="font-extrabold">{data.contractual || 15}</span>
+          </div>
+          <div className="flex justify-between items-center text-[11px] font-black text-black">
+            <span className="uppercase tracking-wide text-black/70">
+              Outsource
+            </span>
+            <span className="font-extrabold">{data.outsource || 20}</span>
+          </div>
+        </div>
+
         <MetricRow
           label="Present"
           value={
@@ -789,6 +1099,19 @@ export const HrmsKpiCard: React.FC = () => {
           value={<span className="text-orange-600">{data.onLeave}</span>}
         />
         <MetricRow label="Attendance Rate" value={`${data.attendanceRate}%`} />
+      </div>
+
+      <div className="mt-5 flex flex-col gap-3 border-t border-black/10 pt-4">
+        <button
+          onClick={() => navigate("/hrms/dashboard")}
+          className="w-full rounded-lg border border-black/10 bg-white px-3 py-2.5 text-xs font-black text-black hover:bg-gray-100 transition-all flex justify-between items-center group shadow-sm"
+        >
+          <span>View Details</span>
+          <span className="flex items-center gap-1 text-black">
+            View{" "}
+            <i className="pi pi-chevron-right text-xs group-hover:translate-x-0.5 transition-transform" />
+          </span>
+        </button>
       </div>
     </BaseKpiCard>
   );

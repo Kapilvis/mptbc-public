@@ -20,7 +20,7 @@ export const mockDashboardData = {
     totalDemand: "4,50,000",
     demandApproved: "3,90,000",
     underApproval: { value: "60,000", isNew: true },
-    lastYearComparison: { value: "+5%", isNew: true },
+    lastYearComparison: { value: "+5.39%", isNew: true },
     departments: {
       rsk: { value: "20,00,000", isNew: true },
       dpi: { value: "15,00,000", isNew: true },
@@ -147,11 +147,36 @@ export const mockDashboardData = {
     needToPurchaseMt: "52 / 5,20,000",
     openingStockMt: { value: "60 / 6,000", isNew: true },
     receivedPaperMt: { value: "3,165 / 3,27,650", isNew: true },
+    returnStockMt: { value: "10 / 1,000", isNew: true },
     workOrdersPending: { value: "2 Pending", isNew: true },
     gsmModal: [
-      { gsm: "60 GSM", quantity: "1,200 MT" },
-      { gsm: "70 GSM", quantity: "1,500 MT" },
-      { gsm: "80 GSM", quantity: "1,217 MT" },
+      {
+        gsm: "60 GSM",
+        totalRequired: "1,200 MT",
+        openingStock: "20 MT",
+        receivedStock: "1,000 MT",
+        returnStock: "3 MT",
+        availableStock: "200 MT",
+        needToPurchase: "20 MT",
+      },
+      {
+        gsm: "70 GSM",
+        totalRequired: "1,500 MT",
+        openingStock: "25 MT",
+        receivedStock: "1,200 MT",
+        returnStock: "4 MT",
+        availableStock: "250 MT",
+        needToPurchase: "15 MT",
+      },
+      {
+        gsm: "80 GSM",
+        totalRequired: "1,067 MT",
+        openingStock: "15 MT",
+        receivedStock: "965 MT",
+        returnStock: "3 MT",
+        availableStock: "152 MT",
+        needToPurchase: "17 MT",
+      },
     ],
   },
 
@@ -168,7 +193,7 @@ export const mockDashboardData = {
         capacity: "50k",
         approvedBooks: "45k",
       },
-      { id: "P2", name: "Beta Press", capacity: "400k", approvedBooks: "380k" },
+      { id: "P2", name: "Beta Press", capacity: "40k", approvedBooks: "38k" },
       {
         id: "P3",
         name: "Gamma Prints",
@@ -245,6 +270,8 @@ export const mockDashboardData = {
       billsReceived: 12,
       paymentReleased: "₹85 Cr",
       paymentInProcess: "₹10 Cr",
+      pending30Days: "₹6 Cr",
+      pending60Days: "₹4 Cr",
       // Modal data
       details: [
         {
@@ -272,6 +299,8 @@ export const mockDashboardData = {
       billsReceived: 38,
       paymentReleased: "₹40 Cr",
       paymentInProcess: "₹12 Cr",
+      pending30Days: "₹8 Cr",
+      pending60Days: "₹4 Cr",
       // Modal data
       details: [
         {
@@ -291,6 +320,34 @@ export const mockDashboardData = {
           received: "₹0",
           pending: "₹1.5 Cr",
           status: "In Process",
+        },
+      ],
+    },
+    others: {
+      totalWorkOrders: 10,
+      billsReceived: 8,
+      paymentReleased: "₹15 Cr",
+      paymentInProcess: "₹3 Cr",
+      pending30Days: "₹2 Cr",
+      pending60Days: "₹1 Cr",
+      details: [
+        {
+          orderNo: "OTH-001",
+          vendorName: "Logistics & Transport Co",
+          date: "2026-08-10",
+          amount: "₹10 Cr",
+          received: "₹8 Cr",
+          pending: "₹2 Cr",
+          status: "Partial",
+        },
+        {
+          orderNo: "OTH-002",
+          vendorName: "IT Services Ltd",
+          date: "2026-08-12",
+          amount: "₹5 Cr",
+          received: "₹5 Cr",
+          pending: "₹0",
+          status: "Paid",
         },
       ],
     },
@@ -314,10 +371,14 @@ export const mockDashboardData = {
 
   // 10. HRMS
   hrms: {
-    totalEmployees: 450,
-    presentEmployees: 412,
-    onLeave: 38,
-    attendanceRate: 91.5,
+    totalEmployees: 85,
+    presentEmployees: 78,
+    onLeave: 7,
+    attendanceRate: 91.8,
+    permanent: 30,
+    samvida: 20,
+    contractual: 15,
+    outsource: 20,
   },
 
   // 11. Legal
