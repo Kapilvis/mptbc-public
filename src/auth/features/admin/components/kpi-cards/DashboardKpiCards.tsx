@@ -310,7 +310,6 @@ export const DemandKpiCard: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center gap-10 flex-1 px-2 pb-2">
               {/* Chart Area with center text */}
               <div className="relative w-52 h-52 sm:w-60 sm:h-60 shrink-0 ml-2">
-                {}
                 <Chart
                   type="doughnut"
                   data={deptChartData}
@@ -428,17 +427,19 @@ export const PaperAnalysisKpiCard: React.FC = () => {
     >
       <div className="flex flex-col gap-1 flex-1">
         <MetricRow label="Total Required" value={data.totalRequiredMt} />
+        <MetricRow
+          label="Opening Stock"
+          value={data.openingStockMt?.value || "80 / 8,000"}
+        />
         <MetricRow label="Available Stock" value={data.availableStockMt} />
+
         <MetricRow
           label="Need To Purchased"
           value={
             <span className="text-orange-600">{data.needToPurchaseMt}</span>
           }
         />
-        <MetricRow
-          label="Opening Stock"
-          value={data.openingStockMt?.value || "80 / 8,000"}
-        />
+
         <MetricRow
           label="Received Paper"
           value={data.receivedPaperMt?.value || "3,617 / 3,42,000"}
@@ -495,7 +496,7 @@ export const PrinterProfileKpiCard: React.FC<{ onOpenModal: () => void }> = ({
           value={data.totalCapacity || "6,00,000 Books"}
         />
         <MetricRow
-          label="Production Capacity"
+          label="Current Capacity Utilization"
           value={data.currentCapacity || "3,90,000 Books"}
         />
         <MetricRow
