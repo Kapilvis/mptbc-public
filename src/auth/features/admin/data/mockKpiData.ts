@@ -129,9 +129,9 @@ export const mockDashboardData = {
       { gsm: "80 GSM", demand: "1,05,000" },
     ],
     bookTypesModal: [
-      { bookType: "Textbook", demand: "3,51,000", share: "78%" },
-      { bookType: "Workbook", demand: "67,500", share: "15%" },
-      { bookType: "Practical/Lab Manual", demand: "31,500", share: "7%" },
+      { bookType: "PathyaPhustak", demand: "3,51,000", share: "78%" },
+      { bookType: "FLN", demand: "67,500", share: "15%" },
+      { bookType: "AddGrade", demand: "31,500", share: "7%" },
     ],
     mediumsModal: [
       { medium: "Hindi Medium", demand: "2,79,000", share: "62%" },
@@ -144,7 +144,7 @@ export const mockDashboardData = {
   paperAnalysis: {
     totalRequiredMt: "3,767 / 3,90,000",
     availableStockMt: "602 / 62,350",
-    needToPurchaseMt: "52,000 / 5,20,000",
+    needToPurchaseMt: "52 / 5,20,000",
     openingStockMt: { value: "60 / 6,000", isNew: true },
     receivedPaperMt: { value: "3,165 / 3,27,650", isNew: true },
     workOrdersPending: { value: "2 Pending", isNew: true },
@@ -165,15 +165,15 @@ export const mockDashboardData = {
       {
         id: "P1",
         name: "Alpha Print Co",
-        capacity: "500k",
-        approvedBooks: "450k",
+        capacity: "50k",
+        approvedBooks: "45k",
       },
       { id: "P2", name: "Beta Press", capacity: "400k", approvedBooks: "380k" },
       {
         id: "P3",
         name: "Gamma Prints",
-        capacity: "600k",
-        approvedBooks: "500k",
+        capacity: "60k",
+        approvedBooks: "50k",
       },
     ],
   },
