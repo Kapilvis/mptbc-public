@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Page from "shared/components/panels/Page";
 import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel } from "shared/components/panels";
 import { dataManager } from "../../../inventory/mockData";
 import type { StockTransaction } from "../../../inventory/types";
 import { Calendar } from "primereact/calendar";
+import AcademicYearFilterBar from "shared/components/filters/AcademicYearFilterBar";
 
 // Badge component for transaction type
 function TransactionTypeBadge({ type }: { type: StockTransaction["type"] }) {
@@ -50,6 +51,7 @@ export default function StockTransactionsPage() {
   const rawTransactions = dataManager.getTransactions();
   const stocks = dataManager.getStocks();
 
+  const [academicYear, setAcademicYear] = useState("2026-2027");
   const [selectedGsm, setSelectedGsm] = useState<number | "All">("All");
   const [activeTab, setActiveTab] = useState<"ledger" | "transactions">(
     "transactions",
@@ -68,10 +70,14 @@ export default function StockTransactionsPage() {
   const computeBalancesForList = (txs: StockTransaction[]) => {
     const gsmBalances: Record<number, number> = {};
 
-    // Sort chronologically (date, then ID/index)
+    // Sort chronologically (date, then type: Receipt first, then ID/index)
     const sorted = [...txs].sort((a, b) => {
       const dateCompare = a.date.localeCompare(b.date);
       if (dateCompare !== 0) return dateCompare;
+
+      if (a.type === "Receipt" && b.type !== "Receipt") return -1;
+      if (b.type === "Receipt" && a.type !== "Receipt") return 1;
+
       return a.id - b.id;
     });
 
@@ -114,9 +120,22 @@ export default function StockTransactionsPage() {
     return true;
   });
 
-  // 4. For the transactions tab, display reverse chronological list (latest first)
-  const displayTxs =
-    activeTab === "transactions" ? [...filteredTxs].reverse() : filteredTxs;
+  // 4. For the transactions tab, display reverse chronological list (latest first, but Receipt first on same day)
+  const displayTxs = useMemo(() => {
+    if (activeTab === "transactions") {
+      return [...filteredTxs].sort((a, b) => {
+        const dateCompare = b.date.localeCompare(a.date);
+        if (dateCompare !== 0) return dateCompare;
+
+        // Receipt shows first (above) on the same date
+        if (a.type === "Receipt" && b.type !== "Receipt") return -1;
+        if (b.type === "Receipt" && a.type !== "Receipt") return 1;
+
+        return b.id - a.id;
+      });
+    }
+    return filteredTxs;
+  }, [filteredTxs, activeTab]);
 
   // Dynamic calculations for KPI summary cards based on selected GSM and Date filter
   const gsmRawTxs = allTxsWithBalances.filter(
@@ -155,6 +174,13 @@ export default function StockTransactionsPage() {
       subHeader="कागज स्टॉक खाता और लेनदेन विवरण — Unified view of stock ledger and transaction history logs filtered by paper GSM."
       showHeaderActions
     >
+      {/* Academic Year Filter Bar */}
+      <AcademicYearFilterBar
+        academicYear={academicYear}
+        onChange={setAcademicYear}
+        subtitle=""
+      />
+
       {/* GSM Selection Tabs */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div className="flex flex-wrap gap-2">

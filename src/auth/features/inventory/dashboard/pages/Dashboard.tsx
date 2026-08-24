@@ -433,6 +433,11 @@ export default function Dashboard() {
                 {
                   field: "paperType",
                   header: "Paper Type",
+                  footer: (
+                    <span className="font-bold text-gray-900 dark:text-white block text-right pr-2">
+                      Total:
+                    </span>
+                  ),
                   cell: (row: PaperStock) => (
                     <span className="text-sm font-extrabold text-slate-800 dark:text-slate-200">
                       {row.paperType}
@@ -443,6 +448,17 @@ export default function Dashboard() {
                   field: "openingStock",
                   header: "Total Stock",
                   align: "center",
+                  footer: (() => {
+                    const total = stocks.reduce(
+                      (sum, item) => sum + item.openingStock,
+                      0,
+                    );
+                    return (
+                      <span className="font-bold font-mono text-slate-900 dark:text-slate-200 text-sm">
+                        {total.toLocaleString("en-IN")} MT
+                      </span>
+                    );
+                  })(),
                   cell: (row: PaperStock) => (
                     <span className="text-sm font-extrabold font-mono text-slate-900 dark:text-slate-200">
                       {row.openingStock.toLocaleString("en-IN")} MT
@@ -453,9 +469,20 @@ export default function Dashboard() {
                   field: "receivedQuantity",
                   header: "Received",
                   align: "center",
+                  footer: (() => {
+                    const total = stocks.reduce(
+                      (sum, item) => sum + item.receivedQuantity,
+                      0,
+                    );
+                    return (
+                      <span className="font-bold font-mono text-emerald-650 dark:text-emerald-450 text-sm">
+                        {total.toLocaleString("en-IN")} MT
+                      </span>
+                    );
+                  })(),
                   cell: (row: PaperStock) => (
                     <span className="text-sm font-black font-mono text-emerald-650 dark:text-emerald-450">
-                      +{row.receivedQuantity.toLocaleString("en-IN")} MT
+                      {row.receivedQuantity.toLocaleString("en-IN")} MT
                     </span>
                   ),
                 },
@@ -463,9 +490,20 @@ export default function Dashboard() {
                   field: "issuedQuantity",
                   header: "Issued",
                   align: "center",
+                  footer: (() => {
+                    const total = stocks.reduce(
+                      (sum, item) => sum + item.issuedQuantity,
+                      0,
+                    );
+                    return (
+                      <span className="font-bold font-mono text-rose-650 dark:text-rose-405 text-sm">
+                        {total.toLocaleString("en-IN")} MT
+                      </span>
+                    );
+                  })(),
                   cell: (row: PaperStock) => (
                     <span className="text-sm font-black font-mono text-rose-650 dark:text-rose-405">
-                      -{row.issuedQuantity.toLocaleString("en-IN")} MT
+                      {row.issuedQuantity.toLocaleString("en-IN")} MT
                     </span>
                   ),
                 },
@@ -473,6 +511,17 @@ export default function Dashboard() {
                   field: "availableQuantity",
                   header: "Available Stock",
                   align: "center",
+                  footer: (() => {
+                    const total = stocks.reduce(
+                      (sum, item) => sum + item.availableQuantity,
+                      0,
+                    );
+                    return (
+                      <span className="font-bold font-mono text-slate-900 dark:text-white text-sm">
+                        {total.toLocaleString("en-IN")} MT
+                      </span>
+                    );
+                  })(),
                   cell: (row: PaperStock) => (
                     <span className="text-sm font-black font-mono text-slate-900 dark:text-white">
                       {row.availableQuantity.toLocaleString("en-IN")} MT
@@ -622,6 +671,11 @@ export default function Dashboard() {
               field: "gsm",
               header: "GSM",
               align: "center",
+              footer: (
+                <span className="font-bold text-gray-900 dark:text-white block text-right pr-2">
+                  Total:
+                </span>
+              ),
               cell: (row: PaperDistribution) => (
                 <span className="text-sm font-black text-slate-900 dark:text-white">
                   {row.gsm} GSM
@@ -632,6 +686,18 @@ export default function Dashboard() {
               field: "issueQuantity",
               header: "Quantity Issued",
               align: "center",
+              footer: (() => {
+                const recent = distributions.slice(-5);
+                const total = recent.reduce(
+                  (sum, item) => sum + item.issueQuantity,
+                  0,
+                );
+                return (
+                  <span className="font-bold font-mono text-emerald-650 text-sm">
+                    {total.toLocaleString("en-IN")} MT
+                  </span>
+                );
+              })(),
               cell: (row: PaperDistribution) => (
                 <span className="text-sm text-emerald-650 font-black font-mono">
                   {row.issueQuantity.toLocaleString("en-IN")} MT

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Page from "shared/components/panels/Page";
 import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel } from "shared/components/panels";
@@ -26,6 +26,10 @@ export default function PaperReceivingPage() {
       />
     );
   };
+
+  const totalReceived = useMemo(() => {
+    return receipts.reduce((sum, r) => sum + r.quantity, 0);
+  }, [receipts]);
 
   return (
     <Page
@@ -78,14 +82,22 @@ export default function PaperReceivingPage() {
               cell: (row: PaperReceipt) => (
                 <span className="text-xs font-bold">{row.gsm} GSM</span>
               ),
+              footer: (
+                <span className="text-xs font-bold text-slate-700">Total</span>
+              ),
             },
             {
               field: "quantity",
-              header: "Received Qty",
+              header: "Received paper",
               align: "center",
               cell: (row: PaperReceipt) => (
                 <span className="text-xs font-bold text-emerald-600">
                   {row.quantity.toLocaleString()} MT
+                </span>
+              ),
+              footer: (
+                <span className="text-xs font-bold text-emerald-600">
+                  {totalReceived.toLocaleString()} MT
                 </span>
               ),
             },

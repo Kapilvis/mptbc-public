@@ -144,6 +144,11 @@ export default function PrinterAssignedDemandPage() {
             {
               field: "printerName",
               header: "Printer Name",
+              footer: (
+                <span className="font-bold text-gray-900 dark:text-white block text-right pr-2">
+                  Total:
+                </span>
+              ),
               cell: (row) => (
                 <span className="font-semibold text-gray-800 dark:text-gray-200">
                   {row.printerName}
@@ -155,6 +160,17 @@ export default function PrinterAssignedDemandPage() {
               field: "totalOrdered",
               header: "Total Ordered",
               align: "center",
+              footer: (() => {
+                const total = printerDemandData.reduce(
+                  (sum, item) => sum + item.totalOrdered,
+                  0,
+                );
+                return (
+                  <span className="font-bold text-indigo-800 dark:text-indigo-300">
+                    {total.toLocaleString()}
+                  </span>
+                );
+              })(),
               cell: (row) => (
                 <span className="font-bold text-indigo-700 dark:text-indigo-400">
                   {row.totalOrdered.toLocaleString()}
@@ -166,6 +182,17 @@ export default function PrinterAssignedDemandPage() {
               field: "deliveredToDepot",
               header: "Delivered to Depot",
               align: "center",
+              footer: (() => {
+                const total = printerDemandData.reduce(
+                  (sum, item) => sum + item.deliveredToDepot,
+                  0,
+                );
+                return (
+                  <span className="font-bold text-blue-800 dark:text-blue-300">
+                    {total.toLocaleString()}
+                  </span>
+                );
+              })(),
               cell: (row) => (
                 <span className="font-bold text-blue-700 dark:text-blue-400">
                   {row.deliveredToDepot.toLocaleString()}
@@ -177,6 +204,17 @@ export default function PrinterAssignedDemandPage() {
               field: "remaining",
               header: "Remaining",
               align: "center",
+              footer: (() => {
+                const total = printerDemandData.reduce(
+                  (sum, item) => sum + item.remaining,
+                  0,
+                );
+                return (
+                  <span className="font-bold text-amber-800 dark:text-amber-300">
+                    {total.toLocaleString()}
+                  </span>
+                );
+              })(),
               cell: (row) => (
                 <span className="font-bold text-amber-700 dark:text-amber-400">
                   {row.remaining.toLocaleString()}

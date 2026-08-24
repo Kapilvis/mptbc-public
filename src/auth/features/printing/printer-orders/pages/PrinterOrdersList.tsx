@@ -118,6 +118,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               cell: (row: PrinterOrder) => (
                 <span className="text-sm font-semibold">{row.printer}</span>
               ),
+              footer: <span className="font-bold text-slate-700">Total</span>,
             },
             {
               field: "approvedQty",
@@ -126,6 +127,11 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
               cell: (row: PrinterOrder) => (
                 <span className="text-sm text-blue-700 dark:text-blue-400 font-semibold">
                   {row.approvedQty.toLocaleString()}
+                </span>
+              ),
+              footer: (
+                <span className="font-bold text-blue-700 dark:text-blue-400">
+                  {pendingOnly ? "1,50,000" : "3,90,000"}
                 </span>
               ),
             },
@@ -138,15 +144,23 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
                   {row.suppliedQty.toLocaleString()}
                 </span>
               ),
+              footer: (
+                <span className="font-bold text-emerald-600">
+                  {pendingOnly ? "50,500" : "1,80,500"}
+                </span>
+              ),
             },
             {
               field: "pendingQty",
               header: "Pending",
               align: "center",
               cell: (row: PrinterOrder) => (
-                <span className="text-sm text-rose-600 font-bold">
+                <span className="text-sm text-orange-600 font-bold">
                   {row.pendingQty.toLocaleString()}
                 </span>
+              ),
+              footer: (
+                <span className="font-bold text-orange-600">2,09,500</span>
               ),
             },
             {

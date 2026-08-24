@@ -193,13 +193,32 @@ export default function ApprovalList() {
             },
             { field: "bookType", header: "Book Type" },
             { field: "classGroup", header: "Class" },
-            { field: "medium", header: "Medium" },
+            {
+              field: "medium",
+              header: "Medium",
+              footer: (
+                <span className="font-bold text-gray-900 dark:text-white block text-right pr-2">
+                  Total:
+                </span>
+              ),
+            },
             {
               field: "requestedDemand",
               header: "Requested Demand",
               align: "center",
+              footer: (() => {
+                const total = data.reduce(
+                  (sum, item) => sum + item.requestedDemand,
+                  0,
+                );
+                return (
+                  <span className="font-bold text-emerald-800 dark:text-emerald-300">
+                    {total.toLocaleString()} Books
+                  </span>
+                );
+              })(),
               cell: (row: Distribution.DemandApprovalItem) => (
-                <span>{row.requestedDemand.toLocaleString()}</span>
+                <span>{row.requestedDemand.toLocaleString()} Books</span>
               ),
             },
             // {

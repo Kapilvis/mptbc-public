@@ -1014,7 +1014,7 @@ export const DistributionKpiCard: React.FC = () => {
 export const BillAndPaymentKpiCard: React.FC<{
   onOpenPaperModal: () => void;
   onOpenPrinterModal: () => void;
-}> = ({ onOpenPaperModal }) => {
+}> = ({ onOpenPaperModal, onOpenPrinterModal }) => {
   const paperData = mockDashboardData.billAndPayment.paper;
   const printerData = mockDashboardData.billAndPayment.printer;
   const othersData = mockDashboardData.billAndPayment.others;
@@ -1151,16 +1151,20 @@ export const BillAndPaymentKpiCard: React.FC<{
         </div>
       </div>
 
-      <div className="mt-4 flex flex-col gap-2.5 border-t border-slate-100 pt-3">
+      <div className="mt-4 flex gap-2 border-t border-slate-100 pt-3">
         <button
           onClick={onOpenPaperModal}
-          className="w-full rounded-xl border border-slate-200/90 bg-slate-50/80 hover:bg-slate-100 px-3 py-2 text-[12px] font-semibold text-slate-700 transition-all flex justify-between items-center group shadow-2xs cursor-pointer"
+          className="flex-1 rounded-xl border border-slate-200/90 bg-slate-50/80 hover:bg-slate-100 px-3 py-2 text-[11px] font-bold text-slate-700 transition-all flex justify-between items-center group shadow-2xs cursor-pointer"
         >
-          <span>View Details</span>
-          <span className="flex items-center gap-1 text-slate-500 group-hover:text-slate-800">
-            View{" "}
-            <i className="pi pi-chevron-right text-xs group-hover:translate-x-0.5 transition-transform" />
-          </span>
+          <span>Paper Details</span>
+          <i className="pi pi-chevron-right text-[10px] group-hover:translate-x-0.5 transition-transform text-slate-500" />
+        </button>
+        <button
+          onClick={onOpenPrinterModal}
+          className="flex-1 rounded-xl border border-slate-200/90 bg-slate-50/80 hover:bg-slate-100 px-3 py-2 text-[11px] font-bold text-slate-700 transition-all flex justify-between items-center group shadow-2xs cursor-pointer"
+        >
+          <span>Printer Details</span>
+          <i className="pi pi-chevron-right text-[10px] group-hover:translate-x-0.5 transition-transform text-slate-500" />
         </button>
       </div>
     </BaseKpiCard>

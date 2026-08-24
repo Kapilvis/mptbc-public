@@ -1,10 +1,12 @@
 export interface FinanceKpis {
-  totalRevenue: string; // ₹ 185.40 Crore
-  totalExpenditure: string; // ₹ 142.80 Crore
+  totalBudget: string; // ₹ 500.00 Crore
+  budgetUtilized: string; // ₹ 320.00 Crore
+  remainingBudget: string; // ₹ 180.00 Crore
+  utilizationRate: number; // 64.0%
   pendingBillsCount: number; // 18 Bills
-  pendingBillsAmount: string; // ₹ 8.45 Crore
-  monthlyPayroll: string; // ₹ 4.85 Crore
-  ifmisGrantUtilization: number; // 84.2%
+  pendingBillsAmount: string; // ₹ 12.45 Crore
+  monthlyPayroll: string; // ₹ 20.00 Lakhs
+  ifmisGrantUtilization: number; // 64.0%
 }
 
 export interface BillDeductions {
@@ -81,53 +83,55 @@ export interface ExpenditureOutlayItem {
 // ─── MOCK DATASETS ─────────────────────────────────────────────────────────────
 
 export const initialFinanceKpis: FinanceKpis = {
-  totalRevenue: "₹ 185.40 Cr",
-  totalExpenditure: "₹ 119.50 Cr",
+  totalBudget: "₹ 500.00 Cr",
+  budgetUtilized: "₹ 320.00 Cr",
+  remainingBudget: "₹ 180.00 Cr",
+  utilizationRate: 64.0,
   pendingBillsCount: 18,
-  pendingBillsAmount: "₹ 8.45 Cr",
+  pendingBillsAmount: "₹ 12.45 Cr",
   monthlyPayroll: "₹ 20.00 Lakhs",
-  ifmisGrantUtilization: 84.2,
+  ifmisGrantUtilization: 64.0,
 };
 
 export const cashFlowTrendData: CashFlowMonthlyPoint[] = [
-  { month: "Apr 2025", receiptsLakhs: 1450, expenditureLakhs: 1120 },
-  { month: "May 2025", receiptsLakhs: 1680, expenditureLakhs: 1350 },
-  { month: "Jun 2025", receiptsLakhs: 2100, expenditureLakhs: 1780 },
-  { month: "Jul 2025", receiptsLakhs: 1950, expenditureLakhs: 1540 },
-  { month: "Aug 2025", receiptsLakhs: 2400, expenditureLakhs: 1920 },
-  { month: "Sep 2025", receiptsLakhs: 1820, expenditureLakhs: 1490 },
-  { month: "Oct 2025", receiptsLakhs: 2650, expenditureLakhs: 2100 },
-  { month: "Nov 2025", receiptsLakhs: 2300, expenditureLakhs: 1850 },
-  { month: "Dec 2025", receiptsLakhs: 1980, expenditureLakhs: 1620 },
-  { month: "Jan 2026", receiptsLakhs: 2850, expenditureLakhs: 2240 },
-  { month: "Feb 2026", receiptsLakhs: 3100, expenditureLakhs: 2450 },
-  { month: "Mar 2026", receiptsLakhs: 3260, expenditureLakhs: 2620 },
+  { month: "Apr 2025", receiptsLakhs: 3800, expenditureLakhs: 2450 },
+  { month: "May 2025", receiptsLakhs: 4100, expenditureLakhs: 2680 },
+  { month: "Jun 2025", receiptsLakhs: 4500, expenditureLakhs: 2950 },
+  { month: "Jul 2025", receiptsLakhs: 4200, expenditureLakhs: 2700 },
+  { month: "Aug 2025", receiptsLakhs: 4600, expenditureLakhs: 2900 },
+  { month: "Sep 2025", receiptsLakhs: 3900, expenditureLakhs: 2500 },
+  { month: "Oct 2025", receiptsLakhs: 4300, expenditureLakhs: 2750 },
+  { month: "Nov 2025", receiptsLakhs: 4150, expenditureLakhs: 2650 },
+  { month: "Dec 2025", receiptsLakhs: 3950, expenditureLakhs: 2550 },
+  { month: "Jan 2026", receiptsLakhs: 4400, expenditureLakhs: 2800 },
+  { month: "Feb 2026", receiptsLakhs: 4000, expenditureLakhs: 2550 },
+  { month: "Mar 2026", receiptsLakhs: 4100, expenditureLakhs: 2520 },
 ];
 
 export const expenditureOutlayData: ExpenditureOutlayItem[] = [
   {
-    category: "Paper Procurement (3.76K MT)",
-    amountCr: 59.98,
-    percentage: 50,
+    category: "Paper Procurement (Paper Mills)",
+    amountCr: 160.0,
+    percentage: 50.0,
     color: "#006A38",
   },
   {
-    category: "Printing & Binding POs",
-    amountCr: 49.98,
-    percentage: 42,
+    category: "Printing & Binding POs (Printers)",
+    amountCr: 134.4,
+    percentage: 42.0,
     color: "#2563eb",
   },
   {
-    category: "HRMS Staff Payroll & EPF",
-    amountCr: 2.4,
-    percentage: 2,
-    color: "#f59e0b",
+    category: "Depot Logistics & Freight",
+    amountCr: 23.2,
+    percentage: 7.25,
+    color: "#8b5cf6",
   },
   {
-    category: "Depot Logistics & Freight",
-    amountCr: 7.14,
-    percentage: 6,
-    color: "#8b5cf6",
+    category: "HRMS Staff Payroll & EPF (85 Staff)",
+    amountCr: 2.4,
+    percentage: 0.75,
+    color: "#f59e0b",
   },
 ];
 
@@ -282,7 +286,7 @@ export const initialPendingBills: FinancialBillItem[] = [
     voucherReference: "MPTBC/FIN/2026/VCH-8825",
     voucherDate: "2026-08-18",
     category: "SCHEME_GRANT_REVENUE",
-    categoryLabel: "RSK / CPI Scheme Grant Transfer",
+    categoryLabel: "RSK / DPI Scheme Grant Transfer",
     vendorDetails: {
       vendorId: "SCH-RSK-MP-001",
       vendorName: "Rajya Shiksha Kendra (RSK Grant)",

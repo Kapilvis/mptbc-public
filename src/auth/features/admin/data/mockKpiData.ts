@@ -146,7 +146,7 @@ export const mockDashboardData = {
     availableStockMt: "602 / 62,350",
     needToPurchaseMt: "52 / 5,20,000",
     openingStockMt: { value: "60 / 6,000", isNew: true },
-    receivedPaperMt: { value: "3,165 / 3,27,650", isNew: true },
+    receivedPaperMt: { value: "3,707 / 3,27,650", isNew: true },
     returnStockMt: { value: "10 / 1,000", isNew: true },
     workOrdersPending: { value: "2 Pending", isNew: true },
     gsmModal: [
@@ -154,7 +154,7 @@ export const mockDashboardData = {
         gsm: "60 GSM",
         totalRequired: "1,200 MT",
         openingStock: "20 MT",
-        receivedStock: "1,000 MT",
+        receivedStock: "1,180 MT",
         returnStock: "3 MT",
         availableStock: "200 MT",
         needToPurchase: "20 MT",
@@ -163,7 +163,7 @@ export const mockDashboardData = {
         gsm: "70 GSM",
         totalRequired: "1,500 MT",
         openingStock: "25 MT",
-        receivedStock: "1,200 MT",
+        receivedStock: "1,475 MT",
         returnStock: "4 MT",
         availableStock: "250 MT",
         needToPurchase: "15 MT",
@@ -172,7 +172,7 @@ export const mockDashboardData = {
         gsm: "80 GSM",
         totalRequired: "1,067 MT",
         openingStock: "15 MT",
-        receivedStock: "965 MT",
+        receivedStock: "1,052 MT",
         returnStock: "3 MT",
         availableStock: "152 MT",
         needToPurchase: "17 MT",
@@ -206,8 +206,8 @@ export const mockDashboardData = {
   // 4. Central Paper Depot
   centralDepot: {
     openingStock: "60 MT",
-    receivedThisYear: "3,165 MT",
-    dispatchedToPrinter: "2,563 MT",
+    receivedThisYear: "3,707 MT",
+    dispatchedToPrinter: "3,165 MT",
     closingStock: "602 MT",
     gsmBreakdown: [
       { type: "70 GSM", stock: "2,000" },

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastService } from "services";
 import { Button } from "shared/components/buttons";
@@ -33,6 +33,10 @@ export default function List() {
       ToastService.error("Failed to update status");
     }
   };
+
+  const totalWeight = useMemo(() => {
+    return data.reduce((sum, item) => sum + (item.totalWeightTon || 0), 0);
+  }, [data]);
 
   // const formatDateDisplay = (val: unknown) => {
   //   if (!val) return "-";
@@ -86,6 +90,7 @@ export default function List() {
             {
               field: "paperType",
               header: "PAPER TYPE",
+              footer: <span className="font-bold text-slate-700">Total</span>,
             },
             // {
             //   field: "reelCount",
@@ -98,6 +103,11 @@ export default function List() {
               header: "WEIGHT",
               align: "center",
               cell: (row) => <span>{row.totalWeightTon} MT</span>,
+              footer: (
+                <span className="font-bold text-slate-700">
+                  {totalWeight.toLocaleString()} MT
+                </span>
+              ),
             },
             {
               header: "CHALLAN",

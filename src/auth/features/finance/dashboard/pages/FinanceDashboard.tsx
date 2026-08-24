@@ -323,19 +323,19 @@ export default function FinanceDashboard() {
 
       {/* ─── 5 EXECUTIVE FINANCIAL KPI CARDS (NUMBERS & DATA FOCUS) ───────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-        {/* KPI 1: FY26 Revenue & Receipts */}
+        {/* KPI 1: Total Sanctioned Budget */}
         <div className="bg-[#f0f7ff] border border-[#bcd7ff] rounded-2xl p-4 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                1. REVENUE & RECEIPTS
+                1. TOTAL BUDGET
               </span>
-              <span className="text-[10px] font-bold bg-blue-100 text-blue-900 px-2 py-0.5 rounded-full border border-blue-300">
-                {selectedYear}
+              <span className="text-xs font-extrabold bg-blue-100 text-blue-900 px-2.5 py-1 rounded-full border border-blue-300">
+                ₹ 500 Cr
               </span>
             </div>
             <div className="text-xl font-black text-slate-900 mt-1">
-              {initialFinanceKpis.totalRevenue}
+              {initialFinanceKpis.totalBudget}
             </div>
 
             <div className="grid grid-cols-3 gap-1 text-left mt-2.5 pt-2 border-t border-[#bfdbfe]">
@@ -344,15 +344,15 @@ export default function FinanceDashboard() {
                   RSK GRANT
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  ₹ 115.2 Cr
+                  ₹ 310.0 Cr
                 </div>
               </div>
               <div>
                 <span className="text-[9.5px] font-bold text-emerald-800 uppercase block">
-                  CPI GRANT
+                  DPI GRANT
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  ₹ 52.8 Cr
+                  ₹ 140.0 Cr
                 </div>
               </div>
               <div>
@@ -360,30 +360,30 @@ export default function FinanceDashboard() {
                   COMMERCIAL
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  ₹ 17.4 Cr
+                  ₹ 50.0 Cr
                 </div>
               </div>
             </div>
           </div>
           <div className="text-xs font-bold text-slate-800 mt-2">
-            Total Inflow:{" "}
-            <strong className="text-slate-900 font-black">₹ 185.40 Cr</strong>
+            Sanctioned Budget:{" "}
+            <strong className="text-slate-900 font-black">₹ 500.00 Cr</strong>
           </div>
         </div>
 
-        {/* KPI 2: Total Expenditure Disbursed */}
+        {/* KPI 2: Budget Utilized (Expenditure) */}
         <div className="bg-[#f0fdf4] border border-[#bbf7d0] rounded-2xl p-4 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                2. EXPENDITURE DISBURSED
+                2. BUDGET UTILIZED
               </span>
-              <span className="text-[10px] font-bold bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded-full border border-emerald-300">
-                Vouchers
+              <span className="text-xs font-extrabold bg-emerald-100 text-emerald-900 px-2.5 py-1 rounded-full border border-emerald-300">
+                64% Utilized
               </span>
             </div>
             <div className="text-xl font-black text-slate-900 mt-1">
-              {initialFinanceKpis.totalExpenditure}
+              {initialFinanceKpis.budgetUtilized}
             </div>
 
             <div className="grid grid-cols-4 gap-1 text-left mt-2.5 pt-2 border-t border-[#bbf7d0]">
@@ -392,7 +392,7 @@ export default function FinanceDashboard() {
                   PAPER
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  ₹ 60.0 Cr
+                  ₹ 160.0 Cr
                 </div>
               </div>
               <div>
@@ -400,7 +400,15 @@ export default function FinanceDashboard() {
                   PRINT
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  ₹ 50.0 Cr
+                  ₹ 134.4 Cr
+                </div>
+              </div>
+              <div>
+                <span className="text-[9px] font-bold text-purple-900 uppercase block">
+                  FREIGHT
+                </span>
+                <div className="text-xs font-black text-slate-900">
+                  ₹ 23.2 Cr
                 </div>
               </div>
               <div>
@@ -411,67 +419,59 @@ export default function FinanceDashboard() {
                   ₹ 2.4 Cr
                 </div>
               </div>
-              <div>
-                <span className="text-[9px] font-bold text-purple-900 uppercase block">
-                  FREIGHT
-                </span>
-                <div className="text-xs font-black text-slate-900">
-                  ₹ 7.1 Cr
-                </div>
-              </div>
             </div>
           </div>
           <div className="text-xs font-bold text-slate-800 mt-2">
             Disbursed via Treasury:{" "}
-            <strong className="text-emerald-900 font-black">₹ 119.50 Cr</strong>
+            <strong className="text-emerald-900 font-black">₹ 320.00 Cr</strong>
           </div>
         </div>
 
-        {/* KPI 3: Bills Pending Clearance Queue */}
+        {/* KPI 3: Remaining Budget Balance */}
         <div className="bg-[#fffbeb] border border-[#fde68a] rounded-2xl p-4 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                3. PENDING BILLS QUEUE
+                3. REMAINING BUDGET
               </span>
-              <span className="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full border border-amber-300">
-                18 Pending
+              <span className="text-xs font-extrabold bg-amber-100 text-amber-900 px-2.5 py-1 rounded-full border border-amber-300">
+                36% Balance
               </span>
             </div>
             <div className="text-xl font-black text-amber-950 mt-1">
-              ₹ 8.45 Cr
+              {initialFinanceKpis.remainingBudget}
             </div>
 
             <div className="grid grid-cols-3 gap-1 text-left mt-2.5 pt-2 border-t border-[#fde68a]">
               <div>
                 <span className="text-[9.5px] font-bold text-blue-900 uppercase block">
-                  PRINTERS
+                  UNALLOCATED
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  10 (₹ 4.25Cr)
+                  ₹ 110.0 Cr
                 </div>
               </div>
               <div>
                 <span className="text-[9.5px] font-bold text-emerald-900 uppercase block">
-                  PAPER
+                  CONTINGENCY
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  5 (₹ 3.10Cr)
+                  ₹ 50.0 Cr
                 </div>
               </div>
               <div>
                 <span className="text-[9.5px] font-bold text-purple-900 uppercase block">
-                  FREIGHT
+                  RESERVE
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  3 (₹ 1.10Cr)
+                  ₹ 20.0 Cr
                 </div>
               </div>
             </div>
           </div>
           <div className="text-xs font-bold text-amber-950 mt-2">
-            Pending Sanction:{" "}
-            <strong className="text-amber-900 font-black">18 Bills</strong>
+            Remaining Balance:{" "}
+            <strong className="text-amber-900 font-black">₹ 180.00 Cr</strong>
           </div>
         </div>
 
@@ -482,7 +482,7 @@ export default function FinanceDashboard() {
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
                 4. HRMS PAYROLL SYNC
               </span>
-              <span className="text-[10px] font-bold bg-purple-100 text-purple-900 px-2 py-0.5 rounded-full border border-purple-300">
+              <span className="text-xs font-extrabold bg-purple-100 text-purple-900 px-2.5 py-1 rounded-full border border-purple-300">
                 85 Staff
               </span>
             </div>
@@ -493,15 +493,15 @@ export default function FinanceDashboard() {
             <div className="grid grid-cols-3 gap-1 text-left mt-2.5 pt-2 border-t border-[#e9d5ff]">
               <div>
                 <span className="text-[9.5px] font-bold text-emerald-900 uppercase block">
-                  REGULAR
+                  PERMANENT
                 </span>
                 <div className="text-xs font-black text-slate-900">
                   ₹ 13.80 L
                 </div>
               </div>
               <div>
-                <span className="text-[9.5px] font-bold text-blue-900 uppercase block">
-                  CONTRACT
+                <span className="text-[9.5px] font-bold text-indigo-900 uppercase block">
+                  SAMVIDA
                 </span>
                 <div className="text-xs font-black text-slate-900">
                   ₹ 4.60 L
@@ -518,54 +518,56 @@ export default function FinanceDashboard() {
             </div>
           </div>
           <div className="text-xs font-bold text-slate-800 mt-2">
-            Monthly Commitment:{" "}
-            <strong className="text-purple-900 font-black">
-              ₹ 20.00 Lakhs
-            </strong>
+            Annualized Payroll:{" "}
+            <strong className="text-purple-900 font-black">₹ 2.40 Cr</strong>
           </div>
         </div>
 
-        {/* KPI 5: Treasury Grant Utilization */}
+        {/* KPI 5: Pending Bills Queue */}
         <div className="bg-[#f0f9ff] border border-[#bae6fd] rounded-2xl p-4 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                5. GRANT UTILIZATION
+                5. PENDING BILLS QUEUE
               </span>
-              <span className="text-[10px] font-bold bg-sky-100 text-sky-900 px-2 py-0.5 rounded-full border border-sky-300">
-                84.2%
+              <span className="text-xs font-extrabold bg-sky-100 text-sky-900 px-2.5 py-1 rounded-full border border-sky-300">
+                18 Pending
               </span>
             </div>
-            <div className="text-xl font-black text-slate-900 mt-1">84.2 %</div>
+            <div className="text-xl font-black text-slate-900 mt-1">
+              ₹ 12.45 Cr
+            </div>
 
             <div className="grid grid-cols-3 gap-1 text-left mt-2.5 pt-2 border-t border-[#bae6fd]">
               <div>
-                <span className="text-[9.5px] font-bold text-slate-700 uppercase block">
-                  SANCTION
+                <span className="text-[9.5px] font-bold text-blue-900 uppercase block">
+                  PRINTERS
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  ₹ 220 Cr
+                  10 (₹ 7.25Cr)
                 </div>
               </div>
               <div>
                 <span className="text-[9.5px] font-bold text-emerald-900 uppercase block">
-                  DRAWN
+                  PAPER
                 </span>
                 <div className="text-xs font-black text-slate-900">
-                  ₹ 185 Cr
+                  5 (₹ 3.80Cr)
                 </div>
               </div>
               <div>
-                <span className="text-[9.5px] font-bold text-amber-900 uppercase block">
-                  BALANCE
+                <span className="text-[9.5px] font-bold text-purple-900 uppercase block">
+                  FREIGHT
                 </span>
-                <div className="text-xs font-black text-slate-900">₹ 35 Cr</div>
+                <div className="text-xs font-black text-slate-900">
+                  3 (₹ 1.40Cr)
+                </div>
               </div>
             </div>
           </div>
           <div className="text-xs font-bold text-slate-800 mt-2">
-            Target Utilization:{" "}
-            <strong className="text-sky-900 font-black">100% by Mar 27</strong>
+            Pending Sanction:{" "}
+            <strong className="text-sky-900 font-black">18 Bills</strong>
           </div>
         </div>
       </div>
@@ -587,7 +589,7 @@ export default function FinanceDashboard() {
                 </p>
               </div>
               <span className="text-xs font-extrabold text-slate-800 bg-slate-100 px-3 py-1 rounded-full">
-                FY26 Total Outflow: ₹ 119.50 Cr
+                FY26 Total Outflow: ₹ 320.00 Cr
               </span>
             </div>
 
@@ -603,10 +605,10 @@ export default function FinanceDashboard() {
                     </span>
                   </div>
                   <div className="text-lg font-black text-slate-900 mt-1">
-                    ₹ 59.98 Cr
+                    ₹ 160.00 Cr
                   </div>
                   <span className="text-xs font-bold text-slate-800 block mt-0.5">
-                    3.76K MT Reels Delivered
+                    10.0K MT Reels Delivered
                   </span>
                 </div>
                 <div className="pt-2 border-t border-emerald-200 text-[11px] font-extrabold text-emerald-950 flex justify-between">
@@ -625,36 +627,14 @@ export default function FinanceDashboard() {
                     </span>
                   </div>
                   <div className="text-lg font-black text-slate-900 mt-1">
-                    ₹ 49.98 Cr
+                    ₹ 134.40 Cr
                   </div>
                   <span className="text-xs font-bold text-slate-800 block mt-0.5">
-                    4.20 Cr Books Printed
+                    4.50 Cr Books Printed
                   </span>
                 </div>
                 <div className="pt-2 border-t border-blue-200 text-[11px] font-extrabold text-blue-950 flex justify-between">
                   <span>Class 1-12 Printers</span>
-                  <span>100% Paid</span>
-                </div>
-              </div>
-
-              {/* HRMS Payroll */}
-              <div className="bg-amber-50/70 border border-amber-200 p-3.5 rounded-2xl flex flex-col justify-between space-y-2">
-                <div>
-                  <div className="flex justify-between items-center text-[10px] font-bold text-amber-900 uppercase">
-                    <span>HRMS PAYROLL</span>
-                    <span className="bg-amber-100 px-2 py-0.5 rounded border border-amber-300">
-                      2% Outlay
-                    </span>
-                  </div>
-                  <div className="text-lg font-black text-slate-900 mt-1">
-                    ₹ 2.40 Cr
-                  </div>
-                  <span className="text-xs font-bold text-slate-800 block mt-0.5">
-                    85 Staff Salaries
-                  </span>
-                </div>
-                <div className="pt-2 border-t border-amber-200 text-[11px] font-extrabold text-amber-950 flex justify-between">
-                  <span>₹ 20.00 Lakhs / Month</span>
                   <span>100% Paid</span>
                 </div>
               </div>
@@ -665,18 +645,40 @@ export default function FinanceDashboard() {
                   <div className="flex justify-between items-center text-[10px] font-bold text-purple-900 uppercase">
                     <span>DEPOT FREIGHT</span>
                     <span className="bg-purple-100 px-2 py-0.5 rounded border border-purple-300">
-                      6% Outlay
+                      7.25% Outlay
                     </span>
                   </div>
                   <div className="text-lg font-black text-slate-900 mt-1">
-                    ₹ 7.14 Cr
+                    ₹ 23.20 Cr
                   </div>
                   <span className="text-xs font-bold text-slate-800 block mt-0.5">
-                    Depots & Blocks
+                    51 Regional Depots
                   </span>
                 </div>
                 <div className="pt-2 border-t border-purple-200 text-[11px] font-extrabold text-purple-950 flex justify-between">
                   <span>Transit Logistics</span>
+                  <span>100% Paid</span>
+                </div>
+              </div>
+
+              {/* HRMS Payroll */}
+              <div className="bg-amber-50/70 border border-amber-200 p-3.5 rounded-2xl flex flex-col justify-between space-y-2">
+                <div>
+                  <div className="flex justify-between items-center text-[10px] font-bold text-amber-900 uppercase">
+                    <span>HRMS PAYROLL</span>
+                    <span className="bg-amber-100 px-2 py-0.5 rounded border border-amber-300">
+                      0.75% Outlay
+                    </span>
+                  </div>
+                  <div className="text-lg font-black text-slate-900 mt-1">
+                    ₹ 2.40 Cr
+                  </div>
+                  <span className="text-xs font-bold text-slate-800 block mt-0.5">
+                    85 Active Staff
+                  </span>
+                </div>
+                <div className="pt-2 border-t border-amber-200 text-[11px] font-extrabold text-amber-950 flex justify-between">
+                  <span>₹ 20.00 Lakhs / Month</span>
                   <span>100% Paid</span>
                 </div>
               </div>
@@ -703,48 +705,48 @@ export default function FinanceDashboard() {
                 {/* Horizontal Grid lines */}
                 <div className="absolute inset-x-6 top-10 border-t border-dashed border-slate-200 flex justify-between items-center">
                   <span className="text-[10px] font-extrabold text-slate-400 bg-white pr-2">
-                    ₹ 60 Cr
+                    ₹ 160 Cr
                   </span>
                 </div>
                 <div className="absolute inset-x-6 top-24 border-t border-dashed border-slate-200 flex justify-between items-center">
                   <span className="text-[10px] font-extrabold text-slate-400 bg-white pr-2">
-                    ₹ 40 Cr
+                    ₹ 120 Cr
                   </span>
                 </div>
                 <div className="absolute inset-x-6 top-38 border-t border-dashed border-slate-200 flex justify-between items-center">
                   <span className="text-[10px] font-extrabold text-slate-400 bg-white pr-2">
-                    ₹ 20 Cr
+                    ₹ 60 Cr
                   </span>
                 </div>
 
                 {[
                   {
                     name: "Paper Procurement",
-                    val: "₹ 59.98 Cr",
-                    height: "82%",
+                    val: "₹ 160.00 Cr",
+                    height: "88%",
                     color: "#006A38",
-                    sub: "3.76K MT Paper Reels",
+                    sub: "10.0K MT Paper Reels",
                   },
                   {
                     name: "Textbook Printers",
-                    val: "₹ 49.98 Cr",
-                    height: "68%",
+                    val: "₹ 134.40 Cr",
+                    height: "74%",
                     color: "#2563eb",
-                    sub: "4.20 Cr Books Printed",
+                    sub: "4.50 Cr Books Printed",
+                  },
+                  {
+                    name: "Depot Freight",
+                    val: "₹ 23.20 Cr",
+                    height: "22%",
+                    color: "#8b5cf6",
+                    sub: "51 Regional Depots",
                   },
                   {
                     name: "HRMS Staff Payroll",
                     val: "₹ 2.40 Cr",
-                    height: "36%",
-                    color: "#d97706",
-                    sub: "85 Active Personnel",
-                  },
-                  {
-                    name: "Depot Freight",
-                    val: "₹ 7.14 Cr",
-                    height: "14%",
-                    color: "#7c3aed",
-                    sub: "Depots & Blocks",
+                    height: "12%",
+                    color: "#f59e0b",
+                    sub: "85 Active Staff",
                   },
                 ].map((bar, idx) => (
                   <div
@@ -784,7 +786,7 @@ export default function FinanceDashboard() {
                   Expenditure Outlay Breakdown
                 </h3>
                 <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  ₹ 119.50 Cr Total
+                  ₹ 320.00 Cr Total
                 </span>
               </div>
 
@@ -803,48 +805,48 @@ export default function FinanceDashboard() {
                       strokeWidth="14"
                       fill="transparent"
                     />
-                    {/* Paper 50% */}
+                    {/* Paper 50.0% */}
                     <circle
                       cx="50"
                       cy="50"
                       r="38"
                       stroke="#006A38"
                       strokeWidth="14"
-                      strokeDasharray="119.8 238.7"
+                      strokeDasharray="119.38 238.76"
                       strokeDashoffset="0"
                       fill="transparent"
                     />
-                    {/* Printing 42% */}
+                    {/* Printing 42.0% */}
                     <circle
                       cx="50"
                       cy="50"
                       r="38"
                       stroke="#2563eb"
                       strokeWidth="14"
-                      strokeDasharray="99.8 238.7"
-                      strokeDashoffset="-119.8"
+                      strokeDasharray="100.28 238.76"
+                      strokeDashoffset="-119.38"
                       fill="transparent"
                     />
-                    {/* Payroll 2% */}
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="38"
-                      stroke="#f59e0b"
-                      strokeWidth="14"
-                      strokeDasharray="4.8 238.7"
-                      strokeDashoffset="-219.6"
-                      fill="transparent"
-                    />
-                    {/* Logistics 6% */}
+                    {/* Depot Freight 7.25% */}
                     <circle
                       cx="50"
                       cy="50"
                       r="38"
                       stroke="#8b5cf6"
                       strokeWidth="14"
-                      strokeDasharray="14.3 238.7"
-                      strokeDashoffset="-224.4"
+                      strokeDasharray="17.31 238.76"
+                      strokeDashoffset="-219.66"
+                      fill="transparent"
+                    />
+                    {/* Payroll 0.75% */}
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="38"
+                      stroke="#f59e0b"
+                      strokeWidth="14"
+                      strokeDasharray="1.79 238.76"
+                      strokeDashoffset="-236.97"
                       fill="transparent"
                     />
                   </svg>

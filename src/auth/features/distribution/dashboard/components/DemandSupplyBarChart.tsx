@@ -12,30 +12,30 @@ export function DemandSupplyBarChart() {
     useState<DistrictChartData | null>(null);
 
   const data: DistrictChartData[] = [
-    { district: "Agar Malwa", demand: 19800, supply: 6732 }, // 34% (Below Avg / Red)
-    { district: "Alirajpur", demand: 16500, supply: 14091 },
-    { district: "Anuppur", demand: 20800, supply: 7488 }, // 36% (Below Avg / Red)
-    { district: "Betul", demand: 22500, supply: 19215 },
-    { district: "Bhind", demand: 13800, supply: 4420 }, // 32% (Below Avg / Red)
-    { district: "Bhopal", demand: 24200, supply: 21780 },
-    { district: "Chhindwara", demand: 18900, supply: 6993 }, // 37% (Below Avg / Red)
-    { district: "Dewas", demand: 18700, supply: 16456 },
-    { district: "Dhar", demand: 21900, supply: 19491 },
-    { district: "Gwalior", demand: 23100, supply: 20328 },
-    { district: "Indore", demand: 24800, supply: 22816 },
-    { district: "Jabalpur", demand: 23500, supply: 21150 },
-    { district: "Katni", demand: 17200, supply: 6192 }, // 36% (Below Avg / Red)
-    { district: "Khandwa", demand: 19400, supply: 17072 },
-    { district: "Khargone", demand: 20100, supply: 17688 },
-    { district: "Morena", demand: 13500, supply: 4725 }, // 35% (Below Avg / Red)
-    { district: "Panna", demand: 14000, supply: 5040 }, // 36% (Below Avg / Red)
-    { district: "Ratlam", demand: 19500, supply: 15639 },
-    { district: "Rewa", demand: 21200, supply: 18656 },
-    { district: "Sagar", demand: 22000, supply: 19360 },
-    { district: "Satna", demand: 20500, supply: 18040 },
-    { district: "Sehore", demand: 22350, supply: 20673 },
-    { district: "Ujjain", demand: 21600, supply: 19224 },
-    { district: "Vidisha", demand: 18300, supply: 16104 },
+    { district: "Agar Malwa", demand: 16100, supply: 5474 }, // 34% (Below Avg / Red)
+    { district: "Alirajpur", demand: 13500, supply: 11529 },
+    { district: "Anuppur", demand: 17000, supply: 6120 }, // 36% (Below Avg / Red)
+    { district: "Betul", demand: 18300, supply: 15628 },
+    { district: "Bhind", demand: 11300, supply: 3616 }, // 32% (Below Avg / Red)
+    { district: "Bhopal", demand: 19700, supply: 17730 },
+    { district: "Chhindwara", demand: 15400, supply: 5698 }, // 37% (Below Avg / Red)
+    { district: "Dewas", demand: 15300, supply: 13464 },
+    { district: "Dhar", demand: 17900, supply: 15931 },
+    { district: "Gwalior", demand: 18800, supply: 16544 },
+    { district: "Indore", demand: 20200, supply: 18584 },
+    { district: "Jabalpur", demand: 19200, supply: 17280 },
+    { district: "Katni", demand: 14000, supply: 5040 }, // 36% (Below Avg / Red)
+    { district: "Khandwa", demand: 15800, supply: 13904 },
+    { district: "Khargone", demand: 16400, supply: 14432 },
+    { district: "Morena", demand: 11000, supply: 3850 }, // 35% (Below Avg / Red)
+    { district: "Panna", demand: 11400, supply: 4104 }, // 36% (Below Avg / Red)
+    { district: "Ratlam", demand: 15900, supply: 12752 },
+    { district: "Rewa", demand: 17300, supply: 15224 },
+    { district: "Sagar", demand: 17900, supply: 15752 },
+    { district: "Satna", demand: 16700, supply: 14696 },
+    { district: "Sehore", demand: 18200, supply: 16835 },
+    { district: "Ujjain", demand: 17600, supply: 15664 },
+    { district: "Vidisha", demand: 15100, supply: 13288 },
   ];
 
   const maxValue = 25000;

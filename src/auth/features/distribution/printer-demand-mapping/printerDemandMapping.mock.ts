@@ -225,6 +225,39 @@ const initialAllocations: Allocation[] = [
     expectedCompletionDate: "2026-09-20",
     orderNo: "ORD-2026-003",
   },
+  {
+    tenderNo: "TN-2026-001",
+    bookCode: "BK-901",
+    printerCode: "PRN-000128",
+    quantity: 60000,
+    mappingDate: "2026-08-19",
+    mappedBy: "Admin User",
+    deliveryDepot: "Bhopal",
+    expectedCompletionDate: "2026-09-25",
+    orderNo: "ORD-2026-004",
+  },
+  {
+    tenderNo: "TN-2026-002",
+    bookCode: "BK-701",
+    printerCode: "PRN-000133",
+    quantity: 60000,
+    mappingDate: "2026-08-19",
+    mappedBy: "Admin User",
+    deliveryDepot: "Jabalpur",
+    expectedCompletionDate: "2026-09-25",
+    orderNo: "ORD-2026-005",
+  },
+  {
+    tenderNo: "TN-2026-002",
+    bookCode: "BK-801",
+    printerCode: "PRN-000133",
+    quantity: 60000,
+    mappingDate: "2026-08-19",
+    mappedBy: "Admin User",
+    deliveryDepot: "Jabalpur",
+    expectedCompletionDate: "2026-09-28",
+    orderNo: "ORD-2026-005",
+  },
 ];
 
 const initialHistory: MappingHistoryItem[] = [
@@ -288,6 +321,51 @@ const initialHistory: MappingHistoryItem[] = [
     expectedCompletionDate: "2026-09-20",
     orderNo: "ORD-2026-003",
   },
+  {
+    mappingId: "MAP-10005",
+    tenderNo: "TN-2026-001",
+    printerName: "Gwalior Text Offset Printers",
+    printerCode: "PRN-000128",
+    bookName: "पाठ्यपुस्तक / एकाउंटेन्सी (Part 1)",
+    bookCode: "BK-901",
+    allocatedQty: 60000,
+    mappingDate: "2026-08-19",
+    mappedBy: "Admin User",
+    status: "Confirmed",
+    deliveryDepot: "Bhopal",
+    expectedCompletionDate: "2026-09-25",
+    orderNo: "ORD-2026-004",
+  },
+  {
+    mappingId: "MAP-10006",
+    tenderNo: "TN-2026-002",
+    printerName: "Narmada Printing Press",
+    printerCode: "PRN-000133",
+    bookName: "सामाजिक विज्ञान - Class 7",
+    bookCode: "BK-701",
+    allocatedQty: 60000,
+    mappingDate: "2026-08-19",
+    mappedBy: "Admin User",
+    status: "Confirmed",
+    deliveryDepot: "Jabalpur",
+    expectedCompletionDate: "2026-09-25",
+    orderNo: "ORD-2026-005",
+  },
+  {
+    mappingId: "MAP-10007",
+    tenderNo: "TN-2026-002",
+    printerName: "Narmada Printing Press",
+    printerCode: "PRN-000133",
+    bookName: "विज्ञान - Class 8",
+    bookCode: "BK-801",
+    allocatedQty: 60000,
+    mappingDate: "2026-08-19",
+    mappedBy: "Admin User",
+    status: "Confirmed",
+    deliveryDepot: "Jabalpur",
+    expectedCompletionDate: "2026-09-28",
+    orderNo: "ORD-2026-005",
+  },
 ];
 
 // Helper to interact with localStorage
@@ -310,24 +388,24 @@ const setStored = <T>(key: string, value: T): void => {
 
 export const getRawAllocations = (): Allocation[] => {
   return getStored<Allocation[]>(
-    "mptbc_pwa_allocations_v3",
+    "mptbc_pwa_allocations_v4",
     initialAllocations,
   );
 };
 
 export const getRawHistory = (): MappingHistoryItem[] => {
   return getStored<MappingHistoryItem[]>(
-    "mptbc_pwa_history_v3",
+    "mptbc_pwa_history_v4",
     initialHistory,
   );
 };
 
 export const getPrintersRaw = (): PrinterItem[] => {
-  return getStored<PrinterItem[]>("mptbc_pwa_printers_v3", initialPrinters);
+  return getStored<PrinterItem[]>("mptbc_pwa_printers_v4", initialPrinters);
 };
 
 export const getTendersRaw = (): ApprovedTender[] => {
-  return getStored<ApprovedTender[]>("mptbc_pwa_tenders_v3", initialTenders);
+  return getStored<ApprovedTender[]>("mptbc_pwa_tenders_v4", initialTenders);
 };
 
 // Generate next order number
@@ -643,8 +721,8 @@ export const printerDemandMappingMock = {
     const updatedAllocations = [...allocations, ...newAllocationsToSave];
     const updatedHistory = [...history, ...newHistoryToSave];
 
-    setStored("mptbc_pwa_allocations_v3", updatedAllocations);
-    setStored("mptbc_pwa_history_v3", updatedHistory);
+    setStored("mptbc_pwa_allocations_v4", updatedAllocations);
+    setStored("mptbc_pwa_history_v4", updatedHistory);
 
     return {
       success: true,

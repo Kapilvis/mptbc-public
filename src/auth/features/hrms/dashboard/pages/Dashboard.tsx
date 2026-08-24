@@ -29,10 +29,10 @@ const academicYearOptions = [
 
 const cadreFilterOptions = [
   { label: "All Cadres & Types", value: "ALL" },
-  { label: "Regular Class I", value: "REGULAR CLASS I" },
-  { label: "Regular Class II", value: "REGULAR CLASS II" },
-  { label: "Regular Class III", value: "REGULAR CLASS III" },
-  { label: "Contractual", value: "CONTRACTUAL" },
+  { label: "Permanent Staff", value: "REGULAR" },
+  { label: "Samvida Cadre", value: "SAMVIDA" },
+  { label: "Contractual Staff", value: "CONTRACTUAL" },
+  { label: "Outsourced Support", value: "OUTSOURCED" },
 ];
 
 const locationFilterOptions = [
@@ -149,8 +149,8 @@ export default function HrmsDashboard() {
       },
       {
         field: "regularStaff",
-        header: "REGULAR STAFF",
-        width: "120px",
+        header: "PERMANENT",
+        width: "110px",
         cell: (item) => (
           <span className="font-semibold text-emerald-800">
             {item.regularStaff}
@@ -158,9 +158,19 @@ export default function HrmsDashboard() {
         ),
       },
       {
+        field: "samvidaStaff",
+        header: "SAMVIDA",
+        width: "100px",
+        cell: (item) => (
+          <span className="font-semibold text-indigo-800">
+            {item.samvidaStaff || 0}
+          </span>
+        ),
+      },
+      {
         field: "contractualStaff",
         header: "CONTRACTUAL",
-        width: "120px",
+        width: "110px",
         cell: (item) => (
           <span className="font-semibold text-blue-800">
             {item.contractualStaff}
@@ -170,7 +180,7 @@ export default function HrmsDashboard() {
       {
         field: "outsourcedStaff",
         header: "OUTSOURCED",
-        width: "120px",
+        width: "110px",
         cell: (item) => (
           <span className="font-semibold text-slate-700">
             {item.outsourcedStaff}
@@ -451,34 +461,42 @@ export default function HrmsDashboard() {
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
                 1. WORKFORCE DEPLOYMENT
               </span>
-              <span className="text-[10px] font-bold bg-blue-100 text-blue-900 px-2 py-0.5 rounded-full border border-blue-300">
+              <span className="text-xs font-extrabold bg-blue-100 text-blue-900 px-2.5 py-1 rounded-full border border-blue-300">
                 {kpis?.totalWorkforce || 85} Total
               </span>
             </div>
 
-            <div className="grid grid-cols-3 gap-1.5 w-full text-left mt-2">
+            <div className="grid grid-cols-4 gap-1 w-full text-left mt-2">
               <div>
-                <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">
+                <span className="text-[9px] font-bold text-emerald-800 uppercase tracking-wider block truncate">
                   PERMANENT
                 </span>
-                <div className="text-xl font-black text-slate-900">
-                  {kpis?.regularCount || 42}
+                <div className="text-lg font-black text-slate-900">
+                  {kpis?.regularCount || 30}
                 </div>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-blue-800 uppercase tracking-wider block">
+                <span className="text-[9px] font-bold text-indigo-800 uppercase tracking-wider block truncate">
+                  SAMVIDA
+                </span>
+                <div className="text-lg font-black text-slate-900">
+                  {kpis?.samvidaCount || 20}
+                </div>
+              </div>
+              <div>
+                <span className="text-[9px] font-bold text-blue-800 uppercase tracking-wider block truncate">
                   CONTRACT
                 </span>
-                <div className="text-xl font-black text-slate-900">
-                  {kpis?.contractualCount || 25}
+                <div className="text-lg font-black text-slate-900">
+                  {kpis?.contractualCount || 15}
                 </div>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
-                  OUTSOURCED
+                <span className="text-[9px] font-bold text-slate-700 uppercase tracking-wider block truncate">
+                  OUTSOURCE
                 </span>
-                <div className="text-xl font-black text-slate-900">
-                  {kpis?.outsourcedCount || 18}
+                <div className="text-lg font-black text-slate-900">
+                  {kpis?.outsourcedCount || 20}
                 </div>
               </div>
             </div>
@@ -498,7 +516,7 @@ export default function HrmsDashboard() {
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
                 2. TODAY'S ATTENDANCE
               </span>
-              <span className="text-[10px] font-bold bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded-full border border-emerald-300">
+              <span className="text-xs font-extrabold bg-emerald-100 text-emerald-900 px-2.5 py-1 rounded-full border border-emerald-300">
                 {kpis?.attendancePct || 91.8}% Synced
               </span>
             </div>
@@ -513,11 +531,11 @@ export default function HrmsDashboard() {
                 </div>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-rose-800 uppercase tracking-wider block">
-                  ABSENT / LEAVE
+                <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider block">
+                  ON LEAVE
                 </span>
                 <div className="text-xl font-black text-slate-900">
-                  {(kpis?.totalWorkforce || 85) - (kpis?.presentCount || 78)}
+                  {kpis?.onLeaveCount || 7}
                 </div>
               </div>
             </div>
@@ -537,7 +555,7 @@ export default function HrmsDashboard() {
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
                 3. MONTHLY PAYROLL
               </span>
-              <span className="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full border border-amber-300">
+              <span className="text-xs font-extrabold bg-amber-100 text-amber-900 px-2.5 py-1 rounded-full border border-amber-300">
                 {kpis?.monthlyPayrollBudget || "₹ 20.00 Lakhs"}
               </span>
             </div>
@@ -576,7 +594,7 @@ export default function HrmsDashboard() {
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
                 4. PENDING HR ACTIONS
               </span>
-              <span className="text-[10px] font-bold bg-rose-100 text-rose-900 px-2 py-0.5 rounded-full border border-rose-300">
+              <span className="text-xs font-extrabold bg-rose-100 text-rose-900 px-2.5 py-1 rounded-full border border-rose-300">
                 6 Pending
               </span>
             </div>
@@ -622,8 +640,8 @@ export default function HrmsDashboard() {
                 Staff Breakdown by Employee Category & Office
               </h3>
               <p className="text-xs text-slate-800 font-bold mt-0.5">
-                Total 85 Employees working across Regular Officers, Staff,
-                Contractual, and Outsourced Roles.
+                Total 85 Employees working across Permanent (30), Samvida (20),
+                Contractual (15), and Outsourced (20) Roles.
               </p>
             </div>
             <span className="text-xs font-extrabold text-[#006A38] bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 shrink-0">
@@ -632,70 +650,68 @@ export default function HrmsDashboard() {
           </div>
 
           <div className="space-y-4">
-            {/* Bar 1: Regular Class I & II */}
+            {/* Bar 1: Permanent Staff */}
             <div>
               <div className="flex justify-between text-sm font-extrabold mb-1 text-slate-900">
                 <span>
-                  Regular Class I & Class II Officers (GMs, Depot Managers,
-                  Inspectors)
+                  Permanent Officers & Staff (GMs, Depot Managers, Regular
+                  Cadre)
                 </span>
-                <span className="text-slate-900">14 (16.5%)</span>
+                <span className="text-slate-900">30 (35.3%)</span>
               </div>
               <div className="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden flex">
                 <div
                   className="bg-[#006A38] h-full rounded-full"
-                  style={{ width: "16.5%" }}
+                  style={{ width: "35.3%" }}
                 />
               </div>
             </div>
 
-            {/* Bar 2: Regular Class III & IV */}
+            {/* Bar 2: Samvida Cadre Staff */}
             <div>
               <div className="flex justify-between text-sm font-extrabold mb-1 text-slate-900">
                 <span>
-                  Regular Class III & IV Support Staff (Clerks, Storekeepers,
-                  Peons)
+                  Samvida Personnel (Depot Cadre & Technical Inspectors)
                 </span>
-                <span className="text-slate-900">28 (32.9%)</span>
+                <span className="text-slate-900">20 (23.5%)</span>
               </div>
               <div className="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden flex">
                 <div
-                  className="bg-emerald-500 h-full rounded-full"
-                  style={{ width: "32.9%" }}
+                  className="bg-indigo-600 h-full rounded-full"
+                  style={{ width: "23.5%" }}
                 />
               </div>
             </div>
 
-            {/* Bar 3: Contractual Technical Personnel */}
+            {/* Bar 3: Contractual Personnel */}
             <div>
               <div className="flex justify-between text-sm font-extrabold mb-1 text-slate-900">
                 <span>
-                  Contractual Technical Personnel (Depot Assistants, IT Data
-                  Analysts)
+                  Contractual Personnel (Depot Assistants, IT Data Analysts)
                 </span>
-                <span className="text-slate-900">25 (29.4%)</span>
+                <span className="text-slate-900">15 (17.6%)</span>
               </div>
               <div className="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden flex">
                 <div
                   className="bg-blue-600 h-full rounded-full"
-                  style={{ width: "29.4%" }}
+                  style={{ width: "17.6%" }}
                 />
               </div>
             </div>
 
-            {/* Bar 4: Outsourced Logistics & Warehouse Helpers */}
+            {/* Bar 4: Outsourced Helpers & Security */}
             <div>
               <div className="flex justify-between text-sm font-extrabold mb-1 text-slate-900">
                 <span>
-                  Outsourced Warehouse Helpers & Depot Security (Mandideep & 51
+                  Outsourced Warehouse Helpers & Depot Security (Mandideep &
                   Depots)
                 </span>
-                <span className="text-slate-900">18 (21.2%)</span>
+                <span className="text-slate-900">20 (23.5%)</span>
               </div>
               <div className="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden flex">
                 <div
                   className="bg-amber-500 h-full rounded-full"
-                  style={{ width: "21.2%" }}
+                  style={{ width: "23.5%" }}
                 />
               </div>
             </div>
@@ -778,27 +794,15 @@ export default function HrmsDashboard() {
                     fill="transparent"
                     className="transition-all duration-300 hover:brightness-110 cursor-pointer"
                   />
-                  {/* Segment 2: Field Duty (4.7%) */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="38"
-                    stroke="#467becff"
-                    strokeWidth="14"
-                    strokeDasharray="11.2 238.7"
-                    strokeDashoffset="-219.1"
-                    fill="transparent"
-                    className="transition-all duration-300 hover:brightness-110 cursor-pointer"
-                  />
-                  {/* Segment 3: Absent / On Leave (3.5%) */}
+                  {/* Segment 2: On Leave (8.2%) */}
                   <circle
                     cx="50"
                     cy="50"
                     r="38"
                     stroke="#f32c25ff"
                     strokeWidth="14"
-                    strokeDasharray="8.4 238.7"
-                    strokeDashoffset="-230.3"
+                    strokeDasharray="19.6 238.7"
+                    strokeDashoffset="-219.1"
                     fill="transparent"
                     className="transition-all duration-300 hover:brightness-110 cursor-pointer"
                   />
@@ -821,7 +825,7 @@ export default function HrmsDashboard() {
                   <div className="flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full bg-[#006A38] shrink-0" />
                     <span className="font-bold text-slate-900">
-                      Present at Office / Depots
+                      Present Today
                     </span>
                   </div>
                   <div className="text-right">
@@ -834,36 +838,17 @@ export default function HrmsDashboard() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-xs bg-blue-50/60 p-2.5 rounded-xl border border-blue-100">
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-blue-600 shrink-0" />
-                    <span className="font-bold text-slate-900">
-                      On Field Duty / Inspection
-                    </span>
-                  </div>
-                  <div className="text-right">
-                    <strong className="text-slate-900 font-extrabold block">
-                      4
-                    </strong>
-                    <span className="text-[10px] text-blue-800 font-bold">
-                      4.7%
-                    </span>
-                  </div>
-                </div>
-
                 <div className="flex items-center justify-between text-xs bg-rose-50/60 p-2.5 rounded-xl border border-rose-100">
                   <div className="flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full bg-rose-500 shrink-0" />
-                    <span className="font-bold text-slate-900">
-                      Absent / On Leave
-                    </span>
+                    <span className="font-bold text-slate-900">On Leave</span>
                   </div>
                   <div className="text-right">
                     <strong className="text-slate-900 font-extrabold block">
-                      3
+                      7
                     </strong>
                     <span className="text-[10px] text-rose-800 font-bold">
-                      3.5%
+                      8.2%
                     </span>
                   </div>
                 </div>
@@ -1277,7 +1262,7 @@ export default function HrmsDashboard() {
               }`}
             >
               <i className="pi pi-building text-xs" />
-              51 District Depots Deployment Matrix
+              District Depots Deployment
             </button>
           </div>
         </div>
@@ -1288,7 +1273,7 @@ export default function HrmsDashboard() {
             <div className="p-4 border-b border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-50/30">
               <div>
                 <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                  51 District Depots Staff Deployment Heatmap
+                  District Depots Staff Deployment Heatmap
                 </h4>
                 <p className="text-[11px] text-slate-500 font-medium mt-0.5">
                   Sanctioned vs Working Strength across MP State Administrative
