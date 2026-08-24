@@ -8,7 +8,7 @@ import mkcert from "vite-plugin-mkcert";
 export default defineConfig(({ command }) => ({
   base:
     process.env.VITE_BASE_PATH ||
-    (command === "build" ? "/mptbc-public/" : "/"),
+    (process.env.VERCEL ? "/" : command === "build" ? "/mptbc-public/" : "/"),
   plugins: [
     tailwindcss(),
     react(),
