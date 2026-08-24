@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { Sparkles, Headphones, HelpCircle } from "lucide-react";
+import { Headphones, HelpCircle } from "lucide-react";
 import { useAuth } from "../../auth/AuthProvider";
 import { ROLE_OPTIONS, getRoleDashboardRoute } from "../../auth/authConfig";
 import { Button } from "../../shared/components/buttons";
@@ -10,9 +10,9 @@ import {
   PasswordBox,
   TextBox,
 } from "../../shared/components/forms";
-import { getAssetUrl } from "../../shared/utils/assetPath";
 import "./Login.css";
 import { useLoginForm } from "./login.hook";
+import { getAssetUrl } from "../../shared/utils/assetPath";
 
 /* ─── Login Form Component ─── */
 interface LoginCardProps {
@@ -48,8 +48,8 @@ const LoginCard: React.FC<LoginCardProps> = ({
       {/* Top Header Title */}
       <div className="mptbc-card-header">
         <div className="mptbc-card-header-text">
-          <h2 className="mptbc-login-title">स्वागत है!</h2>
-          <p className="mptbc-login-subtitle">MPTBC पोर्टल में लॉगिन करें</p>
+          <h2 className="mptbc-login-title">Login</h2>
+          <p className="mptbc-login-subtitle">MPTBC ERP में लॉगिन करें</p>
         </div>
       </div>
 
@@ -147,10 +147,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div
-      className="mptbc-light-page-wrapper"
-      style={{ backgroundImage: `url(${getAssetUrl("/login_bgg.jpg")})` }}
-    >
+    <div className="mptbc-light-page-wrapper">
       {/* Top Banner Navigation Bar */}
       <header className="mptbc-light-nav-header">
         <div className="mptbc-nav-brand">
@@ -182,8 +179,7 @@ export default function LoginPage() {
       <main className="mptbc-light-main-content">
         {/* LEFT COLUMN: Hero Section */}
         <section className="mptbc-light-hero-section">
-          {/* Tagline Pill */}
-          <div className="mptbc-light-tagline-chip">
+          {/* <div className="mptbc-light-tagline-chip">
             <Sparkles className="mptbc-sparkle-icon" />
             <span>डिजिटल गवर्नेंस व एकीकृत प्रबंधन पोर्टल</span>
           </div>
@@ -201,11 +197,11 @@ export default function LoginPage() {
           <p className="mptbc-light-hero-subheading">
             मध्य प्रदेश के विद्यार्थियों तक गुणवत्तापूर्ण, विश्वसनीय और समय पर
             पाठ्य सामग्री पहुंचाने की प्रतिबद्धता
-          </p>
+          </p> */}
         </section>
 
         {/* RIGHT COLUMN: Elevated Light Login Card */}
-        <section className="mptbc-light-login-section">
+        <section className="mptbc-light-login-section ml-5">
           <LoginCard
             onSubmit={handleSubmit}
             register={register}

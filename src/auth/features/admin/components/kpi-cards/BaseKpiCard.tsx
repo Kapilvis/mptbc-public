@@ -86,12 +86,12 @@ export const BaseKpiCard: React.FC<BaseKpiCardProps> = ({
           <div className={`p-1.5 rounded-lg ${styles.iconBg}`}>
             <Icon size={17} strokeWidth={2.2} />
           </div>
-          <h3 className="font-bold text-slate-800 uppercase tracking-wide text-xs sm:text-[13px] leading-tight">
+          <h3 className="font-extrabold text-slate-900 uppercase tracking-wide text-xs sm:text-[13px] leading-tight">
             {title}
           </h3>
           {badge && (
             <span
-              className={`text-[10px] font-extrabold px-2 py-0.5 rounded-md tracking-wider ${styles.badgeBg}`}
+              className={`text-[10px] font-semibold px-2 py-0.5 rounded-md tracking-wider ${styles.badgeBg}`}
             >
               {badge}
             </span>
@@ -116,10 +116,10 @@ export const MetricRow: React.FC<{
   value: React.ReactNode;
 }> = ({ label, value }) => (
   <div className="flex justify-between items-center py-2 border-b border-slate-100 last:border-0">
-    <span className="text-[12px] font-extrabold text-slate-700 uppercase tracking-wide flex items-center gap-2">
+    <span className="text-[12px] font-medium text-slate-600 uppercase tracking-wide flex items-center gap-2">
       {label}
     </span>
-    <span className="text-[13px] sm:text-[14px] font-extrabold text-slate-900">
+    <span className="text-[13px] sm:text-[14px] font-semibold text-slate-900">
       {value}
     </span>
   </div>
