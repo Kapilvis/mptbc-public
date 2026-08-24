@@ -17,7 +17,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { Chart } from "primereact/chart";
-import { BaseKpiCard, MetricRow } from "./BaseKpiCard";
+import { BaseKpiCard } from "./BaseKpiCard";
 import { mockDashboardData } from "../../data/mockKpiData";
 import { DemandBreakdownModal } from "../modals/DemandBreakdownModal";
 import { PaperGsmModal } from "../modals/PaperGsmModal";
@@ -325,29 +325,77 @@ export const DemandKpiCard: React.FC = () => {
             <div className="bg-white border border-blue-100 rounded-xl p-5 shadow-[0_1px_2px_rgba(0,0,0,0.02)] flex-1 flex flex-col justify-between">
               <div>
                 <h3 className="text-xs font-extrabold text-slate-800 mb-4 flex items-center gap-2.5 uppercase tracking-wide">
-                  <div className="p-2 bg-blue-50 text-blue-600 rounded-lg shrink-0 flex items-center justify-center">
+                  <div className="p-2 bg-linear-to-br from-blue-500 to-indigo-600 text-white rounded-lg shrink-0 flex items-center justify-center shadow-xs">
                     <i className="pi pi-list text-sm" />
                   </div>
-                  <span>View Demand</span>
+                  <span className="bg-linear-to-r from-blue-700 via-indigo-700 to-purple-700 bg-clip-text text-transparent font-extrabold">
+                    View Demand
+                  </span>
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    { id: "class", label: "Group Class Wise" },
-                    { id: "detailedClass", label: "Class Wise" },
-                    { id: "stream", label: "Stream Wise" },
-                    { id: "medium", label: "Medium Wise" },
-                    { id: "gsm", label: "GSM Wise" },
-                    { id: "bookType", label: "Book Type Wise" },
+                    {
+                      id: "class",
+                      label: "Group Class Wise",
+                      textColor: "text-indigo-600 group-hover:text-indigo-700",
+                      bgColor:
+                        "bg-indigo-50/70 hover:bg-indigo-100/80 border-indigo-200/80",
+                      arrowColor: "text-indigo-400 group-hover:text-indigo-600",
+                    },
+                    {
+                      id: "detailedClass",
+                      label: "Class Wise",
+                      textColor: "text-blue-600 group-hover:text-blue-700",
+                      bgColor:
+                        "bg-blue-50/70 hover:bg-blue-100/80 border-blue-200/80",
+                      arrowColor: "text-blue-400 group-hover:text-blue-600",
+                    },
+                    {
+                      id: "stream",
+                      label: "Stream Wise",
+                      textColor:
+                        "text-emerald-600 group-hover:text-emerald-700",
+                      bgColor:
+                        "bg-emerald-50/70 hover:bg-emerald-100/80 border-emerald-200/80",
+                      arrowColor:
+                        "text-emerald-400 group-hover:text-emerald-600",
+                    },
+                    {
+                      id: "medium",
+                      label: "Medium Wise",
+                      textColor: "text-amber-600 group-hover:text-amber-700",
+                      bgColor:
+                        "bg-amber-50/70 hover:bg-amber-100/80 border-amber-200/80",
+                      arrowColor: "text-amber-400 group-hover:text-amber-600",
+                    },
+                    {
+                      id: "gsm",
+                      label: "GSM Wise",
+                      textColor: "text-purple-600 group-hover:text-purple-700",
+                      bgColor:
+                        "bg-purple-50/70 hover:bg-purple-100/80 border-purple-200/80",
+                      arrowColor: "text-purple-400 group-hover:text-purple-600",
+                    },
+                    {
+                      id: "bookType",
+                      label: "Book Type Wise",
+                      textColor: "text-cyan-700 group-hover:text-cyan-800",
+                      bgColor:
+                        "bg-cyan-50/70 hover:bg-cyan-100/80 border-cyan-200/80",
+                      arrowColor: "text-cyan-500 group-hover:text-cyan-700",
+                    },
                   ].map((btn) => (
                     <button
                       key={btn.id}
                       onClick={() =>
                         setModalState({ isOpen: true, type: btn.id })
                       }
-                      className="flex items-center justify-between rounded-xl border border-slate-200/90 bg-slate-50/70 px-3.5 py-2.5 text-xs font-extrabold text-slate-800 hover:bg-slate-100 transition-all text-left shadow-2xs group cursor-pointer"
+                      className={`flex items-center justify-between rounded-xl border ${btn.bgColor} px-3.5 py-2.5 text-xs font-semibold transition-all text-left shadow-2xs group cursor-pointer`}
                     >
-                      <span>{btn.label}</span>
-                      <i className="pi pi-chevron-right text-xs text-slate-400 group-hover:translate-x-0.5 transition-transform" />
+                      <span className={btn.textColor}>{btn.label}</span>
+                      <i
+                        className={`pi pi-chevron-right text-xs ${btn.arrowColor} group-hover:translate-x-0.5 transition-transform`}
+                      />
                     </button>
                   ))}
                 </div>
@@ -357,10 +405,14 @@ export const DemandKpiCard: React.FC = () => {
                   onClick={() =>
                     setModalState({ isOpen: true, type: "detailedClass" })
                   }
-                  className="w-full rounded-xl bg-blue-50/90 hover:bg-blue-100 border border-blue-200/90 py-2.5 px-4 text-xs font-extrabold text-blue-700 flex items-center justify-between transition-all group shadow-2xs cursor-pointer"
+                  className="w-full rounded-xl bg-linear-to-r from-blue-500 via-indigo-600 to-purple-600 hover:from-blue-600 hover:via-indigo-700 hover:to-purple-700 p-[1.5px] transition-all group shadow-xs cursor-pointer"
                 >
-                  <span>Demand Approval Status</span>
-                  <i className="pi pi-arrow-right text-xs group-hover:translate-x-1 transition-transform" />
+                  <div className="w-full h-full bg-white hover:bg-slate-50/80 rounded-[10.5px] py-2.5 px-4 flex items-center justify-between transition-colors">
+                    <span className="bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent font-bold text-xs">
+                      Demand Approval Status
+                    </span>
+                    <i className="pi pi-arrow-right text-xs text-indigo-600 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </button>
               </div>
             </div>
@@ -500,113 +552,111 @@ export const PaperAnalysisKpiCard: React.FC = () => {
 
   return (
     <BaseKpiCard title="Paper & Books Analysis" theme="green" icon={FileText}>
-      <div className="flex flex-col gap-1.5 flex-1">
+      <div className="flex flex-col gap-2 flex-1">
         {/* Total Required */}
-        <div className="flex justify-between items-center py-2 border-b border-slate-100 border-dashed">
-          <span className="text-[13px] font-extrabold text-slate-800 uppercase tracking-wide">
+        <div className="flex justify-between items-center px-3 py-2 bg-slate-50/90 border border-slate-200/80 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-slate-700 uppercase tracking-wide">
             Total Required
           </span>
           <div className="text-right flex flex-col leading-tight">
-            <span className="text-[15px] font-black text-slate-900">
+            <span className="text-[13px] font-bold text-slate-900">
               3,767 MT
             </span>
-            <span className="text-[12px] font-bold text-slate-600">
+            <span className="text-[11px] font-medium text-slate-500">
               3,90,000 Books
             </span>
           </div>
         </div>
 
         {/* Opening Stock */}
-        <div className="flex justify-between items-center py-2 border-b border-slate-100 border-dashed">
+        <div className="flex justify-between items-center px-3 py-2 bg-blue-50/60 border border-blue-100/90 rounded-xl shadow-2xs">
           <div className="flex flex-col leading-tight">
-            <span className="text-[13px] font-extrabold text-slate-800 uppercase tracking-wide">
+            <span className="text-[12px] font-semibold text-blue-900 uppercase tracking-wide">
               Opening Stock
             </span>
-            <span className="text-[11px] font-semibold text-slate-800/80">
+            <span className="text-[10px] font-medium text-blue-600/90">
               (as on 1-Jan-2026)
             </span>
           </div>
           <div className="text-right flex flex-col leading-tight">
-            <span className="text-[14px] font-black text-slate-800">60 MT</span>
-            <span className="text-[12px] font-bold text-slate-600">
+            <span className="text-[13px] font-bold text-blue-800">60 MT</span>
+            <span className="text-[11px] font-medium text-blue-600">
               6,000 Books
             </span>
           </div>
         </div>
 
         {/* Received Stock */}
-        <div className="flex justify-between items-center py-2 border-b border-slate-100 border-dashed">
+        <div className="flex justify-between items-center px-3 py-2 bg-indigo-50/60 border border-indigo-100/90 rounded-xl shadow-2xs">
           <div className="flex flex-col leading-tight">
-            <span className="text-[13px] font-extrabold text-slate-800 uppercase tracking-wide">
+            <span className="text-[12px] font-semibold text-indigo-900 uppercase tracking-wide">
               Received Stock
             </span>
-            <span className="text-[11px] font-semibold text-slate-800/80">
+            <span className="text-[10px] font-medium text-indigo-600/90">
               (last received: 17-Aug-2026)
             </span>
           </div>
           <div className="text-right flex flex-col leading-tight">
-            <span className="text-[14px] font-black text-blue-700">
+            <span className="text-[13px] font-bold text-indigo-800">
               3,165 MT
             </span>
-            <span className="text-[12px] font-bold text-blue-600">
+            <span className="text-[11px] font-medium text-indigo-600">
               3,27,650 Books
             </span>
           </div>
         </div>
 
         {/* Return Stock */}
-        <div className="flex justify-between items-center py-2 border-b border-slate-100 border-dashed">
+        <div className="flex justify-between items-center px-3 py-2 bg-amber-50/60 border border-amber-100/90 rounded-xl shadow-2xs">
           <div className="flex flex-col leading-tight">
-            <span className="text-[13px] font-extrabold text-slate-800 uppercase tracking-wide">
+            <span className="text-[12px] font-semibold text-amber-900 uppercase tracking-wide">
               Return Stock
             </span>
-            <span className="text-[11px] font-semibold text-slate-800/80">
+            <span className="text-[10px] font-medium text-amber-700/80">
               (Return on 1-Aug-2026)
             </span>
           </div>
           <div className="text-right flex flex-col leading-tight">
-            <span className="text-[14px] font-black text-amber-700">10 MT</span>
-            <span className="text-[12px] font-bold text-amber-600">
+            <span className="text-[13px] font-bold text-amber-800">10 MT</span>
+            <span className="text-[11px] font-medium text-amber-700">
               1,000 Books
             </span>
           </div>
         </div>
 
-        {/* Available Stock (GREEN) */}
-        <div className="flex justify-between items-center py-2 border-b border-slate-100 border-dashed">
+        {/* Available Stock */}
+        <div className="flex justify-between items-center px-3 py-2 bg-emerald-50/60 border border-emerald-100/90 rounded-xl shadow-2xs">
           <div className="flex flex-col leading-tight">
-            <span className="text-[13px] font-extrabold text-emerald-800 uppercase tracking-wide">
+            <span className="text-[12px] font-semibold text-emerald-900 uppercase tracking-wide">
               Available Stock
             </span>
-            <span className="text-[11px] font-bold text-emerald-800">
+            <span className="text-[10px] font-medium text-emerald-700/80">
               (as on 23-Aug-2026)
             </span>
           </div>
           <div className="text-right flex flex-col leading-tight">
-            <span className="text-[14px] font-black text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80">
+            <span className="text-[13px] font-bold text-emerald-800">
               602 MT
             </span>
-            <span className="text-[12px] font-bold text-emerald-700 mt-0.5">
+            <span className="text-[11px] font-medium text-emerald-700">
               62,350 Books
             </span>
           </div>
         </div>
 
-        {/* Need To Purchase (ORANGE) */}
-        <div className="flex justify-between items-center py-2">
+        {/* Need To Purchase */}
+        <div className="flex justify-between items-center px-3 py-2 bg-purple-50/60 border border-purple-100/90 rounded-xl shadow-2xs">
           <div className="flex flex-col leading-tight">
-            <span className="text-[13px] font-extrabold text-orange-900 uppercase tracking-wide">
+            <span className="text-[12px] font-semibold text-purple-900 uppercase tracking-wide">
               Need To Purchase / Print
             </span>
-            <span className="text-[11px] font-bold text-orange-900">
+            <span className="text-[10px] font-medium text-purple-600/90">
               (since 10-Aug-2026)
             </span>
           </div>
           <div className="text-right flex flex-col leading-tight">
-            <span className="text-[14px] font-black text-orange-800 bg-orange-50 px-2 py-0.5 rounded border border-orange-200/80">
-              52 MT
-            </span>
-            <span className="text-[12px] font-bold text-orange-800 mt-0.5">
+            <span className="text-[13px] font-bold text-purple-800">52 MT</span>
+            <span className="text-[11px] font-medium text-purple-700">
               5,20,000 Books
             </span>
           </div>
@@ -616,7 +666,7 @@ export const PaperAnalysisKpiCard: React.FC = () => {
       <div className="mt-4 flex flex-col gap-2.5 border-t border-slate-100 pt-3">
         <button
           onClick={() => setGsmModalOpen(true)}
-          className="w-full rounded-xl border border-slate-200/90 bg-slate-50/80 hover:bg-slate-100 px-3 py-2 text-[13px] font-bold text-slate-700 transition-all flex justify-between items-center group shadow-2xs cursor-pointer"
+          className="w-full rounded-xl border border-slate-200/90 bg-slate-50/80 hover:bg-slate-100 px-3 py-2 text-[12px] font-semibold text-slate-700 transition-all flex justify-between items-center group shadow-2xs cursor-pointer"
         >
           <span>GSM wise paper - MT</span>
           <span className="flex items-center gap-1 text-slate-500 group-hover:text-slate-800">
@@ -626,10 +676,10 @@ export const PaperAnalysisKpiCard: React.FC = () => {
         </button>
         <button
           onClick={() => navigate("/paper")}
-          className="w-full rounded-xl border border-amber-200/90 bg-amber-50/80 hover:bg-amber-100/90 px-3 py-2 text-[13px] font-bold text-amber-900 transition-all flex justify-between items-center group shadow-2xs cursor-pointer"
+          className="w-full rounded-xl border border-slate-200/90 bg-slate-50/80 hover:bg-slate-100 px-3 py-2 text-[12px] font-semibold text-slate-800 transition-all flex justify-between items-center group shadow-2xs cursor-pointer"
         >
           <span>View Tender Work Order</span>
-          <span className="flex items-center gap-1 text-amber-800 font-extrabold">
+          <span className="flex items-center gap-1 text-slate-700 font-semibold">
             {data.workOrdersPending?.value || "2 Pending"}{" "}
             <i className="pi pi-chevron-right text-xs group-hover:translate-x-0.5 transition-transform" />
           </span>
@@ -656,24 +706,39 @@ export const PrinterProfileKpiCard: React.FC<{ onOpenModal: () => void }> = ({
       theme="orange"
       icon={Printer}
     >
-      <div className="flex flex-col gap-1.5 flex-1">
-        <MetricRow label="Total Printers" value={data.totalPrinters} />
-        <MetricRow
-          label="Total Capacity"
-          value={data.totalCapacity || "6,00,000 Books"}
-        />
-        <MetricRow
-          label="Current Capacity Utilization"
-          value={data.currentCapacity || "3,90,000 Books"}
-        />
-        <MetricRow
-          label="Capacity Utilization"
-          value={
-            <span className="text-[13px] font-extrabold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200/80">
-              {`${data.capacityUtilization}%`}
-            </span>
-          }
-        />
+      <div className="flex flex-col gap-2 flex-1">
+        <div className="flex justify-between items-center px-3 py-2 bg-amber-50/60 border border-amber-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-amber-900 uppercase tracking-wide">
+            Total Printers
+          </span>
+          <span className="text-[13px] font-bold text-amber-800">
+            {data.totalPrinters}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-orange-50/60 border border-orange-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-orange-900 uppercase tracking-wide">
+            Total Capacity
+          </span>
+          <span className="text-[13px] font-bold text-orange-800">
+            {data.totalCapacity || "6,00,000 Books"}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-slate-50/90 border border-slate-200/80 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-slate-700 uppercase tracking-wide">
+            Current Capacity Utilization
+          </span>
+          <span className="text-[13px] font-bold text-slate-900">
+            {data.currentCapacity || "3,90,000 Books"}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-blue-50/60 border border-blue-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-blue-900 uppercase tracking-wide">
+            Capacity Utilization
+          </span>
+          <span className="text-[13px] font-bold text-blue-800">
+            {`${data.capacityUtilization}%`}
+          </span>
+        </div>
       </div>
       <div className="mt-4 bg-slate-50/70 rounded-xl border border-slate-200/90 p-3 shadow-2xs">
         <p className="text-[11px] text-slate-700 font-extrabold mb-2 uppercase tracking-wide">
@@ -724,28 +789,39 @@ export const CentralDepotKpiCard: React.FC = () => {
       theme="purple"
       icon={Warehouse}
     >
-      <div className="flex flex-col gap-1.5 flex-1">
-        <MetricRow label="Opening Stock" value={data.openingStock} />
-        <MetricRow
-          label="Received This Year"
-          value={
-            <span className="text-blue-700 font-extrabold">
-              {data.receivedThisYear}
-            </span>
-          }
-        />
-        <MetricRow
-          label="Dispatched to Printer"
-          value={data.dispatchedToPrinter}
-        />
-        <MetricRow
-          label="Closing Stock"
-          value={
-            <span className="text-[13px] font-extrabold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80">
-              {data.closingStock}
-            </span>
-          }
-        />
+      <div className="flex flex-col gap-2 flex-1">
+        <div className="flex justify-between items-center px-3 py-2 bg-purple-50/60 border border-purple-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-purple-900 uppercase tracking-wide">
+            Opening Stock
+          </span>
+          <span className="text-[13px] font-bold text-purple-800">
+            {data.openingStock}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-blue-50/60 border border-blue-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-blue-900 uppercase tracking-wide">
+            Received This Year
+          </span>
+          <span className="text-[13px] font-bold text-blue-800">
+            {data.receivedThisYear}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-indigo-50/60 border border-indigo-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-indigo-900 uppercase tracking-wide">
+            Dispatched to Printer
+          </span>
+          <span className="text-[13px] font-bold text-indigo-800">
+            {data.dispatchedToPrinter}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-emerald-50/60 border border-emerald-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-emerald-900 uppercase tracking-wide">
+            Closing Stock
+          </span>
+          <span className="text-[13px] font-bold text-emerald-800">
+            {data.closingStock}
+          </span>
+        </div>
       </div>
 
       <div className="mt-4 flex flex-col gap-2.5 border-t border-slate-100 pt-3">
@@ -781,99 +857,92 @@ export const PrintingProgressKpiCard: React.FC<{ onOpenModal: () => void }> = ({
       theme="orange"
       icon={Settings}
     >
-      <div className="flex flex-col gap-1 flex-1">
-        {/* Total Printer */}
-        <div className="flex justify-between items-center py-2 border-b border-slate-100 border-dashed">
+      <div className="flex flex-col gap-2 flex-1">
+        <div className="flex justify-between items-center px-3 py-2 bg-amber-50/60 border border-amber-100/90 rounded-xl shadow-2xs">
           <div className="flex flex-col leading-tight">
-            <span className="text-[13px] font-extrabold text-slate-800 uppercase tracking-wide">
+            <span className="text-[12px] font-semibold text-amber-900 uppercase tracking-wide">
               Total Printer
             </span>
-            <span className="text-[11px] font-semibold text-slate-800/80 normal-case">
+            <span className="text-[10px] font-medium text-amber-700/80 normal-case">
               (as per rate contract)
             </span>
           </div>
-          <span className="text-[15px] font-black text-slate-900">
+          <span className="text-[13px] font-bold text-amber-800">
             {data.totalPrinters}
           </span>
         </div>
 
-        {/* Total Target */}
-        <div className="flex justify-between items-center py-2 border-b border-slate-100 border-dashed">
+        <div className="flex justify-between items-center px-3 py-2 bg-slate-50/90 border border-slate-200/80 rounded-xl shadow-2xs">
           <div className="flex flex-col leading-tight">
-            <span className="text-[13px] font-extrabold text-slate-800 uppercase tracking-wide">
+            <span className="text-[12px] font-semibold text-slate-700 uppercase tracking-wide">
               Total Target
             </span>
-            <span className="text-[11px] font-semibold text-slate-800/80 normal-case">
+            <span className="text-[10px] font-medium text-slate-500 normal-case">
               (as per work order)
             </span>
           </div>
-          <span className="text-[15px] font-black text-slate-900">
+          <span className="text-[13px] font-bold text-slate-900">
             {data.totalBooksTarget}
           </span>
         </div>
 
-        {/* Dispatch */}
-        <div className="flex justify-between items-center py-2 border-b border-slate-100 border-dashed">
+        <div className="flex justify-between items-center px-3 py-2 bg-blue-50/60 border border-blue-100/90 rounded-xl shadow-2xs">
           <div className="flex flex-col leading-tight">
-            <span className="text-[13px] font-extrabold text-slate-800 uppercase tracking-wide">
+            <span className="text-[12px] font-semibold text-blue-900 uppercase tracking-wide">
               Dispatch
             </span>
-            <span className="text-[11px] font-semibold text-slate-800/80 normal-case">
+            <span className="text-[10px] font-medium text-blue-600/90 normal-case">
               (printer to depot)
             </span>
           </div>
-          <span className="text-[15px] font-black text-slate-900">
+          <span className="text-[13px] font-bold text-blue-800">
             {data.dispatchCount}
           </span>
         </div>
 
-        {/* Total Inspection */}
-        <div className="flex justify-between items-center py-2 border-b border-slate-100 border-dashed">
+        <div className="flex justify-between items-center px-3 py-2 bg-indigo-50/60 border border-indigo-100/90 rounded-xl shadow-2xs">
           <div className="flex flex-col leading-tight">
-            <span className="text-[13px] font-extrabold text-slate-800 uppercase tracking-wide">
+            <span className="text-[12px] font-semibold text-indigo-900 uppercase tracking-wide">
               Total Inspection
             </span>
           </div>
-          <span className="text-[15px] font-black text-slate-900">
+          <span className="text-[13px] font-bold text-indigo-800">
             {data.totalInspections}
           </span>
         </div>
 
-        {/* QA (Passed) */}
-        <div className="flex justify-between items-center py-2 border-b border-slate-100 border-dashed">
+        <div className="flex justify-between items-center px-3 py-2 bg-emerald-50/60 border border-emerald-100/90 rounded-xl shadow-2xs">
           <div className="flex flex-col leading-tight">
-            <span className="text-[13px] font-extrabold text-emerald-800 uppercase tracking-wide">
+            <span className="text-[12px] font-semibold text-emerald-900 uppercase tracking-wide">
               QA (Passed)
             </span>
           </div>
-          <span className="text-[14px] font-black text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80">
+          <span className="text-[13px] font-bold text-emerald-800">
             {data.qaPassed}
           </span>
         </div>
 
-        {/* Pending (ORANGE) */}
-        <div className="flex justify-between items-center py-2 border-b border-slate-100 border-dashed">
+        <div className="flex justify-between items-center px-3 py-2 bg-slate-50/90 border border-slate-200/80 rounded-xl shadow-2xs">
           <div className="flex flex-col leading-tight">
-            <span className="text-[13px] font-extrabold text-orange-900 uppercase tracking-wide">
+            <span className="text-[12px] font-semibold text-slate-700 uppercase tracking-wide">
               Pending
             </span>
-            <span className="text-[11px] font-bold text-orange-900 normal-case">
+            <span className="text-[10px] font-medium text-slate-500 normal-case">
               (from printer)
             </span>
           </div>
-          <span className="text-[14px] font-black text-orange-800 bg-orange-50 px-2 py-0.5 rounded border border-orange-200/80">
+          <span className="text-[13px] font-bold text-slate-800">
             {data.pending}
           </span>
         </div>
 
-        {/* Total Transporter */}
-        <div className="flex justify-between items-center py-2 last:border-0">
+        <div className="flex justify-between items-center px-3 py-2 bg-purple-50/60 border border-purple-100/90 rounded-xl shadow-2xs">
           <div className="flex flex-col leading-tight">
-            <span className="text-[13px] font-extrabold text-slate-800 uppercase tracking-wide">
+            <span className="text-[12px] font-semibold text-purple-900 uppercase tracking-wide">
               Total Transporter
             </span>
           </div>
-          <span className="text-[14px] font-black text-slate-900">
+          <span className="text-[13px] font-bold text-purple-800">
             {data.totalTransporter}
           </span>
         </div>
@@ -904,32 +973,39 @@ export const DistributionKpiCard: React.FC = () => {
       theme="violet"
       icon={Truck}
     >
-      <div className="flex flex-col gap-1 flex-1">
-        <MetricRow label="Received from printer" value={data.received} />
-        <MetricRow
-          label="Dispatch to block"
-          value={
-            <span className="text-[13px] font-extrabold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80">
-              {data.delivered}
-            </span>
-          }
-        />
-        <MetricRow
-          label="In transit to block"
-          value={
-            <span className="text-[13px] font-extrabold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80">
-              {data.inTransit?.value || "10,500"}
-            </span>
-          }
-        />
-        <MetricRow
-          label="Pending for dispatch"
-          value={
-            <span className="text-[13px] font-extrabold text-orange-800 bg-orange-50 px-2 py-0.5 rounded border border-orange-200/80">
-              {data.pending}
-            </span>
-          }
-        />
+      <div className="flex flex-col gap-2 flex-1">
+        <div className="flex justify-between items-center px-3 py-2 bg-violet-50/60 border border-violet-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-violet-900 uppercase tracking-wide">
+            Received from printer
+          </span>
+          <span className="text-[13px] font-bold text-violet-800">
+            {data.received}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-emerald-50/60 border border-emerald-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-emerald-900 uppercase tracking-wide">
+            Dispatch to block
+          </span>
+          <span className="text-[13px] font-bold text-emerald-800">
+            {data.delivered}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-amber-50/60 border border-amber-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-amber-900 uppercase tracking-wide">
+            In transit to block
+          </span>
+          <span className="text-[13px] font-bold text-amber-800">
+            {data.inTransit?.value || "10,500"}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-slate-50/90 border border-slate-200/80 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-slate-700 uppercase tracking-wide">
+            Pending for dispatch
+          </span>
+          <span className="text-[13px] font-bold text-slate-900">
+            {data.pending}
+          </span>
+        </div>
       </div>
     </BaseKpiCard>
   );
@@ -950,130 +1026,127 @@ export const BillAndPaymentKpiCard: React.FC<{
       theme="teal"
       icon={CreditCard}
     >
-      <div className="flex flex-col gap-1 flex-1">
-        {/* Table / Grid Container with Column Dividers */}
-        <div className="border border-slate-200/90 rounded-xl overflow-hidden shadow-2xs">
-          {/* Table Header */}
-          <div className="grid grid-cols-12 bg-slate-100/90 py-2 px-2 border-b border-slate-200 text-[11px] font-black text-slate-700 uppercase tracking-wide divide-x divide-slate-200">
-            <div className="col-span-4 pr-2">Metric</div>
-            <div className="col-span-2 text-right px-1.5">Total</div>
-            <div className="col-span-2 text-right px-1.5">Paper</div>
-            <div className="col-span-2 text-right px-1.5">Printer</div>
-            <div className="col-span-2 text-right pl-1.5">Other</div>
-          </div>
+      <div className="flex flex-col flex-1">
+        {/* Table Header */}
+        <div className="grid grid-cols-12 bg-slate-100/90 py-2 px-2.5 border border-slate-200/90 rounded-xl text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-2">
+          <div className="col-span-4 pr-2"></div>
+          <div className="col-span-2 text-right px-1.5">Total</div>
+          <div className="col-span-2 text-right px-1.5">Paper</div>
+          <div className="col-span-2 text-right px-1.5">Printer</div>
+          <div className="col-span-2 text-right pl-1.5">Other</div>
+        </div>
 
-          {/* Total Work Orders */}
-          <div className="grid grid-cols-12 py-2 px-2 border-b border-slate-100 border-dashed divide-x divide-slate-100 items-center text-[12px]">
-            <div className="col-span-4 pr-2 font-extrabold text-slate-800 uppercase tracking-wide text-[11px]">
-              Work Orders
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-slate-900">
-              70
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-slate-900">
-              {paperData.totalWorkOrders}
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-slate-900">
-              {printerData.totalWorkOrders}
-            </div>
-            <div className="col-span-2 text-right pl-1.5 font-black text-slate-900">
-              {othersData.totalWorkOrders}
-            </div>
+        {/* Total Work Orders */}
+        <div className="grid grid-cols-12 py-2 px-2.5 bg-slate-50/90 border border-slate-200/80 rounded-xl mb-1.5 items-center text-[12px] shadow-2xs">
+          <div className="col-span-4 pr-2 font-semibold text-slate-700 uppercase tracking-wide text-[11px]">
+            Work Orders
           </div>
-
-          {/* Bills Received */}
-          <div className="grid grid-cols-12 py-2 px-2 border-b border-slate-100 border-dashed divide-x divide-slate-100 items-center text-[12px]">
-            <div className="col-span-4 pr-2 font-extrabold text-slate-800 uppercase tracking-wide text-[11px]">
-              Bills Recv.
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-slate-900">
-              58
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-slate-900">
-              {paperData.billsReceived}
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-slate-900">
-              {printerData.billsReceived}
-            </div>
-            <div className="col-span-2 text-right pl-1.5 font-black text-slate-900">
-              {othersData.billsReceived}
-            </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-slate-900">
+            70
           </div>
-
-          {/* Payment Released */}
-          <div className="grid grid-cols-12 py-2 px-2 border-b border-slate-100 border-dashed divide-x divide-slate-100 items-center text-[12px]">
-            <div className="col-span-4 pr-2 font-extrabold text-emerald-800 uppercase tracking-wide text-[11px]">
-              Released
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-emerald-700">
-              ₹140 Cr
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-emerald-700">
-              {paperData.paymentReleased}
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-emerald-700">
-              {printerData.paymentReleased}
-            </div>
-            <div className="col-span-2 text-right pl-1.5 font-black text-emerald-700">
-              {othersData.paymentReleased}
-            </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-slate-900">
+            {paperData.totalWorkOrders}
           </div>
-
-          {/* Payment In Process */}
-          <div className="grid grid-cols-12 py-2 px-2 border-b border-slate-100 border-dashed divide-x divide-slate-100 items-center text-[12px]">
-            <div className="col-span-4 pr-2 font-extrabold text-orange-900 uppercase tracking-wide text-[11px]">
-              In Process
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-orange-800">
-              ₹25 Cr
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-orange-800">
-              {paperData.paymentInProcess}
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-orange-800">
-              {printerData.paymentInProcess}
-            </div>
-            <div className="col-span-2 text-right pl-1.5 font-black text-orange-800">
-              {othersData.paymentInProcess}
-            </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-slate-900">
+            {printerData.totalWorkOrders}
           </div>
-
-          {/* Pending (30 Days) */}
-          <div className="grid grid-cols-12 py-2 px-2 border-b border-slate-100 border-dashed divide-x divide-slate-100 items-center text-[12px]">
-            <div className="col-span-4 pr-2 font-extrabold text-orange-900 uppercase tracking-wide text-[11px]">
-              Pending (30D)
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-orange-800">
-              ₹16 Cr
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-orange-800">
-              {paperData.pending30Days}
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-orange-800">
-              {printerData.pending30Days}
-            </div>
-            <div className="col-span-2 text-right pl-1.5 font-black text-orange-800">
-              {othersData.pending30Days}
-            </div>
+          <div className="col-span-2 text-right pl-1.5 font-bold text-slate-900">
+            {othersData.totalWorkOrders}
           </div>
+        </div>
 
-          {/* Pending (60 Days) */}
-          <div className="grid grid-cols-12 py-2 px-2 divide-x divide-slate-100 items-center text-[12px]">
-            <div className="col-span-4 pr-2 font-extrabold text-orange-950 uppercase tracking-wide text-[11px]">
-              Pending (60D)
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-orange-900">
-              ₹9 Cr
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-orange-900">
-              {paperData.pending60Days}
-            </div>
-            <div className="col-span-2 text-right px-1.5 font-black text-orange-900">
-              {printerData.pending60Days}
-            </div>
-            <div className="col-span-2 text-right pl-1.5 font-black text-orange-900">
-              {othersData.pending60Days}
-            </div>
+        {/* Bills Received */}
+        <div className="grid grid-cols-12 py-2 px-2.5 bg-blue-50/60 border border-blue-100/90 rounded-xl mb-1.5 items-center text-[12px] shadow-2xs">
+          <div className="col-span-4 pr-2 font-semibold text-blue-900 uppercase tracking-wide text-[11px]">
+            Bills Recv.
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-blue-800">
+            58
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-blue-800">
+            {paperData.billsReceived}
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-blue-800">
+            {printerData.billsReceived}
+          </div>
+          <div className="col-span-2 text-right pl-1.5 font-bold text-blue-800">
+            {othersData.billsReceived}
+          </div>
+        </div>
+
+        {/* Payment Released */}
+        <div className="grid grid-cols-12 py-2 px-2.5 bg-emerald-50/60 border border-emerald-100/90 rounded-xl mb-1.5 items-center text-[12px] shadow-2xs">
+          <div className="col-span-4 pr-2 font-semibold text-emerald-900 uppercase tracking-wide text-[11px]">
+            Released
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-emerald-800">
+            ₹140 Cr
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-emerald-800">
+            {paperData.paymentReleased}
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-emerald-800">
+            {printerData.paymentReleased}
+          </div>
+          <div className="col-span-2 text-right pl-1.5 font-bold text-emerald-800">
+            {othersData.paymentReleased}
+          </div>
+        </div>
+
+        {/* Payment In Process */}
+        <div className="grid grid-cols-12 py-2 px-2.5 bg-indigo-50/60 border border-indigo-100/90 rounded-xl mb-1.5 items-center text-[12px] shadow-2xs">
+          <div className="col-span-4 pr-2 font-semibold text-indigo-900 uppercase tracking-wide text-[11px]">
+            In Process
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-indigo-800">
+            ₹25 Cr
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-indigo-800">
+            {paperData.paymentInProcess}
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-indigo-800">
+            {printerData.paymentInProcess}
+          </div>
+          <div className="col-span-2 text-right pl-1.5 font-bold text-indigo-800">
+            {othersData.paymentInProcess}
+          </div>
+        </div>
+
+        {/* Pending (30 Days) */}
+        <div className="grid grid-cols-12 py-2 px-2.5 bg-amber-50/60 border border-amber-100/90 rounded-xl mb-1.5 items-center text-[12px] shadow-2xs">
+          <div className="col-span-4 pr-2 font-semibold text-amber-900 uppercase tracking-wide text-[11px]">
+            Pending (30D)
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-amber-800">
+            ₹16 Cr
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-amber-800">
+            {paperData.pending30Days}
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-amber-800">
+            {printerData.pending30Days}
+          </div>
+          <div className="col-span-2 text-right pl-1.5 font-bold text-amber-800">
+            {othersData.pending30Days}
+          </div>
+        </div>
+
+        {/* Pending (60 Days) */}
+        <div className="grid grid-cols-12 py-2 px-2.5 bg-purple-50/60 border border-purple-100/90 rounded-xl items-center text-[12px] shadow-2xs">
+          <div className="col-span-4 pr-2 font-semibold text-purple-900 uppercase tracking-wide text-[11px]">
+            Pending (60D)
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-purple-800">
+            ₹9 Cr
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-purple-800">
+            {paperData.pending60Days}
+          </div>
+          <div className="col-span-2 text-right px-1.5 font-bold text-purple-800">
+            {printerData.pending60Days}
+          </div>
+          <div className="col-span-2 text-right pl-1.5 font-bold text-purple-800">
+            {othersData.pending60Days}
           </div>
         </div>
       </div>
@@ -1081,7 +1154,7 @@ export const BillAndPaymentKpiCard: React.FC<{
       <div className="mt-4 flex flex-col gap-2.5 border-t border-slate-100 pt-3">
         <button
           onClick={onOpenPaperModal}
-          className="w-full rounded-xl border border-slate-200/90 bg-slate-50/80 hover:bg-slate-100 px-3 py-2 text-[13px] font-bold text-slate-700 transition-all flex justify-between items-center group shadow-2xs cursor-pointer"
+          className="w-full rounded-xl border border-slate-200/90 bg-slate-50/80 hover:bg-slate-100 px-3 py-2 text-[12px] font-semibold text-slate-700 transition-all flex justify-between items-center group shadow-2xs cursor-pointer"
         >
           <span>View Details</span>
           <span className="flex items-center gap-1 text-slate-500 group-hover:text-slate-800">
@@ -1103,32 +1176,39 @@ export const GrievanceKpiCard: React.FC = () => {
       theme="amber"
       icon={AlertTriangle}
     >
-      <div className="flex flex-col gap-1 flex-1">
-        <MetricRow label="Total Grievances" value={data.totalNumber} />
-        <MetricRow
-          label="Resolved"
-          value={
-            <span className="text-[13px] font-extrabold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80">
-              {data.resolved}
-            </span>
-          }
-        />
-        <MetricRow
-          label="Pending"
-          value={
-            <span className="text-[13px] font-extrabold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80">
-              {data.pending}
-            </span>
-          }
-        />
-        <MetricRow
-          label="Overdue"
-          value={
-            <span className="text-[13px] font-extrabold text-orange-800 bg-orange-50 px-2 py-0.5 rounded border border-orange-200/80">
-              {data.overdue}
-            </span>
-          }
-        />
+      <div className="flex flex-col gap-2 flex-1">
+        <div className="flex justify-between items-center px-3 py-2 bg-slate-50/90 border border-slate-200/80 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-slate-700 uppercase tracking-wide">
+            Total Grievances
+          </span>
+          <span className="text-[13px] font-bold text-slate-900">
+            {data.totalNumber}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-emerald-50/60 border border-emerald-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-emerald-900 uppercase tracking-wide">
+            Resolved
+          </span>
+          <span className="text-[13px] font-bold text-emerald-800">
+            {data.resolved}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-amber-50/60 border border-amber-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-amber-900 uppercase tracking-wide">
+            Pending
+          </span>
+          <span className="text-[13px] font-bold text-amber-800">
+            {data.pending}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-purple-50/60 border border-purple-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-purple-900 uppercase tracking-wide">
+            Overdue
+          </span>
+          <span className="text-[13px] font-bold text-purple-800">
+            {data.overdue}
+          </span>
+        </div>
       </div>
     </BaseKpiCard>
   );
@@ -1143,15 +1223,36 @@ export const FinanceKpiCard: React.FC = () => {
       theme="green"
       icon={IndianRupee}
     >
-      <div className="flex flex-col gap-1 flex-1">
-        <MetricRow label="Total Budget" value={data.totalBudget} />
-        <MetricRow label="Budget Utilized" value={data.budgetUtilized} />
-        <MetricRow label="Remaining Budget" value={data.remainingBudget} />
+      <div className="flex flex-col gap-2 flex-1">
+        <div className="flex justify-between items-center px-3 py-2 bg-blue-50/60 border border-blue-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-blue-900 uppercase tracking-wide">
+            Total Budget
+          </span>
+          <span className="text-[13px] font-bold text-blue-800">
+            {data.totalBudget}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-emerald-50/60 border border-emerald-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-emerald-900 uppercase tracking-wide">
+            Budget Utilized
+          </span>
+          <span className="text-[13px] font-bold text-emerald-800">
+            {data.budgetUtilized}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-indigo-50/60 border border-indigo-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-indigo-900 uppercase tracking-wide">
+            Remaining Budget
+          </span>
+          <span className="text-[13px] font-bold text-indigo-800">
+            {data.remainingBudget}
+          </span>
+        </div>
       </div>
       <div className="mt-4 pt-3 border-t border-slate-100">
-        <div className="flex justify-between text-xs mb-2 font-extrabold text-slate-800 uppercase tracking-wide">
+        <div className="flex justify-between text-xs mb-2 font-semibold text-slate-700 uppercase tracking-wide">
           <span>Utilization</span>
-          <span className="text-emerald-700 font-extrabold">
+          <span className="text-emerald-700 font-semibold">
             {data.utilizationPercent}%
           </span>
         </div>
@@ -1171,68 +1272,84 @@ export const HrmsKpiCard: React.FC = () => {
   const navigate = useNavigate();
   return (
     <BaseKpiCard title="HRMS" badge="In Numbers" theme="blue" icon={Users}>
-      <div className="flex flex-col gap-1 flex-1">
-        <MetricRow label="Total Employees" value={data.totalEmployees} />
+      <div className="flex flex-col gap-2 flex-1">
+        <div className="flex justify-between items-center px-3 py-2 bg-blue-50/60 border border-blue-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-blue-900 uppercase tracking-wide">
+            Total Employees
+          </span>
+          <span className="text-[13px] font-bold text-blue-800">
+            {data.totalEmployees}
+          </span>
+        </div>
 
         {/* Sub-breakdown rows */}
-        <div className="pl-3.5 border-l-2 border-blue-500/80 my-1.5 flex flex-col gap-1.5">
-          <div className="flex justify-between items-center text-[11px] font-extrabold text-slate-800">
+        <div className="bg-slate-50/70 border border-slate-200/80 rounded-xl p-2.5 flex flex-col gap-1.5 shadow-2xs">
+          <div className="flex justify-between items-center text-[11px] font-medium">
             <span className="uppercase tracking-wide text-slate-600">
               Permanent
             </span>
-            <span className="font-extrabold text-slate-900">
+            <span className="font-bold text-slate-900">
               {data.permanent || 30}
             </span>
           </div>
-          <div className="flex justify-between items-center text-[11px] font-extrabold text-slate-800">
+          <div className="flex justify-between items-center text-[11px] font-medium">
             <span className="uppercase tracking-wide text-slate-600">
               Samvida
             </span>
-            <span className="font-extrabold text-slate-900">
+            <span className="font-bold text-slate-900">
               {data.samvida || 20}
             </span>
           </div>
-          <div className="flex justify-between items-center text-[11px] font-extrabold text-slate-800">
+          <div className="flex justify-between items-center text-[11px] font-medium">
             <span className="uppercase tracking-wide text-slate-600">
               Contractual
             </span>
-            <span className="font-extrabold text-slate-900">
+            <span className="font-bold text-slate-900">
               {data.contractual || 15}
             </span>
           </div>
-          <div className="flex justify-between items-center text-[11px] font-extrabold text-slate-800">
+          <div className="flex justify-between items-center text-[11px] font-medium">
             <span className="uppercase tracking-wide text-slate-600">
               Outsource
             </span>
-            <span className="font-extrabold text-slate-900">
+            <span className="font-bold text-slate-900">
               {data.outsource || 20}
             </span>
           </div>
         </div>
 
-        <MetricRow
-          label="Present"
-          value={
-            <span className="text-[13px] font-extrabold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200/80">
-              {data.presentEmployees}
-            </span>
-          }
-        />
-        <MetricRow
-          label="On Leave"
-          value={
-            <span className="text-[13px] font-extrabold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80">
-              {data.onLeave}
-            </span>
-          }
-        />
-        <MetricRow label="Attendance Rate" value={`${data.attendanceRate}%`} />
+        <div className="flex justify-between items-center px-3 py-2 bg-emerald-50/60 border border-emerald-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-emerald-900 uppercase tracking-wide">
+            Present
+          </span>
+          <span className="text-[13px] font-bold text-emerald-800">
+            {data.presentEmployees}
+          </span>
+        </div>
+
+        <div className="flex justify-between items-center px-3 py-2 bg-amber-50/60 border border-amber-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-amber-900 uppercase tracking-wide">
+            On Leave
+          </span>
+          <span className="text-[13px] font-bold text-amber-800">
+            {data.onLeave}
+          </span>
+        </div>
+
+        <div className="flex justify-between items-center px-3 py-2 bg-purple-50/60 border border-purple-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-purple-900 uppercase tracking-wide">
+            Attendance Rate
+          </span>
+          <span className="text-[13px] font-bold text-purple-800">
+            {`${data.attendanceRate}%`}
+          </span>
+        </div>
       </div>
 
       <div className="mt-4 flex flex-col gap-2.5 border-t border-slate-100 pt-3">
         <button
           onClick={() => navigate("/hrms/dashboard")}
-          className="w-full rounded-xl border border-slate-200/90 bg-slate-50/80 hover:bg-slate-100 px-3 py-2 text-[13px] font-bold text-slate-700 transition-all flex justify-between items-center group shadow-2xs cursor-pointer"
+          className="w-full rounded-xl border border-slate-200/90 bg-slate-50/80 hover:bg-slate-100 px-3 py-2 text-[12px] font-semibold text-slate-700 transition-all flex justify-between items-center group shadow-2xs cursor-pointer"
         >
           <span>View Details</span>
           <span className="flex items-center gap-1 text-slate-500 group-hover:text-slate-800">
@@ -1249,25 +1366,39 @@ export const LegalKpiCard: React.FC = () => {
   const data = mockDashboardData.legal;
   return (
     <BaseKpiCard title="Legal" badge="In Numbers" theme="purple" icon={Scale}>
-      <div className="flex flex-col gap-1 flex-1">
-        <MetricRow label="Total Cases" value={data.totalCases} />
-        <MetricRow
-          label="Pending Cases"
-          value={
-            <span className="text-[13px] font-extrabold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80">
-              {data.pendingCases}
-            </span>
-          }
-        />
-        <MetricRow label="Upcoming Hearings" value={data.upcomingHearings} />
-        <MetricRow
-          label="High Priority"
-          value={
-            <span className="text-[13px] font-extrabold text-orange-800 bg-orange-50 px-2 py-0.5 rounded border border-orange-200/80">
-              {data.highPriority}
-            </span>
-          }
-        />
+      <div className="flex flex-col gap-2 flex-1">
+        <div className="flex justify-between items-center px-3 py-2 bg-purple-50/60 border border-purple-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-purple-900 uppercase tracking-wide">
+            Total Cases
+          </span>
+          <span className="text-[13px] font-bold text-purple-800">
+            {data.totalCases}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-amber-50/60 border border-amber-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-amber-900 uppercase tracking-wide">
+            Pending Cases
+          </span>
+          <span className="text-[13px] font-bold text-amber-800">
+            {data.pendingCases}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-indigo-50/60 border border-indigo-100/90 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-indigo-900 uppercase tracking-wide">
+            Upcoming Hearings
+          </span>
+          <span className="text-[13px] font-bold text-indigo-800">
+            {data.upcomingHearings}
+          </span>
+        </div>
+        <div className="flex justify-between items-center px-3 py-2 bg-slate-50/90 border border-slate-200/80 rounded-xl shadow-2xs">
+          <span className="text-[12px] font-semibold text-slate-700 uppercase tracking-wide">
+            High Priority
+          </span>
+          <span className="text-[13px] font-bold text-slate-900">
+            {data.highPriority}
+          </span>
+        </div>
       </div>
     </BaseKpiCard>
   );
