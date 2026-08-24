@@ -148,19 +148,19 @@ export default function PrinterDetailsViewModal({
                   {printerCapacity.approvedCapacity.toLocaleString()}
                 </span>
                 <span className="text-[8px] text-gray-500 dark:text-gray-400 block font-bold">
-                  Copies
+                  Books
                 </span>
               </div>
 
               <div className="flex flex-col gap-0.5 text-center pl-2">
                 <span className="text-[9px] text-gray-600 dark:text-gray-400 block font-bold uppercase tracking-wide">
-                  Copies Printed
+                  Books Printed
                 </span>
                 <span className="font-extrabold text-sm text-amber-700 dark:text-amber-400 block">
                   {printerCapacity.currentAllocated.toLocaleString()}
                 </span>
                 <span className="text-[8px] text-amber-600 dark:text-amber-500 block font-bold">
-                  Copies
+                  Books
                 </span>
               </div>
 
@@ -172,7 +172,7 @@ export default function PrinterDetailsViewModal({
                   {printerCapacity.availableCapacity.toLocaleString()}
                 </span>
                 <span className="text-[8px] text-emerald-600 dark:text-emerald-500 block font-bold">
-                  Copies
+                  Books
                 </span>
               </div>
             </div>

@@ -49,7 +49,6 @@ const LoginCard: React.FC<LoginCardProps> = ({
       <div className="mptbc-card-header">
         <div className="mptbc-card-header-text">
           <h2 className="mptbc-login-title">Login</h2>
-          <p className="mptbc-login-subtitle">MPTBC ERP में लॉगिन करें</p>
         </div>
       </div>
 

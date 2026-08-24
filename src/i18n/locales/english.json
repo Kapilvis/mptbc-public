@@ -163,7 +163,7 @@
       },
       "distribution": {
         "distribution": "Distribution Section",
-        "department-demand": "Demand Received (RSK / CPI)",
+        "department-demand": "Books Demand Received",
         "dashboard": "Distribution Dashboard",
         "demand-approval": "Department Demand Approval",
         "printer-demand-mapping": "Printer Work Allocation",

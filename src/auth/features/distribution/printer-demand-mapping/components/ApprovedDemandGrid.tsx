@@ -82,7 +82,7 @@ export default function ApprovedDemandGrid({
           align: "center",
           cell: (row) => (
             <span className="font-mono text-gray-950 dark:text-gray-50 text-sm font-semibold">
-              {row.totalQuantity.toLocaleString()}
+              {row.totalQuantity.toLocaleString()} Books
             </span>
           ),
           width: "140px",

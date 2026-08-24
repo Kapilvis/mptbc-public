@@ -325,19 +325,19 @@ export default function LegalDashboard() {
 
       {/* ─── 2. TOP 5 METRIC CARDS ROW ────────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-        {/* KPI 1: Active Tab Case Counter */}
+        {/* KPI 1: Total Legal Cases */}
         <div className="bg-[#f0f7ff] border border-[#bcd7ff] rounded-2xl p-4 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                1. TOTAL ACTIVE TAB
+                1. TOTAL CASES
               </span>
               <span className="text-[10px] font-bold bg-blue-100 text-blue-900 px-2 py-0.5 rounded-full border border-blue-300">
-                Active View
+                28 Total
               </span>
             </div>
             <div className="text-xl font-black text-slate-900 mt-1">
-              {filteredCases.length} Cases
+              28 Cases
             </div>
 
             <div className="grid grid-cols-2 gap-1 text-left mt-2.5 pt-2 border-t border-[#bfdbfe]">
@@ -345,37 +345,39 @@ export default function LegalDashboard() {
                 <span className="text-xs font-bold text-emerald-800 uppercase block">
                   JABALPUR
                 </span>
-                <div className="text-base font-black text-slate-900">55%</div>
+                <div className="text-base font-black text-slate-900">
+                  15 (54%)
+                </div>
               </div>
               <div>
                 <span className="text-xs font-bold text-blue-800 uppercase block">
-                  GWALIOR/IND
+                  GWAL / IND
                 </span>
-                <div className="text-base font-black text-slate-900">45%</div>
+                <div className="text-base font-black text-slate-900">
+                  13 (46%)
+                </div>
               </div>
             </div>
           </div>
           <div className="text-xs font-bold text-slate-800 mt-2">
-            Listed Cases:{" "}
-            <strong className="text-blue-900 font-black">
-              {filteredCases.length} Files
-            </strong>
+            All High Court Benches:{" "}
+            <strong className="text-blue-900 font-black">28 Files</strong>
           </div>
         </div>
 
-        {/* KPI 2: High Court Bench Breakdown */}
+        {/* KPI 2: Pending Cases */}
         <div className="bg-[#f0fdf4] border border-[#bbf7d0] rounded-2xl p-4 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                2. BENCH SPLIT
+                2. PENDING CASES
               </span>
               <span className="text-[10px] font-bold bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded-full border border-emerald-300">
-                3 High Courts
+                15 Pending
               </span>
             </div>
             <div className="text-xl font-black text-slate-900 mt-1">
-              6,840 Jabalpur
+              15 Cases
             </div>
 
             <div className="grid grid-cols-2 gap-1 text-left mt-2.5 pt-2 border-t border-[#bbf7d0]">
@@ -383,101 +385,105 @@ export default function LegalDashboard() {
                 <span className="text-xs font-bold text-emerald-900 uppercase block">
                   GWALIOR
                 </span>
-                <div className="text-base font-black text-slate-900">3,230</div>
+                <div className="text-base font-black text-slate-900">
+                  8 Cases
+                </div>
               </div>
               <div>
                 <span className="text-xs font-bold text-blue-900 uppercase block">
                   INDORE
                 </span>
-                <div className="text-base font-black text-slate-900">2,371</div>
+                <div className="text-base font-black text-slate-900">
+                  5 Cases
+                </div>
               </div>
             </div>
           </div>
           <div className="text-xs font-bold text-slate-800 mt-2">
-            Principal Seat:{" "}
-            <strong className="text-emerald-900 font-black">55% Share</strong>
+            Active Litigation:{" "}
+            <strong className="text-emerald-900 font-black">15 Files</strong>
           </div>
         </div>
 
-        {/* KPI 3: Case Type Breakdown (WP, CONC, WA) */}
+        {/* KPI 3: Upcoming Hearings */}
         <div className="bg-[#fffbeb] border border-[#fde68a] rounded-2xl p-4 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                3. CASE TYPES
+                3. UPCOMING HEARINGS
               </span>
               <span className="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full border border-amber-300">
-                WP & CONC
+                4 Hearings
               </span>
             </div>
             <div className="text-xl font-black text-amber-950 mt-1">
-              7,420 WP Petitions
+              4 Hearings
             </div>
 
             <div className="grid grid-cols-3 gap-1 text-left mt-2.5 pt-2 border-t border-[#fde68a]">
               <div>
                 <span className="text-xs font-bold text-slate-700 uppercase block">
+                  WP
+                </span>
+                <div className="text-base font-black text-slate-900">2</div>
+              </div>
+              <div>
+                <span className="text-xs font-bold text-slate-700 uppercase block">
                   CONC
                 </span>
-                <div className="text-base font-black text-slate-900">2.8K</div>
+                <div className="text-base font-black text-slate-900">1</div>
               </div>
               <div>
                 <span className="text-xs font-bold text-slate-700 uppercase block">
                   WA
                 </span>
-                <div className="text-base font-black text-slate-900">1.2K</div>
-              </div>
-              <div>
-                <span className="text-xs font-bold text-slate-700 uppercase block">
-                  SLP/ARB
-                </span>
-                <div className="text-base font-black text-slate-900">971</div>
+                <div className="text-base font-black text-slate-900">1</div>
               </div>
             </div>
           </div>
           <div className="text-xs font-bold text-amber-950 mt-2">
-            Writ Petitions:{" "}
-            <strong className="text-amber-900 font-black">60% Total</strong>
+            Scheduled Hearings:{" "}
+            <strong className="text-amber-900 font-black">4 Listed</strong>
           </div>
         </div>
 
-        {/* KPI 4: Total Financial Stake at Risk */}
+        {/* KPI 4: High Priority */}
         <div className="bg-[#fef2f2] border border-[#fecaca] rounded-2xl p-4 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                4. FINANCIAL STAKE
+                4. HIGH PRIORITY
               </span>
               <span className="text-[10px] font-bold bg-rose-100 text-rose-900 px-2 py-0.5 rounded-full border border-rose-300">
-                Risk
+                2 Critical
               </span>
             </div>
-            <div className="text-xl font-black text-rose-950 mt-1">
-              {initialLegalKpis.totalFinancialStakeCr}
-            </div>
+            <div className="text-xl font-black text-rose-950 mt-1">2 Cases</div>
 
             <div className="grid grid-cols-2 gap-1 text-left mt-2.5 pt-2 border-t border-[#fecaca]">
               <div>
                 <span className="text-xs font-bold text-rose-900 uppercase block">
-                  PRINTER DISPUTES
+                  PRINTERS
                 </span>
                 <div className="text-base font-black text-slate-900">
-                  ₹ 18.4 Cr
+                  ₹ 0.85 Cr
                 </div>
               </div>
               <div>
                 <span className="text-xs font-bold text-rose-900 uppercase block">
-                  PAPER MILLS
+                  PAPER
                 </span>
                 <div className="text-base font-black text-slate-900">
-                  ₹ 14.2 Cr
+                  ₹ 0.52 Cr
                 </div>
               </div>
             </div>
           </div>
           <div className="text-xs font-bold text-rose-950 mt-2">
-            High Financial Value:{" "}
-            <strong className="text-rose-900 font-black">77% Vendor</strong>
+            Total Financial Stake:{" "}
+            <strong className="text-rose-900 font-black">
+              {initialLegalKpis.totalFinancialStakeCr}
+            </strong>
           </div>
         </div>
 
@@ -486,14 +492,14 @@ export default function LegalDashboard() {
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                5. OwD COMPLIANCE
+                5. OwD DISPOSED
               </span>
               <span className="text-[10px] font-bold bg-purple-100 text-purple-900 px-2 py-0.5 rounded-full border border-purple-300">
-                Disposed
+                7 Orders
               </span>
             </div>
             <div className="text-xl font-black text-purple-950 mt-1">
-              11,121 Orders
+              7 Orders
             </div>
 
             <div className="grid grid-cols-2 gap-1 text-left mt-2.5 pt-2 border-t border-[#e9d5ff]">
@@ -501,19 +507,19 @@ export default function LegalDashboard() {
                 <span className="text-xs font-bold text-purple-900 uppercase block">
                   COMPLIED
                 </span>
-                <div className="text-base font-black text-slate-900">98%</div>
+                <div className="text-base font-black text-slate-900">100%</div>
               </div>
               <div>
                 <span className="text-xs font-bold text-emerald-900 uppercase block">
-                  PENDING OwD
+                  PENDING
                 </span>
-                <div className="text-base font-black text-slate-900">224</div>
+                <div className="text-base font-black text-slate-900">0</div>
               </div>
             </div>
           </div>
           <div className="text-xs font-bold text-slate-800 mt-2">
             Order Compliance:{" "}
-            <strong className="text-purple-900 font-black">98% On-Time</strong>
+            <strong className="text-purple-900 font-black">100% On-Time</strong>
           </div>
         </div>
       </div>
@@ -667,7 +673,7 @@ export default function LegalDashboard() {
             ))}
           </div>
           <div className="mt-4 text-xs font-bold text-slate-600 border-t border-slate-100 pt-2">
-            Dominant Type: <strong className="text-[#006A38]">WP (60%)</strong>
+            Dominant Type: <strong className="text-[#006A38]">WP (57%)</strong>
           </div>
         </div>
 
