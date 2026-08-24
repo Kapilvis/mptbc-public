@@ -49,10 +49,12 @@ export const AdminDashboardPage: React.FC = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-4">
         <div>
-          <h1 className="text-[26px] font-bold text-slate-800 leading-tight mb-1">Progress @ Glance</h1>
+          <h1 className="text-[26px] font-bold text-slate-800 leading-tight mb-1">
+            Progress @ Glance
+          </h1>
         </div>
-        <div className="text-[12px] font-semibold text-gray-500 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm">
-          Last updated: <span className="text-slate-800">{lastUpdated}</span>
+        <div className="text-[12px] font-semibold text-slate-600 bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-2xs">
+          Last updated: <span className="text-slate-900 font-bold">{lastUpdated}</span>
         </div>
       </div>
 
@@ -64,11 +66,8 @@ export const AdminDashboardPage: React.FC = () => {
       />
 
       <div className="space-y-4">
-
-
         {/* 11 KPI Modules Grid (12-column layout) */}
         <div className="grid grid-cols-12 gap-4">
-
           {/* Row 1 */}
           <div className="col-span-12 xl:col-span-9">
             <DemandKpiCard />
@@ -96,7 +95,7 @@ export const AdminDashboardPage: React.FC = () => {
           </div>
 
           {/* Row 3 */}
-          <div className="col-span-12 md:col-span-6 xl:col-span-3">
+          <div className="col-span-12 md:col-span-6 xl:col-span-4">
             <BillAndPaymentKpiCard
               onOpenPaperModal={() => setBillPaperOpen(true)}
               onOpenPrinterModal={() => setBillPrinterOpen(true)}
@@ -111,7 +110,7 @@ export const AdminDashboardPage: React.FC = () => {
           <div className="col-span-12 md:col-span-6 xl:col-span-2">
             <HrmsKpiCard />
           </div>
-          <div className="col-span-12 md:col-span-6 xl:col-span-3">
+          <div className="col-span-12 md:col-span-6 xl:col-span-2">
             <LegalKpiCard />
           </div>
         </div>
