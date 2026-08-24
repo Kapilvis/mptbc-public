@@ -7,6 +7,9 @@ interface Stats {
   paperReceived: number;
   paperConsumed: number;
   supplyPending: number;
+  totalPrinters?: number;
+  totalCapacity?: string;
+  capacityUtilization?: string;
 }
 
 interface Props {
@@ -73,7 +76,7 @@ const THEMES: Record<
     cardClass:
       "bg-gradient-to-br from-teal-50/90 to-teal-100/40 dark:from-teal-950/40 dark:to-teal-900/10 border-teal-200/70 dark:border-teal-900/40 hover:shadow-teal-200/50 dark:hover:shadow-teal-950/20",
     badgeClass:
-      "bg-gradient-to-tr from-teal-600 to-teal-505 text-white shadow-md shadow-teal-500/25 dark:from-teal-950/80 dark:to-teal-900/60 dark:text-teal-400 border border-teal-400/20",
+      "bg-gradient-to-tr from-teal-600 to-teal-555 text-white shadow-md shadow-teal-500/25 dark:from-teal-950/80 dark:to-teal-900/60 dark:text-teal-400 border border-teal-400/20",
     titleClass: "text-slate-700 dark:text-slate-205 font-extrabold",
     valueClass: "text-slate-900 dark:text-white font-black",
     subtextClass: "text-slate-600 dark:text-slate-400 font-extrabold",
@@ -170,6 +173,33 @@ export default function PrinterKpiCards({ stats }: Props) {
     },
   ];
 
+  const row3 = [
+    {
+      title: "Total Printers",
+      value: stats.totalPrinters || 52,
+      icon: "pi pi-users",
+      badgeType: "blue",
+    },
+    {
+      title: "Total Capacity",
+      value: stats.totalCapacity || "6,0,000 Books",
+      icon: "pi pi-database",
+      badgeType: "orange",
+    },
+    {
+      title: "Capacity Utilization",
+      value: stats.capacityUtilization || "65%",
+      icon: "pi pi-percentage",
+      badgeType: "green",
+    },
+    {
+      title: "Quality Inspections",
+      value: "35 No.",
+      icon: "pi pi-check-square",
+      badgeType: "purple",
+    },
+  ];
+
   const renderCard = (m: (typeof row1)[0], idx: number) => {
     const theme = THEMES[m.badgeType] || THEMES.blue;
     return (
@@ -221,6 +251,11 @@ export default function PrinterKpiCards({ stats }: Props) {
       {/* Row 2 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {row2.map(renderCard)}
+      </div>
+
+      {/* Row 3 */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {row3.map(renderCard)}
       </div>
     </div>
   );

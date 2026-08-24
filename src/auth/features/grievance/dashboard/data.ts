@@ -31,7 +31,7 @@ export interface GrievanceTicketItem {
   grievanceId: string;
   cmHelplineRefId: string;
   category:
-    | "SCHOOL_SUPPLY_SHORTAGE"
+    | "SUPPLY_SHORTAGE"
     | "QUALITY_DEFECT"
     | "HRMS_STAFF_GRIEVANCE"
     | "VENDOR_DISPUTE_APPEAL"
@@ -40,7 +40,7 @@ export interface GrievanceTicketItem {
   source:
     | "CM_HELPLINE_181"
     | "SAMADHAN_PORTAL"
-    | "SCHOOL_PORTAL"
+    | "BRC_PORTAL"
     | "DIRECT_FILING";
   sourceLabel: string;
   filingDate: string;
@@ -53,47 +53,49 @@ export interface GrievanceTicketItem {
 }
 
 export const initialGrievanceKpis = {
-  totalGrievances: 142,
-  resolvedCount: 88,
-  pendingCount: 54,
-  cmHelpline181Count: 48,
-  cmHelplineSla: "92%",
-  schoolShortagesCount: 18,
-  vendorAppealsCount: 8,
-  avgResolutionDays: "2.8 Days",
+  totalGrievances: 156,
+  resolvedCount: 140,
+  pendingCount: 12,
+  overdueCount: 4,
+  resolutionRate: "89.7%",
+  cmHelpline181Count: 68,
+  cmHelplineSla: "96%",
+  supplyShortagesCount: 45,
+  vendorAppealsCount: 18,
+  avgResolutionDays: "2.1 Days",
 };
 
 export const categoryBreakdownData = [
-  { category: "School Supply Shortages", count: 42, color: "#006A38" },
-  { category: "Textbook Quality & Defects", count: 35, color: "#2563eb" },
+  { category: "Supply Shortages", count: 52, color: "#006A38" },
+  { category: "Textbook Quality & Defects", count: 38, color: "#2563eb" },
   { category: "HRMS Staff Payroll & Leave", count: 28, color: "#d97706" },
   { category: "Vendor Fine & LD Appeals", count: 22, color: "#dc2626" },
-  { category: "Depot Transit Freight Claims", count: 15, color: "#7c3aed" },
+  { category: "Depot Transit Freight Claims", count: 16, color: "#7c3aed" },
 ];
 
 export const levelResolutionData = [
   {
     level: "L1 Resolved (District)",
-    count: 88,
-    percentage: 62,
+    count: 140,
+    percentage: 90,
     color: "#006A38",
   },
   {
     level: "L2 In Progress (Depot Nodal)",
-    count: 34,
-    percentage: 24,
+    count: 8,
+    percentage: 5,
     color: "#2563eb",
   },
   {
     level: "L3 Escalated (Head Office)",
-    count: 14,
-    percentage: 10,
+    count: 4,
+    percentage: 2.5,
     color: "#d97706",
   },
   {
-    level: "L4 Apex Hearing (MD Office)",
-    count: 6,
-    percentage: 4,
+    level: "L4 Overdue (Apex Hearing)",
+    count: 4,
+    percentage: 2.5,
     color: "#dc2626",
   },
 ];
@@ -103,8 +105,8 @@ export const initialGrievanceTickets: GrievanceTicketItem[] = [
     id: "GRV-001",
     grievanceId: "GRV-MPTBC-2026-9941",
     cmHelplineRefId: "CM181-MP-882104",
-    category: "SCHOOL_SUPPLY_SHORTAGE",
-    categoryLabel: "School Supply Shortage",
+    category: "SUPPLY_SHORTAGE",
+    categoryLabel: "Supply Shortage",
     source: "CM_HELPLINE_181",
     sourceLabel: "CM Helpline 181",
     filingDate: "2026-08-18",
@@ -203,7 +205,7 @@ export const initialGrievanceTickets: GrievanceTicketItem[] = [
     cmHelplineRefId: "CM181-MP-882108",
     category: "HRMS_STAFF_GRIEVANCE",
     categoryLabel: "HRMS Payroll & Leave",
-    source: "SCHOOL_PORTAL",
+    source: "BRC_PORTAL",
     sourceLabel: "HRMS Staff Portal",
     filingDate: "2026-08-12",
     complainantDetails: {

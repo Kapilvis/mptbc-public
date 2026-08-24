@@ -36,6 +36,7 @@ export interface HrmsEmployee {
     | "Regular Class II"
     | "Regular Class III"
     | "Regular Class IV"
+    | "Samvida"
     | "Contractual"
     | "Outsourced";
   postingLocation: string;
@@ -59,6 +60,7 @@ export interface DepotDeploymentStat {
   division: string;
   depotCount: number;
   regularStaff: number;
+  samvidaStaff: number;
   contractualStaff: number;
   outsourcedStaff: number;
   totalStaff: number;
@@ -93,13 +95,15 @@ export interface RetirementPipelineItem {
 export interface HrmsKpiMetrics {
   totalWorkforce: number;
   regularCount: number;
+  samvidaCount: number;
   contractualCount: number;
   outsourcedCount: number;
   attendancePct: number;
   presentCount: number;
+  onLeaveCount: number;
   totalBiometricUsers: number;
-  monthlyPayrollBudget: string; // e.g. "₹ 4.85 Crore"
-  disbursedPayroll?: string; // e.g. "₹ 4.78 Crore"
+  monthlyPayrollBudget: string; // e.g. "₹ 20.00 Lakhs"
+  disbursedPayroll?: string; // e.g. "₹ 19.65 Lakhs"
   ifmisDisbursedPct: number;
   pendingHrActionsCount: number;
   retirementsThisFy: number;
@@ -109,11 +113,13 @@ export interface HrmsKpiMetrics {
 
 export const initialHrmsKpiMetrics: HrmsKpiMetrics = {
   totalWorkforce: 85,
-  regularCount: 42,
-  contractualCount: 25,
-  outsourcedCount: 18,
+  regularCount: 30,
+  samvidaCount: 20,
+  contractualCount: 15,
+  outsourcedCount: 20,
   attendancePct: 91.8,
   presentCount: 78,
+  onLeaveCount: 7,
   totalBiometricUsers: 85,
   monthlyPayrollBudget: "₹ 20.00 Lakhs",
   disbursedPayroll: "₹ 19.65 Lakhs",
@@ -331,18 +337,20 @@ export const depotDeploymentStats: DepotDeploymentStat[] = [
   {
     division: "BHOPAL Depot",
     depotCount: 5,
-    regularStaff: 9,
-    contractualStaff: 5,
+    regularStaff: 6,
+    samvidaStaff: 4,
+    contractualStaff: 3,
     outsourcedStaff: 4,
-    totalStaff: 18,
+    totalStaff: 17,
     managerPresent: true,
     biometricCompliancePct: 95.0,
   },
   {
     division: "INDORE Depot",
     depotCount: 5,
-    regularStaff: 7,
-    contractualStaff: 4,
+    regularStaff: 5,
+    samvidaStaff: 3,
+    contractualStaff: 3,
     outsourcedStaff: 3,
     totalStaff: 14,
     managerPresent: true,
@@ -351,9 +359,10 @@ export const depotDeploymentStats: DepotDeploymentStat[] = [
   {
     division: "GWALIOR Depot",
     depotCount: 8,
-    regularStaff: 6,
-    contractualStaff: 4,
-    outsourcedStaff: 2,
+    regularStaff: 4,
+    samvidaStaff: 3,
+    contractualStaff: 2,
+    outsourcedStaff: 3,
     totalStaff: 12,
     managerPresent: true,
     biometricCompliancePct: 92.0,
@@ -361,8 +370,9 @@ export const depotDeploymentStats: DepotDeploymentStat[] = [
   {
     division: "JABALPUR Depot",
     depotCount: 8,
-    regularStaff: 6,
-    contractualStaff: 3,
+    regularStaff: 4,
+    samvidaStaff: 3,
+    contractualStaff: 2,
     outsourcedStaff: 3,
     totalStaff: 12,
     managerPresent: true,
@@ -371,7 +381,8 @@ export const depotDeploymentStats: DepotDeploymentStat[] = [
   {
     division: "UJJAIN Depot",
     depotCount: 6,
-    regularStaff: 5,
+    regularStaff: 3,
+    samvidaStaff: 2,
     contractualStaff: 2,
     outsourcedStaff: 2,
     totalStaff: 9,
@@ -381,10 +392,11 @@ export const depotDeploymentStats: DepotDeploymentStat[] = [
   {
     division: "SAGAR Depot",
     depotCount: 5,
-    regularStaff: 3,
-    contractualStaff: 2,
-    outsourcedStaff: 1,
-    totalStaff: 6,
+    regularStaff: 2,
+    samvidaStaff: 2,
+    contractualStaff: 1,
+    outsourcedStaff: 2,
+    totalStaff: 7,
     managerPresent: true,
     biometricCompliancePct: 92.5,
   },
@@ -392,7 +404,8 @@ export const depotDeploymentStats: DepotDeploymentStat[] = [
     division: "REWA Depot",
     depotCount: 7,
     regularStaff: 2,
-    contractualStaff: 2,
+    samvidaStaff: 1,
+    contractualStaff: 1,
     outsourcedStaff: 1,
     totalStaff: 5,
     managerPresent: true,
@@ -402,9 +415,10 @@ export const depotDeploymentStats: DepotDeploymentStat[] = [
     division: "KHANDWA Depot",
     depotCount: 4,
     regularStaff: 2,
+    samvidaStaff: 1,
     contractualStaff: 1,
     outsourcedStaff: 1,
-    totalStaff: 4,
+    totalStaff: 5,
     managerPresent: true,
     biometricCompliancePct: 93.0,
   },
@@ -412,9 +426,10 @@ export const depotDeploymentStats: DepotDeploymentStat[] = [
     division: "HEAD OFFICE & MANDIDEEP",
     depotCount: 8,
     regularStaff: 2,
-    contractualStaff: 2,
+    samvidaStaff: 1,
+    contractualStaff: 0,
     outsourcedStaff: 1,
-    totalStaff: 5,
+    totalStaff: 4,
     managerPresent: true,
     biometricCompliancePct: 96.5,
   },
@@ -587,25 +602,43 @@ export const initialPayMatrixBreakdown: PayMatrixLevelBreakdown[] = [
     levelGroup: "Level 10 to 12",
     cadreCovered: "Depot Managers, Senior Accounts Officers",
     payScaleRange: "₹ 56,100 - ₹ 1,77,500",
-    headcount: "14 Staff",
-    basicPay: "₹ 4,10,000",
-    allowances: "₹ 1,90,000",
-    totalExpenditure: "₹ 6,00,000",
+    headcount: "10 Staff",
+    basicPay: "₹ 3,60,000",
+    allowances: "₹ 1,80,000",
+    totalExpenditure: "₹ 5,40,000",
   },
   {
     levelGroup: "Level 5 to 9",
     cadreCovered: "Assistant Depot Managers, Store Keepers",
     payScaleRange: "₹ 25,300 - ₹ 91,300",
-    headcount: "38 Staff",
+    headcount: "16 Staff",
+    basicPay: "₹ 3,00,000",
+    allowances: "₹ 1,40,000",
+    totalExpenditure: "₹ 4,40,000",
+  },
+  {
+    levelGroup: "Samvida Cadre",
+    cadreCovered: "Samvida Depot Personnel & Technical Inspectors",
+    payScaleRange: "Fixed Scale (Pay Band 2)",
+    headcount: "20 Staff",
     basicPay: "₹ 3,20,000",
     allowances: "₹ 1,40,000",
     totalExpenditure: "₹ 4,60,000",
   },
   {
-    levelGroup: "Contractual & Support",
-    cadreCovered: "IT Officers, Data Entry, Security, Helpers",
-    payScaleRange: "Consolidated / Min Wage",
-    headcount: "29 Staff",
+    levelGroup: "Contractual Staff",
+    cadreCovered: "IT Officers, Data Entry Operators",
+    payScaleRange: "Consolidated Contract Scale",
+    headcount: "15 Staff",
+    basicPay: "₹ 1,80,000",
+    allowances: "--",
+    totalExpenditure: "₹ 1,80,000",
+  },
+  {
+    levelGroup: "Outsourced Support",
+    cadreCovered: "Warehouse Helpers, Drivers & Security",
+    payScaleRange: "Min Wage / Agency Rate",
+    headcount: "20 Staff",
     basicPay: "₹ 1,60,000",
     allowances: "--",
     totalExpenditure: "₹ 1,60,000",

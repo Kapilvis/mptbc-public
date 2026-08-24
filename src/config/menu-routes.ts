@@ -275,65 +275,6 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
       },
     ],
   },
-  {
-    label: t("routes.master.hrms.hrms"),
-    icon: "pi pi-id-card",
-    section: "Configuration",
-    children: [
-      {
-        label: "HRMS Dashboard",
-        path: hrmsUrls.dashboard,
-        feature: "@hrms/employee-details",
-        action: "read",
-      },
-      {
-        label: t("routes.master.hrms.employee-details"),
-        path: hrmsUrls.employeeDetails.root,
-        feature: "@hrms/employee-details",
-        action: "write",
-        permissionKey: "hrms/employee-details",
-      },
-    ],
-  },
-  {
-    label: "Finance Dashboard",
-    icon: "pi pi-wallet",
-    section: "Configuration",
-    permissionKey: "finance",
-    children: [
-      {
-        label: "Finance Dashboard",
-        path: financeUrls.dashboard,
-        permissionKey: "finance/dashboard",
-      },
-    ],
-  },
-  {
-    label: "Grievance Dashboard",
-    icon: "pi pi-[#006A38] pi-headphones",
-    section: "Configuration",
-    permissionKey: "grievance",
-    children: [
-      {
-        label: "Grievance Dashboard",
-        path: grievanceUrls.dashboard,
-        permissionKey: "grievance/dashboard",
-      },
-    ],
-  },
-  {
-    label: "Legal Dashboard",
-    icon: "pi pi-briefcase",
-    section: "Configuration",
-    permissionKey: "legal",
-    children: [
-      {
-        label: "Legal Dashboard",
-        path: legalUrls.dashboard,
-        permissionKey: "legal/dashboard",
-      },
-    ],
-  },
   /* ─── 1. DISTRIBUTION SECTION ─── */
   {
     label: t("routes.distribution-section"),
@@ -562,6 +503,52 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         permissionKey: "district-depot/dispatch-history",
       },
     ],
+  },
+
+  /* ─── HRMS ─── */
+  {
+    label: t("routes.master.hrms.hrms"),
+    icon: "pi pi-id-card",
+    permissionKey: "hrms",
+    children: [
+      {
+        label: "HRMS Dashboard",
+        path: hrmsUrls.dashboard,
+        feature: "@hrms/employee-details",
+        action: "read",
+      },
+      {
+        label: t("routes.master.hrms.employee-details"),
+        path: hrmsUrls.employeeDetails.root,
+        feature: "@hrms/employee-details",
+        action: "write",
+        permissionKey: "hrms/employee-details",
+      },
+    ],
+  },
+
+  /* ─── FINANCE DASHBOARD (DIRECT LINK) ─── */
+  {
+    label: "Finance Dashboard",
+    icon: "pi pi-wallet",
+    path: financeUrls.dashboard,
+    permissionKey: "finance",
+  },
+
+  /* ─── GRIEVANCE DASHBOARD (DIRECT LINK) ─── */
+  {
+    label: "Grievance Dashboard",
+    icon: "pi pi-headphones",
+    path: grievanceUrls.dashboard,
+    permissionKey: "grievance",
+  },
+
+  /* ─── LEGAL DASHBOARD (DIRECT LINK) ─── */
+  {
+    label: "Legal Dashboard",
+    icon: "pi pi-briefcase",
+    path: legalUrls.dashboard,
+    permissionKey: "legal",
   },
 
   /* ─── 6. TRANSPORTATION ─── */

@@ -17,7 +17,7 @@ type GrievanceTabType = "SUMMARY" | "TICKET_REGISTER";
 
 const categoryFilterOptions = [
   { label: "All Categories", value: "ALL" },
-  { label: "School Supply Shortage", value: "SCHOOL_SUPPLY_SHORTAGE" },
+  { label: "Supply Shortage", value: "SUPPLY_SHORTAGE" },
   { label: "Quality & Printing Defect", value: "QUALITY_DEFECT" },
   { label: "HRMS Staff Payroll", value: "HRMS_STAFF_GRIEVANCE" },
   { label: "Vendor Fine & LD Appeal", value: "VENDOR_DISPUTE_APPEAL" },
@@ -132,7 +132,7 @@ export default function GrievanceDashboard() {
         cell: (item: GrievanceTicketItem) => (
           <span
             className={`inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
-              item.category === "SCHOOL_SUPPLY_SHORTAGE"
+              item.category === "SUPPLY_SHORTAGE"
                 ? "bg-emerald-100 text-emerald-900 border border-emerald-300"
                 : item.category === "QUALITY_DEFECT"
                   ? "bg-blue-100 text-blue-900 border border-blue-300"
@@ -301,7 +301,7 @@ export default function GrievanceDashboard() {
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
                 1. TOTAL GRIEVANCES
               </span>
-              <span className="text-[10px] font-bold bg-blue-100 text-blue-900 px-2 py-0.5 rounded-full border border-blue-300">
+              <span className="text-xs font-extrabold bg-blue-100 text-blue-900 px-2.5 py-1 rounded-full border border-blue-300">
                 FY26
               </span>
             </div>
@@ -309,7 +309,7 @@ export default function GrievanceDashboard() {
               {initialGrievanceKpis.totalGrievances} Tickets
             </div>
 
-            <div className="grid grid-cols-2 gap-1 text-left mt-2.5 pt-2 border-t border-[#bfdbfe]">
+            <div className="grid grid-cols-3 gap-1 text-left mt-2.5 pt-2 border-t border-[#bfdbfe]">
               <div>
                 <span className="text-[9.5px] font-bold text-emerald-800 uppercase block">
                   RESOLVED
@@ -326,11 +326,21 @@ export default function GrievanceDashboard() {
                   {initialGrievanceKpis.pendingCount}
                 </div>
               </div>
+              <div>
+                <span className="text-[9.5px] font-bold text-purple-800 uppercase block">
+                  OVERDUE
+                </span>
+                <div className="text-sm font-black text-slate-900">
+                  {initialGrievanceKpis.overdueCount}
+                </div>
+              </div>
             </div>
           </div>
           <div className="text-xs font-bold text-slate-800 mt-2">
             Resolution Rate:{" "}
-            <strong className="text-emerald-900 font-black">62% Closed</strong>
+            <strong className="text-emerald-900 font-black">
+              {initialGrievanceKpis.resolutionRate} Closed
+            </strong>
           </div>
         </div>
 
@@ -341,7 +351,7 @@ export default function GrievanceDashboard() {
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
                 2. CM HELPLINE 181
               </span>
-              <span className="text-[10px] font-bold bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded-full border border-emerald-300">
+              <span className="text-xs font-extrabold bg-emerald-100 text-emerald-900 px-2.5 py-1 rounded-full border border-emerald-300">
                 Portal 181
               </span>
             </div>
@@ -376,19 +386,19 @@ export default function GrievanceDashboard() {
           </div>
         </div>
 
-        {/* KPI 3: School & BRC Supply Shortages */}
+        {/* KPI 3: BRC Supply Shortages */}
         <div className="bg-[#fffbeb] border border-[#fde68a] rounded-2xl p-4 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                3. SCHOOL SHORTAGES
+                3. SUPPLY SHORTAGES
               </span>
-              <span className="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full border border-amber-300">
-                18 Claims
+              <span className="text-xs font-extrabold bg-amber-100 text-amber-900 px-2.5 py-1 rounded-full border border-amber-300">
+                45 Claims
               </span>
             </div>
             <div className="text-xl font-black text-amber-950 mt-1">
-              {initialGrievanceKpis.schoolShortagesCount} Active Claims
+              {initialGrievanceKpis.supplyShortagesCount} Active Claims
             </div>
 
             <div className="grid grid-cols-3 gap-1 text-left mt-2.5 pt-2 border-t border-[#fde68a]">
@@ -396,25 +406,25 @@ export default function GrievanceDashboard() {
                 <span className="text-[9.5px] font-bold text-slate-700 uppercase block">
                   INDORE
                 </span>
-                <div className="text-sm font-black text-slate-900">6</div>
+                <div className="text-sm font-black text-slate-900">16</div>
               </div>
               <div>
                 <span className="text-[9.5px] font-bold text-slate-700 uppercase block">
                   BHOPAL
                 </span>
-                <div className="text-sm font-black text-slate-900">5</div>
+                <div className="text-sm font-black text-slate-900">14</div>
               </div>
               <div>
                 <span className="text-[9.5px] font-bold text-slate-700 uppercase block">
                   UJJAIN
                 </span>
-                <div className="text-sm font-black text-slate-900">7</div>
+                <div className="text-sm font-black text-slate-900">15</div>
               </div>
             </div>
           </div>
           <div className="text-xs font-bold text-amber-950 mt-2">
             Affected BRC Blocks:{" "}
-            <strong className="text-amber-900 font-black">18 Locations</strong>
+            <strong className="text-amber-900 font-black">45 Locations</strong>
           </div>
         </div>
 
@@ -425,8 +435,8 @@ export default function GrievanceDashboard() {
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
                 4. VENDOR APPEALS
               </span>
-              <span className="text-[10px] font-bold bg-rose-100 text-rose-900 px-2 py-0.5 rounded-full border border-rose-300">
-                8 Appeals
+              <span className="text-xs font-extrabold bg-rose-100 text-rose-900 px-2.5 py-1 rounded-full border border-rose-300">
+                18 Appeals
               </span>
             </div>
             <div className="text-xl font-black text-rose-950 mt-1">
@@ -438,19 +448,19 @@ export default function GrievanceDashboard() {
                 <span className="text-[9.5px] font-bold text-rose-900 uppercase block">
                   PRINTERS
                 </span>
-                <div className="text-sm font-black text-slate-900">5</div>
+                <div className="text-sm font-black text-slate-900">11</div>
               </div>
               <div>
                 <span className="text-[9.5px] font-bold text-rose-900 uppercase block">
                   PAPER MILLS
                 </span>
-                <div className="text-sm font-black text-slate-900">3</div>
+                <div className="text-sm font-black text-slate-900">7</div>
               </div>
             </div>
           </div>
           <div className="text-xs font-bold text-rose-950 mt-2">
             High Value Appeals:{" "}
-            <strong className="text-rose-900 font-black">8 Files</strong>
+            <strong className="text-rose-900 font-black">18 Files</strong>
           </div>
         </div>
 
@@ -461,7 +471,7 @@ export default function GrievanceDashboard() {
               <span className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
                 5. AVG RESOLUTION
               </span>
-              <span className="text-[10px] font-bold bg-purple-100 text-purple-900 px-2 py-0.5 rounded-full border border-purple-300">
+              <span className="text-xs font-extrabold bg-purple-100 text-purple-900 px-2.5 py-1 rounded-full border border-purple-300">
                 Speed
               </span>
             </div>
@@ -475,7 +485,7 @@ export default function GrievanceDashboard() {
                   TARGET
                 </span>
                 <div className="text-sm font-black text-slate-900">
-                  &lt; 5 Days
+                  &lt; 3 Days
                 </div>
               </div>
               <div>
@@ -483,14 +493,14 @@ export default function GrievanceDashboard() {
                   EFFICIENCY
                 </span>
                 <div className="text-sm font-black text-slate-900">
-                  +44% Fast
+                  +58% Fast
                 </div>
               </div>
             </div>
           </div>
           <div className="text-xs font-bold text-slate-800 mt-2">
             Average Speed:{" "}
-            <strong className="text-purple-900 font-black">2.8 Days</strong>
+            <strong className="text-purple-900 font-black">2.1 Days</strong>
           </div>
         </div>
       </div>
@@ -507,12 +517,12 @@ export default function GrievanceDashboard() {
                   Grievances Category Breakdown
                 </h3>
                 <p className="text-xs text-slate-500 font-medium mt-0.5">
-                  Distribution of filed tickets across School Shortages,
+                  Distribution of filed tickets across Supply Shortages,
                   Quality, Payroll, Vendor & Freight.
                 </p>
               </div>
               <span className="text-xs font-extrabold text-slate-800 bg-slate-100 px-3 py-1 rounded-full">
-                Total: 142 Complaints
+                Total: 156 Complaints
               </span>
             </div>
 
@@ -530,7 +540,7 @@ export default function GrievanceDashboard() {
                     {item.count}
                   </span>
                   <span className="text-xs font-bold text-[#006A38] block">
-                    {Math.round((item.count / 142) * 100)}% of total
+                    {Math.round((item.count / 156) * 100)}% of total
                   </span>
                 </div>
               ))}
@@ -559,7 +569,7 @@ export default function GrievanceDashboard() {
                     <div
                       className="w-12 max-w-[48px] rounded-t-xl transition-all duration-300 shadow-sm hover:brightness-105"
                       style={{
-                        height: `${(bar.count / 42) * 75}%`,
+                        height: `${(bar.count / 52) * 75}%`,
                         backgroundColor: bar.color,
                       }}
                     />
@@ -581,7 +591,7 @@ export default function GrievanceDashboard() {
                   Resolution SLA Levels (L1 to L4)
                 </h3>
                 <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  142 Total
+                  156 Total
                 </span>
               </div>
 
@@ -600,54 +610,54 @@ export default function GrievanceDashboard() {
                       strokeWidth="14"
                       fill="transparent"
                     />
-                    {/* L1 62% */}
+                    {/* L1 89.7% */}
                     <circle
                       cx="50"
                       cy="50"
                       r="38"
                       stroke="#006A38"
                       strokeWidth="14"
-                      strokeDasharray="148 238.7"
+                      strokeDasharray="214.2 238.7"
                       strokeDashoffset="0"
                       fill="transparent"
                     />
-                    {/* L2 24% */}
+                    {/* L2 5.1% */}
                     <circle
                       cx="50"
                       cy="50"
                       r="38"
                       stroke="#2563eb"
                       strokeWidth="14"
-                      strokeDasharray="57.2 238.7"
-                      strokeDashoffset="-148"
+                      strokeDasharray="12.2 238.7"
+                      strokeDashoffset="-214.2"
                       fill="transparent"
                     />
-                    {/* L3 10% */}
+                    {/* L3 2.5% */}
                     <circle
                       cx="50"
                       cy="50"
                       r="38"
                       stroke="#d97706"
                       strokeWidth="14"
-                      strokeDasharray="23.8 238.7"
-                      strokeDashoffset="-205.2"
+                      strokeDasharray="6.0 238.7"
+                      strokeDashoffset="-226.4"
                       fill="transparent"
                     />
-                    {/* L4 4% */}
+                    {/* L4 2.5% */}
                     <circle
                       cx="50"
                       cy="50"
                       r="38"
                       stroke="#dc2626"
                       strokeWidth="14"
-                      strokeDasharray="9.5 238.7"
-                      strokeDashoffset="-229"
+                      strokeDasharray="6.0 238.7"
+                      strokeDashoffset="-232.4"
                       fill="transparent"
                     />
                   </svg>
                   <div className="absolute text-center pointer-events-none">
                     <span className="text-2xl font-black text-slate-900 block">
-                      62%
+                      89.7%
                     </span>
                     <span className="text-[9px] font-bold text-slate-500 uppercase block">
                       L1 Resolved

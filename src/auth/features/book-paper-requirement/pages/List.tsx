@@ -37,9 +37,10 @@ export default function List() {
       (acc, curr) => {
         acc.inner += curr.innerPaperMt;
         acc.cover += curr.coverPaperMt;
+        acc.books += curr.numberOfBooks;
         return acc;
       },
-      { inner: 0, cover: 0 },
+      { inner: 0, cover: 0, books: 0 },
     );
   }, [requirements]);
 
@@ -85,6 +86,7 @@ export default function List() {
 
   const columns: Controls.ColumnProps<BookPaperRequirement.Item>[] = [
     {
+      field: "bookPaperRequirementId",
       cell: (_: BookPaperRequirement.Item, option: { rowIndex: number }) => (
         <span className="text-slate-600 font-medium">
           {option.rowIndex + 1}
@@ -107,10 +109,15 @@ export default function List() {
     },
     {
       field: "numberOfBooks",
-      header: "Number of Titles",
+      header: "Number of Books",
       align: "center",
       cell: (row: BookPaperRequirement.Item) => (
         <span>{row.numberOfBooks.toLocaleString()}</span>
+      ),
+      footer: (
+        <span className="font-bold text-slate-700 text-base">
+          {totals.books.toLocaleString()}
+        </span>
       ),
     },
     {
@@ -158,6 +165,21 @@ export default function List() {
       footer: (
         <span className="font-mono font-bold text-emerald-600 text-base">
           {Math.round(totals.cover).toLocaleString()} MT
+        </span>
+      ),
+    },
+    {
+      field: "createdOn",
+      header: "Total (MT)",
+      align: "center",
+      cell: (row: BookPaperRequirement.Item) => (
+        <span className="font-mono font-bold text-slate-800">
+          {Math.round(row.innerPaperMt + row.coverPaperMt).toLocaleString()} MT
+        </span>
+      ),
+      footer: (
+        <span className="font-mono font-extrabold text-slate-800 text-base">
+          {Math.round(totals.inner + totals.cover).toLocaleString()} MT
         </span>
       ),
     },

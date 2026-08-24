@@ -63,6 +63,11 @@ export default function PaperIssueToPrinterPage() {
     }
   };
 
+  const filteredOrders = useMemo(
+    () => [...orders].filter((o) => o.status !== "Cancelled").reverse(),
+    [orders],
+  );
+
   // 4. View details history helper
 
   return (
@@ -84,7 +89,7 @@ export default function PaperIssueToPrinterPage() {
               }
             />
           }
-          data={[...orders].filter((o) => o.status !== "Cancelled").reverse()}
+          data={filteredOrders}
           searchFields={[
             "orderNo",
             "printer",
@@ -123,6 +128,11 @@ export default function PaperIssueToPrinterPage() {
             {
               field: "printer",
               header: "printer name",
+              footer: (
+                <span className="font-bold text-gray-900 dark:text-white block text-right pr-2">
+                  Total:
+                </span>
+              ),
               cell: (row: PrinterOrder) => (
                 <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                   {row.printer}
@@ -133,6 +143,17 @@ export default function PaperIssueToPrinterPage() {
               field: "approvedQty",
               header: "total required paper",
               align: "center",
+              footer: (() => {
+                const total = filteredOrders.reduce(
+                  (sum, o) => sum + o.approvedQty,
+                  0,
+                );
+                return (
+                  <span className="font-bold text-slate-800 dark:text-slate-200 text-xs">
+                    {total.toLocaleString()} MT
+                  </span>
+                );
+              })(),
               cell: (row: PrinterOrder) => (
                 <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                   {row.approvedQty.toLocaleString()} MT
@@ -143,6 +164,17 @@ export default function PaperIssueToPrinterPage() {
               field: "suppliedQty",
               header: "recived paper",
               align: "center",
+              footer: (() => {
+                const total = filteredOrders.reduce(
+                  (sum, o) => sum + o.suppliedQty,
+                  0,
+                );
+                return (
+                  <span className="font-bold text-emerald-600 text-xs">
+                    {total.toLocaleString()} MT
+                  </span>
+                );
+              })(),
               cell: (row: PrinterOrder) => (
                 <span className="text-xs text-emerald-600 font-bold">
                   {row.suppliedQty.toLocaleString()} MT
@@ -153,6 +185,19 @@ export default function PaperIssueToPrinterPage() {
               field: "pendingQty",
               header: "remaning paper",
               align: "center",
+              footer: (() => {
+                const total = filteredOrders.reduce(
+                  (sum, o) => sum + o.pendingQty,
+                  0,
+                );
+                return (
+                  <span
+                    className={`font-extrabold text-xs ${total > 0 ? "text-rose-600" : "text-slate-400"}`}
+                  >
+                    {total.toLocaleString()} MT
+                  </span>
+                );
+              })(),
               cell: (row: PrinterOrder) => (
                 <span
                   className={`text-xs font-extrabold ${

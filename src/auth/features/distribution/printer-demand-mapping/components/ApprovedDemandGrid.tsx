@@ -69,6 +69,11 @@ export default function ApprovedDemandGrid({
           field: "deliveryDepot",
           header: "Delivery Depot",
           align: "center",
+          footer: (
+            <span className="font-bold text-gray-900 dark:text-white block text-right pr-2">
+              Total:
+            </span>
+          ),
           cell: (row) => (
             <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-bold bg-emerald-50 text-emerald-800 dark:bg-emerald-950/35 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-900/30">
               {row.deliveryDepot}
@@ -80,6 +85,14 @@ export default function ApprovedDemandGrid({
           field: "totalQuantity",
           header: "Total Quantity",
           align: "center",
+          footer: (() => {
+            const sum = data.reduce((acc, row) => acc + row.totalQuantity, 0);
+            return (
+              <span className="font-mono text-gray-950 dark:text-gray-50 text-sm font-bold">
+                {sum.toLocaleString()} Books
+              </span>
+            );
+          })(),
           cell: (row) => (
             <span className="font-mono text-gray-950 dark:text-gray-50 text-sm font-semibold">
               {row.totalQuantity.toLocaleString()} Books

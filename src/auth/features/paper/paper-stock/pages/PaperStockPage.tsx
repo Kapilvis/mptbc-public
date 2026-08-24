@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import Page from "shared/components/panels/Page";
 import { usePageTitle } from "shared/hooks/usePageTitle";
 import { Card, GridPanel } from "shared/components/panels";
@@ -30,6 +31,24 @@ export function StockStatusBadge({
 export default function PaperStockPage() {
   const pageTitle = usePageTitle();
   const stocks = dataManager.getStocks();
+
+  const totals = useMemo(() => {
+    return stocks.reduce(
+      (acc, curr) => {
+        acc.openingStock += curr.openingStock;
+        acc.receivedQuantity += curr.receivedQuantity;
+        acc.issuedQuantity += curr.issuedQuantity;
+        acc.availableQuantity += curr.availableQuantity;
+        return acc;
+      },
+      {
+        openingStock: 0,
+        receivedQuantity: 0,
+        issuedQuantity: 0,
+        availableQuantity: 0,
+      },
+    );
+  }, [stocks]);
 
   return (
     <Page
@@ -90,6 +109,11 @@ export default function PaperStockPage() {
               cell: (row: PaperStock) => (
                 <span className="text-sm">{row.cutoff}</span>
               ),
+              footer: (
+                <span className="font-bold text-slate-700 uppercase tracking-wide text-xs">
+                  Total Stock
+                </span>
+              ),
             },
             {
               field: "openingStock",
@@ -98,6 +122,11 @@ export default function PaperStockPage() {
               cell: (row: PaperStock) => (
                 <span className="text-sm">
                   {row.openingStock.toLocaleString()} MT
+                </span>
+              ),
+              footer: (
+                <span className="font-bold text-slate-700 text-sm">
+                  {totals.openingStock.toLocaleString()} MT
                 </span>
               ),
             },
@@ -110,6 +139,11 @@ export default function PaperStockPage() {
                   +{row.receivedQuantity.toLocaleString()} MT
                 </span>
               ),
+              footer: (
+                <span className="font-bold text-emerald-600 text-sm">
+                  {totals.receivedQuantity.toLocaleString()} MT
+                </span>
+              ),
             },
             {
               field: "issuedQuantity",
@@ -120,6 +154,11 @@ export default function PaperStockPage() {
                   -{row.issuedQuantity.toLocaleString()} MT
                 </span>
               ),
+              footer: (
+                <span className="font-bold text-rose-600 text-sm">
+                  {totals.issuedQuantity.toLocaleString()} MT
+                </span>
+              ),
             },
             {
               field: "availableQuantity",
@@ -128,6 +167,11 @@ export default function PaperStockPage() {
               cell: (row: PaperStock) => (
                 <span className="text-sm font-bold text-blue-700 dark:text-blue-400">
                   {row.availableQuantity.toLocaleString()} MT
+                </span>
+              ),
+              footer: (
+                <span className="font-bold text-blue-700 dark:text-blue-400 text-sm">
+                  {totals.availableQuantity.toLocaleString()} MT
                 </span>
               ),
             },

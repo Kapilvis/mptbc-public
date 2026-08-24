@@ -97,11 +97,27 @@ export default function PrinterChallanReceivedPage() {
               field: "title",
               header: "Title",
               sortable: true,
+              footer: (
+                <span className="font-bold text-gray-900 dark:text-white block text-right pr-2">
+                  Total:
+                </span>
+              ),
             },
             {
               field: "dispatchedQty",
               header: "Dispatched",
               align: "center",
+              footer: (() => {
+                const total = challans.reduce(
+                  (sum, item) => sum + item.dispatchedQty,
+                  0,
+                );
+                return (
+                  <span className="font-bold text-blue-800 dark:text-blue-300">
+                    {total.toLocaleString()}
+                  </span>
+                );
+              })(),
               cell: (row) => (
                 <span className="font-semibold text-blue-700 dark:text-blue-400">
                   {row.dispatchedQty.toLocaleString()}
@@ -113,6 +129,17 @@ export default function PrinterChallanReceivedPage() {
               field: "receivedQty",
               header: "Received",
               align: "center",
+              footer: (() => {
+                const total = challans.reduce(
+                  (sum, item) => sum + (item.receivedQty || 0),
+                  0,
+                );
+                return (
+                  <span className="font-bold text-emerald-800 dark:text-emerald-300">
+                    {total.toLocaleString()}
+                  </span>
+                );
+              })(),
               cell: (row) => (
                 <span className="font-semibold text-emerald-700 dark:text-emerald-400">
                   {row.status === "Pending"
@@ -126,6 +153,19 @@ export default function PrinterChallanReceivedPage() {
               field: "shortage",
               header: "Shortage",
               align: "center",
+              footer: (() => {
+                const total = challans.reduce(
+                  (sum, item) => sum + (item.shortage || 0),
+                  0,
+                );
+                return (
+                  <span
+                    className={`font-bold ${total > 0 ? "text-rose-800 dark:text-rose-300" : "text-gray-400"}`}
+                  >
+                    {total > 0 ? total.toLocaleString() : "—"}
+                  </span>
+                );
+              })(),
               cell: (row) => (
                 <span
                   className={`font-bold ${
@@ -142,6 +182,19 @@ export default function PrinterChallanReceivedPage() {
             {
               header: "Damaged",
               align: "center",
+              footer: (() => {
+                const total = challans.reduce(
+                  (sum, item) => sum + (item.damagedQty || 0),
+                  0,
+                );
+                return (
+                  <span
+                    className={`font-bold ${total > 0 ? "text-amber-800 dark:text-amber-300" : "text-gray-400"}`}
+                  >
+                    {total > 0 ? total.toLocaleString() : "—"}
+                  </span>
+                );
+              })(),
               cell: (row) => (
                 <span
                   className={`font-bold ${
