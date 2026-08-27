@@ -224,7 +224,7 @@ export const DemandKpiCard: React.FC = () => {
             </div>
             <div className="flex flex-col min-w-0 flex-1">
               <span className="text-[10px] font-bold text-slate-600 uppercase tracking-tight mb-0.5 leading-tight whitespace-normal">
-                Demand Approval
+                Demand Approved
               </span>
               <span className="text-[18px] font-extrabold text-emerald-600 leading-none mb-0.5">
                 {data.demandApproved}

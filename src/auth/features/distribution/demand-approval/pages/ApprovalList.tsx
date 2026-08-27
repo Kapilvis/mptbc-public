@@ -207,13 +207,17 @@ export default function ApprovalList() {
               header: "Requested Demand",
               align: "center",
               footer: (() => {
+                const approvedTotal = data
+                  .filter((item) => item.status === "Approved")
+                  .reduce((sum, item) => sum + item.requestedDemand, 0);
                 const total = data.reduce(
                   (sum, item) => sum + item.requestedDemand,
                   0,
                 );
                 return (
-                  <span className="font-bold text-emerald-800 dark:text-emerald-300">
-                    {total.toLocaleString()} Books
+                  <span className="font-bold text-emerald-800 dark:text-emerald-300 font-mono">
+                    {approvedTotal.toLocaleString()} / {total.toLocaleString()}{" "}
+                    Books
                   </span>
                 );
               })(),

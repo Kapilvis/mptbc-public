@@ -49,7 +49,7 @@ export interface TitleWiseDistributionItem {
 
 export const mockKpiMetrics: KpiMetric[] = [
   {
-    title: "Target ( Approve demand )",
+    title: "Target ( Approved demand )",
     value: "3,90,000",
     subText: "Books",
     percentBadgeTheme:

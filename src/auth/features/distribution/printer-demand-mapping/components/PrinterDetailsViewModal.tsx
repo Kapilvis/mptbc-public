@@ -154,7 +154,7 @@ export default function PrinterDetailsViewModal({
 
               <div className="flex flex-col gap-0.5 text-center pl-2">
                 <span className="text-[9px] text-gray-600 dark:text-gray-400 block font-bold uppercase tracking-wide">
-                  Books Printed
+                  Total Work Allocated
                 </span>
                 <span className="font-extrabold text-sm text-amber-700 dark:text-amber-400 block">
                   {printerCapacity.currentAllocated.toLocaleString()}
