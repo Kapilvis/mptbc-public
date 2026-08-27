@@ -284,7 +284,7 @@ export default function DepotDemandDistributionPage() {
             },
             {
               field: "workAllocatedToPrinter",
-              header: "ACTUAL DEMAND (WORK ALLOCATION)",
+              header: "ACTUAL DEPOT DEMAND ",
               align: "right",
               width: "180px",
               cell: (row: DepotDemandDistributionItem) => (

@@ -10,7 +10,7 @@ export const mockDemandApprovals: Distribution.DemandApprovalItem[] = [
     requestedDemand: 50000,
     currentStock: 124,
     variance: "0.2%",
-    status: "Pending",
+    status: "Approved",
     academicYear: "2026-2027",
   },
   {
@@ -24,7 +24,7 @@ export const mockDemandApprovals: Distribution.DemandApprovalItem[] = [
     requestedDemand: 55000,
     currentStock: 75,
     variance: "-0.2%",
-    status: "Pending",
+    status: "Approved",
     academicYear: "2026-2027",
   },
   {
@@ -38,7 +38,7 @@ export const mockDemandApprovals: Distribution.DemandApprovalItem[] = [
     requestedDemand: 60000,
     currentStock: 30,
     variance: "0.2%",
-    status: "Pending",
+    status: "Hold",
     academicYear: "2026-2027",
   },
   {
@@ -52,7 +52,7 @@ export const mockDemandApprovals: Distribution.DemandApprovalItem[] = [
     requestedDemand: 45000,
     currentStock: 39,
     variance: "0.2%",
-    status: "Pending",
+    status: "Approved",
     academicYear: "2026-2027",
   },
   {
@@ -66,7 +66,7 @@ export const mockDemandApprovals: Distribution.DemandApprovalItem[] = [
     requestedDemand: 65000,
     currentStock: 50,
     variance: "0.8%",
-    status: "Pending",
+    status: "Approved",
     academicYear: "2026-2027",
   },
   {
@@ -80,7 +80,7 @@ export const mockDemandApprovals: Distribution.DemandApprovalItem[] = [
     requestedDemand: 40000,
     currentStock: 204,
     variance: "0.2%",
-    status: "Pending",
+    status: "Approved",
     academicYear: "2026-2027",
   },
   {
@@ -94,7 +94,7 @@ export const mockDemandApprovals: Distribution.DemandApprovalItem[] = [
     requestedDemand: 70000,
     currentStock: 9,
     variance: "0.2%",
-    status: "Pending",
+    status: "Approved",
     academicYear: "2026-2027",
   },
   {
@@ -108,7 +108,7 @@ export const mockDemandApprovals: Distribution.DemandApprovalItem[] = [
     requestedDemand: 65000,
     currentStock: 124,
     variance: "0.2%",
-    status: "Pending",
+    status: "Approved",
     academicYear: "2026-2027",
   },
 ];

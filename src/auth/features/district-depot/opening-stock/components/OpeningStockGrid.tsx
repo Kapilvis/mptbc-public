@@ -20,12 +20,12 @@ export function OpeningStockGrid({
         <div>
           <h3 className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
             <i className="pi pi-box text-emerald-600 dark:text-emerald-400" />
-            Depot-Wise Opening Stock Inventory & Carried-Over Demand Matrix
+            Depot-Wise Opening Stock & Inventory
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
+          {/* <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
             End-of-year physical inventory audit records calculated from
             receipts, dispatches, and inter-depot stock balancing
-          </p>
+          </p> */}
         </div>
         <span className="text-xs font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700">
           Total Depots: {data.length} Records
@@ -73,7 +73,7 @@ export function OpeningStockGrid({
           },
           {
             field: "totalDeliveredQty",
-            header: "RECEIPTS - SENT",
+            header: "Received & Dispatched",
             align: "right",
             cell: (row) => (
               <div>
@@ -88,7 +88,7 @@ export function OpeningStockGrid({
           },
           {
             field: "netInterDepotQty",
-            header: "INTER-DEPOT BALANCING",
+            header: "INTER-DEPOT Transfer",
             align: "center",
             cell: (row) => (
               <span
