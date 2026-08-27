@@ -9,12 +9,17 @@ import DistributionHistoryList from "./paper-distribution/pages/DistributionHist
 import PrinterDemandMapping from "./printer-demand-mapping";
 import PaperIssueToPrinterPage from "./paper-issue-to-printer/pages/PaperIssueToPrinterPage";
 import CreatePaperIssuePage from "./paper-issue-to-printer/pages/CreatePaperIssuePage";
+import DepotDemandDistribution from "./depot-demand-distribution";
 
 export default function Distribution() {
   return (
     <Routes>
       <Route path="department-demand/*" element={<DepartmentDemand />} />
       <Route path="dashboard/*" element={<Dashboard />} />
+      <Route
+        path="depot-demand-distribution/*"
+        element={<DepotDemandDistribution />}
+      />
       <Route path="demand-approval/*" element={<DemandApproval />} />
       <Route
         path="printer-demand-mapping/*"

@@ -11,6 +11,8 @@ export const districtDepotUrls = {
     challanToBlock: "/district-depot/dispatch/challan-to-block",
     history: "/district-depot/dispatch/history",
   },
+  depotToDepot: "/district-depot/depot-to-depot",
+  openingStock: "/district-depot/opening-stock",
   transport: {
     root: "/district-depot/transport",
     orders: "/district-depot/transport/orders",

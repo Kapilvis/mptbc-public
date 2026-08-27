@@ -191,9 +191,9 @@ export default function PrinterDetailsViewModal({
                 <tr className="bg-gray-50/80 dark:bg-gray-800/30 text-gray-700 dark:text-gray-300 uppercase tracking-wider text-[9px] font-bold border-b border-gray-150/40 dark:border-gray-700/60">
                   <th className="px-3 py-2 w-12 text-center">S.No</th>
                   <th className="px-3 py-2 text-left">Book Name</th>
-                  <th className="px-3 py-2 text-right w-36">
-                    Allocated Quantity
-                  </th>
+                  <th className="px-3 py-2 text-right w-28">Approved</th>
+                  <th className="px-3 py-2 text-right w-28">Opening Stock</th>
+                  <th className="px-3 py-2 text-right w-32">Work Allocation</th>
                 </tr>
               </thead>
               <tbody>
@@ -208,18 +208,40 @@ export default function PrinterDetailsViewModal({
                     <td className="px-3 py-2 font-semibold text-gray-800 dark:text-gray-200">
                       {alloc.bookName}
                     </td>
-                    <td className="px-3 py-2 text-right font-bold text-gray-950 dark:text-white">
+                    <td className="px-3 py-2 text-right font-medium text-blue-700 dark:text-blue-400">
+                      {(
+                        alloc.approvedDemandQty ?? alloc.allocatedQty
+                      ).toLocaleString()}
+                    </td>
+                    <td className="px-3 py-2 text-right font-medium text-amber-700 dark:text-amber-400">
+                      {(alloc.openingStock ?? 0).toLocaleString()}
+                    </td>
+                    <td className="px-3 py-2 text-right font-bold text-purple-700 dark:text-purple-400">
                       {alloc.allocatedQty.toLocaleString()}
                     </td>
                   </tr>
                 ))}
                 {/* Total Row */}
-                <tr className="bg-emerald-50/30 dark:bg-emerald-950/10 border-t-2 border-emerald-200 dark:border-emerald-900">
+                <tr className="bg-purple-50/30 dark:bg-purple-950/10 border-t-2 border-purple-200 dark:border-purple-900">
                   <td className="px-3 py-2" />
                   <td className="px-3 py-2 font-extrabold text-gray-900 dark:text-white uppercase tracking-wide">
                     Total
                   </td>
-                  <td className="px-3 py-2 text-right font-extrabold text-emerald-700 dark:text-emerald-450">
+                  <td className="px-3 py-2 text-right font-bold text-blue-700 dark:text-blue-400">
+                    {order.allocations
+                      .reduce(
+                        (sum, a) =>
+                          sum + (a.approvedDemandQty ?? a.allocatedQty),
+                        0,
+                      )
+                      .toLocaleString()}
+                  </td>
+                  <td className="px-3 py-2 text-right font-bold text-amber-700 dark:text-amber-400">
+                    {order.allocations
+                      .reduce((sum, a) => sum + (a.openingStock ?? 0), 0)
+                      .toLocaleString()}
+                  </td>
+                  <td className="px-3 py-2 text-right font-extrabold text-purple-700 dark:text-purple-400">
                     {totalAllocated.toLocaleString()}
                   </td>
                 </tr>

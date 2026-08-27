@@ -75,9 +75,12 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     // Depot Section
     "depot-section/central-depot-dashboard",
     "depot-section/depot-registration",
+    "district-depot/depot-to-depot",
+    "district-depot/opening-stock",
     // Distribution Section
     "distribution-section/department-demand",
     "distribution-section/dashboard",
+    "distribution-section/depot-demand-distribution",
     "distribution-section/demand-approval",
     "distribution-section/printer-demand-mapping",
     "paper-distribution",
@@ -185,6 +188,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     // Distribution Section
     "distribution-section/department-demand",
     "distribution-section/dashboard",
+    "distribution-section/depot-demand-distribution",
     "distribution-section/demand-approval",
     "paper-distribution",
     "distribution-history",
@@ -233,6 +237,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     // Distribution Section
     "distribution-section/department-demand",
     "distribution-section/dashboard",
+    "distribution-section/depot-demand-distribution",
     "distribution-section/demand-approval",
     "paper-distribution",
     "distribution-history",
@@ -376,6 +381,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     // Distribution Section
     "distribution-section/department-demand",
     "distribution-section/dashboard",
+    "distribution-section/depot-demand-distribution",
     "distribution-section/demand-approval",
     "distribution-section/printer-demand-mapping",
     "paper-distribution",

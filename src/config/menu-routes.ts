@@ -296,6 +296,7 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         action: "read",
         permissionKey: "distribution-section/dashboard",
       },
+
       {
         label: t("routes.distribution.demand-approval"),
         path: "/distribution/demand-approval",
@@ -317,6 +318,13 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         label: t("routes.paper-issue-to-printer"),
         path: "/distribution/paper-issue-to-printer",
         permissionKey: "paper-issue-to-printer",
+      },
+      {
+        label: t("routes.distribution.depot-demand-distribution"),
+        path: "/distribution/depot-demand-distribution",
+        feature: "@distribution/depot-demand-distribution",
+        action: "read",
+        permissionKey: "distribution-section/depot-demand-distribution",
       },
       // {
       //   label: t("routes.distribution-history"),
@@ -501,6 +509,16 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         label: t("routes.distribution-till-block"),
         path: "/district-depot/dispatch/history",
         permissionKey: "district-depot/dispatch-history",
+      },
+      {
+        label: "Depot to Depot Transfer",
+        path: "/district-depot/depot-to-depot",
+        permissionKey: "district-depot/depot-to-depot",
+      },
+      {
+        label: "Opening Stock",
+        path: "/district-depot/opening-stock",
+        permissionKey: "district-depot/opening-stock",
       },
     ],
   },

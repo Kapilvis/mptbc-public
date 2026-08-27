@@ -85,7 +85,7 @@ export function DemandApprovalPipelineWidget() {
     labels: ["RSK", "DPI", "Open Market", "Special"],
     datasets: [
       {
-        data: [100000, 80000, 50000, 18385],
+        data: [75000, 55000, 35000, 15500],
         backgroundColor: ["#3b82f6", "#10b981", "#ffb84d", "#8b5cf6"],
         hoverOffset: 6,
         borderRadius: 6,
@@ -105,7 +105,7 @@ export function DemandApprovalPipelineWidget() {
       tooltip: {
         callbacks: {
           label: (context: TooltipItem<"doughnut">) => {
-            const total = 248385;
+            const total = 180500;
             const rawVal = (context.raw as number) || 0;
             const pct = Math.round((rawVal / total) * 100);
             return ` ${context.label}: ${rawVal.toLocaleString()} Received (${pct}%)`;
@@ -234,7 +234,7 @@ export function DemandApprovalPipelineWidget() {
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-0.5">
               <Truck size={20} className="text-blue-600 mb-1" />
               <span className="text-[18px] font-extrabold text-slate-900 leading-tight tracking-tight">
-                2,48,385
+                1,80,500
               </span>
               <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider text-center px-2 leading-tight mt-0.5">
                 Print & received
@@ -248,32 +248,32 @@ export function DemandApprovalPipelineWidget() {
             {[
               {
                 name: "RSK",
-                percent: "40%",
-                value: "1,00,000",
+                percent: "42%",
+                value: "75,000",
                 hexColor: "#3b82f6",
                 pillBg: "bg-blue-100",
                 pillText: "text-blue-900",
               },
               {
                 name: "DPI",
-                percent: "32%",
-                value: "80,000",
+                percent: "30%",
+                value: "55,000",
                 hexColor: "#10b981",
                 pillBg: "bg-emerald-100",
                 pillText: "text-emerald-900",
               },
               {
                 name: "Open Market",
-                percent: "20%",
-                value: "50,000",
+                percent: "19%",
+                value: "35,000",
                 hexColor: "#ffb84d",
                 pillBg: "bg-amber-100/90",
                 pillText: "text-amber-900",
               },
               {
                 name: "Special",
-                percent: "8%",
-                value: "18,385",
+                percent: "9%",
+                value: "15,500",
                 hexColor: "#8b5cf6",
                 pillBg: "bg-purple-100",
                 pillText: "text-purple-900",

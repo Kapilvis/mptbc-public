@@ -34,6 +34,11 @@ export const VendorPerformanceMatrixTable: React.FC<Props> = ({
           {
             field: "paperMillName",
             header: "PAPER MILL NAME",
+            footer: (
+              <span className="font-bold text-slate-900 dark:text-white block text-right pr-2">
+                Total:
+              </span>
+            ),
             cell: (row) => (
               <div>
                 <span className="font-bold text-slate-800 dark:text-slate-200 block">
@@ -49,6 +54,14 @@ export const VendorPerformanceMatrixTable: React.FC<Props> = ({
             field: "approvedTon",
             header: "APPROVED TENDER",
             align: "center",
+            footer: (() => {
+              const total = data.reduce((sum, r) => sum + r.approvedTon, 0);
+              return (
+                <span className="font-bold text-slate-900 dark:text-white">
+                  {total.toLocaleString()} MT
+                </span>
+              );
+            })(),
             cell: (row) => (
               <span className="font-bold text-slate-700 dark:text-slate-300">
                 {row.approvedTon.toLocaleString()} MT
@@ -59,6 +72,14 @@ export const VendorPerformanceMatrixTable: React.FC<Props> = ({
             field: "workOrderTon",
             header: "WORK ORDERS",
             align: "center",
+            footer: (() => {
+              const total = data.reduce((sum, r) => sum + r.workOrderTon, 0);
+              return (
+                <span className="font-bold text-emerald-800 dark:text-emerald-300">
+                  {total.toLocaleString()} MT
+                </span>
+              );
+            })(),
             cell: (row) => (
               <span className="font-semibold text-slate-700 dark:text-slate-300">
                 {row.workOrderTon.toLocaleString()} MT
@@ -68,6 +89,15 @@ export const VendorPerformanceMatrixTable: React.FC<Props> = ({
           {
             field: "suppliedTon",
             header: "SUPPLIED",
+            align: "center",
+            footer: (() => {
+              const total = data.reduce((sum, r) => sum + r.suppliedTon, 0);
+              return (
+                <span className="font-bold text-emerald-700 dark:text-emerald-400">
+                  {total.toLocaleString()} MT
+                </span>
+              );
+            })(),
             cell: (row) => (
               <span className="font-bold text-emerald-700 dark:text-emerald-400">
                 {row.suppliedTon.toLocaleString()} MT
@@ -78,6 +108,14 @@ export const VendorPerformanceMatrixTable: React.FC<Props> = ({
             field: "balanceTon",
             header: "Available Stock",
             align: "center",
+            footer: (() => {
+              const total = data.reduce((sum, r) => sum + r.balanceTon, 0);
+              return (
+                <span className="font-bold text-amber-600 dark:text-amber-400">
+                  {total.toLocaleString()} MT
+                </span>
+              );
+            })(),
             cell: (row) => (
               <span className="font-bold text-amber-600 dark:text-amber-400">
                 {row.balanceTon.toLocaleString()} MT

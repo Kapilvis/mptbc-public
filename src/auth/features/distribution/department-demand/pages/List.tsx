@@ -1,20 +1,22 @@
 import { useState } from "react";
 import { Button } from "shared/components/buttons";
+import AcademicYearFilterBar from "shared/components/filters/AcademicYearFilterBar";
 import { Card, GridPanel, Mosaic } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
+import { formatDate } from "shared/utils/dateUtils";
 import { DemandDetailDrawer } from "../components/DemandDetailDrawer";
 import { useDepartmentDemandsQuery } from "../queries";
-import { formatDate } from "shared/utils/dateUtils";
 
 import { usePageTitle } from "shared/hooks/usePageTitle";
 
 export default function List() {
   const pageTitle = usePageTitle();
+  const [academicYear, setAcademicYear] = useState("2026-2027");
   const [selectedItem, setSelectedItem] =
     useState<Distribution.DepartmentDemandItem | null>(null);
 
   const { data = [], isLoading } = useDepartmentDemandsQuery({
-    academicYear: "2026-2027",
+    academicYear: academicYear,
     department: "All",
     district: "All",
     medium: "All",
@@ -29,6 +31,13 @@ export default function List() {
       subHeader="View and track department demand received from Rajya Shiksha Kendra (RSK) and Commissionerate of Public Instruction (CPI)."
       showHeaderActions
     >
+      {/* Academic Year Filter Bar */}
+      <AcademicYearFilterBar
+        academicYear={academicYear}
+        onChange={setAcademicYear}
+        className="mb-4"
+      />
+
       <Card className="border border-slate-100 shadow-xs">
         <GridPanel
           toolbarPlacement="page"
@@ -86,6 +95,11 @@ export default function List() {
               field: "classNo",
               header: "CLASS",
               align: "center",
+              footer: (
+                <span className="font-extrabold text-slate-900 dark:text-slate-100 text-sm">
+                  Total:
+                </span>
+              ),
             },
             {
               field: "demandQty",
@@ -94,6 +108,11 @@ export default function List() {
               cell: (row: Distribution.DepartmentDemandItem) => (
                 <span className="font-extrabold text-emerald-700 dark:text-emerald-400">
                   {row.demandQty.toLocaleString()}
+                </span>
+              ),
+              footer: (
+                <span className="font-black text-emerald-700 dark:text-emerald-400 text-sm">
+                  {totalDemandQty.toLocaleString()} Books
                 </span>
               ),
             },
@@ -105,13 +124,6 @@ export default function List() {
                 <span>{formatDate(row.receivedDate)}</span>
               ),
             },
-            // {
-            //   field: "status",
-            //   header: "STATUS",
-            //   align: "center",
-            //   cell: (row: Distribution.DepartmentDemandItem) =>
-            //     renderStatusBadge(row.status),
-            // },
             {
               header: "ACTION",
               align: "center",
@@ -144,8 +156,8 @@ export default function List() {
         {/* Total Summary Footer */}
         <div className="mt-4 p-3 bg-emerald-50/60 border border-emerald-200 rounded-lg flex justify-between items-center text-xs font-bold text-emerald-900 dark:bg-emerald-950/30 dark:border-emerald-800 dark:text-emerald-200">
           <span>Total Received Demand Records: {data.length}</span>
-          <span>
-            Overall Total Demand Qty: {totalDemandQty.toLocaleString()} Units
+          <span className="font-black text-sm">
+            Overall Total Demand Qty: {totalDemandQty.toLocaleString()} Books
           </span>
         </div>
       </Card>
