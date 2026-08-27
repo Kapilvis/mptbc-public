@@ -165,6 +165,7 @@
         "distribution": "Distribution Section",
         "department-demand": "Books Demand Received",
         "dashboard": "Distribution Dashboard",
+        "depot-demand-distribution": "Depot Demand Distribution",
         "demand-approval": "Department Demand Approval",
         "printer-demand-mapping": "Printer Work Allocation",
         "title-approval": "Title Approval"

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { useState } from "react";
 import Page from "shared/components/panels/Page";
 
@@ -54,7 +53,8 @@ export const AdminDashboardPage: React.FC = () => {
           </h1>
         </div>
         <div className="text-[12px] font-semibold text-slate-600 bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-2xs">
-          Last updated: <span className="text-slate-900 font-bold">{lastUpdated}</span>
+          Last updated:{" "}
+          <span className="text-slate-900 font-bold">{lastUpdated}</span>
         </div>
       </div>
 

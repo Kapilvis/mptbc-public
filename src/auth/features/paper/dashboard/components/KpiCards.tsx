@@ -51,52 +51,51 @@ export const KpiCards: React.FC<Props> = ({ metrics }) => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3.5 mb-6">
       {metrics.map((m, idx) => {
         const theme = cardThemes[idx % cardThemes.length];
 
         return (
           <Card
             key={idx}
-            className={`relative overflow-hidden border ${theme.cardBg} transition-all duration-200 hover:shadow-md`}
+            className={`relative overflow-hidden border ${theme.cardBg} transition-all duration-200 hover:shadow-md min-h-[125px] flex flex-col justify-between`}
           >
-            <div className="p-4 flex items-center gap-3.5">
-              {/* Left Side Icon Badge Circle */}
-              <div
-                className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${theme.iconBg} shadow-xs`}
-              >
-                <i className={`${m.icon} text-xl`} />
+            <div className="p-3.5 flex flex-col justify-between h-full flex-1 gap-2">
+              {/* Header: Icon Circle */}
+              <div className="flex items-center justify-between">
+                <div
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${theme.iconBg} shadow-xs`}
+                >
+                  <i className={`${m.icon} text-base`} />
+                </div>
+
+                {m.badgeText && (
+                  <span
+                    className={`font-black text-[10px] uppercase tracking-wide ${theme.accentText} px-1.5 py-0.5 rounded-md bg-white/80 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800`}
+                  >
+                    {m.badgeText}
+                  </span>
+                )}
               </div>
 
-              {/* Metric Content */}
-              <div className="flex-1 min-w-0">
-                <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 block truncate">
+              {/* Title & Value */}
+              <div className="mt-1">
+                <span className="text-xs sm:text-[12px] font-black uppercase tracking-wider text-slate-800 dark:text-slate-200 block leading-tight mb-1 whitespace-normal">
                   {m.title}
                 </span>
 
-                <div className="flex items-baseline justify-between gap-1 mt-0.5">
+                <div className="flex items-baseline justify-between gap-1">
                   <span
-                    className={`text-2xl font-extrabold tracking-tight ${theme.textPrimary}`}
+                    className={`text-xl sm:text-[22px] font-black tracking-tight ${theme.textPrimary}`}
                   >
                     {m.value}
                   </span>
                 </div>
 
-                {(Boolean(m.subValue) || Boolean(m.badgeText)) && (
-                  <div className="mt-1 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
-                    {m.subValue ? (
-                      <span className="truncate">{m.subValue}</span>
-                    ) : (
-                      <span />
-                    )}
-                    {m.badgeText && (
-                      <span
-                        className={`font-bold ${theme.accentText} shrink-0`}
-                      >
-                        {m.badgeText}
-                      </span>
-                    )}
-                  </div>
+                {m.subValue && (
+                  <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mt-0.5">
+                    {m.subValue}
+                  </span>
                 )}
               </div>
             </div>

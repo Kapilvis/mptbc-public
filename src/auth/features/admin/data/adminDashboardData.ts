@@ -139,21 +139,21 @@ export const LIFECYCLE_STAGES: LifecycleStage[] = [
     stepNumber: 3,
     title: "Stage 3: Central Depot",
     percentage: 88.5,
-    detailText: "2,800 MT / 3,165 MT Issued to Printers",
+    detailText: "3,165 MT / 3,767 MT Issued to Printers",
     status: "completed",
   },
   {
     stepNumber: 4,
     title: "Stage 4: Printers",
     percentage: 46.3,
-    detailText: "1.80L / 3.90L Dispatched",
+    detailText: "1,80,500 / 3,90,000 Books Dispatched",
     status: "in-progress",
   },
   {
     stepNumber: 5,
     title: "Stage 5: District Depots",
     percentage: 83.1,
-    detailText: "30,500 Books in Stock",
+    detailText: "1,50,000 / 1,80,500 Books to Block",
     status: "in-progress",
   },
 ];
@@ -262,6 +262,7 @@ export const SUB_PORTAL_SUMMARIES: SubPortalSummary[] = [
     stats: [
       { label: "Work Orders:", value: "3,767 MT" },
       { label: "Delivered:", value: "3,165 MT", isHighlight: true },
+      { label: "Balance:", value: "602 MT" },
     ],
   },
   {
@@ -272,9 +273,9 @@ export const SUB_PORTAL_SUMMARIES: SubPortalSummary[] = [
     badge: "Inventory",
     accentColor: "#d97706",
     stats: [
-      { label: "Total Received:", value: "3,165 MT" },
-      { label: "Total Issued:", value: "2,800 MT" },
-      { label: "Stock Balance:", value: "365 MT", isHighlight: true },
+      { label: "Total Received:", value: "3,707 MT" },
+      { label: "Total Issued:", value: "3,165 MT" },
+      { label: "Stock Balance:", value: "602 MT", isHighlight: true },
     ],
   },
   {
@@ -298,7 +299,7 @@ export const SUB_PORTAL_SUMMARIES: SubPortalSummary[] = [
     badge: "8 Depots",
     accentColor: "#7c3aed",
     stats: [
-      { label: "Total Received:", value: "1,80,500" },
+      { label: "Challan Received:", value: "1,80,500" },
       { label: "Block Dispatch:", value: "1,50,000" },
       { label: "Stock Remaining:", value: "30,500", isHighlight: true },
     ],

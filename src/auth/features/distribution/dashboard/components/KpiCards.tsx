@@ -66,6 +66,8 @@ export function KpiCards({ metrics }: KpiCardsProps) {
         return "grid-cols-1 sm:grid-cols-3 lg:grid-cols-3";
       case 4:
         return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
+      case 6:
+        return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6";
       case 5:
       default:
         return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-5";
@@ -80,117 +82,48 @@ export function KpiCards({ metrics }: KpiCardsProps) {
         return (
           <Card
             key={idx}
-            className={`relative overflow-hidden border ${theme.cardBg} transition-all duration-200 hover:shadow-md border-t-transparent!`}
+            className={`relative overflow-hidden border ${theme.cardBg} transition-all duration-200 hover:shadow-md border-t-transparent! min-h-[140px] flex flex-col justify-between`}
           >
             <div
               className={`absolute top-0 left-0 right-0 h-1 ${theme.topLine}`}
             />
-            <div className="p-4 flex items-center gap-3.5">
-              {/* Left Side Icon Badge Circle (Image 1 Style) */}
-              <div
-                className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${theme.iconBg} shadow-xs`}
-              >
-                <i className={`${m.icon} text-xl`} />
+            <div className="p-3.5 flex flex-col justify-between h-full flex-1 gap-2">
+              {/* Top Header Row: Icon + Top-Right Percentage Badge (Image 2 Style) */}
+              <div className="flex items-start justify-between gap-2">
+                <div
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${theme.iconBg} shadow-xs`}
+                >
+                  <i className={`${m.icon} text-lg`} />
+                </div>
+
+                {m.percentBadge && (
+                  <span
+                    className={`px-2 py-0.5 rounded-md text-[10px] font-extrabold border ${
+                      m.percentBadgeTheme ||
+                      "bg-indigo-50 text-indigo-700 border-indigo-200/80"
+                    } uppercase tracking-tight shrink-0 text-right`}
+                  >
+                    {m.percentBadge}
+                  </span>
+                )}
               </div>
 
-              {/* Metric Content */}
-              <div className="flex-1 min-w-0">
-                <span className="text-xs sm:text-[13px] font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 block truncate mb-1">
+              {/* Card Body: Title & Big Number */}
+              <div className="mt-1">
+                <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700 dark:text-slate-200 block leading-tight mb-1 whitespace-normal">
                   {m.title}
                 </span>
 
-                {m.stats && m.stats.length > 0 ? (
-                  <div className="flex items-center gap-2.5 mt-1">
-                    {m.stats.map((stat, i) => (
-                      <div key={i} className="flex items-center gap-2.5">
-                        {i > 0 && (
-                          <span className="text-gray-300 dark:text-gray-600 font-normal text-base">
-                            |
-                          </span>
-                        )}
-                        <div className="flex flex-col">
-                          <span
-                            className={`text-[10.5px] font-black uppercase tracking-wider ${theme.accentText}`}
-                          >
-                            {stat.label}
-                          </span>
-                          <span
-                            className={`text-base sm:text-lg font-black tracking-tight ${theme.textPrimary}`}
-                          >
-                            {stat.value}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : m.secondaryValue ? (
-                  <div className="flex items-center gap-2.5 mt-1">
-                    <div className="flex flex-col">
-                      <span
-                        className={`text-[11px] font-black uppercase tracking-wider ${theme.accentText}`}
-                      >
-                        {m.title.toLowerCase().includes("stock")
-                          ? "Stock"
-                          : m.title.toLowerCase().includes("allotment")
-                            ? "Received"
-                            : m.title.toLowerCase().includes("dispatch")
-                              ? "Dispatched"
-                              : "Demand"}
-                      </span>
-                      <span
-                        className={`text-lg sm:text-xl font-black tracking-tight ${theme.textPrimary}`}
-                      >
-                        {m.value}
-                      </span>
-                    </div>
-                    <span className="text-gray-300 dark:text-gray-600 font-normal text-base px-0.5">
-                      |
-                    </span>
-                    <div className="flex flex-col">
-                      <span
-                        className={`text-[11px] font-black uppercase tracking-wider ${theme.accentText}`}
-                      >
-                        {m.secondaryTitle || "Remaining"}
-                      </span>
-                      <span
-                        className={`text-lg sm:text-xl font-black tracking-tight ${theme.textPrimary}`}
-                      >
-                        {m.secondaryValue}
-                      </span>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex items-baseline justify-between gap-1 mt-0.5">
-                    <span
-                      className={`text-2xl sm:text-3xl font-black tracking-tight ${theme.textPrimary}`}
-                    >
-                      {m.value}
-                    </span>
+                <span
+                  className={`text-xl sm:text-2xl font-black tracking-tight ${theme.textPrimary} block leading-none`}
+                >
+                  {m.value}
+                </span>
 
-                    {m.trend && (
-                      <span className="inline-flex items-center text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
-                        <i className="pi pi-arrow-up-right mr-0.5" />
-                        {m.trend}
-                      </span>
-                    )}
-                  </div>
-                )}
-
-                {(Boolean(m.subText) || Boolean(m.badgeText)) && (
-                  <div className="mt-1 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
-                    {m.subText ? (
-                      <span className="truncate">{m.subText}</span>
-                    ) : (
-                      <span />
-                    )}
-                    {m.badgeText && (
-                      <span
-                        className={`font-bold ${theme.accentText} shrink-0`}
-                      >
-                        {m.badgeText}
-                      </span>
-                    )}
-                  </div>
+                {m.subText && (
+                  <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 block mt-1">
+                    {m.subText}
+                  </span>
                 )}
               </div>
             </div>

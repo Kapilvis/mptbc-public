@@ -64,6 +64,7 @@ declare namespace Permission {
     // Distribution
     | "@distribution/department-demand"
     | "@distribution/dashboard"
+    | "@distribution/depot-demand-distribution"
     | "@distribution/demand-approval"
     | "@distribution/title-received"
     | "@distribution/title-approval"

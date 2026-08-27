@@ -15,6 +15,7 @@ import {
   CheckSquare,
   Inbox,
   TrendingUp,
+  Package,
 } from "lucide-react";
 import { Chart } from "primereact/chart";
 import { BaseKpiCard } from "./BaseKpiCard";
@@ -196,77 +197,113 @@ export const DemandKpiCard: React.FC = () => {
           </div>
         </div>
 
-        {/* 1. Stat strip (4 standalone cards) */}
-        <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
-          {/* Total Demand */}
-          <div className="bg-white p-3.5 rounded-xl border border-slate-200/90 shadow-2xs flex items-start gap-3">
-            <div className="p-2 bg-blue-50 text-blue-600 rounded-lg shrink-0 mt-0.5">
-              <FileText size={20} />
+        {/* 1. Stat strip (6 standalone cards) */}
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3.5">
+          {/* 1. Total Demand */}
+          <div className="bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs flex items-start gap-2.5 min-h-[84px]">
+            <div className="p-1.5 bg-blue-50 text-blue-600 rounded-lg shrink-0 mt-0.5">
+              <FileText size={18} />
             </div>
-            <div className="flex flex-col">
-              <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wide mb-0.5">
+            <div className="flex flex-col min-w-0 flex-1">
+              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-tight mb-0.5 leading-tight whitespace-normal">
                 Total Demand
               </span>
-              <span className="text-[22px] font-extrabold text-blue-600 leading-tight mb-0.5">
+              <span className="text-[18px] font-extrabold text-blue-600 leading-none mb-0.5">
                 {data.totalDemand}
               </span>
-              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+              <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">
                 Books
               </span>
             </div>
           </div>
 
-          {/* Demand Approval */}
-          <div className="bg-white p-3.5 rounded-xl border border-slate-200/90 shadow-2xs flex items-start gap-3">
-            <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg shrink-0 mt-0.5">
-              <CheckSquare size={20} />
+          {/* 2. Demand Approval */}
+          <div className="bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs flex items-start gap-2.5 min-h-[84px]">
+            <div className="p-1.5 bg-emerald-50 text-emerald-600 rounded-lg shrink-0 mt-0.5">
+              <CheckSquare size={18} />
             </div>
-            <div className="flex flex-col">
-              <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wide mb-0.5">
+            <div className="flex flex-col min-w-0 flex-1">
+              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-tight mb-0.5 leading-tight whitespace-normal">
                 Demand Approval
               </span>
-              <span className="text-[22px] font-extrabold text-emerald-600 leading-tight mb-0.5">
+              <span className="text-[18px] font-extrabold text-emerald-600 leading-none mb-0.5">
                 {data.demandApproved}
               </span>
-              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+              <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">
                 Books
               </span>
             </div>
           </div>
 
-          {/* Under Approval */}
-          <div className="bg-white p-3.5 rounded-xl border border-slate-200/90 shadow-2xs flex items-start gap-3">
-            <div className="p-2 bg-amber-50 text-amber-600 rounded-lg shrink-0 mt-0.5">
-              <Inbox size={20} />
+          {/* 3. Under Approval */}
+          <div className="bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs flex items-start gap-2.5 min-h-[84px]">
+            <div className="p-1.5 bg-amber-50 text-amber-600 rounded-lg shrink-0 mt-0.5">
+              <Inbox size={18} />
             </div>
-            <div className="flex flex-col">
-              <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wide mb-0.5">
+            <div className="flex flex-col min-w-0 flex-1">
+              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-tight mb-0.5 leading-tight whitespace-normal">
                 Under Approval
               </span>
-              <span className="text-[22px] font-extrabold text-amber-600 leading-tight mb-0.5">
-                {data.underApproval?.value || "3,00,000"}
+              <span className="text-[18px] font-extrabold text-amber-600 leading-none mb-0.5">
+                {data.underApproval?.value || "60,000"}
               </span>
-              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+              <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">
                 Books
               </span>
             </div>
           </div>
 
-          {/* Last Year */}
-          <div className="bg-white p-3.5 rounded-xl border border-slate-200/90 shadow-2xs flex items-start gap-3">
-            <div className="p-2 bg-purple-50 text-purple-600 rounded-lg shrink-0 mt-0.5">
-              <TrendingUp size={20} />
+          {/* 4. Last Year (YOY) */}
+          <div className="bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs flex items-start gap-2.5 min-h-[84px]">
+            <div className="p-1.5 bg-purple-50 text-purple-600 rounded-lg shrink-0 mt-0.5">
+              <TrendingUp size={18} />
             </div>
-            <div className="flex flex-col">
-              <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wide mb-0.5">
+            <div className="flex flex-col min-w-0 flex-1">
+              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-tight mb-0.5 leading-tight whitespace-normal">
                 Last Year (YOY)
               </span>
-              <span className="text-[22px] font-extrabold text-purple-600 flex items-center gap-1 leading-tight mb-0.5">
-                <i className="pi pi-arrow-up text-[14px] text-purple-600"></i>
+              <span className="text-[18px] font-extrabold text-purple-600 flex items-center gap-1 leading-none mb-0.5">
+                <i className="pi pi-arrow-up text-[13px] text-purple-600"></i>
                 {data.lastYearComparison?.value || "+5.39%"}
               </span>
-              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+              <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">
                 Growth
+              </span>
+            </div>
+          </div>
+
+          {/* 5. Opening Stock in Depot (5th KPI) */}
+          <div className="bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs flex items-start gap-2.5 min-h-[84px]">
+            <div className="p-1.5 bg-teal-50 text-teal-600 rounded-lg shrink-0 mt-0.5">
+              <Warehouse size={18} />
+            </div>
+            <div className="flex flex-col min-w-0 flex-1">
+              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-tight mb-0.5 leading-tight whitespace-normal">
+                Opening Stock in Depots
+              </span>
+              <span className="text-[18px] font-extrabold text-teal-600 leading-none mb-0.5">
+                {data.openingStockDepot || "30,500"}
+              </span>
+              <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">
+                Books
+              </span>
+            </div>
+          </div>
+
+          {/* 6. Actual Requirement (6th KPI: Approved - Opening) */}
+          <div className="bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs flex items-start gap-2.5 min-h-[84px]">
+            <div className="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg shrink-0 mt-0.5">
+              <Package size={18} />
+            </div>
+            <div className="flex flex-col min-w-0 flex-1">
+              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-tight mb-0.5 leading-tight whitespace-normal">
+                Demand For Work Order
+              </span>
+              <span className="text-[18px] font-extrabold text-indigo-600 leading-none mb-0.5">
+                {data.actualRequirement || "3,59,500"}
+              </span>
+              <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">
+                Books
               </span>
             </div>
           </div>
@@ -581,7 +618,27 @@ export const PaperAnalysisKpiCard: React.FC = () => {
           <div className="text-right flex flex-col leading-tight">
             <span className="text-[13px] font-bold text-blue-800">60 MT</span>
             <span className="text-[11px] font-medium text-blue-600">
-              6,000 Books
+              30,500 Books
+            </span>
+          </div>
+        </div>
+
+        {/* Actual Requirement (NEW - right below Opening Stock) */}
+        <div className="flex justify-between items-center px-3 py-2 bg-purple-50/70 border border-purple-200/80 rounded-xl shadow-2xs">
+          <div className="flex flex-col leading-tight">
+            <span className="text-[12px] font-semibold text-purple-950 uppercase tracking-wide">
+              Demand For Work Order
+            </span>
+            <span className="text-[10px] font-medium text-purple-700/90">
+              (as on 1-Jan-2026)
+            </span>
+          </div>
+          <div className="text-right flex flex-col leading-tight">
+            <span className="text-[13px] font-bold text-purple-900">
+              3,707 MT
+            </span>
+            <span className="text-[11px] font-medium text-purple-700">
+              3,59,500 Books
             </span>
           </div>
         </div>
@@ -601,7 +658,7 @@ export const PaperAnalysisKpiCard: React.FC = () => {
               3,165 MT
             </span>
             <span className="text-[11px] font-medium text-indigo-600">
-              3,27,650 Books
+              1,80,500 Books
             </span>
           </div>
         </div>
@@ -655,9 +712,11 @@ export const PaperAnalysisKpiCard: React.FC = () => {
             </span>
           </div>
           <div className="text-right flex flex-col leading-tight">
-            <span className="text-[13px] font-bold text-purple-800">52 MT</span>
+            <span className="text-[13px] font-bold text-purple-800">
+              602 MT
+            </span>
             <span className="text-[11px] font-medium text-purple-700">
-              5,20,000 Books
+              62,350 Books
             </span>
           </div>
         </div>
@@ -728,7 +787,7 @@ export const PrinterProfileKpiCard: React.FC<{ onOpenModal: () => void }> = ({
             Current Capacity Utilization
           </span>
           <span className="text-[13px] font-bold text-slate-900">
-            {data.currentCapacity || "3,90,000 Books"}
+            {data.currentCapacity || "3,59,500 Books"}
           </span>
         </div>
         <div className="flex justify-between items-center px-3 py-2 bg-blue-50/60 border border-blue-100/90 rounded-xl shadow-2xs">

@@ -265,7 +265,6 @@ export default function CreatePrinterDemandMappingPage() {
     const result = printerDemandMappingMock.saveNewAllocations(
       selectedTenderNo,
       allocationsToSave,
-      "Superintendent Officer",
     );
 
     if (result.success) {
@@ -375,10 +374,32 @@ export default function CreatePrinterDemandMappingPage() {
                   </div>
                   <div>
                     <span className="text-[10px] text-gray-400 block uppercase font-bold tracking-wide">
-                      Total Required
+                      Work Allocation (Net)
                     </span>
-                    <span className="font-bold text-emerald-700 dark:text-emerald-450 block mt-0.5">
+                    <span className="font-bold text-purple-700 dark:text-purple-400 block mt-0.5">
                       {titleAllocationStats.required.toLocaleString()} copies
+                    </span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 p-2 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-lg text-[11px]">
+                  <div>
+                    <span className="text-[9px] text-slate-400 block uppercase font-bold tracking-wide">
+                      Approved Demand
+                    </span>
+                    <span className="font-bold text-blue-700 dark:text-blue-400 block mt-0.5">
+                      {(
+                        activeTitleItem.approvedDemandQty ??
+                        activeTitleItem.requiredQty
+                      ).toLocaleString()}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-[9px] text-slate-400 block uppercase font-bold tracking-wide">
+                      Opening Stock (Ded.)
+                    </span>
+                    <span className="font-bold text-amber-700 dark:text-amber-400 block mt-0.5">
+                      -{(activeTitleItem.openingStock ?? 0).toLocaleString()}
                     </span>
                   </div>
                 </div>

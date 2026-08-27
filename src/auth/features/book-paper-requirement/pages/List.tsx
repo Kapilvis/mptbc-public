@@ -185,12 +185,91 @@ export default function List() {
     },
   ];
 
+  const grossPaper = Math.round(totals.inner + totals.cover);
+  const paperOpeningStock = 60; // 60 MT Opening Stock in Godown
+  const actualPaperRequirement = Math.max(0, grossPaper - paperOpeningStock); // 3,707 MT
+
+  const kpiCards = [
+    {
+      label: "Books (Work Allocation)",
+      value: totals.books.toLocaleString(),
+      subLabel: "For Printer Work Orders",
+      icon: "pi-book",
+      accent: "border-l-purple-600",
+      iconBg:
+        "bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 border-purple-100 dark:border-purple-800/50",
+      subColor: "text-purple-600",
+    },
+    {
+      label: "Required Paper (Gross)",
+      value: `${grossPaper.toLocaleString()} MT`,
+      subLabel: `Inner: ${Math.round(totals.inner)} MT • Cover: ${Math.round(totals.cover)} MT`,
+      icon: "pi-copy",
+      accent: "border-l-blue-600",
+      iconBg:
+        "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border-blue-100 dark:border-blue-800/50",
+      subColor: "text-blue-600",
+    },
+    {
+      label: "Paper Opening Stock",
+      value: `${paperOpeningStock.toLocaleString()} MT`,
+      subLabel: "Deducted from Godown Stock",
+      icon: "pi-box",
+      accent: "border-l-amber-500",
+      iconBg:
+        "bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border-amber-100 dark:border-amber-800/50",
+      subColor: "text-amber-600",
+    },
+    {
+      label: "Actual Requirement",
+      value: `${actualPaperRequirement.toLocaleString()} MT`,
+      subLabel: "Gross (3,767) − Opening Stock (60)",
+      icon: "pi-check-circle",
+      accent: "border-l-emerald-600",
+      iconBg:
+        "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-800/50",
+      subColor: "text-emerald-600",
+    },
+  ];
+
   return (
     <Page
       header={pageTitle || "Book Paper Requirement"}
       subHeader="Calculate and manage textbook printing paper requirements in Metric Tons (MT)."
       showHeaderActions
     >
+      {/* ── KPI Summary Cards ── */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+        {kpiCards.map((kpi) => (
+          <Card
+            key={kpi.label}
+            className={`border-l-4 ${kpi.accent} border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md transition-shadow`}
+          >
+            <div className="p-4 flex items-center justify-between">
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1">
+                  {kpi.label}
+                </span>
+                <div className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                  {kpi.value}
+                </div>
+                <div
+                  className={`mt-1 flex items-center gap-1.5 text-xs ${kpi.subColor} font-semibold`}
+                >
+                  <i className={`pi ${kpi.icon} text-[11px]`} />
+                  <span>{kpi.subLabel}</span>
+                </div>
+              </div>
+              <div
+                className={`w-12 h-12 rounded-2xl flex items-center justify-center border shrink-0 ${kpi.iconBg}`}
+              >
+                <i className={`pi ${kpi.icon} text-xl`} />
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+
       <div className="space-y-6">
         <Card className="border border-slate-100 p-1">
           <GridPanel
