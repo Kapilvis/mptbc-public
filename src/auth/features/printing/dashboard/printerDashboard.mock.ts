@@ -37,13 +37,18 @@ export const getPrinterDashboardStats = (printerCode: string) => {
   }
   return {
     activeOrders: 45,
-    inProgress: 38,
+    inProgress: 8,
+    totalOrders: "3,59,500 Books",
     booksPrinted: 180500,
-    booksPending: 209500,
+    booksPending: 179000,
     paperAllocated: 3767, // Metric Tonnes
-    paperReceived: 3165, // Metric Tonnes
-    paperConsumed: 2563, // Metric Tonnes
-    supplyPending: 209500, // Quantities pending dispatch
+    paperReceived: 3707, // Metric Tonnes
+    paperConsumed: 3165, // Metric Tonnes
+    supplyPending: 179000, // Quantities pending dispatch
+    totalPrinters: 52,
+    totalCapacity: "6,00,000 Books",
+    currentCapacity: "3,59,500 Books",
+    capacityUtilization: "59.92%",
   };
 };
 
@@ -100,28 +105,28 @@ export const getSupplyStatusItems = (printerCode: string) => {
     {
       label: "Books Printed",
       value: 180500,
-      total: 390000,
+      total: 359500,
       color: "emerald",
       icon: "print",
     },
     {
       label: "Ready for Supply",
       value: 115000,
-      total: 390000,
+      total: 359500,
       color: "blue",
       icon: "box",
     },
     {
       label: "Dispatched",
       value: 65500,
-      total: 390000,
+      total: 359500,
       color: "purple",
       icon: "send",
     },
     {
       label: "Pending Dispatch",
-      value: 209500,
-      total: 390000,
+      value: 179000,
+      total: 359500,
       color: "amber",
       icon: "clock",
     },

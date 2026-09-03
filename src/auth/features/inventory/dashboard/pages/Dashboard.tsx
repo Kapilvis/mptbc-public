@@ -1,9 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import Page from "shared/components/panels/Page";
 import AcademicYearFilterBar from "shared/components/filters/AcademicYearFilterBar";
 import { Card, GridPanel } from "shared/components/panels";
-import { dataManager } from "../../mockData";
-import type { PaperStock, PrinterOrder, PaperDistribution } from "../../types";
+import type { PaperStock, PaperDistribution } from "../../types";
 
 const THEMES: Record<
   string,
@@ -75,6 +74,16 @@ const THEMES: Record<
     valueClass: "text-slate-900 dark:text-white font-black",
     watermarkClass: "text-purple-500 dark:text-purple-400",
     glossClass: "via-purple-300/30 dark:via-purple-500/10",
+  },
+  teal: {
+    cardClass:
+      "bg-gradient-to-br from-teal-50/90 to-teal-100/40 dark:from-teal-950/40 dark:to-teal-900/10 border-teal-200/70 dark:border-teal-900/40 hover:shadow-teal-200/50 dark:hover:shadow-teal-950/20",
+    badgeClass:
+      "bg-gradient-to-tr from-teal-600 to-teal-500 text-white shadow-md shadow-teal-500/25 dark:from-teal-950/80 dark:to-teal-900/60 dark:text-teal-400 border border-teal-400/20",
+    titleClass: "text-slate-700 dark:text-slate-200 font-extrabold",
+    valueClass: "text-slate-900 dark:text-white font-black",
+    watermarkClass: "text-teal-500 dark:text-teal-400",
+    glossClass: "via-teal-300/30 dark:via-teal-500/10",
   },
 };
 
@@ -162,7 +171,6 @@ export default function Dashboard() {
       lastUpdated: "2026-08-17 02:45 PM",
     },
   ];
-  const orders = dataManager.getOrders();
   const distributions: PaperDistribution[] = [
     {
       distributionNo: "DIS-2026-001",
@@ -256,86 +264,36 @@ export default function Dashboard() {
     },
   ];
 
-  // 1. Total Paper Stock
-  const totalStock = useMemo(() => {
-    return stocks.reduce(
-      (sum: number, s: PaperStock) => sum + s.availableQuantity,
-      0,
-    );
-  }, [stocks]);
-
-  // 2. Available GSM Types
-  const availableGsmCount = useMemo(() => {
-    return stocks.filter((s: PaperStock) => s.availableQuantity > 0).length;
-  }, [stocks]);
-
-  // 3. Pending Printer Orders
-  const pendingOrdersCount = useMemo(() => {
-    return orders.filter(
-      (o: PrinterOrder) =>
-        o.status === "Pending" || o.status === "Partially Supplied",
-    ).length;
-  }, [orders]);
-
-  // 4. Today's Distribution (Using "2026-08-17" as reference date or local today)
-  const todayDistribution = useMemo(() => {
-    const todayStr = "2026-08-17"; // Static reference date for mock consistency
-    return distributions
-      .filter((d: PaperDistribution) => d.distributionDate === todayStr)
-      .reduce((sum: number, d: PaperDistribution) => sum + d.issueQuantity, 0);
-  }, [distributions]);
-
-  // 5. Low Stock GSMs
-  const lowStockGsmCount = useMemo(() => {
-    return stocks.filter(
-      (s: PaperStock) => s.availableQuantity <= s.minimumStockLevel,
-    ).length;
-  }, [stocks]);
-
-  // 6. Total Printers Supplied
-  const printersSuppliedCount = useMemo(() => {
-    const uniquePrinters = new Set(
-      distributions.map((d: PaperDistribution) => d.printer),
-    );
-    return uniquePrinters.size;
-  }, [distributions]);
-
   const kpis = [
     {
-      title: "Total Paper Stock",
-      value: `${(totalStock || 3165).toLocaleString()} MT`,
-      icon: "pi pi-database",
+      title: "Total Required",
+      value: "3,767 MT",
+      icon: "pi pi-file-edit",
       themeKey: "blue",
     },
     {
-      title: "Available GSM",
-      value: `${availableGsmCount || 4} Types`,
-      icon: "pi pi-sliders-h",
-      themeKey: "green",
-    },
-    {
-      title: "Pending Orders",
-      value: `${pendingOrdersCount || 8} Orders`,
-      icon: "pi pi-file-edit",
-      themeKey: "yellow",
-    },
-    {
-      title: "Total Issued",
-      value: `${(todayDistribution || 2800).toLocaleString()} MT`,
-      icon: "pi pi-send",
+      title: "Opening Stock",
+      value: "60 MT",
+      icon: "pi pi-history",
       themeKey: "indigo",
     },
     {
-      title: "Low Stock Alerts",
-      value: `${lowStockGsmCount || 3} Alerts`,
-      icon: "pi pi-exclamation-triangle",
-      themeKey: "red",
+      title: "Demand For Work Order",
+      value: "3,707 MT",
+      icon: "pi pi-file",
+      themeKey: "purple",
     },
     {
-      title: "Printers Active",
-      value: `${printersSuppliedCount || 3} Printers`,
-      icon: "pi pi-users",
-      themeKey: "purple",
+      title: "Received Stock",
+      value: "3,165 MT",
+      icon: "pi pi-download",
+      themeKey: "green",
+    },
+    {
+      title: "Available Stock",
+      value: "602 MT",
+      icon: "pi pi-database",
+      themeKey: "teal",
     },
   ];
 
@@ -353,7 +311,7 @@ export default function Dashboard() {
       />
 
       {/* KPI Section - Upgraded with premium custom themes */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 mb-6">
         {kpis.map((kpi, idx) => {
           const theme = THEMES[kpi.themeKey] || THEMES.blue;
           return (

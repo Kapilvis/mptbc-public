@@ -14,26 +14,15 @@ import {
 
 import "./List.css";
 
-// Floating custom Actions Menu component to handle many row operations neatly
+// Floating custom Actions Menu component to handle row operations neatly
 interface ActionsMenuProps {
   item: Printer.ListItem;
   onView: (item: Printer.ListItem) => void;
   onEdit: (item: Printer.ListItem) => void;
   onDelete: (item: Printer.ListItem) => void;
-  onVerify: (item: Printer.ListItem) => void;
-  onApprove: (item: Printer.ListItem) => void;
-  onReject: (item: Printer.ListItem) => void;
 }
 
-function ActionsMenu({
-  item,
-  onView,
-  onEdit,
-  onDelete,
-  onVerify,
-  onApprove,
-  onReject,
-}: ActionsMenuProps) {
+function ActionsMenu({ item, onView, onEdit, onDelete }: ActionsMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -85,39 +74,6 @@ function ActionsMenu({
           >
             <i className="pi pi-pencil text-slate-400 text-[10px]" />
             <span>Edit</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setIsOpen(false);
-              onVerify(item);
-            }}
-            className="w-full text-left px-3 py-1.5 hover:bg-blue-50 text-blue-600 flex items-center gap-2 transition-colors"
-          >
-            <i className="pi pi-shield text-blue-400 text-[10px]" />
-            <span>Verify</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setIsOpen(false);
-              onApprove(item);
-            }}
-            className="w-full text-left px-3 py-1.5 hover:bg-emerald-50 text-emerald-600 flex items-center gap-2 transition-colors"
-          >
-            <i className="pi pi-check-circle text-emerald-400 text-[10px]" />
-            <span>Approve</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setIsOpen(false);
-              onReject(item);
-            }}
-            className="w-full text-left px-3 py-1.5 hover:bg-rose-50 text-rose-600 flex items-center gap-2 transition-colors"
-          >
-            <i className="pi pi-times-circle text-rose-400 text-[10px]" />
-            <span>Reject</span>
           </button>
           <div className="border-t border-slate-100 my-1"></div>
           <button
@@ -194,33 +150,6 @@ export default function List() {
 
   const handleEdit = (item: Printer.ListItem) => {
     navigate(`./edit/${item.printerCode}`);
-  };
-
-  const handleVerify = (item: Printer.ListItem) => {
-    setPrinters((prev) =>
-      prev.map((p) =>
-        p.printerCode === item.printerCode ? { ...p, status: "Verified" } : p,
-      ),
-    );
-    ToastService.success(`Printer registration ${item.printerCode} verified.`);
-  };
-
-  const handleApprove = (item: Printer.ListItem) => {
-    setPrinters((prev) =>
-      prev.map((p) =>
-        p.printerCode === item.printerCode ? { ...p, status: "Approved" } : p,
-      ),
-    );
-    ToastService.success(`Printer registration ${item.printerCode} approved.`);
-  };
-
-  const handleReject = (item: Printer.ListItem) => {
-    setPrinters((prev) =>
-      prev.map((p) =>
-        p.printerCode === item.printerCode ? { ...p, status: "Rejected" } : p,
-      ),
-    );
-    ToastService.error(`Printer registration ${item.printerCode} rejected.`);
   };
 
   const handleDelete = (item: Printer.ListItem) => {
@@ -317,14 +246,6 @@ export default function List() {
                 width: "110px",
               },
               {
-                field: "status",
-                header: "Status",
-                align: "center",
-                cell: (item: Printer.ListItem) => (
-                  <StatusBadge status={item.status} />
-                ),
-              },
-              {
                 field: "createdDate",
                 header: "Created Date",
                 align: "center",
@@ -341,26 +262,19 @@ export default function List() {
                     onView={handleView}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
-                    onVerify={handleVerify}
-                    onApprove={handleApprove}
-                    onReject={handleReject}
                   />
                 ),
               },
             ]}
             renderContent={(item: Printer.ListItem) => (
               <div className="flex flex-col p-6 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 relative h-full">
-                {/* Badge top right */}
+                {/* Actions top right */}
                 <div className="absolute top-4 right-4 flex items-center gap-2">
-                  <StatusBadge status={item.status} />
                   <ActionsMenu
                     item={item}
                     onView={handleView}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
-                    onVerify={handleVerify}
-                    onApprove={handleApprove}
-                    onReject={handleReject}
                   />
                 </div>
 
