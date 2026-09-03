@@ -705,18 +705,15 @@ export const PaperAnalysisKpiCard: React.FC = () => {
         <div className="flex justify-between items-center px-3 py-2 bg-purple-50/60 border border-purple-100/90 rounded-xl shadow-2xs">
           <div className="flex flex-col leading-tight">
             <span className="text-[12px] font-semibold text-purple-900 uppercase tracking-wide">
-              Need To Purchase / Print
-            </span>
-            <span className="text-[10px] font-medium text-purple-600/90">
-              (since 10-Aug-2026)
+              Pending Supply
             </span>
           </div>
           <div className="text-right flex flex-col leading-tight">
             <span className="text-[13px] font-bold text-purple-800">
-              602 MT
+              542 MT
             </span>
             <span className="text-[11px] font-medium text-purple-700">
-              62,350 Books
+              1,79,000 Books
             </span>
           </div>
         </div>
