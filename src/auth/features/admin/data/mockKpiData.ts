@@ -293,7 +293,7 @@ export const mockDashboardData = {
   distribution: {
     received: "1,80,500",
     delivered: "1,50,000",
-    pending: "30,500",
+    pending: "20,000",
     inTransit: { value: "10,500", isNew: true },
   },
 
