@@ -1,6 +1,7 @@
 interface Stats {
   activeOrders: number;
   inProgress: number;
+  totalOrders?: string | number;
   booksPrinted: number;
   booksPending: number;
   paperAllocated: number;
@@ -9,6 +10,7 @@ interface Stats {
   supplyPending: number;
   totalPrinters?: number;
   totalCapacity?: string;
+  currentCapacity?: string;
   capacityUtilization?: string;
 }
 
@@ -121,60 +123,6 @@ const THEMES: Record<
 export default function PrinterKpiCards({ stats }: Props) {
   const row1 = [
     {
-      title: "Active Orders",
-      value: stats.activeOrders,
-      icon: "pi pi-file",
-      badgeType: "blue",
-    },
-    {
-      title: "In Progress",
-      value: stats.inProgress,
-      icon: "pi pi-sync",
-      badgeType: "purple",
-    },
-    {
-      title: "Books Printed",
-      value: stats.booksPrinted.toLocaleString("en-IN"),
-      icon: "pi pi-print",
-      badgeType: "green",
-    },
-    {
-      title: "Books Pending",
-      value: stats.booksPending.toLocaleString("en-IN"),
-      icon: "pi pi-clock",
-      badgeType: "yellow",
-    },
-  ];
-
-  const row2 = [
-    {
-      title: "Paper Allocated",
-      value: `${Math.round(stats.paperAllocated)} MT`,
-      icon: "pi pi-file-edit",
-      badgeType: "teal",
-    },
-    {
-      title: "Paper Received",
-      value: `${Math.round(stats.paperReceived)} MT`,
-      icon: "pi pi-download",
-      badgeType: "indigo",
-    },
-    {
-      title: "Pending Book Supply",
-      value: stats.supplyPending.toLocaleString("en-IN"),
-      icon: "pi pi-truck",
-      badgeType: "red",
-    },
-    {
-      title: "Paper Consumed",
-      value: `${Math.round(stats.paperConsumed)} MT`,
-      icon: "pi pi-box",
-      badgeType: "orange",
-    },
-  ];
-
-  const row3 = [
-    {
       title: "Total Printers",
       value: stats.totalPrinters || 52,
       icon: "pi pi-users",
@@ -188,19 +136,62 @@ export default function PrinterKpiCards({ stats }: Props) {
     },
     {
       title: "Capacity Utilization",
-      value: stats.capacityUtilization || "65%",
+      value: stats.capacityUtilization || "59.92%",
       icon: "pi pi-percentage",
       badgeType: "green",
     },
+  ];
+
+  const row2 = [
     {
-      title: "Quality Inspections",
-      value: "35 No.",
-      icon: "pi pi-check-square",
-      badgeType: "purple",
+      title: "Total Order",
+      value: stats.totalOrders || "3,59,500 Books",
+      icon: "pi pi-book",
+      badgeType: "blue",
+    },
+    {
+      title: "Books Printed",
+      value: `${stats.booksPrinted.toLocaleString("en-IN")} Books`,
+      icon: "pi pi-print",
+      badgeType: "green",
+    },
+    {
+      title: "Pending Book Supply",
+      value: `${stats.supplyPending.toLocaleString("en-IN")} Books`,
+      icon: "pi pi-truck",
+      badgeType: "red",
     },
   ];
 
-  const renderCard = (m: (typeof row1)[0], idx: number) => {
+  const row3 = [
+    {
+      title: "Paper Allocated",
+      value: `${Math.round(stats.paperAllocated)} MT`,
+      icon: "pi pi-file-edit",
+      badgeType: "teal",
+    },
+    {
+      title: "Paper Received",
+      value: `${Math.round(stats.paperReceived)} MT`,
+      icon: "pi pi-download",
+      badgeType: "indigo",
+    },
+    {
+      title: "Paper Consumed",
+      value: `${Math.round(stats.paperConsumed)} MT`,
+      icon: "pi pi-box",
+      badgeType: "orange",
+    },
+  ];
+
+  interface MetricCard {
+    title: string;
+    value: string | number;
+    icon: string;
+    badgeType: string;
+  }
+
+  const renderCard = (m: MetricCard, idx: number) => {
     const theme = THEMES[m.badgeType] || THEMES.blue;
     return (
       <div
@@ -244,17 +235,17 @@ export default function PrinterKpiCards({ stats }: Props) {
   return (
     <div className="space-y-4">
       {/* Row 1 */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {row1.map(renderCard)}
       </div>
 
       {/* Row 2 */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {row2.map(renderCard)}
       </div>
 
       {/* Row 3 */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {row3.map(renderCard)}
       </div>
     </div>
