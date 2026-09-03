@@ -182,7 +182,7 @@ export default function PrinterKpiCards({ stats }: Props) {
     },
     {
       title: "Total Capacity",
-      value: stats.totalCapacity || "6,0,000 Books",
+      value: stats.totalCapacity || "6,00,000 Books",
       icon: "pi pi-database",
       badgeType: "orange",
     },

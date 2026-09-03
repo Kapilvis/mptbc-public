@@ -615,6 +615,11 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     permissionKey: "reports",
     children: [
       {
+        label: t("routes.block-wise-textbook-demand-report"),
+        path: "/reports/block-wise-textbook-demand",
+        permissionKey: "reports/block-wise-textbook-demand",
+      },
+      {
         label: t("routes.block-wise-textbook-distribution-report"),
         path: "/reports/depot-block-title-supply",
         permissionKey: "reports/depot-block-title-supply",

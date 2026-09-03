@@ -551,6 +551,7 @@ declare namespace Master {
     name: string;
     localName?: string;
     code: string;
+    price?: number;
     classId: number;
     bookTypeId: number;
     mediumId: number;

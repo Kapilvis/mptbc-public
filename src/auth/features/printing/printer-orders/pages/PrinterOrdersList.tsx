@@ -125,14 +125,12 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
     <Page
       header={
         pageTitle ||
-        (pendingOnly
-          ? "Pending Printer Orders (Books)"
-          : "Printer Order Management (Books)")
+        (pendingOnly ? "Pending Printer Orders" : "Printer Order Management")
       }
       subHeader={
         pendingOnly
           ? "लंबित प्रिंटर आदेश — Review printer orders waiting for paper allocation and dispatch."
-          : "प्रिंटर आदेश प्रबंधन — Track paper requirements, approval statuses, and quantities for 3,59,500 Books allocation."
+          : "प्रिंटर आदेश प्रबंधन — Track paper requirements, approval statuses, and allocations for 3,767 MT Paper."
       }
       showHeaderActions
     >
