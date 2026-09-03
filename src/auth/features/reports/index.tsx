@@ -2,11 +2,16 @@ import { Route, Routes } from "react-router-dom";
 import AgencyWiseDemandReportPage from "./agency-wise-demand/pages/AgencyWiseDemandReportPage";
 import DepotWiseDistrictTextbookSupplyStatusPage from "./depot-wise-district-textbook-supply-status/pages/DepotWiseDistrictTextbookSupplyStatusPage";
 import DepotBlockTitleSupplyReportPage from "./depot-block-title-supply/pages/DepotBlockTitleSupplyReportPage";
+import BlockWiseTextbookDemandReportPage from "./block-wise-textbook-demand/pages/BlockWiseTextbookDemandReportPage";
 import ReportsPage from "./central-depot-reports/pages/ReportsPage";
 
 export default function Reports() {
   return (
     <Routes>
+      <Route
+        path="block-wise-textbook-demand"
+        element={<BlockWiseTextbookDemandReportPage />}
+      />
       <Route
         path="depot-block-title-supply"
         element={<DepotBlockTitleSupplyReportPage />}

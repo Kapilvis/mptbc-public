@@ -11,21 +11,11 @@ export default function UpcomingDeadlines({ printerCode }: Props) {
   const navigate = useNavigate();
 
   // Load printer orders
-  const orders = dataManager
-    .getOrders()
-    .filter((o) => o.printerCode === printerCode);
-
-  // Specific deadlines requested
-  const targetDeadlines = ["PO-2026-003", "PO-2026-002", "PO-2026-001"];
-  const deadlineOrders = orders.filter((o) =>
-    targetDeadlines.includes(o.orderNo),
-  );
-
-  // Sequence: Urgent (PO-003) -> Warning (PO-002) -> Normal (PO-001)
-  deadlineOrders.sort(
-    (a, b) =>
-      targetDeadlines.indexOf(a.orderNo) - targetDeadlines.indexOf(b.orderNo),
-  );
+  const allOrders = dataManager.getOrders();
+  const printerOrders = allOrders.filter((o) => o.printerCode === printerCode);
+  const deadlineOrders = (
+    printerOrders.length >= 3 ? printerOrders : allOrders
+  ).slice(0, 3);
 
   const getUrgencyConfig = (days: number) => {
     if (days <= 2) {

@@ -226,6 +226,7 @@
       "pod-submission": "Proof of Delivery",
       "transportation-analytics": "Transportation Dashboard",
       "depot-wise-textbook-supply-report": "Depot Wise Textbook Supply Report",
+      "block-wise-textbook-demand-report": "Block Wise Textbook Demand Report",
       "block-wise-textbook-distribution-report": "Block Wise Textbook Distribution Report",
       "gsm-wise-stock-report": "GSM-wise Stock Report",
       "printer-wise-order-report": "Printer-wise Order Report",

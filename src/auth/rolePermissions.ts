@@ -18,6 +18,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "distribution-section",
     "paper-section",
     "reports",
+    "reports/block-wise-textbook-demand",
     "reports/depot-block-title-supply",
     "reports/depot-supply-status",
     "reports/agency-demand",
@@ -209,6 +210,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "transport/billing",
     "transport/disbursement",
     "transport/reports",
+    "reports/block-wise-textbook-demand",
     "depot-transport/transport-orders",
     "depot-transport/vehicle-management",
     "depot-transport/fuel-log",
@@ -250,6 +252,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "stock-transactions",
     "stock-ledger",
     // Reports
+    "reports/block-wise-textbook-demand",
     "reports/depot-supply-status",
     "reports/agency-demand",
     "gsm-stock-report",
@@ -391,6 +394,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     // "demand",
     // "allocation",
     // Reports
+    "reports/block-wise-textbook-demand",
     "reports/depot-supply-status",
     "reports/agency-demand",
     "gsm-stock-report",

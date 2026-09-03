@@ -14,24 +14,10 @@ export default function PrintingProgress({ printerCode }: Props) {
   const allOrders = dataManager.getOrders();
   const printerOrders = allOrders.filter((o) => o.printerCode === printerCode);
 
-  // Target orders for this section
-  const targetOrderNos = [
-    "PO-2026-001",
-    "PO-2026-002",
-    "PO-2026-003",
-    "PO-2026-004",
-    "PO-2026-005",
-  ];
-
-  const displayOrders = printerOrders.filter((o) =>
-    targetOrderNos.includes(o.orderNo),
-  );
-
-  // Fallback sorting to match the prompt's sequence
-  displayOrders.sort(
-    (a, b) =>
-      targetOrderNos.indexOf(a.orderNo) - targetOrderNos.indexOf(b.orderNo),
-  );
+  // Take printer orders if available, otherwise show top orders
+  const displayOrders = (
+    printerOrders.length >= 3 ? printerOrders : allOrders
+  ).slice(0, 5);
 
   const getStatusText = (status: string) => {
     if (status === "Partially Supplied") return "In Progress";
@@ -86,6 +72,16 @@ export default function PrintingProgress({ printerCode }: Props) {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-150/40 dark:divide-gray-800/40 text-sm">
+            {displayOrders.length === 0 && (
+              <tr>
+                <td
+                  colSpan={7}
+                  className="py-8 text-center text-slate-400 font-semibold"
+                >
+                  No printing orders available.
+                </td>
+              </tr>
+            )}
             {displayOrders.map((o) => {
               // Calculate progress percentage dynamically
               const progress = Math.min(

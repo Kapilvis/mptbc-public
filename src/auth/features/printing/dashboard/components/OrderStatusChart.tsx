@@ -10,9 +10,9 @@ export default function OrderStatusChart({ printerCode }: Props) {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   // Load dynamically to verify counts
-  const orders = dataManager
-    .getOrders()
-    .filter((o) => o.printerCode === printerCode);
+  const allOrders = dataManager.getOrders();
+  const printerOrders = allOrders.filter((o) => o.printerCode === printerCode);
+  const orders = printerOrders.length >= 3 ? printerOrders : allOrders;
   const total = orders.length;
 
   const pendingCount = orders.filter(
@@ -28,10 +28,19 @@ export default function OrderStatusChart({ printerCode }: Props) {
 
   const pendingPct = total > 0 ? Math.round((pendingCount / total) * 100) : 25;
   const inProgressPct =
-    total > 0 ? Math.round((inProgressCount / total) * 100) : 42;
+    total > 0 ? Math.round((inProgressCount / total) * 100) : 50;
   const completedPct =
     total > 0 ? Math.round((completedCount / total) * 100) : 25;
-  const onHoldPct = total > 0 ? Math.round((onHoldCount / total) * 100) : 8;
+  const onHoldPct =
+    total > 0
+      ? Math.max(0, 100 - pendingPct - inProgressPct - completedPct)
+      : 0;
+
+  const circumference = 238.76;
+  const pDash = (pendingPct / 100) * circumference;
+  const ipDash = (inProgressPct / 100) * circumference;
+  const cDash = (completedPct / 100) * circumference;
+  const hDash = (onHoldPct / 100) * circumference;
 
   const segments = [
     {
@@ -67,9 +76,9 @@ export default function OrderStatusChart({ printerCode }: Props) {
   const activeSegment = hoveredIdx !== null ? segments[hoveredIdx] : null;
 
   return (
-    <Card className="p-5 border border-gray-200/60 dark:border-gray-700/60 shadow-xs h-full flex flex-col justify-between !border-t-transparent relative overflow-hidden transition-all duration-300 hover:shadow-md">
+    <Card className="p-5 border border-gray-200/60 dark:border-gray-700/60 shadow-xs h-full flex flex-col justify-between border-t-transparent! relative overflow-hidden transition-all duration-300 hover:shadow-md">
       {/* Premium top gradient border */}
-      <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 z-20" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-emerald-500 via-teal-400 to-emerald-600 z-20" />
 
       <div>
         <h3 className="text-sm font-bold text-gray-800 dark:text-white flex items-center gap-2">
@@ -96,65 +105,73 @@ export default function OrderStatusChart({ printerCode }: Props) {
               className="opacity-40"
             />
 
-            {/* Slice 1: Pending (25%) -> Dash = 59.7, Offset = 0 */}
-            <circle
-              cx="50"
-              cy="50"
-              r="38"
-              stroke="#F59E0B"
-              strokeWidth={hoveredIdx === 0 ? "12" : "9"}
-              strokeDasharray="59.7 238.8"
-              strokeDashoffset="0"
-              fill="transparent"
-              className="cursor-pointer transition-all duration-200 hover:brightness-110"
-              onMouseEnter={() => setHoveredIdx(0)}
-              onMouseLeave={() => setHoveredIdx(null)}
-            />
+            {/* Slice 1: Pending */}
+            {pendingPct > 0 && (
+              <circle
+                cx="50"
+                cy="50"
+                r="38"
+                stroke="#F59E0B"
+                strokeWidth={hoveredIdx === 0 ? "12" : "9"}
+                strokeDasharray={`${pDash} ${circumference}`}
+                strokeDashoffset="0"
+                fill="transparent"
+                className="cursor-pointer transition-all duration-200 hover:brightness-110"
+                onMouseEnter={() => setHoveredIdx(0)}
+                onMouseLeave={() => setHoveredIdx(null)}
+              />
+            )}
 
-            {/* Slice 2: In Progress (41.7%) -> Dash = 99.6, Offset = -59.7 */}
-            <circle
-              cx="50"
-              cy="50"
-              r="38"
-              stroke="#3B82F6"
-              strokeWidth={hoveredIdx === 1 ? "12" : "9"}
-              strokeDasharray="99.6 238.8"
-              strokeDashoffset="-59.7"
-              fill="transparent"
-              className="cursor-pointer transition-all duration-200 hover:brightness-110"
-              onMouseEnter={() => setHoveredIdx(1)}
-              onMouseLeave={() => setHoveredIdx(null)}
-            />
+            {/* Slice 2: In Progress */}
+            {inProgressPct > 0 && (
+              <circle
+                cx="50"
+                cy="50"
+                r="38"
+                stroke="#3B82F6"
+                strokeWidth={hoveredIdx === 1 ? "12" : "9"}
+                strokeDasharray={`${ipDash} ${circumference}`}
+                strokeDashoffset={-pDash}
+                fill="transparent"
+                className="cursor-pointer transition-all duration-200 hover:brightness-110"
+                onMouseEnter={() => setHoveredIdx(1)}
+                onMouseLeave={() => setHoveredIdx(null)}
+              />
+            )}
 
-            {/* Slice 3: Completed (25%) -> Dash = 59.7, Offset = -159.3 */}
-            <circle
-              cx="50"
-              cy="50"
-              r="38"
-              stroke="#10B981"
-              strokeWidth={hoveredIdx === 2 ? "12" : "9"}
-              strokeDasharray="59.7 238.8"
-              strokeDashoffset="-159.3"
-              fill="transparent"
-              className="cursor-pointer transition-all duration-200 hover:brightness-110"
-              onMouseEnter={() => setHoveredIdx(2)}
-              onMouseLeave={() => setHoveredIdx(null)}
-            />
+            {/* Slice 3: Completed */}
+            {completedPct > 0 && (
+              <circle
+                cx="50"
+                cy="50"
+                r="38"
+                stroke="#10B981"
+                strokeWidth={hoveredIdx === 2 ? "12" : "9"}
+                strokeDasharray={`${cDash} ${circumference}`}
+                strokeDashoffset={-(pDash + ipDash)}
+                fill="transparent"
+                className="cursor-pointer transition-all duration-200 hover:brightness-110"
+                onMouseEnter={() => setHoveredIdx(2)}
+                onMouseLeave={() => setHoveredIdx(null)}
+              />
+            )}
 
-            {/* Slice 4: On Hold (8.3%) -> Dash = 19.8, Offset = -219.0 */}
-            <circle
-              cx="50"
-              cy="50"
-              r="38"
-              stroke="#8B5CF6"
-              strokeWidth={hoveredIdx === 3 ? "12" : "9"}
-              strokeDasharray="19.8 238.8"
-              strokeDashoffset="-219.0"
-              fill="transparent"
-              className="cursor-pointer transition-all duration-200 hover:brightness-110"
-              onMouseEnter={() => setHoveredIdx(3)}
-              onMouseLeave={() => setHoveredIdx(null)}
-            />
+            {/* Slice 4: On Hold */}
+            {onHoldPct > 0 && (
+              <circle
+                cx="50"
+                cy="50"
+                r="38"
+                stroke="#8B5CF6"
+                strokeWidth={hoveredIdx === 3 ? "12" : "9"}
+                strokeDasharray={`${hDash} ${circumference}`}
+                strokeDashoffset={-(pDash + ipDash + cDash)}
+                fill="transparent"
+                className="cursor-pointer transition-all duration-200 hover:brightness-110"
+                onMouseEnter={() => setHoveredIdx(3)}
+                onMouseLeave={() => setHoveredIdx(null)}
+              />
+            )}
           </svg>
 
           {/* Dynamic Centered Text - Upgraded typography */}

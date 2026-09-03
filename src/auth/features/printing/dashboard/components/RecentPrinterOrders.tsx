@@ -13,23 +13,9 @@ export default function RecentPrinterOrders({ printerCode }: Props) {
   const allOrders = dataManager.getOrders();
   const printerOrders = allOrders.filter((o) => o.printerCode === printerCode);
 
-  // Filter for the 4 target recent orders
-  const targetRecentNos = [
-    "PO-2026-001",
-    "PO-2026-002",
-    "PO-2026-003",
-    "PO-2026-004",
-  ];
-
-  const displayOrders = printerOrders.filter((o) =>
-    targetRecentNos.includes(o.orderNo),
-  );
-
-  // Maintain sequence PO-001 -> PO-002 -> PO-003 -> PO-004
-  displayOrders.sort(
-    (a, b) =>
-      targetRecentNos.indexOf(a.orderNo) - targetRecentNos.indexOf(b.orderNo),
-  );
+  const displayOrders = (
+    printerOrders.length >= 3 ? printerOrders : allOrders
+  ).slice(0, 4);
 
   const getStatusText = (status: string, priority: string) => {
     if (status === "Partially Supplied") {
