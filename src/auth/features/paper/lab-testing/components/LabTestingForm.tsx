@@ -36,7 +36,7 @@ export default function LabTestingForm({
 }: LabTestingFormProps) {
   const isCreateStage = mode === "create";
 
-  // Generate initial Sample ID if new
+  // Generate initial Sample ID and Report No if new
   const defaultSampleId = useMemo(() => {
     return initialData?.sampleId || generateSampleId(0);
   }, [initialData]);
@@ -53,26 +53,32 @@ export default function LabTestingForm({
   const { handleSubmit, control, watch, setValue, reset } =
     usePaperLabTestingForm(onSubmit, {
       sampleId: defaultSampleId,
-      supplierVendor: "ABC Paper Mills",
-      paperType: "Book Printing Paper",
-      gsm: "80 GSM",
-      batchLotNo: "LOT-45821",
-      testedBy: "R. K. Singh",
-      testingAgency: testingAgencies[0].name,
+      supplierVendor: initialData?.supplierVendor || "",
+      paperType: initialData?.paperType || "",
+      gsm: initialData?.gsm || "",
+      batchLotNo: initialData?.batchLotNo || "",
+      testedBy: initialData?.testedBy || "",
+      testingAgency: initialData?.testingAgency || "",
       testReportNo: defaultReportNo,
-      sentDate: todayStr,
-      receivedDate: todayStr,
-      testingDate: todayStr,
-      overallResult: isCreateStage ? "SENT" : "PASS",
+      sentDate: initialData?.sentDate || "",
+      receivedDate: initialData?.receivedDate || "",
+      testingDate: initialData?.testingDate || "",
+      overallResult: isCreateStage
+        ? "SENT"
+        : initialData?.overallResult || "PASS",
       approvalStatus: isCreateStage
         ? "Sent for Lab Testing"
-        : "Approved for Use",
+        : initialData?.approvalStatus || "Approved for Use",
       parameters: fixedLabParameters.map((p) => {
         const initialVal =
-          p.target ??
-          (p.type === "max" ? (p.max ? p.max - 5 : 25) : p.min) ??
-          80;
-        const evalRes = computeParameterEvaluation(p, initialVal);
+          initialData?.parameters?.find((param) => param.parameterId === p.id)
+            ?.actualResult ??
+          (isCreateStage
+            ? (undefined as unknown as number)
+            : (p.target ??
+              (p.type === "max" ? (p.max ? p.max - 5 : 25) : p.min) ??
+              80));
+        const evalRes = computeParameterEvaluation(p, initialVal ?? 0);
         return {
           parameterId: p.id,
           parameterName: p.name,

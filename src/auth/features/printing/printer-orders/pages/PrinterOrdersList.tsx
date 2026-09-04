@@ -130,7 +130,7 @@ export default function PrinterOrdersPage({ pendingOnly = false }: Props) {
       subHeader={
         pendingOnly
           ? "लंबित प्रिंटर आदेश — Review printer orders waiting for paper allocation and dispatch."
-          : "प्रिंटर आदेश प्रबंधन — Track paper requirements, approval statuses, and allocations for 3,767 MT Paper."
+          : "प्रिंटर आदेश प्रबंधन — Track paper requirements, approval statuses, and allocations for 3,90,000 books."
       }
       showHeaderActions
     >

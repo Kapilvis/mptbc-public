@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Modal } from "shared/components/popups";
-import { dataManager } from "../../../inventory/mockData";
+import { paperIssueDataManager } from "../data";
 import type { PrinterOrder } from "../../../inventory/types";
 
 interface PaperIssueViewDetailsModalProps {
@@ -36,7 +36,7 @@ export default function PaperIssueViewDetailsModal({
       }
     > = {};
 
-    const allOrders = dataManager.getOrders();
+    const allOrders = paperIssueDataManager.getOrders();
     const activeOrders = allOrders.filter((o) => o.orderNo === order.orderNo);
 
     activeOrders.forEach((o) => {

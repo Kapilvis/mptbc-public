@@ -4,7 +4,11 @@ import { ToastService } from "services";
 import { Card, GridPanel } from "shared/components/panels";
 import Page from "shared/components/panels/Page";
 import { Button } from "shared/components/buttons";
-import { ConfirmDialog, useConfirmDialog } from "shared/components/popups";
+import {
+  ConfirmDialog,
+  Modal,
+  useConfirmDialog,
+} from "shared/components/popups";
 import { usePageTitle } from "shared/hooks/usePageTitle";
 
 import {
@@ -329,229 +333,209 @@ export default function List() {
         (() => {
           const details = getPrinterMockDetails(undefined, viewingItem);
           return (
-            <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center z-999 p-4 animate-in fade-in duration-200">
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
-                {/* Modal Header */}
-                <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-100">
-                  <div>
-                    <span className="text-[10px] font-bold text-green-600 uppercase tracking-widest">
-                      {details.printerType} • {viewingItem.printerCode}
-                    </span>
-                    <h2 className="font-bold text-base text-slate-800 mt-0.5">
-                      {details.printerName}
-                    </h2>
+            <Modal
+              visible={!!viewingItem}
+              onHide={() => setViewingItem(null)}
+              header={`${details.printerType} • ${viewingItem.printerCode} — ${details.printerName}`}
+              size="large"
+            >
+              <div className="space-y-6 p-1">
+                {/* Section 1: Firm Profile & Contacts */}
+                <div>
+                  <div className="border-l-4 border-green-600 pl-2 mb-3">
+                    <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
+                      Firm & Authorized Representative Details
+                    </h3>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setViewingItem(null)}
-                    className="w-8 h-8 rounded-full hover:bg-slate-200/60 flex items-center justify-center text-slate-400 hover:text-slate-600 transition-colors"
-                  >
-                    <i className="pi pi-times text-sm" />
-                  </button>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">
+                        Registration No.
+                      </span>
+                      <span className="font-semibold text-slate-800">
+                        {details.firmRegistrationNo}
+                      </span>
+                    </div>
+                    <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">
+                        GSTIN Number
+                      </span>
+                      <span className="font-semibold text-slate-800">
+                        {details.gstinNo}
+                      </span>
+                    </div>
+                    <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">
+                        PAN Number
+                      </span>
+                      <span className="font-semibold text-slate-800">
+                        {details.panNo}
+                      </span>
+                    </div>
+                    <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">
+                        Firm Owner
+                      </span>
+                      <span className="font-semibold text-slate-800">
+                        {details.ownerName}
+                      </span>
+                    </div>
+                    <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">
+                        Authorized Signatory
+                      </span>
+                      <span className="font-semibold text-slate-800">
+                        {details.authPersonName}
+                      </span>
+                    </div>
+                    <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">
+                        Designation
+                      </span>
+                      <span className="font-semibold text-slate-800">
+                        {details.designation}
+                      </span>
+                    </div>
+                    <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">
+                        Mobile Number
+                      </span>
+                      <span className="font-semibold text-slate-800">
+                        {details.mobileNo}
+                      </span>
+                    </div>
+                    <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">
+                        Email Address
+                      </span>
+                      <span className="font-semibold text-slate-800 break-all">
+                        {details.email}
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Modal Body */}
-                <div className="flex-1 overflow-y-auto p-6 space-y-6">
-                  {/* Section 1: Firm Profile & Contacts */}
-                  <div>
-                    <div className="border-l-4 border-green-600 pl-2 mb-3">
-                      <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
-                        Firm & Authorized Representative Details
-                      </h3>
+                {/* Section 2: Address Geography */}
+                <div>
+                  <div className="border-l-4 border-green-600 pl-2 mb-3">
+                    <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
+                      Registered Address & Geography
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div className="col-span-2 bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">
+                        Address Line 1
+                      </span>
+                      <span className="font-semibold text-slate-800">
+                        {details.addressLine1}
+                      </span>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                      <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          Registration No.
-                        </span>
-                        <span className="font-semibold text-slate-800">
-                          {details.firmRegistrationNo}
-                        </span>
-                      </div>
-                      <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          GSTIN Number
-                        </span>
-                        <span className="font-semibold text-slate-800">
-                          {details.gstinNo}
-                        </span>
-                      </div>
-                      <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          PAN Number
-                        </span>
-                        <span className="font-semibold text-slate-800">
-                          {details.panNo}
-                        </span>
-                      </div>
-                      <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          Firm Owner
-                        </span>
-                        <span className="font-semibold text-slate-800">
-                          {details.ownerName}
-                        </span>
-                      </div>
-                      <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          Authorized Signatory
-                        </span>
-                        <span className="font-semibold text-slate-800">
-                          {details.authPersonName}
-                        </span>
-                      </div>
-                      <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          Designation
-                        </span>
-                        <span className="font-semibold text-slate-800">
-                          {details.designation}
-                        </span>
-                      </div>
-                      <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          Mobile Number
-                        </span>
-                        <span className="font-semibold text-slate-800">
-                          {details.mobileNo}
-                        </span>
-                      </div>
-                      <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          Email Address
-                        </span>
-                        <span className="font-semibold text-slate-800 break-all">
-                          {details.email}
-                        </span>
-                      </div>
+                    <div className="col-span-2 bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">
+                        Address Line 2
+                      </span>
+                      <span className="font-semibold text-slate-800">
+                        {details.addressLine2 || "—"}
+                      </span>
+                    </div>
+                    <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">State</span>
+                      <span className="font-semibold text-slate-800">
+                        {details.state}
+                      </span>
+                    </div>
+                    <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">
+                        District
+                      </span>
+                      <span className="font-semibold text-slate-800">
+                        {details.district}
+                      </span>
+                    </div>
+                    <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">
+                        City / Town
+                      </span>
+                      <span className="font-semibold text-slate-800">
+                        {details.city}
+                      </span>
+                    </div>
+                    <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
+                      <span className="text-slate-400 block mb-0.5">
+                        PIN Code
+                      </span>
+                      <span className="font-semibold text-slate-800">
+                        {details.pinCode}
+                      </span>
                     </div>
                   </div>
+                </div>
 
-                  {/* Section 2: Address Geography */}
-                  <div>
-                    <div className="border-l-4 border-green-600 pl-2 mb-3">
-                      <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
-                        Registered Address & Geography
-                      </h3>
-                    </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                      <div className="col-span-2 bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          Address Line 1
-                        </span>
-                        <span className="font-semibold text-slate-800">
-                          {details.addressLine1}
-                        </span>
-                      </div>
-                      <div className="col-span-2 bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          Address Line 2
-                        </span>
-                        <span className="font-semibold text-slate-800">
-                          {details.addressLine2 || "—"}
-                        </span>
-                      </div>
-                      <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          State
-                        </span>
-                        <span className="font-semibold text-slate-800">
-                          {details.state}
-                        </span>
-                      </div>
-                      <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          District
-                        </span>
-                        <span className="font-semibold text-slate-800">
-                          {details.district}
-                        </span>
-                      </div>
-                      <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          City / Town
-                        </span>
-                        <span className="font-semibold text-slate-800">
-                          {details.city}
-                        </span>
-                      </div>
-                      <div className="bg-slate-50/50 p-2.5 rounded-lg border border-slate-100">
-                        <span className="text-slate-400 block mb-0.5">
-                          PIN Code
-                        </span>
-                        <span className="font-semibold text-slate-800">
-                          {details.pinCode}
-                        </span>
-                      </div>
-                    </div>
+                {/* Section 3: Machine Lists */}
+                <div>
+                  <div className="border-l-4 border-green-600 pl-2 mb-3">
+                    <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
+                      Machine & Equipment Infrastructure
+                    </h3>
                   </div>
-
-                  {/* Section 3: Machine Lists */}
-                  <div>
-                    <div className="border-l-4 border-green-600 pl-2 mb-3">
-                      <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
-                        Machine & Equipment Infrastructure
-                      </h3>
-                    </div>
-                    <div className="border border-slate-100 rounded-xl overflow-hidden text-sm">
-                      <table className="w-full text-left border-collapse">
-                        <thead>
-                          <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold">
-                            <th className="p-3">S.No.</th>
-                            <th className="p-3">Machine Type</th>
-                            <th className="p-3">Specs (Size / Cutoff)</th>
-                            <th className="p-3">Year / Age</th>
-                            <th className="p-3">Color Config</th>
-                            <th className="p-3 text-right">SID Capacity</th>
-                            <th className="p-3">CPC / Automatic</th>
-                            <th className="p-3">Remark</th>
+                  <div className="border border-slate-100 rounded-xl overflow-hidden text-sm">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold">
+                          <th className="p-3">S.No.</th>
+                          <th className="p-3">Machine Type</th>
+                          <th className="p-3">Specs (Size / Cutoff)</th>
+                          <th className="p-3">Year / Age</th>
+                          <th className="p-3">Color Config</th>
+                          <th className="p-3 text-right">SID Capacity</th>
+                          <th className="p-3">CPC / Automatic</th>
+                          <th className="p-3">Remark</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {details.machines.map((mach, i) => (
+                          <tr
+                            key={mach.id}
+                            className="border-b border-slate-100 hover:bg-slate-50/50 text-slate-700"
+                          >
+                            <td className="p-3 font-semibold text-slate-400">
+                              {i + 1}
+                            </td>
+                            <td className="p-3 font-medium">
+                              {mach.machineType === "sheetfed"
+                                ? "Sheetfed Offset"
+                                : "Web Offset"}
+                            </td>
+                            <td className="p-3 font-mono">
+                              {mach.machineType === "sheetfed"
+                                ? mach.size
+                                : mach.cutoff}
+                            </td>
+                            <td className="p-3">
+                              {mach.yearOfManufacture} ({mach.ageOfMachine} yrs)
+                            </td>
+                            <td className="p-3 capitalize">
+                              {mach.colorConfiguration}
+                            </td>
+                            <td className="p-3 text-right font-medium">
+                              {mach.sidCapacity120Days.toLocaleString()}
+                            </td>
+                            <td className="p-3 capitalize">
+                              {mach.cpcAutomatic || "—"}
+                            </td>
+                            <td className="p-3 text-slate-500 italic">
+                              {mach.remark || "—"}
+                            </td>
                           </tr>
-                        </thead>
-                        <tbody>
-                          {details.machines.map((mach, i) => (
-                            <tr
-                              key={mach.id}
-                              className="border-b border-slate-100 hover:bg-slate-50/50 text-slate-700"
-                            >
-                              <td className="p-3 font-semibold text-slate-400">
-                                {i + 1}
-                              </td>
-                              <td className="p-3 font-medium">
-                                {mach.machineType === "sheetfed"
-                                  ? "Sheetfed Offset"
-                                  : "Web Offset"}
-                              </td>
-                              <td className="p-3 font-mono">
-                                {mach.machineType === "sheetfed"
-                                  ? mach.size
-                                  : mach.cutoff}
-                              </td>
-                              <td className="p-3">
-                                {mach.yearOfManufacture} ({mach.ageOfMachine}{" "}
-                                yrs)
-                              </td>
-                              <td className="p-3 capitalize">
-                                {mach.colorConfiguration}
-                              </td>
-                              <td className="p-3 text-right font-medium">
-                                {mach.sidCapacity120Days.toLocaleString()}
-                              </td>
-                              <td className="p-3 capitalize">
-                                {mach.cpcAutomatic || "—"}
-                              </td>
-                              <td className="p-3 text-slate-500 italic">
-                                {mach.remark || "—"}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
 
-                {/* Modal Footer */}
-                <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+                {/* Footer Action */}
+                <div className="pt-4 flex justify-end">
                   <Button
                     type="button"
                     label="Close Details"
@@ -561,7 +545,7 @@ export default function List() {
                   />
                 </div>
               </div>
-            </div>
+            </Modal>
           );
         })()}
     </Page>

@@ -97,12 +97,12 @@ export default function List() {
               cell: (row) => <span>₹ {row.ratePerMT.toLocaleString()}</span>,
             },
             {
-              header: "BILL COPY",
+              header: "Work Order",
               align: "center",
               cell: (row) => (
                 <Button
                   icon="pi pi-file-pdf"
-                  label="View Bill"
+                  label="View"
                   size="small"
                   variant="outlined"
                   onClick={() =>

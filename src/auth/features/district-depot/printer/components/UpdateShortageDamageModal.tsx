@@ -85,10 +85,13 @@ export function UpdateShortageDamageModal({
               Short Supply Quantity
             </label>
             <input
-              type="number"
-              min={0}
-              value={shortage}
-              onChange={(e) => setShortage(Number(e.target.value))}
+              type="text"
+              inputMode="numeric"
+              value={shortage === 0 ? "" : shortage}
+              onChange={(e) => {
+                const val = e.target.value.replace(/[^0-9]/g, "");
+                setShortage(val === "" ? 0 : Number(val));
+              }}
               placeholder="0"
               className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 font-bold text-rose-600 dark:text-rose-400 focus:outline-none focus:ring-2 focus:ring-amber-500/30"
             />
@@ -99,10 +102,13 @@ export function UpdateShortageDamageModal({
               Damaged Books Quantity
             </label>
             <input
-              type="number"
-              min={0}
-              value={damagedQty}
-              onChange={(e) => setDamagedQty(Number(e.target.value))}
+              type="text"
+              inputMode="numeric"
+              value={damagedQty === 0 ? "" : damagedQty}
+              onChange={(e) => {
+                const val = e.target.value.replace(/[^0-9]/g, "");
+                setDamagedQty(val === "" ? 0 : Number(val));
+              }}
               placeholder="0"
               className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 font-bold text-rose-600 dark:text-rose-400 focus:outline-none focus:ring-2 focus:ring-amber-500/30"
             />

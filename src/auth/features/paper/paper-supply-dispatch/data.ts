@@ -12,7 +12,7 @@ export const MOCK_PAPER_DISPATCHES: PaperSupplyDispatch.PaperDispatchItem[] = [
     consigneeName: "Central Paper Depot, Bhopal",
     godownName: "Godown 1 - Central Paper Depot",
     reelCount: 138750,
-    totalWeightTon: 809,
+    totalWeightTon: 808,
     truckNo: "MP-04-HE-4821",
     driverName: "Ramesh Kumar",
     driverMobile: "9826012345",

@@ -283,20 +283,19 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
     permissionKey: "distribution-section",
     children: [
       {
-        label: t("routes.distribution.department-demand"),
-        path: "/distribution/department-demand",
-        feature: "@distribution/department-demand",
-        action: "read",
-        permissionKey: "distribution-section/department-demand",
-      },
-      {
         label: t("routes.distribution.dashboard"),
         path: "/distribution/dashboard",
         feature: "@distribution/dashboard",
         action: "read",
         permissionKey: "distribution-section/dashboard",
       },
-
+      {
+        label: t("routes.distribution.department-demand"),
+        path: "/distribution/department-demand",
+        feature: "@distribution/department-demand",
+        action: "read",
+        permissionKey: "distribution-section/department-demand",
+      },
       {
         label: t("routes.distribution.demand-approval"),
         path: "/distribution/demand-approval",
@@ -494,14 +493,14 @@ export const getMenuConfig = (t: (key: string) => string): Menu.MenuItem[] => [
         label: t("routes.printer-to-depot"),
         children: [
           {
-            label: t("routes.challan-received"),
-            path: "/district-depot/printer/challan-received",
-            permissionKey: "district-depot/challan-received",
-          },
-          {
             label: t("routes.printer-assigned-demand"),
             path: "/district-depot/printer/assigned-demand",
             permissionKey: "district-depot/printer-assigned-demand",
+          },
+          {
+            label: t("routes.challan-received"),
+            path: "/district-depot/printer/challan-received",
+            permissionKey: "district-depot/challan-received",
           },
         ],
       },

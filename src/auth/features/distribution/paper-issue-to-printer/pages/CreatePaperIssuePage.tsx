@@ -9,7 +9,7 @@ import {
   TextArea,
 } from "shared/components/forms";
 import { ToastService } from "services";
-import { dataManager } from "../../../inventory/mockData";
+import { paperIssueDataManager } from "../data";
 import type { PaperDistribution } from "../../../inventory/types";
 
 export default function CreatePaperIssuePage() {
@@ -18,10 +18,10 @@ export default function CreatePaperIssuePage() {
   const preSelectedOrderNo = searchParams.get("orderNo") || undefined;
 
   // 1. Fetch Master & Context Datasets
-  const printers = dataManager.getPrinterMasterList();
-  const allOrders = dataManager.getOrders();
-  const stocks = dataManager.getStocks();
-  const distributions = dataManager.getDistributions();
+  const printers = paperIssueDataManager.getPrinterMasterList();
+  const allOrders = paperIssueDataManager.getOrders();
+  const stocks = paperIssueDataManager.getStocks();
+  const distributions = paperIssueDataManager.getDistributions();
 
   // 2. Select Printer State & Options
   const [selectedPrinterCode, setSelectedPrinterCode] = useState("");
@@ -241,7 +241,7 @@ export default function CreatePaperIssuePage() {
 
       // Record each issue
       issuesToSubmit.forEach((issue) => {
-        dataManager.issuePaperToPrinter(issue);
+        paperIssueDataManager.issuePaperToPrinter(issue);
       });
 
       ToastService.success(
