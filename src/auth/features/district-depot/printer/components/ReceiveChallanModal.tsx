@@ -113,11 +113,13 @@ export function ReceiveChallanModal({ challan, onClose, onConfirm }: Props) {
               Received Qty *
             </label>
             <input
-              type="number"
-              value={receivedQty}
-              onChange={(e) => setReceivedQty(Number(e.target.value))}
-              max={challan.dispatchedQty}
-              min={0}
+              type="text"
+              inputMode="numeric"
+              value={receivedQty === 0 ? "" : receivedQty}
+              onChange={(e) => {
+                const val = e.target.value.replace(/[^0-9]/g, "");
+                setReceivedQty(val === "" ? 0 : Number(val));
+              }}
               className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 font-bold text-emerald-700 dark:text-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
               required
             />

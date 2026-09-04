@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Page from "shared/components/panels/Page";
 import { Card, GridPanel } from "shared/components/panels";
 import { Button } from "shared/components/buttons";
-import { dataManager } from "../../../inventory/mockData";
+import { paperIssueDataManager } from "../data";
 import type { PrinterOrder } from "../../../inventory/types";
 import PaperIssueViewDetailsModal from "../components/PaperIssueViewDetailsModal";
 
@@ -47,7 +47,7 @@ export default function PaperIssueToPrinterPage() {
   const navigate = useNavigate();
 
   // 1. Core Data
-  const orders = useMemo(() => dataManager.getOrders(), []);
+  const orders = useMemo(() => paperIssueDataManager.getOrders(), []);
 
   // 2. Selection States for Modals
   const [selectedOrderForDetails, setSelectedOrderForDetails] =

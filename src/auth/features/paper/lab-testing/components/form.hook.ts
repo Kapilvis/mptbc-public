@@ -8,16 +8,22 @@ import type { PaperLabTestingRecord } from "../data";
 export function createLabTestingValidationSchema() {
   return validation.create<PaperLabTestingRecord>((o) => ({
     id: o.string().optional(),
-    sampleId: o.string().required().label("Sample ID"),
+    sampleId: o.string().optional().allow("", null).label("Sample ID"),
     supplierVendor: o.string().required().label("Supplier / Vendor"),
     paperType: o.string().required().label("Paper Type"),
-    gsm: o.string().required().label("GSM"),
+    gsm: o.string().required().label("GSM Specification"),
     batchLotNo: o.string().required().label("Batch / Lot No."),
     reelSheetSize: o.string().optional().allow("", null),
     testedBy: o.string().required().label("Tested By"),
     testingAgency: o.string().required().label("Testing Agency"),
-    testReportNo: o.string().required().label("Test Report No."),
-    testingDate: o.string().required().label("Testing Date"),
+    testReportNo: o
+      .string()
+      .optional()
+      .allow("", null)
+      .label("Test Report No."),
+    testingDate: o.any().optional().allow("", null).label("Testing Date"),
+    sentDate: o.any().optional().allow("", null).label("Sample Sent Date"),
+    receivedDate: o.any().optional().allow("", null).label("Received Date"),
     overallResult: o.string().optional(),
     approvalStatus: o.string().optional(),
     qualityScore: o.number().optional(),
@@ -30,13 +36,14 @@ export function createLabTestingValidationSchema() {
           requiredSpecification: Joi.string().required(),
           actualResult: Joi.alternatives()
             .try(Joi.number(), Joi.string())
-            .required()
+            .optional()
+            .allow("", null)
             .label("Actual Result"),
-          deviation: Joi.string().required(),
-          status: Joi.string().valid("PASS", "FAIL").required(),
+          deviation: Joi.string().optional().allow("", null),
+          status: Joi.string().valid("PASS", "FAIL").optional().allow("", null),
         }),
       )
-      .required(),
+      .optional(),
   }));
 }
 

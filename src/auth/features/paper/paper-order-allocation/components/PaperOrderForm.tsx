@@ -3,7 +3,6 @@ import { Button, ButtonPanel } from "shared/components/buttons";
 import {
   DatePicker,
   DropDownList,
-  FileUpload,
   FormDivider,
   NumberBox,
   TextBox,
@@ -227,9 +226,9 @@ export default function PaperOrderForm(props: Props) {
         <DatePicker label="Bill Date" name="billDate" control={control} />
       </InputPanel>
 
-      <FormDivider title="Vendor Invoice & Despatch Bill Soft Copy" />
+      {/* <FormDivider title="Vendor Invoice & Despatch Bill Soft Copy" /> */}
 
-      <InputPanel orientation="horizontal">
+      {/* <InputPanel orientation="horizontal">
         <div className="w-full">
           <FileUpload
             name="billCopyPath"
@@ -238,7 +237,7 @@ export default function PaperOrderForm(props: Props) {
             accept=".pdf,.jpg,.jpeg,.png"
           />
         </div>
-      </InputPanel>
+      </InputPanel> */}
 
       <ButtonPanel>
         <Button

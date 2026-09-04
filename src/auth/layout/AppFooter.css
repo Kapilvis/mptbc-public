@@ -36,6 +36,16 @@
   @apply shrink-0 font-bold;
 }
 
+.app-footer-version {
+  @apply ml-1.5 inline-flex items-center px-1.5 py-0.5 rounded-md
+    text-[10px] font-extrabold leading-none uppercase tracking-wider
+    bg-emerald-50 text-emerald-800 border border-emerald-300
+    dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800/60 shadow-2xs;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}
+
 .app-footer-content span {
   @apply text-[11px] leading-4
     sm:text-sm sm:leading-normal;

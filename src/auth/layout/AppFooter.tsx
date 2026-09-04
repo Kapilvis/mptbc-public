@@ -1,4 +1,5 @@
 import React from "react";
+import { APP_VERSION, APP_RELEASE_NAME } from "config/version";
 import "./AppFooter.css";
 
 const AppFooter: React.FC = () => {
@@ -15,6 +16,12 @@ const AppFooter: React.FC = () => {
         </div>
 
         <div className="app-footer-credit">
+          <span
+            className="app-footer-version"
+            title={`Project Release: ${APP_RELEASE_NAME}`}
+          >
+            {APP_VERSION}
+          </span>
           <span className="app-footer-credit-short">
             Designed &amp; Developed :{" "}
           </span>

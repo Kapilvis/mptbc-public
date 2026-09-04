@@ -228,6 +228,8 @@ export default function PrinterChallanReceivedPage() {
                     size="small"
                     variant="success"
                   />
+                ) : row.status === "Received" || row.status === "Damaged" ? (
+                  <span className="text-gray-400 font-medium text-xs">—</span>
                 ) : (
                   <Button
                     onClick={() => setDamageItem(row)}
